@@ -56,15 +56,15 @@ const HomeScreen = ({ navigation }) => {
 
   const tools = [
     {
-        icon: 'walk',
+        icon: 'heart',
         title: 'Démarche clinique',
         subtitle: 'Parcours guidé étape par étape',
         color: '#E3E9F5',
         colorDark: '#1F2A44',
-        screen: 'DemarcheClinique',
+        screen: 'EvaluationClinique',
     },
     {
-        icon: 'pulse',
+        icon: 'calculator',
         title: 'Calcul IPSCB',
         subtitle: 'Mesurer IPS Cheville/Bras et interpréter',
         color: '#E8F2E6',
@@ -72,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
         screen: 'IPSCB',
     },
     {
-        icon: 'analytics',
+        icon: 'checkmark-circle',
         title: 'Échelle de Braden',
         subtitle: 'Évaluer le risque de lésion de pression',
         color: '#FFF6F6',
@@ -80,9 +80,9 @@ const HomeScreen = ({ navigation }) => {
         screen: 'Braden',
     },
     {
-        icon: 'analytics-outline',
+        icon: 'paw',
         title: 'Échelle de Braden Q',
-        subtitle: 'Risque chez l’enfant',
+        subtitle: 'Risque chez l\'enfant',
         color: '#FFDBBD',
         colorDark: '#3A281E',
         screen: 'BradenQ',
@@ -109,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
         subtitle: 'Répertoire illustré',
         color: '#F0F3FA',
         colorDark: '#1F2430',
-        screen: 'Dressings',
+        screen: 'Produits',
     },
     ];
 

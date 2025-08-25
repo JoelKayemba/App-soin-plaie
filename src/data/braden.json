@@ -1,0 +1,78 @@
+{
+  "id": "braden_custom_fr_v1",
+  "label": "Échelle de Braden (version étendue)",
+  "lang": "fr",
+  "scoring": {
+    "dimensions": 7,
+    "score_min": 7,
+    "score_max": 28,
+    "note": "Somme des niveaux sélectionnés (1 à 4) pour chaque dimension. Plus le score est élevé, plus le risque d’escarres est faible."
+  },
+  "dimensions": [
+    {
+      "id": "perception_sensorielle",
+      "label": "Perception sensorielle",
+      "description": "Capacité de répondre d'une manière significative à l'inconfort causé par la pression",
+      "levels": [
+        { "score": 1, "title": "Complètement limité", "text": "Absence de réaction (ne gémit pas, ne sursaute pas, pas de réflexe de préhension) aux stimuli douloureux, dûe à une diminution du niveau de conscience ou à la sédation. OU à la capacité limitée de ressentir la douleur ou l’inconfort sur la majeure partie du corps." },
+        { "score": 2, "title": "Très limitée", "text": "Répond seulement aux stimuli douloureux. Ne peut communique l’inconfort que par gémissements ou agitation. OU à une altération sensorielle qui limite la capacité de ressentir la douleur ou l'incofort sur la moitié de son corps." },
+        { "score": 3, "title": "Légèrement limitée", "text": "Répond aux ordres verbaux, mais ne peut pas toujours communiquer l’inconfort ou le besoin d’être tourné. OU à une certaine altération sensorielle qui limite sa capacité de ressentir la douleur ou l'incofort sur dans un ou deux de ses membres." },
+        { "score": 4, "title": "Aucune atteinte", "text": "Répond aux ordres verbaux. N'a aucun déficit sensoriel qui pourait limiter sa capacité de ressentir ou d'exprimer la douleur ou l'incofort" }
+      ]
+    },
+    {
+      "id": "humidite",
+      "label": "Humidité",
+      "description": "Degré d’humidité auquel la peau est exposée.",
+      "levels": [
+        { "score": 1, "title": "Constamment humide", "text": "La peau est presque constamment humide à cause de la transpiration, de l’urine, etc. La moiteur est notée à chaque fois que l’usager est changé de position." },
+        { "score": 2, "title": "Très humide", "text": "La peau est souvent, mais pas toujours humide. La literie doit être changée au moins une fois par quart de travail." },
+        { "score": 3, "title": "Occasionnellement humide", "text": "La peau est occasionnellement humide nécessitant un changement de literie additionnel environ une fois par jour." },
+        { "score": 4, "title": "Rarement humide", "text": "La peau est habituellement sèche. La literie est changée aux intervalles habituels." }
+      ]
+    },
+    {
+      "id": "activite",
+      "label": "Activité",
+      "description": "Degré d’activité physique.",
+      "levels": [
+        { "score": 1, "title": "Alité", "text": "Confinement au lit." },
+        { "score": 2, "title": "Confinement au fauteuil", "text": "La capacité de marcher est très limitée ou inexistante. Ne peut supporter son propre poids et/ou a besoin d’aide pour s’asseoir au fauteuil ou au fauteuil roulant." },
+        { "score": 3, "title": "Marche à l’occasion", "text": "Marche occasionnellement pendant la journée, mais sur de très courtes distances, avec ou sans aide. Passe la plupart de chaque quart de travail au lit ou au fauteuil." },
+        { "score": 4, "title": "Marche fréquemment", "text": "Marche hors de la chambre au moins deux fois par jour et dans la chambre au moins une fois chaque deux heures en dehors des heures de sommeil." }
+      ]
+    },
+    {
+      "id": "mobilite",
+      "label": "Mobilité",
+      "description": "Capacité de changer et de contrôler la position de son corps.",
+      "levels": [
+        { "score": 1, "title": "Complètement immobile", "text": "Incapable de faire le moindre changement de position de son corps ou de ses membres sans assistance." },
+        { "score": 2, "title": "Très limitée", "text": "Fait occasionnellement de légers changements de position de son corps ou de ses membres mais est incapable de faire des changements fréquents ou importants de façon indépendante." },
+        { "score": 3, "title": "Légèrement limitée", "text": "Fait de fréquents mais légers changements de position de son corps ou de ses membres de façon indépendante." },
+        { "score": 4, "title": "Non limitée", "text": "Fait des changements de position importants et fréquents sans aide." }
+      ]
+    },
+    {
+      "id": "nutrition",
+      "label": "Nutrition",
+      "description": "Profil de l’alimentation habituelle.",
+      "levels": [
+        { "score": 1, "title": "Très pauvre", "text": "Ne mange jamais un repas complet. Mange rarement plus du tiers de tout aliment offert. Mange deux portions ou moins de protéines par jour (viandes ou produits laitiers). Boit peu de liquides. Ne prend pas de supplément nutritionnel liquide. OU Ne prend rien par la bouche et/ou reçoit une diète liquide ou une perfusion intraveineuse pendant plus de 5 jours." },
+        { "score": 2, "title": "Probablement inadéquate", "text": "Mange rarement un repas complet et mange généralement que la moitié de tout aliment offert. L’apport de protéines comporte 3 portions de viande ou de produits laitiers par jour. Prend occasionnellement un supplément nutritionnel. OU Reçoit une quantité insuffisante de liquide ou de gavage." },
+        { "score": 3, "title": "Adéquate", "text": "Mange plus de la moitié de la plupart des repas. Mange un total de 4 portions de protéines (viandes, produits laitiers) chaque jour. Peut refuser à l’occasion des repas, mais prend habituellement un supplément nutritionnel s’il est offert. OU Est alimenté par gavage ou alimentation parentérale totale qui répond probablement à la plupart des besoins nutritionnels." },
+        { "score": 4, "title": "Excellente", "text": "Mange presque entièrement chaque repas. Ne refuse jamais un repas. Mange habituellement un total de 4 portions ou plus de viandes et de produits laitiers. Mange occasionnellement entre les repas. Un supplément nutritionnel n’est pas nécessaire." }
+      ]
+    },
+    {
+      "id": "friction_cisaillement",
+      "label": "Friction et cisaillement",
+      "description": "Degré de frottement et d’étirement de la peau lié aux mouvements et au positionnement.",
+      "levels": [
+        { "score": 1, "title": "Problème", "text": "L'usager a besoin d'une aide modérée à maximale pour bouger. Il est impossible de le soulever complètement sans que sa peau frotte sur les draps. Il glisse fréquemment dans le lit ou au fauteuil, ce qui requiert d'être repositionné fréquemment avec une aide maximale. La spasticité, les contractures ou l’agitation entraînent une friction presque constante." },
+        { "score": 2, "title": "Problème potentiel", "text": "L'usager bouge faiblement ou requiert une aide minimale. Pendant un changement de position, la peau frotte probablement jusqu’à un certain degré contre les draps, le fauteuil, les contentions ou autres appareils. Il maintient la plupart du temps une assez bonne position au fauteuil ou au lit, mais glisse à l’occasion." },
+        { "score": 3, "title": "Aucun problème apparent", "text": "L'usager bouge de façon indépendante au lit ou au fauteuil et a suffisamment de force musculaire pour se soulever complètement pendant un changement de position. Il maintient en tout temps une bonne position dans le lit et au fauteuil." }
+      ]
+    }
+  ]
+}

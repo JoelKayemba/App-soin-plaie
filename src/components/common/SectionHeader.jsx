@@ -55,7 +55,7 @@ const SectionHeader = ({
 const styles = StyleSheet.create({
   header: {
     paddingTop: 50,
-    paddingBottom: 0,
+    paddingBottom: 10,
     paddingHorizontal: 20,
     
   },

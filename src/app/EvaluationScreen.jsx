@@ -1,38 +1,64 @@
-// screens/EvaluationScreen.js
+// src/app/EvaluationScreen.jsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useTheme } from '../context/ThemeContext';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { TView, TText } from '@/components/ui/Themed';
+import { useThemeMode } from '@/hooks/useThemeMode';
+import useResponsive from '@/hooks/useResponsive';
+import BackButton from '@/components/common/BackButton';
 
-const EvaluationScreen = () => {
-  const { isDark } = useTheme();
+const BradenScreen = () => {
+  const { makeStyles, colors, elevation } = useThemeMode();
+  const { spacing, typeScale } = useResponsive();
+
+  const useStyles = makeStyles((c) => ({
+    root: { flex: 1 },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: spacing.lg,
+      paddingTop: spacing.xs,
+      paddingBottom: spacing.md,
+      backgroundColor: c.background,
+      
+    },
+    title: {
+      fontSize: 24 * typeScale,
+      fontWeight: '700',
+      color: c.text,
+      marginLeft: spacing.md,
+      flex: 1,
+    },
+    content: {
+      flex: 1,
+      padding: spacing.lg,
+    },
+    placeholder: {
+      fontSize: 16 * typeScale,
+      color: c.text,
+      textAlign: 'center',
+      marginTop: spacing.xl * 2,
+    },
+  }));
+
+  const s = useStyles();
 
   return (
-    <View style={[styles.container, isDark && styles.darkContainer]}>
-      <Text style={isDark ? styles.darkText : styles.lightText}>
-        Écran Évaluation
-      </Text>
-    </View>
+    <TView style={s.root}>
+      {/* En-tête avec bouton retour et titre */}
+      <View style={s.header}>
+        <BackButton />
+        <TText style={s.title}>Démarche clinique</TText>
+      </View>
+
+      {/* Contenu principal */}
+      <ScrollView style={s.content} showsVerticalScrollIndicator={false}>
+        <TText style={s.placeholder}>
+          Interface d'évaluation du risque de lésion de pression
+        </TText>
+        {/* TODO: Implémenter le formulaire Braden */}
+      </ScrollView>
+    </TView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  darkContainer: {
-    backgroundColor: '#333',
-  },
-  lightText: {
-    color: '#000',
-    fontSize: 18,
-  },
-  darkText: {
-    color: '#fff',
-    fontSize: 18,
-  },
-});
-
-export default EvaluationScreen;
+export default BradenScreen;

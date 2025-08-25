@@ -44,12 +44,14 @@ const ToolsSection = ({ title = 'Outils', items = [], onPressItem, onPressVoirTo
         <TText style={{ fontSize: 20 * typeScale, fontWeight: '700', flex: 1 }}>
           {title}
         </TText>
-        <TouchableOpacity onPress={onPressVoirTout} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-          <TText style={{ fontSize: 14 * typeScale, fontWeight: '600', color: colors.primary }}>
-            Voir tout
-          </TText>
-        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={onPressVoirTout} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+              <TText style={{ fontSize: 14 * typeScale, fontWeight: '600', color: colors.primary }}>
+                Voir tout
+              </TText>
+            </TouchableOpacity>
+        */}
       </View>
+
 
       {/* Grid */}
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -spacing.sm / 2 }}>
