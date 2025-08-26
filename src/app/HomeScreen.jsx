@@ -66,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
     {
         icon: 'calculator',
         title: 'Calcul IPSCB',
-        subtitle: 'Mesurer IPS Cheville/Bras et interpréter',
+        subtitle: 'Mesurer l\’Indice Pression Systolique Cheville/Bras et interpréter les résultats',
         color: '#E8F2E6',
         colorDark: '#1E2A22',
         screen: 'IPSCB',
@@ -82,7 +82,7 @@ const HomeScreen = ({ navigation }) => {
     {
         icon: 'paw',
         title: 'Échelle de Braden Q',
-        subtitle: 'Risque chez l\'enfant',
+        subtitle: 'Évaluer le risque de lésion de pression chez l\’enfant ',
         color: '#FFDBBD',
         colorDark: '#3A281E',
         screen: 'BradenQ',
@@ -98,7 +98,7 @@ const HomeScreen = ({ navigation }) => {
     {
         icon: 'journal',
         title: 'Références',
-        subtitle: 'Guides et articles de référence',
+        subtitle: 'Accéder aux guides et articles de référence',
         color: '#CFFBD9',
         colorDark: '#123427',
         screen: 'References',

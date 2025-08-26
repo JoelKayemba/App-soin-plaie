@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useThemeMode } from '../hooks/useThemeMode';
 import useResponsive from '../hooks/useResponsive';
-import { useIPSCBCalculator } from '../features/calculators/ipscb';
+import useIPSCBCalculator from '../features/calculators/ipscb/useIPSCBCalculator';
 import BackButton from '../components/common/BackButton';
 
 const IPSCBScreen = ({ navigation }) => {
@@ -395,9 +395,7 @@ const IPSCBScreen = ({ navigation }) => {
             </View>
           </View>
 
-
-
-                    {/* Résultats et interprétation */}
+          {/* Résultats et interprétation */}
           <View style={s.resultsSection}>
             <Text style={s.resultsTitle}>Résultats et interprétation</Text>
             

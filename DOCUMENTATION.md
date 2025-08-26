@@ -345,3 +345,4 @@ const {
 **Dernière mise à jour :** 23 Aout 2025 
 **Version :** 1.0.0  
 **Auteur :** Équipe de développement App Soin Plaie
+
