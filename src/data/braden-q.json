@@ -1,0 +1,90 @@
+{
+  "id": "braden_q_fr_v1",
+  "label": "Échelle de Braden-Q (pédiatrique)",
+  "lang": "fr",
+  "scoring": {
+    "dimensions": 7,
+    "score_min": 7,
+    "score_max": 28,
+    "note": "Somme des niveaux sélectionnés (1 à 4) pour chaque dimension. Plus le score est élevé, plus le risque d’escarres est faible."
+  },
+  "dimensions": [
+    {
+      "id": "perception_sensorielle",
+      "label": "Perception sensorielle",
+      "description": "Capacité de réagir à l’inconfort relié à la pression en relation avec le stade de développement.",
+      "levels": [
+        { "score": 1, "title": "Complètement limité", "text": "Inconscient, aucune plainte, pas de mouvements lors de stimulation douloureuse ou utilisation de sédation. Capacité limitée de ressentir la douleur au niveau de la majorité de la surface corporelle." },
+        { "score": 2, "title": "Très limitée", "text": "Répond seulement aux stimulations douloureuses. Ne peut communiquer son inconfort sauf par grimaces ou plaintes. OU Déficits sensoriels limitant la capacité à ressentir la douleur/inconfort sur 50% de la surface corporelle." },
+        { "score": 3, "title": "Légèrement limitée", "text": "Répond à des commandes verbales mais ne peut pas toujours communiquer son inconfort/besoin d’être tourné. OU Déficits sensoriels limitant la douleur ou l’inconfort à 1 ou 2 extrémités." },
+        { "score": 4, "title": "Aucune atteinte", "text": "Répond à des stimulations verbales. Pas de déficit sensoriel limitant la capacité à communiquer douleur ou inconfort." }
+      ]
+    },
+    {
+      "id": "humidite",
+      "label": "Humidité",
+      "description": "Degré auquel la peau est exposée à l’humidité.",
+      "levels": [
+        { "score": 1, "title": "Humidité constante", "text": "La peau est maintenue humide constamment (transpiration, urine, drainage). Humidité détectée à chaque changement de position." },
+        { "score": 2, "title": "Très humide", "text": "La peau est souvent humide. Draps changés au minimum toutes les 8h." },
+        { "score": 3, "title": "Humidité occasionnelle", "text": "Peau humide de façon occasionnelle. Draps changés à toutes les 12h." },
+        { "score": 4, "title": "Rarement humide", "text": "Peau habituellement sèche. Draps changés aux intervalles normaux (24h)." }
+      ]
+    },
+    {
+      "id": "activite",
+      "label": "Activité",
+      "description": "Degré d’activité physique actuel.",
+      "levels": [
+        { "score": 1, "title": "Repos au lit", "text": "Confiné au lit." },
+        { "score": 2, "title": "Peut s’asseoir", "text": "Marche sévèrement limitée ou inexistante. Ne peut supporter son poids et doit être aidé pour s’asseoir." },
+        { "score": 3, "title": "Marche occasionnelle", "text": "Marche de courtes distances avec/sans aide. Passe la majorité du temps au lit." },
+        { "score": 4, "title": "Marche fréquente", "text": "Marche hors chambre au moins 2x/jour et dans la chambre au moins toutes les 2h." }
+      ]
+    },
+    {
+      "id": "mobilite",
+      "label": "Mobilité",
+      "description": "Capacité de changer et contrôler la position de son corps.",
+      "levels": [
+        { "score": 1, "title": "Complètement immobile", "text": "Ne peut bouger ses extrémités ni changer de position sans aide." },
+        { "score": 2, "title": "Très limitée", "text": "Bouge occasionnellement ses extrémités mais incapable de se tourner seul." },
+        { "score": 3, "title": "Légèrement limitée", "text": "Fait de petits changements de position fréquents mais limités." },
+        { "score": 4, "title": "Pas de limitation", "text": "Bouge librement sans assistance." }
+      ]
+    },
+    {
+      "id": "nutrition",
+      "label": "Nutrition",
+      "description": "Habitudes alimentaires usuelles.",
+      "levels": [
+        { "score": 1, "title": "Très pauvre", "text": "À jeun, diète liquide claire, ou nutrition IV >5 jours. Albumine <2,5 g/L. OU Ne complète jamais un repas, mange rarement des protéines (<2 portions/jour)." },
+        { "score": 2, "title": "Probablement inadéquate", "text": "Diète liquide/gavage/parentérale mais calories insuffisantes. OU Albumine <30 g/L. OU Mange rarement plus de la moitié de ses repas. Protéines max 3 portions/jour." },
+        { "score": 3, "title": "Adéquate", "text": "Nutrition entérale/parentérale répondant aux besoins OU mange >50% des repas et 4 portions protéines/jour. Refuse occasionnellement de manger mais prend suppléments." },
+        { "score": 4, "title": "Excellente", "text": "Diète normale adaptée à l’âge, au moins 4 portions protéines/jour. Pas de supplément nécessaire." }
+      ]
+    },
+    {
+      "id": "friction_cisaillement",
+      "label": "Friction et cisaillement",
+      "description": "Apparaît lorsque la peau frotte sur une surface ou glisse contre les tissus profonds.",
+      "levels": [
+        { "score": 1, "title": "Problème significatif", "text": "Spasticité, contractions, agitation entraînant frottements constants." },
+        { "score": 2, "title": "Problème", "text": "Besoin d’assistance modérée à maximale pour bouger. Mobilisation sans frottement impossible. Glisse dans le lit, nécessite repositionnement fréquent." },
+        { "score": 3, "title": "Problème potentiel", "text": "Bouge facilement mais frottement occasionnel contre draps/fauteuil/contentions." },
+        { "score": 4, "title": "Aucun problème apparent", "text": "Capable de se mobiliser seul sans frottement, soins d’hygiène seul, assez de force musculaire pour maintenir bonne position." }
+      ]
+    },
+    {
+      "id": "perfusion_oxygénation",
+      "label": "Perfusion tissulaire et oxygénation",
+      "description": "État de la circulation et de l’oxygénation tissulaire.",
+      "levels": [
+        { "score": 1, "title": "Extrêmement compromis", "text": "Hypotension (PAM <40 nouveau-né). pH <7,40. Saturation O2 <95%. Hémoglobine <10 g/L. Temps de recoloration >2s." },
+        { "score": 2, "title": "Compromis", "text": "PA dans les basses limites. pH <7,40. Sat O2 <95%. Hb légèrement basse. Recoloration >2s." },
+        { "score": 3, "title": "Adéquat", "text": "PA normale selon l’âge. pH normal. Sat O2 >95%. Hb normale. Recoloration <=2s." },
+        { "score": 4, "title": "Excellent", "text": "PA normale, pH normal, sat O2 >95%, Hb normale, recoloration <=2s." }
+      ]
+    }
+  ]
+}

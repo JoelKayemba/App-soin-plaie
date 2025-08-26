@@ -1,0 +1,141 @@
+[
+  {
+    "terme": "Macule",
+    "definition": "Lésion plane, non palpable",
+    "taille": "<=10mm",
+    "image":null
+  },
+  {
+    "terme": "Tache",
+    "definition": "Lésion plane, non palpable",
+    "taille": ">10mm",
+    "image":null
+  },
+  {
+    "terme": "Papule",
+    "definition": "Lésion surélevée, palpable",
+    "taille": "<5mm",
+    "image":null
+  },
+  {
+    "terme": "Plaque",
+    "definition": "Lésion surélevée, palpable",
+    "taille": ">=5mm",
+    "image":null
+  },
+  {
+    "terme": "Nodule",
+    "definition": "Papule ferme qui s'étend dans le derme ou le tissu sous-cutané",
+    "taille": "<=2cm",
+    "image":null
+  },
+  {
+    "terme": "Tumeur",
+    "definition": "Papule ferme qui s'étend dans le derme ou le tissu sous-cutané",
+    "taille": ">2cm",
+    "image":null
+  },
+  {
+    "terme": "Vésicule",
+    "definition": "Collection de liquide clair ou sérosanguin",
+    "taille": "<5mm",
+    "image":null
+  },
+  {
+    "terme": "Bulle",
+    "synonyme": "Phlyctène",
+    "definition": "Collection de liquide",
+    "taille": ">=5mm",
+    "image":null
+  },
+  {
+    "terme": "Pustule",
+    "definition": "Lésion surélevée contenant du pus",
+    "image":null
+  },
+  {
+    "terme": "Squame",
+    "definition": "Accumulation et décollement de la couche cornée",
+    "image":null
+  },
+  {
+    "terme": "Croûte",
+    "definition": "Coagulation d'un exsudat séreux, sanguin ou purulent",
+    "image":null
+  },
+  {
+    "terme": "Érosion",
+    "definition": "Perte partielle ou totale de l'épiderme",
+    "image":null
+  },
+  {
+    "terme": "Excoriation",
+    "definition": "Érosion linéaire secondaire au grattage, à la friction ou une écorchure",
+    "image":null
+  },
+  {
+    "terme": "Ulcère",
+    "definition": "Perte de l'épiderme et d'au moins une partie du derme",
+    "image":null
+  },
+  {
+    "terme": "Fissure",
+    "definition": "Perte linéaire de l'épiderme et d'au moins une partie du derme",
+    "image":null
+  },
+  {
+    "terme": "Télangiectasie",
+    "definition": "Dilatation permanente de petits vaisseaux sanguins veineux",
+    "image":null
+  },
+  {
+    "terme": "Lichenification",
+    "definition": "Épaississement de la peau",
+    "image":null
+  },
+  {
+    "terme": "Induration",
+    "definition": "Épaississement en profondeur de la peau qui peut être causée par infection, inflammation ou oedème. Peau dure et résistante à la palpation",
+    "image":null
+  },
+  {
+    "terme": "Macération",
+    "definition": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat",
+    "image":null
+  },
+  {
+    "terme": "Nécrose sèche",
+    "definition": "Couleur noire ou brunâtre, forme une barrière physique à la formation du nouvel épiderme, résultat de la mort tissulaire par ischémie",
+    "image":null
+  },
+  {
+    "terme": "Nécrose humide",
+    "definition": "Couleur jaunâtre ou blanchâtre, texture filamenteuse, peu adhérente et contient globules blancs, bactéries, débris cellulaires et tissus morts",
+    "image":null
+  },
+  {
+    "terme": "Hyperkératose",
+    "definition": "Épaississement de la couche cornée de l'épiderme qui mène à la formation de callosités en réponse à la pression locale ou à un trauma répétitif",
+    "image":null
+  },
+  {
+    "terme": "Granulation saine",
+    "definition": "Couleur rose pâle à rouge vif, humide, texture granuleuse",
+    "image":null
+  },
+  {
+    "terme": "Granulation malsaine",
+    "definition": "Couleur rougeâtre ou violacée, friable",
+    "image":null
+  },
+  {
+    "terme": "Hypergranulation",
+    "definition": "Surcroissance de tissu de granulation qui dépasse le niveau de la peau autour de la plaie et qui retarde l'épithélialisation",
+    "image":null
+  },
+  {
+    "terme": "Épithélium ou tissu épithélial",
+    "definition": "Couleur rosée, peut être translucide, souvent présent en périphérie de la plaie ou en îlots dans la plaie",
+    "image":null
+  }
+]

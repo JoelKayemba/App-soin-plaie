@@ -1,0 +1,137 @@
+{
+  "brulure": [
+    {
+      "auteur": "Jeschke, M., McCallum, C., Baron, D., Godleski, M., Knighton, J., & Shahrokhl, S.",
+      "annee": 2018,
+      "titre": "Best practice recommendations for the prevention and management of burns",
+      "source": "Wounds Canada"
+    }
+  ],
+  "dechirure_cutanee": [
+    {
+      "auteur": "LeBlanc, K., Woo, K., Christensen, D., Forest-Lalande, L., O'Dea, J., Varga, M., & Van Ineveld, C.",
+      "annee": 2019,
+      "titre": "Recommandations pour les pratiques exemplaires pour la prévention et la gestion des déchirures cutanées",
+      "source": "Wounds Canada"
+    }
+  ],
+  "dermite_incontinence": [
+    {
+      "auteur": "",
+      "annee": "",
+      "titre": "(références à ajouter)",
+      "source": ""
+    }
+  ],
+  "generalites": [
+    {
+      "auteur": "Diabète Québec",
+      "annee": 2025,
+      "titre": "Les valeurs cibles de la glycémie",
+      "lien": "https://www.diabete.qc.ca/le-diabete/la-gestion-du-diabete/les-valeurs-cibles-de-glycemie/"
+    },
+    {
+      "auteur": "International Wound Infection Institute (IWII)",
+      "annee": 2022,
+      "titre": "Wound Infection in Clinical Practice",
+      "source": "Wounds International"
+    },
+    {
+      "auteur": "Centre d'expertise en santé de Sherbrooke",
+      "annee": 2017,
+      "titre": "Méthodes de soins informatisées"
+    },
+    {
+      "auteur": "Reeves, I., & Chaplain, V.",
+      "annee": 2023,
+      "titre": "Pratiques exemplaires en soins des plaies - De novice à expert. Tome 1 et 2",
+      "source": "Presses de l'Université Laval"
+    },
+    {
+      "auteur": "Regroupement québécois en soins de plaies",
+      "annee": 2022,
+      "titre": "Produits et pansements pour le soin des plaies"
+    },
+    {
+      "auteur": "Ordre des ergothérapeutes du Québec, Ordre des infirmières et infirmiers du Québec, Ordre des professionnels de la physiothérapie du Québec",
+      "annee": 2014,
+      "titre": "Cadre de collaboration interprofessionnelle pour le traitement des plaies chroniques et complexes"
+    },
+    {
+      "auteur": "Ordre des infirmières et infirmiers du Québec",
+      "annee": 2016,
+      "titre": "Le champ d'exercice et les activités réservées des infirmières et infirmiers"
+    },
+    {
+      "auteur": "Orsted, H. L., Keast, D. H., Forest-Lalande, L., Kuhnke, J. L., O'Sullivan-Drombolis, D., Jin, S., Haley, J., & Evans, R.",
+      "annee": 2018,
+      "titre": "Recommandations pour les pratiques exemplaires pour la prévention et la gestion des plaies",
+      "source": "Wounds Canada"
+    },
+    {
+      "auteur": "Wounds Canada"
+    },
+    {
+      "auteur": "INESSS"
+    }
+  ],
+  "lesion_pression": [
+    {
+      "auteur": "National Pressure Injury Advisory Panel",
+      "annee": 2025,
+      "titre": "NPIAP-Staging-Light Skin Poster-2025"
+    },
+    {
+      "auteur": "Norton, L., Parslow, N., Johnston, D., Ho, C., Afalavi, A., Mark, M., O'Sullivan-Drombolis, D., & Moffa, S.",
+      "annee": 2019,
+      "titre": "Recommandations pour les pratiques exemplaires pour la prévention et la gestion des lésions de pression",
+      "source": "Wounds Canada"
+    }
+  ],
+  "plaie_chirurgicale": [
+    {
+      "auteur": "",
+      "annee": "",
+      "titre": "(références à ajouter)",
+      "source": ""
+    }
+  ],
+  "plaie_traumatique": [
+    {
+      "auteur": "",
+      "annee": "",
+      "titre": "(références à ajouter)",
+      "source": ""
+    }
+  ],
+  "ulcere_arteriel": [
+    {
+      "auteur": "Aboyans, V., Lacroix, P., Waruingi, W., Bertin, F., Pesteil, F., Vergnenègre, A., & Laskar, M.",
+      "annee": 2000,
+      "titre": "Traduction française et validation du questionnaire d'Édimbourg pour le dépistage de la claudication intermittente",
+      "source": "Archives des maladies du cœur et des vaisseaux, 93(10), 1173-1177"
+    },
+    {
+      "auteur": "Beaumier, M., Murray, B. A., Despatis, M. A., Patry, J., Murphy, C., Jin, S., & O'Sullivan-Drombolis, D.",
+      "annee": 2020,
+      "titre": "Best practice recommendations for the prevention and management of peripheral arterial ulcers",
+      "source": "Wounds Canada"
+    }
+  ],
+  "ulcere_diabetique": [
+    {
+      "auteur": "Botros, M., Kuhnke, J., Embil, J., Goetti, K., Morin, C., Parsons, L., Scharfstein, B., Somayajl, R., & Evans, R.",
+      "annee": 2019,
+      "titre": "Best practice recommendations for the prevention and management of diabetic foot ulcers",
+      "source": "Wounds Canada"
+    }
+  ],
+  "ulcere_veineux": [
+    {
+      "auteur": "Evans, R., Kuhnke, J., Burrows, C., Kayssi, A., Labrecque, C., O'Sullivan-Drombolis, D., & Houghton, P.",
+      "annee": 2019,
+      "titre": "Best practice recommendations for the prevention and management of venous leg ulcers",
+      "source": "Wounds Canada"
+    }
+  ]
+}
