@@ -346,3 +346,9 @@ const {
 **Version :** 1.0.0  
 **Auteur :** Équipe de développement App Soin Plaie
 
+
+
+
+
+
+

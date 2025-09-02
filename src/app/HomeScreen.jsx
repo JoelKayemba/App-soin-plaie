@@ -6,6 +6,7 @@ import { TView, TText } from '@/components/ui/Themed';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';
 import ToolsSection from '@/components/home/ToolsSection';
+import NewsSection from '@/components/home/NewsSection';
 
 const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -116,6 +117,24 @@ const HomeScreen = ({ navigation }) => {
 
     const handleOpenTool = (it) => navigation.navigate(it.screen);
     const handleVoirTout = () => navigation.navigate('AllTools');
+    
+    const handleNewsPress = (newsItem) => {
+      // Navigation vers la section appropriée selon le type de nouveauté
+      switch (newsItem.route) {
+        case 'Products':
+          navigation.navigate('Produits');
+          break;
+        case 'Lexique':
+          navigation.navigate('Lexique');
+          break;
+        case 'References':
+          navigation.navigate('References');
+          break;
+        default:
+          // Par défaut, aller vers la page d'accueil
+          break;
+      }
+    };
 
   return (
     <TView style={s.root}>
@@ -144,7 +163,11 @@ const HomeScreen = ({ navigation }) => {
             />
           </View>
         </View>
+        
         <ToolsSection items={tools} onPressItem={handleOpenTool} onPressVoirTout={handleVoirTout} />
+        
+        {/* Section Nouveautés */}
+        <NewsSection onNewsPress={handleNewsPress} navigation={navigation} />
       </ScrollView>
     </TView>
   );
