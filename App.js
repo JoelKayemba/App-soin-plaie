@@ -1,6 +1,7 @@
 // App.js
 import React from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
 import ThemeProvider, { useTheme } from './src/context/ThemeContext';
 
@@ -43,8 +44,10 @@ function ThemedNavigation() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <ThemedNavigation />
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <ThemedNavigation />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

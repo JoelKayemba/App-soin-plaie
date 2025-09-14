@@ -1,6 +1,7 @@
 // src/app/ReferenceScreen.jsx
 import React, { useState, useMemo } from 'react';
-import { View, ScrollView, TouchableOpacity, Linking, SafeAreaView } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TView, TText, TIcon } from '@/components/ui/Themed';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';

@@ -1,6 +1,7 @@
 // src/app/NewsScreen.jsx
 import React from 'react';
-import { View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TView, TText } from '@/components/ui/Themed';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';

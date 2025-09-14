@@ -5,10 +5,12 @@ import { TView, TText } from '@/components/ui/Themed';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import ImageModal from '@/components/common/ImageModal';
 
 const ProductCard = ({ product }) => {
   const [detailsExpanded, setDetailsExpanded] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
+  const [imageModalVisible, setImageModalVisible] = useState(false);
   const { makeStyles, colors } = useThemeMode();
   const { spacing, typeScale } = useResponsive();
 
@@ -284,13 +286,17 @@ const ProductCard = ({ product }) => {
     <TView style={s.card}>
       {/* En-tête avec image et informations */}
       <View style={s.header}>
-        <View style={s.imageContainer}>
+        <TouchableOpacity 
+          style={s.imageContainer} 
+          onPress={() => product.image && setImageModalVisible(true)}
+          disabled={!product.image}
+        >
           {product.image ? (
             <Image source={{ uri: product.image }} style={s.productImage} />
           ) : (
             <Ionicons name="image-outline" size={40} color={colors.textTertiary} style={s.placeholderImage} />
           )}
-        </View>
+        </TouchableOpacity>
         
         <View style={s.headerInfo}>
           <TText style={s.productName}>{product.name}</TText>
@@ -393,7 +399,15 @@ const ProductCard = ({ product }) => {
       </View>
 
       {/* Disclaimer */}
-      <TText style={s.disclaimer}>*Informations fournies par le fabricant</TText>
+      <TText style={s.disclaimer}>Informations fournies par le fabricant</TText>
+
+      {/* Modal pour l'image du produit */}
+      <ImageModal
+        visible={imageModalVisible}
+        imageUrl={product.image}
+        title={product.name}
+        onClose={() => setImageModalVisible(false)}
+      />
     </TView>
   );
 };

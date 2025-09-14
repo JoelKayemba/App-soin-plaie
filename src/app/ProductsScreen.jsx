@@ -1,6 +1,7 @@
 // src/app/ProductsScreen.jsx
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, SafeAreaView, FlatList } from 'react-native';
+import { View, ScrollView, FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TView, TText } from '@/components/ui/Themed';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';

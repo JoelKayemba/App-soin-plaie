@@ -49,7 +49,7 @@ export const TGradientHeader = ({ children, style }) => {
   
   // Définir les dégradés pour chaque thème
   const gradientColors = theme === 'dark' 
-    ? [colors.surface, colors.background] 
+    ? [colors.background, colors.background] 
     : ['#FFFFFF', colors.background];
     
   return (

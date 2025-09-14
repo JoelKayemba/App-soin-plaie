@@ -7,9 +7,9 @@ import useResponsive from '@/hooks/useResponsive';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const ProductFilters = ({ filters, onFiltersChange }) => {
-  const [filtersExpanded, setFiltersExpanded] = useState(true); // État global pour l'en-tête Filtres
+  const [filtersExpanded, setFiltersExpanded] = useState(false); 
   const [expandedSections, setExpandedSections] = useState({
-    classe: true, // Classe ouvert par défaut comme dans l'image
+    classe: false, 
     application: false,
     absorption: false,
     antimicrobien: false,
