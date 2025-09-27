@@ -1,7 +1,7 @@
 // src/components/ui/Themed.js
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@/context/ThemeContext'; // Utiliser le contexte au lieu du hook
 

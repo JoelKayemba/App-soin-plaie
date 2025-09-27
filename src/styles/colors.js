@@ -18,7 +18,7 @@ const colors = {
     warning: '#F59E0B',        // orange pour avertissement
     error: '#EF4444',          // rouge pour erreur
     shadow: '#000000',         // couleur d'ombre
-    black:'#000'
+    black: '#000000'
   },
 
   dark: {
@@ -39,7 +39,7 @@ const colors = {
     warning: '#FBBF24',        // orange pour avertissement (plus clair)
     error: '#F87171',          // rouge pour erreur (plus clair)
     shadow: '#000000',         // couleur d'ombre
-    black:'#ffffff',
+    black: '#ffffff',
     surfaceLight: 'rgba(48, 53, 63, 1) '
   },
 };

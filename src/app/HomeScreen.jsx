@@ -56,6 +56,7 @@ const HomeScreen = ({ navigation }) => {
   const s = useStyles();
 
   const handleSettingsPress = () => navigation.navigate('Settings');
+  const handleSearchPress = () => navigation.navigate('Search');
 
   const tools = [
     {
@@ -145,6 +146,7 @@ const HomeScreen = ({ navigation }) => {
           searchValue={searchQuery}
           onChangeSearch={setSearchQuery}
           onPressSettings={handleSettingsPress}
+          onPressSearch={handleSearchPress}
         />
 
                 <ScrollView style={s.content} showsVerticalScrollIndicator={false}>

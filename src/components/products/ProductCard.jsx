@@ -6,6 +6,8 @@ import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ImageModal from '@/components/common/ImageModal';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleProductFavorite, selectIsProductFavorite } from '@/store/favoritesSlice';
 
 const ProductCard = ({ product }) => {
   const [detailsExpanded, setDetailsExpanded] = useState(false);
@@ -13,6 +15,8 @@ const ProductCard = ({ product }) => {
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const { makeStyles, colors } = useThemeMode();
   const { spacing, typeScale } = useResponsive();
+  const dispatch = useDispatch();
+  const isFavorite = useSelector(state => selectIsProductFavorite(state, product.id));
 
   const useStyles = makeStyles((c) => ({
     card: {
@@ -247,6 +251,10 @@ const ProductCard = ({ product }) => {
     }));
   };
 
+  const handleToggleFavorite = () => {
+    dispatch(toggleProductFavorite(product.id));
+  };
+
   const renderDetailSection = (title, content, sectionKey) => {
     const isExpanded = expandedSections[sectionKey];
     
@@ -306,8 +314,12 @@ const ProductCard = ({ product }) => {
           </View>
         </View>
         
-        <TouchableOpacity style={s.favoriteButton}>
-          <Ionicons name="star-outline" size={24} color={colors.textSecondary} />
+        <TouchableOpacity style={s.favoriteButton} onPress={handleToggleFavorite}>
+          <Ionicons 
+            name={isFavorite ? "star" : "star-outline"} 
+            size={24} 
+            color={isFavorite ? colors.warning : colors.textSecondary} 
+          />
         </TouchableOpacity>
       </View>
 

@@ -8,12 +8,15 @@ import useResponsive from '@/hooks/useResponsive';
 import BackButton from '@/components/common/BackButton';
 import SearchBar from '@/components/common/SearchBar';
 import referencesData from '@/data/references.json';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleReferenceFavorite, selectIsReferenceFavorite } from '@/store/favoritesSlice';
 
 const ReferenceScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSections, setExpandedSections] = useState(['generalites']); // Généralités ouvert par défaut
   const { makeStyles, colors, elevation } = useThemeMode();
   const { spacing, typeScale } = useResponsive();
+  const dispatch = useDispatch();
 
   // Icônes pour chaque catégorie
   const categoryIcons = {
@@ -45,24 +48,34 @@ const ReferenceScreen = () => {
 
   // Filtrer les références selon la recherche
   const filteredReferences = useMemo(() => {
+    // Vérifier que referencesData existe
+    if (!referencesData || typeof referencesData !== 'object') {
+      return {};
+    }
+    
     if (!searchQuery.trim()) return referencesData;
     
     const query = searchQuery.toLowerCase();
     const filtered = {};
     
     Object.entries(referencesData).forEach(([category, references]) => {
-      const filteredRefs = references.filter(ref => {
-        const titre = ref.titre || '';
-        const auteur = ref.auteur || '';
-        const source = ref.source || '';
+      // Vérifier que references existe et est un tableau
+      if (references && Array.isArray(references)) {
+        const filteredRefs = references.filter(ref => {
+          if (!ref || typeof ref !== 'object') return false;
+          
+          const titre = ref.titre || '';
+          const auteur = ref.auteur || '';
+          const source = ref.source || '';
+          
+          return titre.toLowerCase().includes(query) ||
+                 auteur.toLowerCase().includes(query) ||
+                 source.toLowerCase().includes(query);
+        });
         
-        return titre.toLowerCase().includes(query) ||
-               auteur.toLowerCase().includes(query) ||
-               source.toLowerCase().includes(query);
-      });
-      
-      if (filteredRefs.length > 0) {
-        filtered[category] = filteredRefs;
+        if (filteredRefs.length > 0) {
+          filtered[category] = filteredRefs;
+        }
       }
     });
     
@@ -90,6 +103,21 @@ const ReferenceScreen = () => {
     } catch (error) {
       console.log("Erreur lors de l'ouverture du lien:", error);
     }
+  };
+
+  // Gérer les favoris
+  const handleToggleFavorite = (ref, category) => {
+    const referenceId = `${category}-${ref.titre}`;
+    dispatch(toggleReferenceFavorite(referenceId));
+  };
+
+  // Sélecteur pour récupérer tous les favoris
+  const favoriteReferences = useSelector(state => state.favorites.references);
+  
+  // Vérifier si une référence est en favori
+  const isReferenceFavorite = (ref, category) => {
+    const referenceId = `${category}-${ref.titre}`;
+    return favoriteReferences.includes(referenceId);
   };
 
   const useStyles = makeStyles((c) => ({
@@ -232,90 +260,105 @@ const ReferenceScreen = () => {
           </View>
 
           {/* Affichage des références */}
-          {Object.keys(filteredReferences).length === 0 ? (
+          {!filteredReferences || Object.keys(filteredReferences).length === 0 ? (
             <TText style={s.noResults}>
-              Aucune référence trouvée pour "{searchQuery}"
+              {searchQuery ? `Aucune référence trouvée pour "${searchQuery}"` : 'Aucune référence disponible'}
             </TText>
           ) : (
-            Object.entries(filteredReferences).map(([category, references]) => (
-              <View key={category}>
-                {/* En-tête de section */}
-                <TouchableOpacity 
-                  style={s.sectionHeader}
-                  onPress={() => toggleSection(category)}
-                  activeOpacity={0.8}
-                >
-                  <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-                    <TIcon 
-                      name={categoryIcons[category] || 'document'} 
-                      size={20} 
-                      color={colors.primary}
-                      style={s.sectionIcon}
-                    />
-                    <TText style={s.sectionTitle}>{categoryNames[category]}</TText>
-                  </View>
-                  
-                  <TIcon 
-                    name={expandedSections.includes(category) ? 'chevron-up' : 'chevron-down'} 
-                    size={20} 
-                    color={colors.text}
-                    style={s.expandIcon}
-                  />
-                </TouchableOpacity>
-
-                {/* Contenu de la section */}
-                {expandedSections.includes(category) && (
-                  references.map((ref, refIndex) => (
-                    <View key={refIndex} style={s.referenceCard}>
-                      {/* En-tête de la carte */}
-                      <View style={s.cardHeader}>
-                        <View style={{ flex: 1 }}>
-                          {ref.annee && (
-                            <TText style={s.cardYear}>{ref.annee}</TText>
-                          )}
-                        </View>
-                        
-                        {/* Bouton favori */}
-                        <TouchableOpacity style={s.favoriteButton} activeOpacity={0.7}>
-                          <TIcon 
-                            name="star-outline" 
-                            size={20} 
-                            color={colors.secondary} 
-                          />
-                        </TouchableOpacity>
-                      </View>
-
-                      {/* Titre */}
-                      <TText style={s.cardTitle}>{ref.titre}</TText>
-
-                      {/* Auteur */}
-                      {ref.auteur && (
-                        <TText style={s.cardAuthor}>{ref.auteur}</TText>
-                      )}
-
-                      {/* Source */}
-                      {ref.source && (
-                        <TText style={s.cardSource}>{ref.source}</TText>
-                      )}
-
-                      {/* Actions */}
-                      <View style={s.cardActions}>
-                        {/* Tag lien */}
-                        {ref.lien && (
-                          <TouchableOpacity 
-                            style={s.linkTag}
-                            onPress={() => openLink(ref.lien)}
-                            activeOpacity={0.8}
-                          >
-                            <TText style={s.linkText}>Lien</TText>
-                          </TouchableOpacity>
-                        )}
-                      </View>
+            Object.entries(filteredReferences).map(([category, references]) => {
+              // Vérifier que references existe et est un tableau
+              if (!references || !Array.isArray(references)) {
+                return null;
+              }
+              
+              return (
+                <View key={category}>
+                  {/* En-tête de section */}
+                  <TouchableOpacity 
+                    style={s.sectionHeader}
+                    onPress={() => toggleSection(category)}
+                    activeOpacity={0.8}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                      <TIcon 
+                        name={categoryIcons[category] || 'document'} 
+                        size={20} 
+                        color={colors.primary}
+                        style={s.sectionIcon}
+                      />
+                      <TText style={s.sectionTitle}>{categoryNames[category]}</TText>
                     </View>
-                  ))
-                )}
-              </View>
-            ))
+                    
+                    <TIcon 
+                      name={expandedSections.includes(category) ? 'chevron-up' : 'chevron-down'} 
+                      size={20} 
+                      color={colors.text}
+                      style={s.expandIcon}
+                    />
+                  </TouchableOpacity>
+
+                  {/* Contenu de la section */}
+                  {expandedSections.includes(category) && references.length > 0 && (
+                    references.map((ref, refIndex) => {
+                      const isFavorite = isReferenceFavorite(ref, category);
+                      
+                      return (
+                        <View key={refIndex} style={s.referenceCard}>
+                          {/* En-tête de la carte */}
+                          <View style={s.cardHeader}>
+                            <View style={{ flex: 1 }}>
+                              {ref.annee && (
+                                <TText style={s.cardYear}>{ref.annee}</TText>
+                              )}
+                            </View>
+                            
+                            {/* Bouton favori */}
+                            <TouchableOpacity 
+                              style={s.favoriteButton} 
+                              onPress={() => handleToggleFavorite(ref, category)}
+                              activeOpacity={0.7}
+                            >
+                              <TIcon 
+                                name={isFavorite ? "star" : "star-outline"} 
+                                size={20} 
+                                color={isFavorite ? colors.warning : colors.secondary} 
+                              />
+                            </TouchableOpacity>
+                          </View>
+
+                          {/* Titre */}
+                          <TText style={s.cardTitle}>{ref.titre}</TText>
+
+                          {/* Auteur */}
+                          {ref.auteur && (
+                            <TText style={s.cardAuthor}>{ref.auteur}</TText>
+                          )}
+
+                          {/* Source */}
+                          {ref.source && (
+                            <TText style={s.cardSource}>{ref.source}</TText>
+                          )}
+
+                          {/* Actions */}
+                          <View style={s.cardActions}>
+                            {/* Tag lien */}
+                            {ref.lien && (
+                              <TouchableOpacity 
+                                style={s.linkTag}
+                                onPress={() => openLink(ref.lien)}
+                                activeOpacity={0.8}
+                              >
+                                <TText style={s.linkText}>Lien</TText>
+                              </TouchableOpacity>
+                            )}
+                          </View>
+                        </View>
+                      );
+                    })
+                  )}
+                </View>
+              );
+            }).filter(Boolean) // Filtrer les éléments null
           )}
         </ScrollView>
       </TView>

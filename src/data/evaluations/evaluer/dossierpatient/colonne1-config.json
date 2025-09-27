@@ -1,0 +1,105 @@
+{
+  "id": "C1",
+  "title": "Colonne 1 : ÉVALUATION",
+  "description": "Données patient et évaluation initiale",
+  "version": "1.0",
+  "rules": {
+    "legend": {
+      "italic_grey": "Information réservée à l'équipe informatique",
+      "one_asterisk": "Définition en pop-up (info-bulle)",
+      "two_asterisks": "Élément important",
+      "three_asterisks": "Alerte clinique",
+      "dash": "Élément cliquable"
+    },
+    "identifier_format": "C1TnE## = Colonne 1, Table n, Élément ##",
+    "universal_command": {
+      "description": "Chaque élément (C1TnE##) pourra contenir un champ routes[]",
+      "routes_structure": {
+        "to": "ID de la destination (ex. C2T1E05, C3T2E01…)",
+        "phase": "moment d'application (immediate, post_eval, on_plan, etc.)",
+        "priority": "ordre d'importance si plusieurs routes",
+        "condition": "conditions de combinaison (facultative)",
+        "note": "explication"
+      }
+    }
+  },
+  "tables": [
+    {
+      "id": "C1T1",
+      "file": "table1-donnees-base.json",
+      "order": 1,
+      "title": "Données de base — Date de naissance"
+    },
+    {
+      "id": "C1T2",
+      "file": "table2-allergies.json",
+      "order": 2,
+      "title": "Allergies"
+    },
+    {
+      "id": "C1T3",
+      "file": "table3-conditions-sante.json",
+      "order": 3,
+      "title": "Conditions de santé actuelle"
+    },
+    {
+      "id": "C1T4",
+      "file": "table4-poids-imc.json",
+      "order": 4,
+      "title": "Poids & IMC"
+    },
+    {
+      "id": "C1T5",
+      "file": "table5-nutrition.json",
+      "order": 5,
+      "title": "Nutrition"
+    },
+    {
+      "id": "C1T6",
+      "file": "table6-facteurs-risque.json",
+      "order": 6,
+      "title": "Facteurs de risque"
+    },
+    {
+      "id": "C1T7",
+      "file": "table7-medication-active.json",
+      "order": 7,
+      "title": "Médication active"
+    },
+    {
+      "id": "C1T8",
+      "file": "table8-environnement-psychosocial.json",
+      "order": 8,
+      "title": "Environnement et sphère psychosociale"
+    },
+    {
+      "id": "C1T9",
+      "file": "table9-assurances.json",
+      "order": 9,
+      "title": "Assurances"
+    },
+    {
+      "id": "C1T10",
+      "file": "table10-niveau-soins.json",
+      "order": 10,
+      "title": "Niveau de soins"
+    }
+  ],
+  "special_rules": {
+    "age_under_1_month": {
+      "action": "stop_evaluation",
+      "redirect_to": "constats",
+      "message": "Cette clientèle demande une expertise particulière, veuillez consulter une ressource spécialisée.",
+      "applies_to": ["C1T1E01"]
+    }
+  },
+  "validation": {
+    "required_tables": ["C1T1", "C1T9", "C1T10"],
+    "conditional_required": {
+      "C1T8": {
+        "single_choice_required": true,
+        "multiple_choice_optional": true
+      }
+    }
+  }
+}

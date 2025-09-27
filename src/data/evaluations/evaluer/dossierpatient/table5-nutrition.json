@@ -1,0 +1,77 @@
+{
+  "id": "C1T5",
+  "title": "Nutrition",
+  "type": "mixed_questions",
+  "description": "Questions fermées (Oui/Non) + Sélection multiple",
+  "required": false,
+  "elements": [
+    {
+      "id": "C1T5E01-E02",
+      "type": "single_choice",
+      "label": "Au cours des 6 derniers mois, avez-vous perdu du poids sans avoir essayé de perdre ce poids ?",
+      "description": "Si le patient dit avoir perdu du poids, mais l'avoir repris par la suite, considérez que sa réponse est « non ».",
+      "required": true,
+      "options": [
+        {
+          "id": "C1T5E01",
+          "label": "Oui",
+          "value": "yes"
+        },
+        {
+          "id": "C1T5E02",
+          "label": "Non",
+          "value": "no"
+        }
+      ]
+    },
+    {
+      "id": "C1T5E03-E04",
+      "type": "single_choice",
+      "label": "Depuis plus d'une semaine, mangez-vous moins que d'habitude ?",
+      "required": true,
+      "options": [
+        {
+          "id": "C1T5E03",
+          "label": "Oui",
+          "value": "yes"
+        },
+        {
+          "id": "C1T5E04",
+          "label": "Non",
+          "value": "no"
+        }
+      ]
+    },
+    {
+      "id": "C1T5E05-E07",
+      "type": "multiple_choice",
+      "label": "État nutritionnel / hydrique",
+      "description": "Sélection multiple des conditions nutritionnelles",
+      "required": false,
+      "options": [
+        {
+          "id": "C1T5E05",
+          "type": "checkbox",
+          "label": "Apport nutritionnel insuffisant (dénutrition déjà connue)",
+          "value": "insufficient_nutrition"
+        },
+        {
+          "id": "C1T5E06",
+          "type": "checkbox",
+          "label": "Malnutrition déjà connue",
+          "value": "known_malnutrition"
+        },
+        {
+          "id": "C1T5E07",
+          "type": "checkbox",
+          "label": "Apport hydrique insuffisant (déshydratation déjà connue)",
+          "value": "insufficient_hydration"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "questions_required": ["C1T5E01-E02", "C1T5E03-E04"],
+    "multiple_choice_optional": true
+  }
+}

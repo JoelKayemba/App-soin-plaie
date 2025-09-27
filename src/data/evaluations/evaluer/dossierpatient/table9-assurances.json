@@ -1,0 +1,47 @@
+{
+  "id": "C1T9",
+  "title": "Assurances",
+  "type": "single_choice",
+  "description": "Choix unique obligatoire pour la couverture d'assurance",
+  "required": true,
+  "elements": [
+    {
+      "id": "C1T9E01",
+      "type": "radio",
+      "label": "RAMQ*",
+      "value": "ramq",
+      "tooltip": "Régie de l'assurance maladie du Québec"
+    },
+    {
+      "id": "C1T9E02",
+      "type": "radio",
+      "label": "Assurance médicale privée ou collective",
+      "value": "private_insurance"
+    },
+    {
+      "id": "C1T9E03",
+      "type": "radio",
+      "label": "Aucune",
+      "value": "none"
+    },
+    {
+      "id": "C1T9E04",
+      "type": "radio",
+      "label": "Couverture gouvernementale par un programme spécial",
+      "value": "government_program"
+    }
+  ],
+  "validation": {
+    "required": true,
+    "allowOnlyOne": true
+  },
+  "routes": [
+    {
+      "from": "C1T9E03",
+      "to": "C2T1E02",
+      "phase": "post_eval",
+      "priority": 1,
+      "note": "Absence de couverture → constat risque d'accès limité aux soins"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "C1T7",
+  "title": "Médication active",
+  "type": "multiple_choice",
+  "description": "Sélection multiple des médicaments actifs",
+  "required": false,
+  "allow_none": true,
+  "elements": [
+    {
+      "id": "C1T7E01",
+      "type": "checkbox",
+      "label": "AINS*",
+      "value": "ains",
+      "tooltip": "Anti-inflammatoire non stéroïdien"
+    },
+    {
+      "id": "C1T7E02",
+      "type": "checkbox",
+      "label": "Antibiotique",
+      "value": "antibiotic"
+    },
+    {
+      "id": "C1T7E03",
+      "type": "checkbox",
+      "label": "Anticoagulant",
+      "value": "anticoagulant"
+    },
+    {
+      "id": "C1T7E04",
+      "type": "checkbox",
+      "label": "Antiplaquettaire",
+      "value": "antiplatelet"
+    },
+    {
+      "id": "C1T7E05",
+      "type": "checkbox",
+      "label": "Chimiothérapie",
+      "value": "chemotherapy"
+    },
+    {
+      "id": "C1T7E06",
+      "type": "checkbox",
+      "label": "Colchicine",
+      "value": "colchicine"
+    },
+    {
+      "id": "C1T7E07",
+      "type": "checkbox",
+      "label": "Corticostéroïde",
+      "value": "corticosteroid"
+    },
+    {
+      "id": "C1T7E08",
+      "type": "checkbox",
+      "label": "Immunosuppresseur ou anti-rejet",
+      "value": "immunosuppressant"
+    },
+    {
+      "id": "C1T7E09",
+      "type": "checkbox",
+      "label": "Radiothérapie",
+      "value": "radiotherapy"
+    },
+    {
+      "id": "C1T7E10",
+      "type": "checkbox",
+      "label": "Vasopresseur",
+      "value": "vasopressor"
+    }
+  ],
+  "validation": {
+    "minSelections": 0,
+    "maxSelections": null
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "C1T1",
+  "title": "Données de base — Date de naissance",
+  "type": "patient_data",
+  "description": "Données patient de base avec calcul automatique de l'âge",
+  "required": true,
+  "elements": [
+    {
+      "id": "C1T1E01",
+      "type": "date",
+      "label": "Date de naissance",
+      "description": "Champ date spéciale avec calcul automatique de l'âge",
+      "required": true,
+      "validation": {
+        "minDate": "1900-01-01",
+        "maxDate": "today"
+      },
+      "calculation": {
+        "field": "age",
+        "formula": "today - birthDate"
+      },
+      "routes": [
+        {
+          "to": "C2T1E01",
+          "phase": "immediate",
+          "priority": 1,
+          "condition": "age < 1",
+          "note": "Si < 1 mois → arrêter l'évaluation → rediriger vers Constat avec message spécialisé"
+        }
+      ]
+    }
+  ],
+  "special_rules": {
+    "age_under_1_month": {
+      "action": "stop_evaluation",
+      "redirect_to": "constats",
+      "message": "Cette clientèle demande une expertise particulière, veuillez consulter une ressource spécialisée."
+    }
+  }
+}

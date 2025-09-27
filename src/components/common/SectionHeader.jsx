@@ -2,16 +2,17 @@
 import React from 'react';
 import { View, TouchableOpacity, StatusBar, StyleSheet } from 'react-native';
 import { TGradientHeader, TIcon, TText } from '@/components/ui/Themed';
-import SearchBar from '@/components/common/SearchBar';
 import { useTheme } from '@/context/ThemeContext';
+
 
 const SectionHeader = ({ 
   appName = 'SoinsExpert', 
   searchValue, 
   onChangeText, 
-  onPressSettings = () => console.log('Settings pressed') 
+  onPressSettings = () => console.log('Settings pressed'),
+  onPressSearch = () => console.log('Search pressed')
 }) => {
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark, toggleTheme , colors} = useTheme();
 
   return (
     <TGradientHeader style={styles.header}>
@@ -42,12 +43,20 @@ const SectionHeader = ({
         </View>
       </View>
 
-      {/* Barre de recherche */}
-      <SearchBar 
-        value={searchValue} 
-        onChangeText={onChangeText} 
-        containerStyle={styles.searchBar}
-      />
+      {/* Barre de recherche cliquable */}
+      <TouchableOpacity 
+        style={[styles.searchBar, { 
+          backgroundColor: isDark ? colors.surface : colors.surfaceLight,
+          shadowColor: isDark ? 'transparent' : '#000',
+        }]}
+        onPress={onPressSearch}
+        activeOpacity={0.7}
+      >
+        <TIcon name="search" size={20} style={styles.searchIcon} />
+        <TText style={[styles.searchPlaceholder, { color: isDark ? '#94A3B8' : '#64748B' }]}>
+          Rechercher un soin, produit...
+        </TText>
+      </TouchableOpacity>
     </TGradientHeader>
   );
 };
@@ -81,7 +90,22 @@ const styles = StyleSheet.create({
     padding: 5 
   },
   searchBar: {
-    // Styles supplémentaires si nécessaires
+    height: 50,
+    borderRadius: 50,
+    paddingHorizontal: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  searchIcon: { 
+    marginRight: 10 
+  },
+  searchPlaceholder: { 
+    fontSize: 16,
+    flex: 1,
   }
 });
 
