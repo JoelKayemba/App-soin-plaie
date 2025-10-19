@@ -1,0 +1,116 @@
+{
+  "id": "pressure_stages_helpers",
+  "version": "1.0.0",
+  "title": "Aides pour les stades de lésion de pression",
+  "description": "Définitions et critères cliniques pour les différents stades de lésion de pression",
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "helpers": {
+    "pressure_stage_1": {
+      "id": "pressure_stage_1",
+      "title": "Lésion de pression Stade 1",
+      "type": "modal",
+      "content": {
+        "criteria": "Critères cliniques : érythème non blanchissable, peau intacte",
+        "location": "Localisation : zones de pression (sacrum, talons, coudes, occiput)",
+        "assessment": "Évaluation : test de blanchiment négatif",
+        "prevention": "Prévention : repositionnement, protection, matelas adapté",
+        "treatment": "Traitement : élimination de la pression, surveillance"
+      },
+      "media": {
+        "type": "image",
+        "url": "/assets/pressure_stage_1.jpg",
+        "alt": "Exemple de lésion de pression stade 1"
+      }
+    },
+    "pressure_stage_2": {
+      "id": "pressure_stage_2",
+      "title": "Lésion de pression Stade 2",
+      "type": "modal",
+      "content": {
+        "criteria": "Critères cliniques : perte partielle du derme, phlyctènes, ulcération superficielle",
+        "appearance": "Aspect : plaie ouverte superficielle, base rosée",
+        "treatment": "Traitement : protection, nettoyage doux, pansements adaptés",
+        "healing": "Cicatrisation : 1-2 semaines avec soins appropriés",
+        "prevention": "Prévention : élimination de la pression, protection des zones à risque"
+      },
+      "media": {
+        "type": "image",
+        "url": "/assets/pressure_stage_2.jpg",
+        "alt": "Exemple de lésion de pression stade 2"
+      }
+    },
+    "pressure_stage_3": {
+      "id": "pressure_stage_3",
+      "title": "Lésion de pression Stade 3",
+      "type": "modal",
+      "content": {
+        "criteria": "Critères cliniques : perte totale du derme, graisse visible",
+        "appearance": "Aspect : ulcération profonde, pas d'os/tendon/muscle exposé",
+        "treatment": "Traitement : débridement, pansements adaptés, évaluation nutritionnelle",
+        "healing": "Cicatrisation : plusieurs semaines à mois",
+        "monitoring": "Surveillance : signes d'infection, progression de la plaie"
+      },
+      "media": {
+        "type": "image",
+        "url": "/assets/pressure_stage_3.jpg",
+        "alt": "Exemple de lésion de pression stade 3"
+      }
+    },
+    "pressure_stage_4": {
+      "id": "pressure_stage_4",
+      "title": "Lésion de pression Stade 4",
+      "type": "modal",
+      "content": {
+        "criteria": "Critères cliniques : os/tendon/muscle exposé, nécrose profonde",
+        "appearance": "Aspect : ulcération très profonde, structures profondes visibles",
+        "treatment": "Traitement : débridement chirurgical, évaluation spécialisée",
+        "healing": "Cicatrisation : très lente, greffe souvent nécessaire",
+        "complications": "Complications : ostéomyélite, infection systémique"
+      },
+      "media": {
+        "type": "image",
+        "url": "/assets/pressure_stage_4.jpg",
+        "alt": "Exemple de lésion de pression stade 4"
+      }
+    },
+    "pressure_stage_ltp": {
+      "id": "pressure_stage_ltp",
+      "title": "Lésion des tissus profonds (LTP)",
+      "type": "modal",
+      "content": {
+        "criteria": "Critères cliniques : aspect violacé/noir, tissus sous-jacents atteints",
+        "appearance": "Aspect : peau intacte initialement, décoloration profonde",
+        "evolution": "Évolution : rapide vers stade 3-4",
+        "treatment": "Traitement : élimination immédiate de la pression, surveillance étroite",
+        "urgency": "Urgence : intervention immédiate requise"
+      },
+      "media": {
+        "type": "image",
+        "url": "/assets/pressure_stage_ltp.jpg",
+        "alt": "Exemple de lésion des tissus profonds"
+      }
+    },
+    "pressure_stage_undetermined": {
+      "id": "pressure_stage_undetermined",
+      "title": "Stade indéterminé",
+      "type": "modal",
+      "content": {
+        "criteria": "Critères cliniques : croûte/nécrose recouvrant la profondeur",
+        "appearance": "Aspect : plaie non évaluable en raison de la couverture",
+        "treatment": "Traitement : débridement pour évaluation, puis classification",
+        "assessment": "Évaluation : impossible sans débridement préalable",
+        "next_steps": "Étapes suivantes : débridement puis reclassification"
+      },
+      "media": {
+        "type": "image",
+        "url": "/assets/pressure_stage_undetermined.jpg",
+        "alt": "Exemple de stade indéterminé"
+      }
+    }
+  }
+}

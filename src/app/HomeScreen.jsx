@@ -10,6 +10,7 @@ import ToolsSection from '@/components/home/ToolsSection';
 import NewsSection from '@/components/home/NewsSection';
 import ClinicalWarning from '@/components/common/ClinicalWarning';
 
+
 const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const { makeStyles, colors, isDark, elevation } = useThemeMode();
@@ -169,10 +170,16 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
         
+    
+        
         <ToolsSection items={tools} onPressItem={handleOpenTool} onPressVoirTout={handleVoirTout} />
         
         {/* Section Nouveautés */}
         <NewsSection onNewsPress={handleNewsPress} navigation={navigation} />
+        
+        {/* Test des icônes */}
+    
+        
         </ScrollView>
       </TView>
 

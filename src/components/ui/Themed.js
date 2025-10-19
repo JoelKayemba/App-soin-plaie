@@ -30,7 +30,7 @@ export const TText = ({ style, muted = false, onPrimary = false, ...props }) => 
   return <Text style={[{ color }, style]} {...props} />;
 };
 
-export const TIcon = ({ name, size = 24, onPrimary = false, color, style,onPress, ...props }) => {
+export const TIcon = ({ name, size = 24, onPrimary = false, color, style, onPress, ...props }) => {
   const { colors } = useTheme();
   return (
     <Ionicons

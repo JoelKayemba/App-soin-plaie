@@ -1,0 +1,431 @@
+{
+  "id": "C1T28",
+  "version": "1.0.0",
+  "title": "Tests de laboratoire",
+  "description": "Collecte des résultats biologiques pertinents pour l'évaluation clinique et le suivi de la plaie",
+  "category": "laboratory_assessment",
+  "column": 1,
+  "table": 28,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "behavior": {
+    "type": "mixed_input",
+    "description": "Chaque valeur saisie peut générer un constat automatique selon le seuil atteint",
+    "automatic_constats": true,
+    "culture_influence": "Les résultats de culture influencent les recommandations du plan de traitement"
+  },
+  "sections": {
+    "albumine": {
+      "id": "C1T28_SectionA",
+      "title": "Section A — Albumine",
+      "description": "Évaluation de l'état nutritionnel et de la capacité de cicatrisation",
+      "elements": [
+        {
+          "id": "C1T28E01",
+          "type": "number",
+          "label": "Albumine",
+          "description": "Taux d'albumine sérique",
+          "required": true,
+          "validation": {
+            "min": 0,
+            "max": 100,
+            "step": 0.1,
+            "unit": "g/L"
+          },
+          "ui": {
+            "component": "NumericInput",
+            "placeholder": "g/L",
+            "help": "Saisissez le taux d'albumine en g/L",
+            "tooltip": "Taux d'albumine sérique pour évaluer l'état nutritionnel",
+            "ariaDescription": "Champ de saisie numérique pour le taux d'albumine"
+          },
+          "clinical_notes": {
+            "description": "Taux d'albumine sérique",
+            "significance": "Évaluation de l'état nutritionnel et de la capacité de cicatrisation",
+            "normal_range": "35-50 g/L",
+            "interpretation": {
+              "normal": "≥ 30 g/L - État nutritionnel adéquat",
+              "moderate": "< 30 g/L - Hypoalbuminémie modérée",
+              "severe": "< 20 g/L - Hypoalbuminémie sévère"
+            }
+          },
+          "thresholds": [
+            {
+              "value": 30,
+              "operator": "lt",
+              "alert_level": "moderate",
+              "message": "Hypoalbuminémie modérée détectée",
+              "constat": "ConstatHypoalbuminemieModeree"
+            },
+            {
+              "value": 20,
+              "operator": "lt",
+              "alert_level": "severe",
+              "message": "Hypoalbuminémie sévère détectée",
+              "constat": "ConstatHypoalbuminemieSevere"
+            }
+          ],
+          "routes": [
+            {
+              "to": "ConstatHypoalbuminemieModeree",
+              "phase": "immediate",
+              "priority": 2,
+              "condition": {
+                "lt": {
+                  "var": "C1T28E01",
+                  "value": 30
+                }
+              },
+              "note": "Si albumine < 30 g/L → alerte : hypoalbuminémie modérée",
+              "message": "⚠️ Hypoalbuminémie modérée détectée : albumine < 30 g/L"
+            },
+            {
+              "to": "ConstatHypoalbuminemieSevere",
+              "phase": "immediate",
+              "priority": 1,
+              "condition": {
+                "lt": {
+                  "var": "C1T28E01",
+                  "value": 20
+                }
+              },
+              "note": "Si albumine < 20 g/L → alerte : hypoalbuminémie sévère",
+              "message": "🚨 Hypoalbuminémie sévère détectée : albumine < 20 g/L"
+            }
+          ]
+        }
+      ]
+    },
+    "hemoglobine": {
+      "id": "C1T28_SectionB",
+      "title": "Section B — Hémoglobine",
+      "description": "Évaluation de la tolérance tissulaire et de l'oxygénation",
+      "elements": [
+        {
+          "id": "C1T28E02",
+          "type": "number",
+          "label": "Hémoglobine",
+          "description": "Taux d'hémoglobine",
+          "required": true,
+          "validation": {
+            "min": 0,
+            "max": 200,
+            "step": 1,
+            "unit": "g/L"
+          },
+          "ui": {
+            "component": "NumericInput",
+            "placeholder": "g/L",
+            "help": "Saisissez le taux d'hémoglobine en g/L",
+            "tooltip": "Taux d'hémoglobine pour évaluer la tolérance tissulaire et l'oxygénation",
+            "ariaDescription": "Champ de saisie numérique pour le taux d'hémoglobine"
+          },
+          "clinical_notes": {
+            "description": "Taux d'hémoglobine",
+            "significance": "Corrélation avec la tolérance tissulaire et l'oxygénation",
+            "normal_range": "120-160 g/L (femmes), 130-170 g/L (hommes)",
+            "interpretation": {
+              "normal": "≥ 100 g/L - Taux acceptable",
+              "moderate": "< 100 g/L - Anémie légère/modérée",
+              "severe": "< 80 g/L - Anémie sévère"
+            }
+          },
+          "thresholds": [
+            {
+              "value": 100,
+              "operator": "lt",
+              "alert_level": "moderate",
+              "message": "Anémie légère/modérée détectée",
+              "constat": "ConstatAnemieModeree"
+            },
+            {
+              "value": 80,
+              "operator": "lt",
+              "alert_level": "severe",
+              "message": "Anémie sévère détectée",
+              "constat": "ConstatAnemieSevere"
+            }
+          ],
+          "routes": [
+            {
+              "to": "ConstatAnemieModeree",
+              "phase": "immediate",
+              "priority": 2,
+              "condition": {
+                "lt": {
+                  "var": "C1T28E02",
+                  "value": 100
+                }
+              },
+              "note": "Si hémoglobine < 100 g/L → alerte : anémie légère/modérée",
+              "message": "⚠️ Anémie légère/modérée détectée : hémoglobine < 100 g/L"
+            },
+            {
+              "to": "ConstatAnemieSevere",
+              "phase": "immediate",
+              "priority": 1,
+              "condition": {
+                "lt": {
+                  "var": "C1T28E02",
+                  "value": 80
+                }
+              },
+              "note": "Si hémoglobine < 80 g/L → alerte : anémie sévère",
+              "message": "🚨 Anémie sévère détectée : hémoglobine < 80 g/L"
+            }
+          ]
+        }
+      ]
+    },
+    "culture": {
+      "id": "C1T28_SectionC",
+      "title": "Section C — Culture de plaie",
+      "description": "Résultat de culture pour détection d'agents pathogènes",
+      "elements": [
+        {
+          "id": "C1T28E03",
+          "type": "single_choice",
+          "label": "Résultat de culture de plaie",
+          "description": "Résultat de culture pour détection d'agents pathogènes",
+          "required": true,
+          "options": [
+            {
+              "id": "C1T28E03_positive",
+              "label": "+ aux agents pathogènes",
+              "type": "boolean",
+              "value": "positive",
+              "ui": {
+                "color": "red",
+                "icon": "⚠️"
+              }
+            },
+            {
+              "id": "C1T28E03_negative",
+              "label": "− aux agents pathogènes",
+              "type": "boolean",
+              "value": "negative",
+              "ui": {
+                "color": "green",
+                "icon": "✅"
+              }
+            }
+          ],
+          "ui": {
+            "component": "RadioGroup",
+            "minSelections": 1,
+            "maxSelections": 1,
+            "help": "Sélectionnez le résultat de la culture de plaie",
+            "ariaDescription": "Sélection du résultat de culture de plaie"
+          },
+          "clinical_notes": {
+            "description": "Résultat de culture pour détection d'agents pathogènes",
+            "significance": {
+              "positive": "Infection confirmée - influence les recommandations du plan de traitement",
+              "negative": "Aucune infection détectée - résultat enregistré pour le suivi longitudinal"
+            }
+          },
+          "routes": [
+            {
+              "to": "ConstatInfectionConfirmee",
+              "phase": "immediate",
+              "priority": 1,
+              "condition": {
+                "eq": {
+                  "var": "C1T28E03",
+                  "value": "positive"
+                }
+              },
+              "note": "Si positif (+) → route directe vers les Constats (infection confirmée)",
+              "message": "🚨 Infection confirmée : culture positive aux agents pathogènes"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "validation_rules": {
+    "required_fields": {
+      "C1T28E01": {
+        "required": true,
+        "type": "number",
+        "min": 0,
+        "max": 100
+      },
+      "C1T28E02": {
+        "required": true,
+        "type": "number",
+        "min": 0,
+        "max": 200
+      },
+      "C1T28E03": {
+        "required": true,
+        "type": "single_choice",
+        "minSelections": 1,
+        "maxSelections": 1
+      }
+    },
+    "error_messages": {
+      "albumine_required": "Le taux d'albumine est requis",
+      "albumine_invalid": "Le taux d'albumine doit être entre 0 et 100 g/L",
+      "hemoglobine_required": "Le taux d'hémoglobine est requis",
+      "hemoglobine_invalid": "Le taux d'hémoglobine doit être entre 0 et 200 g/L",
+      "culture_required": "Le résultat de culture est requis"
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "large",
+    "group_label": "Tests de laboratoire",
+    "instructions": "Saisie numérique + choix binaire. Chaque valeur saisie peut générer un constat automatique selon le seuil atteint.",
+    "sections": [
+      {
+        "title": "Section A — Albumine",
+        "elements": ["C1T28E01"],
+        "type": "numeric_section",
+        "required": true,
+        "help": "Évaluation de l'état nutritionnel et de la capacité de cicatrisation"
+      },
+      {
+        "title": "Section B — Hémoglobine",
+        "elements": ["C1T28E02"],
+        "type": "numeric_section",
+        "required": true,
+        "help": "Évaluation de la tolérance tissulaire et de l'oxygénation"
+      },
+      {
+        "title": "Section C — Culture de plaie",
+        "elements": ["C1T28E03"],
+        "type": "choice_section",
+        "required": true,
+        "help": "Résultat de culture pour détection d'agents pathogènes"
+      }
+    ],
+    "alert_display": {
+      "threshold_alerts": {
+        "moderate": {
+          "icon": "⚠️",
+          "color": "orange",
+          "position": "inline"
+        },
+        "severe": {
+          "icon": "🚨",
+          "color": "red",
+          "position": "inline"
+        }
+      }
+    }
+  },
+  "data_structure": {
+    "albumine": {
+      "value": "Number (g/L)",
+      "interpretation": "String (normal/moderate/severe)",
+      "alert_level": "String (none/moderate/severe)",
+      "constat_triggered": "Boolean"
+    },
+    "hemoglobine": {
+      "value": "Number (g/L)",
+      "interpretation": "String (normal/moderate/severe)",
+      "alert_level": "String (none/moderate/severe)",
+      "constat_triggered": "Boolean"
+    },
+    "culture": {
+      "result": "String (positive/negative)",
+      "constat_triggered": "Boolean"
+    },
+    "export_format": {
+      "albumine_value": "Number (g/L)",
+      "albumine_interpretation": "String",
+      "albumine_alert": "String (none/moderate/severe)",
+      "hemoglobine_value": "Number (g/L)",
+      "hemoglobine_interpretation": "String",
+      "hemoglobine_alert": "String (none/moderate/severe)",
+      "culture_result": "String (positive/negative)",
+      "constats_triggered": "Array of constat IDs",
+      "treatment_influence": "Boolean (true if culture positive)"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Collecte des résultats biologiques pertinents pour l'évaluation clinique et le suivi de la plaie",
+    "documentation": "Les données sont sauvegardées localement pour calculs et corrélations dans le plan de soins",
+    "laboratory_assessment": {
+      "albumine": {
+        "purpose": "Évaluation de l'état nutritionnel et de la capacité de cicatrisation",
+        "normal_range": "35-50 g/L",
+        "thresholds": {
+          "moderate": "< 30 g/L - Hypoalbuminémie modérée",
+          "severe": "< 20 g/L - Hypoalbuminémie sévère"
+        },
+        "clinical_significance": "L'albumine est essentielle pour la cicatrisation et la réponse immunitaire"
+      },
+      "hemoglobine": {
+        "purpose": "Corrélation avec la tolérance tissulaire et l'oxygénation",
+        "normal_range": "120-160 g/L (femmes), 130-170 g/L (hommes)",
+        "thresholds": {
+          "moderate": "< 100 g/L - Anémie légère/modérée",
+          "severe": "< 80 g/L - Anémie sévère"
+        },
+        "clinical_significance": "L'hémoglobine transporte l'oxygène nécessaire à la cicatrisation"
+      },
+      "culture": {
+        "purpose": "Détection d'agents pathogènes",
+        "results": {
+          "positive": "Infection confirmée - influence les recommandations du plan de traitement",
+          "negative": "Aucune infection détectée - résultat enregistré pour le suivi longitudinal"
+        },
+        "clinical_significance": "Les résultats de culture influencent les recommandations du plan de traitement"
+      }
+    },
+    "automatic_constats": {
+      "description": "Chaque valeur saisie peut générer un constat automatique selon le seuil atteint",
+      "thresholds": {
+        "albumine": {
+          "moderate": "ConstatHypoalbuminemieModeree",
+          "severe": "ConstatHypoalbuminemieSevere"
+        },
+        "hemoglobine": {
+          "moderate": "ConstatAnemieModeree",
+          "severe": "ConstatAnemieSevere"
+        },
+        "culture": {
+          "positive": "ConstatInfectionConfirmee"
+        }
+      }
+    },
+    "follow_up": {
+      "immediate_evaluation": "Dès qu'un seuil est atteint",
+      "constat_generation": "Routes différées vers Constats ou Recommandations",
+      "treatment_influence": "Les résultats de culture influencent les recommandations du plan de traitement"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Tests de laboratoire",
+    "aria_description": "Saisie numérique + choix binaire. Chaque valeur saisie peut générer un constat automatique selon le seuil atteint.",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "albumine": "Section A — Albumine",
+      "hemoglobine": "Section B — Hémoglobine",
+      "culture": "Section C — Culture de plaie"
+    },
+    "numeric_inputs": {
+      "aria_required": true,
+      "aria_invalid": "false",
+      "instructions": "Saisissez la valeur numérique avec l'unité appropriée"
+    },
+    "radio_groups": {
+      "aria_required": true,
+      "aria_invalid": "false",
+      "instructions": "Sélectionnez une option"
+    },
+    "threshold_alerts": {
+      "moderate": "⚠️ Alerte modérée",
+      "severe": "🚨 Alerte sévère"
+    }
+  }
+}
+
+

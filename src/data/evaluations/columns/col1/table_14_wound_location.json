@@ -1,0 +1,321 @@
+{
+  "id": "C1T14",
+  "version": "1.0.0",
+  "title": "Emplacement de la plaie",
+  "description": "Localisation anatomique de la plaie avec sélecteur visuel et options complémentaires",
+  "category": "anatomical_assessment",
+  "column": 1,
+  "table": 14,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T14E01",
+      "type": "boolean",
+      "label": "Tête / cou",
+      "description": "Localisation sur la tête ou le cou",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est localisée sur la tête ou le cou",
+        "tooltip": "Crâne, visage, cou, nuque"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T14E02",
+      "type": "boolean",
+      "label": "Tronc",
+      "description": "Localisation sur le tronc",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est localisée sur le tronc",
+        "tooltip": "Thorax, abdomen, dos, région pelvienne"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T14E03",
+      "type": "boolean",
+      "label": "Membre supérieur gauche",
+      "description": "Localisation sur le membre supérieur gauche",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est localisée sur le membre supérieur gauche",
+        "tooltip": "Épaule, bras, avant-bras, main gauche"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T14E04",
+      "type": "boolean",
+      "label": "Membre supérieur droit",
+      "description": "Localisation sur le membre supérieur droit",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est localisée sur le membre supérieur droit",
+        "tooltip": "Épaule, bras, avant-bras, main droite"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T14E05",
+      "type": "boolean",
+      "label": "Membre inférieur gauche",
+      "description": "Localisation sur le membre inférieur gauche",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est localisée sur le membre inférieur gauche",
+        "tooltip": "Hanche, cuisse, jambe, pied gauche"
+      },
+      "routes": [
+        {
+          "to": "activate_vascular_assessment",
+          "phase": "immediate",
+          "priority": 1,
+          "note": "Membre inférieur → activer Table 15 Apport vasculaire complète"
+        }
+      ]
+    },
+    {
+      "id": "C1T14E06",
+      "type": "boolean",
+      "label": "Membre inférieur droit",
+      "description": "Localisation sur le membre inférieur droit",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est localisée sur le membre inférieur droit",
+        "tooltip": "Hanche, cuisse, jambe, pied droit"
+      },
+      "routes": [
+        {
+          "to": "activate_vascular_assessment",
+          "phase": "immediate",
+          "priority": 1,
+          "note": "Membre inférieur → activer Table 15 Apport vasculaire complète"
+        }
+      ]
+    },
+    {
+      "id": "C1T14E07",
+      "type": "multiple_choice_with_text",
+      "label": "Autre",
+      "description": "Autre localisation non listée",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Précisez la localisation",
+        "text_field_placeholder": "Ex: malléole interne, face antérieure, région génitale...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si la plaie est localisée ailleurs",
+        "tooltip": "Autre localisation anatomique non couverte par les options"
+      },
+      "routes": []
+    }
+  ],
+  "complementary_options": [
+    {
+      "id": "C1T14E08",
+      "type": "boolean",
+      "label": "Côté gauche",
+      "description": "Localisation sur le côté gauche",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est sur le côté gauche",
+        "tooltip": "Côté gauche du corps"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T14E09",
+      "type": "boolean",
+      "label": "Côté droit",
+      "description": "Localisation sur le côté droit",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est sur le côté droit",
+        "tooltip": "Côté droit du corps"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T14E10",
+      "type": "boolean",
+      "label": "Bilatéral",
+      "description": "Localisation bilatérale",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la plaie est bilatérale",
+        "tooltip": "Présente des deux côtés"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T14E11",
+      "type": "boolean",
+      "label": "Non applicable",
+      "description": "Options de côté non applicables",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si les options de côté ne s'appliquent pas",
+        "tooltip": "Pour les localisations centrales (tronc, tête)"
+      },
+      "routes": []
+    }
+  ],
+  "additional_fields": {
+    "precise_location": {
+      "id": "C1T14E12",
+      "type": "text",
+      "label": "Précision de localisation",
+      "description": "Localisation précise de la plaie",
+      "required": false,
+      "validation": {
+        "max_length": 200,
+        "min_length": 0
+      },
+      "ui": {
+        "component": "TextInput",
+        "placeholder": "Ex: malléole interne, face antérieure, région sacrée...",
+        "help": "Précisez la localisation exacte de la plaie"
+      }
+    },
+    "visual_coordinates": {
+      "id": "C1T14E13",
+      "type": "coordinates",
+      "label": "Coordonnées visuelles",
+      "description": "Position sur le modèle anatomique",
+      "required": false,
+      "validation": {
+        "format": "2D_or_3D",
+        "2D": "x,y",
+        "3D": "x,y,z"
+      },
+      "ui": {
+        "component": "VisualSelector",
+        "help": "Cliquez sur le modèle anatomique pour localiser la plaie",
+        "tooltip": "Sélecteur visuel interactif"
+      }
+    }
+  },
+  "validation_rules": {
+    "multiple_selection": {
+      "min_selections": 1,
+      "max_selections": 7,
+      "allow_none": false
+    },
+    "conditional_text": {
+      "C1T14E07": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      }
+    },
+    "complementary_options": {
+      "min_selections": 0,
+      "max_selections": 4,
+      "allow_none": true
+    }
+  },
+  "ui_configuration": {
+    "layout": "mixed",
+    "spacing": "medium",
+    "group_label": "Emplacement de la plaie",
+    "instructions": "Sélectionnez une ou plusieurs localisations anatomiques. Au moins une sélection est obligatoire.",
+    "sections": [
+      {
+        "title": "Localisation anatomique principale",
+        "elements": ["C1T14E01", "C1T14E02", "C1T14E03", "C1T14E04", "C1T14E05", "C1T14E06", "C1T14E07"],
+        "type": "checkbox_group",
+        "required": true
+      },
+      {
+        "title": "Options complémentaires",
+        "elements": ["C1T14E08", "C1T14E09", "C1T14E10", "C1T14E11"],
+        "type": "checkbox_group",
+        "required": false
+      },
+      {
+        "title": "Précisions",
+        "elements": ["C1T14E12", "C1T14E13"],
+        "type": "additional_fields",
+        "required": false
+      }
+    ]
+  },
+  "data_structure": {
+    "wound_location": {
+      "head_neck": "C1T14E01",
+      "trunk": "C1T14E02",
+      "upper_limb_left": "C1T14E03",
+      "upper_limb_right": "C1T14E04",
+      "lower_limb_left": "C1T14E05",
+      "lower_limb_right": "C1T14E06",
+      "other": "C1T14E07"
+    },
+    "complementary_options": {
+      "left_side": "C1T14E08",
+      "right_side": "C1T14E09",
+      "bilateral": "C1T14E10",
+      "not_applicable": "C1T14E11"
+    },
+    "additional_data": {
+      "precise_location": "C1T14E12",
+      "visual_coordinates": "C1T14E13"
+    },
+    "export_format": {
+      "selected_locations": "Array of selected location IDs",
+      "complementary_options": "Array of selected complementary options",
+      "precise_location": "String with precise location description",
+      "coordinates": "Object with x,y,z coordinates if available"
+    }
+  },
+  "clinical_notes": {
+    "importance": "La localisation de la plaie détermine les protocoles d'évaluation et de traitement",
+    "documentation": "Toutes les localisations seront documentées pour l'évaluation anatomique",
+    "vascular_assessment": {
+      "lower_limbs": "Si membre inférieur (E05 ou E06) → activer Table 15 Apport vasculaire complète",
+      "other_locations": "Sinon → activer uniquement Inspection et Palpation de la Table 15"
+    },
+    "treatment_implications": {
+      "head_neck": "Considérations esthétiques et fonctionnelles",
+      "trunk": "Évaluation de la profondeur et des structures sous-jacentes",
+      "upper_limbs": "Impact sur la fonction et la mobilité",
+      "lower_limbs": "Évaluation vasculaire obligatoire, impact sur la mobilité",
+      "other": "Évaluation spécifique selon la localisation"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Emplacement de la plaie",
+    "aria_description": "Sélectionnez une ou plusieurs localisations anatomiques de la plaie",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "main_location": "Localisation anatomique principale",
+      "complementary": "Options complémentaires",
+      "precisions": "Précisions de localisation"
+    },
+    "visual_selector": {
+      "keyboard_accessible": true,
+      "alt_text": "Modèle anatomique interactif pour localisation",
+      "instructions": "Utilisez les flèches pour naviguer et Entrée pour sélectionner"
+    }
+  }
+}

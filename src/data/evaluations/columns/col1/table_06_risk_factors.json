@@ -1,0 +1,253 @@
+{
+  "id": "C1T06",
+  "version": "1.0.0",
+  "title": "Facteurs de risque",
+  "description": "Identification des facteurs de risque modifiables et non modifiables pour les lésions de pression",
+  "category": "risk_assessment",
+  "column": 1,
+  "table": 6,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T06E01",
+      "type": "multiple_choice_with_text",
+      "label": "Tabagisme actif",
+      "description": "Consommation active de tabac",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Détails du tabagisme",
+        "text_field_placeholder": "Ex: nombre de cigarettes/jour, durée, type de tabac...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient fume activement",
+        "tooltip": "Consommation active de cigarettes, cigares, pipe, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T06E02",
+      "type": "multiple_choice_with_text",
+      "label": "Tabagisme passif",
+      "description": "Exposition à la fumée de tabac",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Détails de l'exposition",
+        "text_field_placeholder": "Ex: exposition au domicile, travail, fréquence...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient est exposé au tabagisme passif",
+        "tooltip": "Exposition à la fumée de tabac d'autres personnes"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T06E03",
+      "type": "multiple_choice_with_text",
+      "label": "Drogue",
+      "description": "Consommation de substances illicites",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Détails de la consommation",
+        "text_field_placeholder": "Ex: type de substance, fréquence, voie d'administration...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient consomme des drogues",
+        "tooltip": "Consommation de substances illicites ou détournées"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T06E04",
+      "type": "multiple_choice_with_text",
+      "label": "Alcool",
+      "description": "Consommation d'alcool",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Détails de la consommation",
+        "text_field_placeholder": "Ex: type d'alcool, quantité, fréquence...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient consomme de l'alcool",
+        "tooltip": "Consommation d'alcool (bière, vin, spiritueux, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T06E05",
+      "type": "multiple_choice_with_text",
+      "label": "Humidité",
+      "description": "Exposition à l'humidité excessive",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Détails de l'exposition",
+        "text_field_placeholder": "Ex: transpiration excessive, incontinence, environnement humide...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient est exposé à l'humidité excessive",
+        "tooltip": "Exposition prolongée à l'humidité (transpiration, incontinence, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T06E06",
+      "type": "multiple_choice_with_text",
+      "label": "Immobilité, mobilité réduite ou sédentarité",
+      "description": "Limitations de mouvement et d'activité",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Détails des limitations",
+        "text_field_placeholder": "Ex: alitement, fauteuil roulant, douleur, faiblesse...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient présente des limitations de mobilité",
+        "tooltip": "Immobilité, mobilité réduite, sédentarité excessive"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T06E07",
+      "type": "multiple_choice_with_text",
+      "label": "Traumatisme répété",
+      "description": "Exposition à des traumatismes répétés",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Détails des traumatismes",
+        "text_field_placeholder": "Ex: chutes répétées, frottements, pression répétée...",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient subit des traumatismes répétés",
+        "tooltip": "Exposition répétée à des traumatismes physiques"
+      },
+      "routes": []
+    }
+  ],
+  "validation_rules": {
+    "multiple_selection": {
+      "min_selections": 0,
+      "max_selections": 7,
+      "allow_none": true
+    },
+    "conditional_text": {
+      "C1T06E01": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      },
+      "C1T06E02": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      },
+      "C1T06E03": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      },
+      "C1T06E04": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      },
+      "C1T06E05": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      },
+      "C1T06E06": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      },
+      "C1T06E07": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      }
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Facteurs de risque",
+    "instructions": "Sélectionnez tous les facteurs de risque qui s'appliquent au patient et précisez les détails. Aucune sélection n'est obligatoire."
+  },
+  "data_structure": {
+    "risk_factors": {
+      "active_smoking": "C1T06E01",
+      "passive_smoking": "C1T06E02",
+      "drug_use": "C1T06E03",
+      "alcohol_consumption": "C1T06E04",
+      "moisture_exposure": "C1T06E05",
+      "mobility_limitations": "C1T06E06",
+      "repeated_trauma": "C1T06E07"
+    },
+    "export_format": {
+      "selected_factors": "Array of selected risk factor IDs",
+      "factor_details": "Object with details for each selected factor"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Ces facteurs de risque peuvent augmenter significativement le risque de lésions de pression",
+    "documentation": "Tous les facteurs de risque identifiés seront documentés dans l'évaluation du risque",
+    "risk_categories": {
+      "modifiable": [
+        "Tabagisme actif",
+        "Tabagisme passif", 
+        "Drogue",
+        "Alcool",
+        "Humidité",
+        "Sédentarité"
+      ],
+      "non_modifiable": [
+        "Traumatisme répété"
+      ]
+    },
+    "interventions": {
+      "smoking": "Arrêt du tabac, réduction de l'exposition",
+      "substances": "Réduction ou arrêt de la consommation",
+      "moisture": "Gestion de l'humidité, protection cutanée",
+      "mobility": "Programme de mobilisation, ergothérapie",
+      "trauma": "Protection, prévention des chutes"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Sélection des facteurs de risque",
+    "aria_description": "Cochez tous les facteurs de risque qui s'appliquent au patient et précisez les détails",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_label": "Liste des facteurs de risque"
+  }
+}

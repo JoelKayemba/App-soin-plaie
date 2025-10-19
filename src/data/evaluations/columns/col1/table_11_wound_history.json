@@ -1,0 +1,396 @@
+{
+  "id": "C1T11",
+  "version": "1.0.0",
+  "title": "Histoire de la plaie",
+  "description": "Évaluation complète de l'histoire de la plaie incluant apparition, étiologie et stades",
+  "category": "wound_assessment",
+  "column": 1,
+  "table": 11,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T11E01",
+      "type": "date",
+      "label": "À quel moment est apparue la plaie ?",
+      "description": "Sélectionnez la date d'apparition de la plaie",
+      "required": true,
+      "validation": {
+        "min_date": "1900-01-01",
+        "max_date": "today",
+        "format": "YYYY-MM-DD"
+      },
+      "ui": {
+        "component": "DateTextInput",
+        "placeholder": "AAAA-MM-JJ",
+        "help": "Sélectionnez la date d'apparition de la plaie"
+      }
+    },
+    {
+      "id": "C1T11E02",
+      "type": "calculated",
+      "label": "< 4 semaines",
+     
+      "required": false,
+      "condition": {
+        "comparison": {
+          "var": "C1T11E01",
+          "operator": "gte",
+          "value": "today - 28 days"
+        }
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "displayFormat": "Plaie récente (< 4 semaines)"
+      }
+    },
+    {
+      "id": "C1T11E03",
+      "type": "calculated",
+      "label": "≥ 4 semaines",
+      
+      "required": false,
+      "condition": {
+        "comparison": {
+          "var": "C1T11E01",
+          "operator": "lt",
+          "value": "today - 28 days"
+        }
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "displayFormat": "Plaie chronique (≥ 4 semaines)"
+      }
+    },
+    {
+      "id": "C1T11E04",
+      "type": "single_choice",
+      "label": "Est-ce une apparition ?",
+      "description": "Sélectionnez le mode d'apparition de la plaie",
+      "required": true,
+      "options": [
+        {
+          "value": "subite",
+          "label": "Subite",
+          "description": "Apparition soudaine de la plaie"
+        },
+        {
+          "value": "progressive",
+          "label": "Progressive",
+          "description": "Apparition progressive de la plaie"
+        }
+      ],
+      "ui": {
+        "component": "RadioGroup",
+        "help": "Sélectionnez le mode d'apparition de la plaie"
+      }
+    },
+    {
+      "id": "C1T11E05",
+      "type": "single_choice",
+      "label": "Est-ce la première fois que vous avez cette plaie ?",
+      "description": "Sélectionnez si c'est la première fois que vous avez cette plaie",
+      "required": true,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Oui",
+          "description": "Première occurrence de cette plaie"
+        },
+        {
+          "value": "no",
+          "label": "Non",
+          "description": "Récidive ou réapparition de la plaie"
+        }
+      ],
+      "ui": {
+        "component": "RadioGroup",
+        "help": "Sélectionnez si c'est la première fois que vous avez cette plaie"
+      }
+    },
+    {
+      "id": "C1T11E06",
+      "type": "multiple_choice",
+      "label": "Quelle est l'étiologie de la plaie ?",
+      "description": "Sélectionnez toutes les étiologies qui s'appliquent",
+      "required": true,
+      "min_selections": 1,
+      "options": [
+        {
+          "value": "insuffisance_veineuse",
+          "label": "Insuffisance veineuse*",
+          "description": "Plaie d'origine veineuse",
+          "important": true,
+          "important_text": "Nécessite un diagnostic"
+        },
+        {
+          "value": "maladie_arterielle",
+          "label": "Maladie artérielle périphérique*",
+          "description": "Plaie d'origine artérielle",
+          "important": true,
+          "important_text": "Nécessite un diagnostic"
+        },
+        {
+          "value": "brulure",
+          "label": "Brûlure",
+          "description": "Plaie par brûlure",
+          "triggers_subquestion": true
+        },
+        {
+          "value": "dechirure_cutanee",
+          "label": "Déchirure cutanée",
+          "description": "Plaie par déchirure"
+        },
+        {
+          "value": "pression",
+          "label": "Pression / friction / cisaillement (lésion de pression)",
+          "description": "Lésion de pression",
+          "triggers_subquestion": true
+        },
+        {
+          "value": "autre_trauma",
+          "label": "Autre trauma",
+          "description": "Autre type de traumatisme",
+          "requires_text_input": true
+        },
+        {
+          "value": "incontinence",
+          "label": "Incontinence / humidité",
+          "description": "Plaie liée à l'humidité"
+        },
+        {
+          "value": "neoplasie",
+          "label": "Néoplasie / tumeur maligne*",
+          "description": "Plaie tumorale",
+          "important": true,
+          "important_text": "Nécessite un diagnostic",
+          "shows_specialized_alert": true
+        },
+        {
+          "value": "lymphedeme",
+          "label": "Lymphœdème*",
+          "description": "Plaie liée au lymphœdème",
+          "important": true,
+          "important_text": "Nécessite un diagnostic",
+          "shows_specialized_alert": true
+        },
+        {
+          "value": "pied_diabetique",
+          "label": "Pied diabétique*",
+          "description": "Plaie du pied diabétique",
+          "important": true,
+          "important_text": "Nécessite un diagnostic",
+          "triggers_table": "C1T34"
+        },
+        {
+          "value": "chirurgie",
+          "label": "Chirurgie",
+          "description": "Plaie post-chirurgicale"
+        },
+        {
+          "value": "atypique",
+          "label": "Plaie atypique",
+          "description": "Plaie de cause non identifiée"
+        },
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "description": "Étiologie inconnue"
+        }
+      ],
+      "ui": {
+        "component": "CheckboxGroup",
+        "help": "Sélectionnez toutes les étiologies qui s'appliquent"
+      }
+    },
+    {
+      "id": "C1T11E07",
+      "type": "text",
+      "label": "Préciser autre trauma",
+      "description": "Décrivez le type de traumatisme",
+      "required": false,
+      "conditional": {
+        "depends_on": "C1T11E06",
+        "value": "autre_trauma"
+      },
+      "validation": {
+        "max_length": 200
+      },
+      "ui": {
+        "component": "TextInput",
+        "placeholder": "Préciser le type de traumatisme",
+        "multiline": true
+      }
+    },
+    {
+      "id": "C1T11E08",
+      "type": "single_choice",
+      "label": "Si Brûlure → Sélectionner le stade",
+      "description": "Sélectionnez le stade de la brûlure",
+      "required": false,
+      "conditional": {
+        "depends_on": "C1T11E06",
+        "value": "brulure"
+      },
+      "options": [
+        {
+          "value": "stage_1",
+          "label": "1er degré",
+          "description": "Brûlure du 1er degré",
+          "help_id": "burn_stage_1"
+        },
+        {
+          "value": "stage_2a",
+          "label": "2e degré superficiel",
+          "description": "Brûlure du 2e degré superficiel",
+          "help_id": "burn_stage_2a"
+        },
+        {
+          "value": "stage_2b",
+          "label": "2e degré profond",
+          "description": "Brûlure du 2e degré profond",
+          "help_id": "burn_stage_2b"
+        },
+        {
+          "value": "stage_3",
+          "label": "3e degré",
+          "description": "Brûlure du 3e degré",
+          "help_id": "burn_stage_3"
+        },
+        {
+          "value": "stage_4",
+          "label": "4e degré",
+          "description": "Brûlure du 4e degré",
+          "help_id": "burn_stage_4"
+        }
+      ],
+      "ui": {
+        "component": "RadioGroup",
+        "help": "Sélectionnez le stade de la brûlure"
+      }
+    },
+    {
+      "id": "C1T11E09",
+      "type": "single_choice",
+      "label": "Si Lésion de pression → Sélectionner le stade",
+      "description": "Sélectionnez le stade de la lésion de pression",
+      "required": false,
+      "conditional": {
+        "depends_on": "C1T11E06",
+        "value": "pression"
+      },
+      "options": [
+        {
+          "value": "stage_1",
+          "label": "Stade 1",
+          "description": "Lésion de pression stade 1",
+          "help_id": "pressure_stage_1"
+        },
+        {
+          "value": "stage_2",
+          "label": "Stade 2",
+          "description": "Lésion de pression stade 2",
+          "help_id": "pressure_stage_2"
+        },
+        {
+          "value": "stage_3",
+          "label": "Stade 3",
+          "description": "Lésion de pression stade 3",
+          "help_id": "pressure_stage_3"
+        },
+        {
+          "value": "stage_4",
+          "label": "Stade 4",
+          "description": "Lésion de pression stade 4",
+          "help_id": "pressure_stage_4"
+        },
+        {
+          "value": "ltp",
+          "label": "LTP (lésion des tissus profonds)",
+          "description": "Lésion des tissus profonds",
+          "help_id": "pressure_stage_ltp"
+        },
+        {
+          "value": "undetermined",
+          "label": "Stade indéterminé",
+          "description": "Stade non évaluable",
+          "help_id": "pressure_stage_undetermined"
+        }
+      ],
+      "ui": {
+        "component": "RadioGroup",
+        "help": "Sélectionnez le stade de la lésion de pression"
+      }
+    }
+  ],
+  "validation_rules": {
+    "required_fields": ["C1T11E01", "C1T11E04", "C1T11E05", "C1T11E06"],
+    "conditional_required": {
+      "C1T11E07": {
+        "condition": "C1T11E06 contains autre_trauma",
+        "required": true
+      },
+      "C1T11E08": {
+        "condition": "C1T11E06 contains brulure",
+        "required": true
+      },
+      "C1T11E09": {
+        "condition": "C1T11E06 contains pression",
+        "required": true
+      }
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Histoire de la plaie",
+    "instructions": "Remplissez toutes les informations sur l'histoire de la plaie"
+  },
+  "data_structure": {
+    "wound_history": {
+      "appearance_date": "C1T11E01",
+      "appearance_mode": "C1T11E04",
+      "first_occurrence": "C1T11E05",
+      "etiology": "C1T11E06",
+      "trauma_details": "C1T11E07",
+      "burn_stage": "C1T11E08",
+      "pressure_stage": "C1T11E09"
+    },
+    "derived_data": {
+      "recent_wound": "C1T11E02",
+      "chronic_wound": "C1T11E03"
+    },
+    "export_format": {
+      "appearance_date": "Date",
+      "appearance_mode": "String (subite/progressive)",
+      "first_occurrence": "String (yes/no)",
+      "etiology": "Array of selected etiologies",
+      "trauma_details": "String (if autre_trauma selected)",
+      "stages": "Object with burn/pressure stages",
+      "wound_age": "String (<4 semaines/≥4 semaines)"
+    }
+  },
+  "clinical_notes": {
+    "importance": "L'histoire de la plaie est fondamentale pour déterminer l'étiologie et le traitement approprié",
+    "documentation": "Toutes les informations seront documentées pour l'évaluation et le plan de soins",
+    "chronology": {
+      "recent": "Plaie < 4 semaines - traitement aigu",
+      "chronic": "Plaie ≥ 4 semaines - traitement chronique"
+    },
+    "etiology_importance": {
+      "diagnostic_required": ["C1T11E08", "C1T11E09", "C1T11E15", "C1T11E16", "C1T11E17"],
+      "staging_required": ["C1T11E10", "C1T11E12"]
+    }
+  },
+  "accessibility": {
+    "aria_label": "Histoire de la plaie",
+    "aria_description": "Remplissez toutes les informations sur l'histoire de la plaie",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_label": "Formulaire d'histoire de la plaie"
+  }
+}

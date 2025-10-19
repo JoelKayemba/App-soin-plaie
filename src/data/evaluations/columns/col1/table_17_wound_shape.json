@@ -1,0 +1,169 @@
+{
+  "id": "C1T17",
+  "version": "1.0.0",
+  "title": "Forme",
+  "description": "Évaluation de la morphologie visuelle de la plaie",
+  "category": "wound_assessment",
+  "column": 1,
+  "table": 17,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T17E01",
+      "type": "boolean",
+      "label": "Ronde",
+      "description": "Forme circulaire ou approximativement ronde",
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si la plaie a une forme ronde",
+        "tooltip": "Forme circulaire ou approximativement ronde",
+        "ariaDescription": "Cocher si la plaie a une forme ronde"
+      },
+      "clinical_notes": {
+        "description": "Forme circulaire, symétrique",
+        "common_causes": "Plaies de pression, ulcères circulaires"
+      }
+    },
+    {
+      "id": "C1T17E02",
+      "type": "boolean",
+      "label": "Ovale",
+      "description": "Forme elliptique ou ovale",
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si la plaie a une forme ovale",
+        "tooltip": "Forme elliptique ou ovale, plus longue que large",
+        "ariaDescription": "Cocher si la plaie a une forme ovale"
+      },
+      "clinical_notes": {
+        "description": "Forme elliptique, plus longue que large",
+        "common_causes": "Plaies de friction, ulcères veineux"
+      }
+    },
+    {
+      "id": "C1T17E03",
+      "type": "boolean",
+      "label": "Irrégulière",
+      "description": "Forme sans géométrie définie",
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si la plaie a une forme irrégulière",
+        "tooltip": "Forme sans géométrie définie, contours imprévisibles",
+        "ariaDescription": "Cocher si la plaie a une forme irrégulière"
+      },
+      "clinical_notes": {
+        "description": "Forme sans géométrie définie, contours imprévisibles",
+        "common_causes": "Plaies traumatiques, ulcères infectés, nécrose"
+      }
+    },
+    {
+      "id": "C1T17E04",
+      "type": "boolean",
+      "label": "Linéaire",
+      "description": "Forme allongée, en ligne",
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si la plaie a une forme linéaire",
+        "tooltip": "Forme allongée, en ligne droite ou courbe",
+        "ariaDescription": "Cocher si la plaie a une forme linéaire"
+      },
+      "clinical_notes": {
+        "description": "Forme allongée, en ligne droite ou courbe",
+        "common_causes": "Cicatrices chirurgicales, plaies de coupure, déchirures"
+      }
+    }
+  ],
+  "validation_rules": {
+    "single_selection": {
+      "min_selections": 1,
+      "max_selections": 1,
+      "allow_none": false,
+      "required": true
+    },
+    "error_messages": {
+      "no_selection": "Veuillez sélectionner une forme pour la plaie",
+      "multiple_selections": "Une seule forme peut être sélectionnée"
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Forme de la plaie",
+    "instructions": "Sélectionnez la forme qui décrit le mieux la morphologie visuelle de la plaie",
+    "component_type": "RadioGroup",
+    "sections": [
+      {
+        "title": "Morphologie de la plaie",
+        "elements": ["C1T17E01", "C1T17E02", "C1T17E03", "C1T17E04"],
+        "type": "radio_group",
+        "required": true
+      }
+    ]
+  },
+  "data_structure": {
+    "selected_shape": {
+      "id": "Selected shape ID",
+      "label": "Selected shape label",
+      "description": "Selected shape description"
+    },
+    "export_format": {
+      "shape_id": "String (C1T17E01-C1T17E04)",
+      "shape_label": "String (Ronde, Ovale, Irrégulière, Linéaire)",
+      "shape_description": "String (Clinical description)"
+    }
+  },
+  "clinical_notes": {
+    "importance": "La forme de la plaie aide à identifier l'étiologie et guide le traitement",
+    "documentation": "La forme sera documentée pour la description clinique",
+    "morphology_significance": {
+      "round": {
+        "description": "Forme circulaire, symétrique",
+        "common_causes": "Plaies de pression, ulcères circulaires",
+        "clinical_implications": "Peut indiquer une pression localisée"
+      },
+      "oval": {
+        "description": "Forme elliptique, plus longue que large",
+        "common_causes": "Plaies de friction, ulcères veineux",
+        "clinical_implications": "Peut indiquer un mouvement de friction"
+      },
+      "irregular": {
+        "description": "Forme sans géométrie définie, contours imprévisibles",
+        "common_causes": "Plaies traumatiques, ulcères infectés, nécrose",
+        "clinical_implications": "Peut indiquer une progression irrégulière ou une infection"
+      },
+      "linear": {
+        "description": "Forme allongée, en ligne droite ou courbe",
+        "common_causes": "Cicatrices chirurgicales, plaies de coupure, déchirures",
+        "clinical_implications": "Peut indiquer une origine traumatique ou chirurgicale"
+      }
+    },
+    "reporting": {
+      "use_in_summary": true,
+      "description_field": "Morphologie de la plaie",
+      "clinical_context": "Aide à l'identification de l'étiologie"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Forme de la plaie",
+    "aria_description": "Sélectionnez la forme qui décrit le mieux la morphologie visuelle de la plaie",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "main_selection": "Morphologie de la plaie"
+    },
+    "radio_group": {
+      "aria_required": true,
+      "aria_invalid": "false",
+      "instructions": "Une seule forme peut être sélectionnée"
+    }
+  }
+}

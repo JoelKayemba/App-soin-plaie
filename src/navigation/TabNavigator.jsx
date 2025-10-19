@@ -98,6 +98,7 @@ export default function TabNavigator() {
               return <CareIcon focused={focused} color={color} size={iconSize} />;
             }
             // Icônes standard
+            const icon = ICONS[route.name] || { active: 'ellipse', inactive: 'ellipse-outline' };
             const name = focused ? icon.active : icon.inactive;
             return <Ionicons name={name} size={iconSize} color={color} />;
           },

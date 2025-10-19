@@ -8,7 +8,7 @@ import useResponsive from '../hooks/useResponsive';
 import useIPSCBCalculator from '../features/calculators/ipscb/useIPSCBCalculator';
 import BackButton from '../components/common/BackButton';
 
-const IPSCBScreen = ({ navigation }) => {
+const IpscbScreen = ({ navigation }) => {
   const { makeStyles, colors, elevation, isDark } = useThemeMode();
   const { spacing, typeScale, isTablet } = useResponsive();
   
@@ -497,7 +497,7 @@ const IPSCBScreen = ({ navigation }) => {
             All copyrights and trademarks are the property of Health Sense Ai or their respective owners or assigns.{'\n'}
             Septembre 2024. Utilisation autorisée sous licence.
           </Text>
-                  </ScrollView>
+          </ScrollView>
     </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -505,4 +505,4 @@ const IPSCBScreen = ({ navigation }) => {
   );
 };
 
-export default IPSCBScreen;
+export default IpscbScreen;

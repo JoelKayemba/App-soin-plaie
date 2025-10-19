@@ -1,0 +1,283 @@
+{
+  "version": "1.0.0",
+  "description": "Règles générales pour le système d'évaluation clinique modulaire",
+  "metadata": {
+    "created": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "legend_system": {
+    "types_enum": ["info", "important", "alert"],
+    "info": {
+      "symbol": "*",
+      "behavior": "Afficher info-bulle (tooltip) au survol/clic",
+      "implementation": "legend: 'info' + tooltip: '...'"
+    },
+    "important": {
+      "symbol": "**",
+      "behavior": "Badges 'Important' + remonter l'élément dans le récap",
+      "implementation": "legend: 'important'"
+    },
+    "alert": {
+      "symbol": "***",
+      "behavior": "Alerte clinique: bannière rouge locale, ajout immédiat dans Constats, verrou optionnel de navigation",
+      "implementation": "legend: 'alert' + route.phase: 'immediate'"
+    }
+  },
+  "identification_system": {
+    "canonical_id_format": "C{col}T{table}E{elem}",
+    "id_regex": "^C\\d+T\\d+E\\d+(?:[QIPVC][0-9A-Za-z]*)?$",
+    "sub_item_suffixes": ["Q", "I", "P", "V", "C"],
+    "sub_blocks": "Gardent le tronc ID de la table pour un export cohérent",
+    "instance_uid": "Les valeurs saisies reçoivent un UID d'instance pour l'historique (ex. C1T13E01-2)"
+  },
+  "routing_phases": {
+    "phases_enum": ["immediate", "post_eval", "on_plan", "recap"],
+    "immediate": {
+      "description": "Exécution instantanée (ex. infection, ***)",
+      "behavior": "Push dans Constats immédiatement"
+    },
+    "post_eval": {
+      "description": "Après fin de la colonne Évaluation (synthèse Constats)",
+      "behavior": "Traitement à la fin de la colonne 1"
+    },
+    "on_plan": {
+      "description": "Au moment d'ouvrir Plan de traitement (filtres, suggestions)",
+      "behavior": "Activation lors de l'ouverture du plan"
+    },
+    "recap": {
+      "description": "Inclusion/formatage dans Récapitulatif uniquement",
+      "behavior": "Affichage dans le récapitulatif final"
+    },
+    "implementation": "Chaque élément peut exposer routes: [{to, phase, priority, condition?, note?}]"
+  },
+  "condition_system": {
+    "grammar": {
+      "expr": "logical | comparison",
+      "logical": "anyOf([...]) | allOf([...]) | noneOf([...])",
+      "comparison": "var (gte|lte|eq|neq) number | var in [values]",
+      "var": "age.days|age.months|age.years|bmi|ipscb|location|C\\d+T\\d+E\\w+(?::\\w+)?"
+    },
+    "logical_operators": {
+      "anyOf": "Au moins un des IDs spécifiés",
+      "allOf": "Tous les IDs spécifiés",
+      "noneOf": "Aucun des IDs spécifiés"
+    },
+    "comparisons": {
+      "gte": "Supérieur ou égal",
+      "lte": "Inférieur ou égal", 
+      "eq": "Égal",
+      "neq": "Différent"
+    },
+    "age_conditions": {
+      "age.days": "Âge en jours",
+      "age.months": "Âge en mois",
+      "age.years": "Âge en années",
+      "examples": ["age.days < 30", "age.years >= 65"]
+    },
+    "context_conditions": {
+      "location": "Localisation anatomique",
+      "example": "location in ['C1T14E05','C1T14E06'] (membres inférieurs)"
+    },
+    "example": "condition: {anyOf: ['C1T25E05','C1T27E12:forte']}"
+  },
+  "ui_components": {
+    "types_enum": [
+      "single_choice", "multiple_choice", "number", "text", "date",
+      "calculated", "scale", "mixed_questions", "boolean", "photo", "info"
+    ],
+    "single_choice": {
+      "component": "RadioGroup",
+      "behavior": "Obligatoire si required: true"
+    },
+    "multiple_choice": {
+      "component": "CheckboxGroup",
+      "variants": ["multiple_choice", "multiple_choice_with_text"]
+    },
+    "number": {
+      "component": "NumericInput",
+      "properties": ["unit", "min", "max", "step"]
+    },
+    "date": {
+      "component": "DateInput",
+      "derivatives": ["âge", "<4 sem / ≥4 sem"]
+    },
+    "calculated": {
+      "component": "ResultBadge",
+      "behavior": "Recalculé à la volée via formula"
+    },
+    "scale": {
+      "component": "Échelle personnalisée",
+      "examples": ["Braden", "Braden-Q"]
+    },
+    "mixed_questions": {
+      "component": "Section avec plusieurs sous-items typés"
+    },
+    "accessibility": "Chaque composant expose label, help, tooltip, ariaDescription"
+  },
+  "validation_rules": {
+    "required_fields": {
+      "behavior": "Bloque navigation si non rempli",
+      "implementation": "required: true"
+    },
+    "numeric_validation": {
+      "properties": ["min", "max", "step", "unit"],
+      "formatting": "ex. g/L, mmHg, cm, %"
+    },
+    "percentage_sums": {
+      "rule": "sum(elements) ≤ 100",
+      "targets": ["C1T21"],
+      "require_exact_100": false,
+      "warning": "Si < 100 (incomplet)",
+      "error": "Si > 100"
+    },
+    "conditional_groups": {
+      "rule": "Si parent coché → sous-questions deviennent required",
+      "example": "Groupe Douleur"
+    },
+    "multiple_selections": {
+      "constraints": ["minSelections", "maxSelections"]
+    }
+  },
+  "calculation_engine": {
+    "bmi": {
+      "formula": "poids / (taille^2)",
+      "table": "C1T4",
+      "buckets": "E04→E09",
+      "purpose": "Mapping conservé pour règles ultérieures"
+    },
+    "ipscb": {
+      "formula": "max(tibial/pedieux côté X) / max(PAS bras) par jambe",
+      "table": "C1T15D",
+      "behavior": "Interprétation bucketisée"
+    },
+    "bwat": {
+      "scoring": "Chaque sous-table produit un score 0–5",
+      "total": "Score total = somme visible dans Récap"
+    },
+    "age": {
+      "source": "Date de naissance",
+      "derivatives": ["age.days", "age.months", "age.years"]
+    },
+    "implementation": "Les formules résident dans le JSON (formula) ou dans un catalogue de fonctions référencé par calcId"
+  },
+  "bwat_attribution": {
+    "auto_on_title_contains": "BWAT",
+    "requirement": "Toute table dont le titre contient 'BWAT' doit afficher l'attribution",
+    "text": "Janvier 2019. Traduit par Valérie Chaplain et Isabelle Reeves avec permission de Barbara Bates-Jensen. Reproduction autorisée par ces trois personnes.",
+    "ui_elements": ["Pictogramme BWAT", "Lien d'info (source/consentement)"]
+  },
+  "help_system": {
+    "help_catalog": "Fichier d'aide central",
+    "help_id": "helpId: 'burn_stage_2b' → ouvre un modal avec texte, schémas, photos",
+    "display_types": ["popup", "tooltip", "inline"],
+    "media_types": ["image", "video", "pdf"],
+    "tooltips": "Contenu court via tooltip: '...'",
+    "help_modals": "Contenu long via help_modal: {title, body, media?} via helpId"
+  },
+  "routing_logic": {
+    "direct": {
+      "triggers": ["legend: 'alert'", "route.phase: 'immediate'"],
+      "behavior": "Push dans Constats (et éventuellement Plan si défini)"
+    },
+    "deferred": {
+      "phases": ["post_eval", "on_plan", "recap"],
+      "behavior": "Traitement différé selon la phase"
+    }
+  },
+  "storage_system": {
+    "current_state": {
+      "structure": "answers[{id, value, meta, timestamp}]"
+    },
+    "event_journal": {
+      "structure": "events[{id, action, sourceId, payload, timestamp}]",
+      "purpose": "Utile pour audit/sync"
+    },
+    "derived_indicators": {
+      "structure": "derived{age, bmi, bmiClass, ipscb, ...}",
+      "behavior": "Mis à jour à chaque changement"
+    }
+  },
+  "summary_system": {
+    "structure": "Récap par sections dans l'ordre des tables",
+    "item_display": ["label", "value", "badges légende", "icônes d'alerte si legend: 'alert'"],
+    "export_formats": ["PDF", "CSV"],
+    "data_source": "answers + derived + bwatScore"
+  },
+  "ui_accessories": {
+    "badges": ["Important", "Alerte", "BWAT"],
+    "unitary_fields": {
+      "units": "Toujours affichées et stockées",
+      "example": "value: 37.8, unit: '°C tympanique'"
+    },
+    "photo_requirement": {
+      "implementation": "requiresPhoto: true",
+      "behavior": "Le moteur bloque la validation si absence",
+      "example": "C1T16"
+    }
+  },
+  "internationalization": {
+    "labels": "Tous les labels affichés viennent du JSON (FR par défaut)",
+    "i18n_ready": "Clés prêtes pour i18n",
+    "numeric_values": {
+      "normalize_to": "SI",
+      "unit_map": {
+        "lb": "kg",
+        "in": "cm",
+        "mmHg": "mmHg"
+      },
+      "rounding": {
+        "bmi": 1,
+        "ipscb": 2
+      }
+    }
+  },
+  "dependency_management": {
+    "lower_limb_rule": {
+      "condition": "si location.anyOf([C1T14E05,C1T14E06])",
+      "behavior": "Activer tous les blocs d'Apport vasculaire",
+      "otherwise": "N'activer que Inspection + Palpation"
+    },
+    "implementation": "Condition globale collée à la Table 15"
+  },
+  "error_handling": {
+    "warnings": {
+      "behavior": "Non bloquant",
+      "examples": ["Données incohérentes", "% <100 sur C1T21"]
+    },
+    "errors": {
+      "behavior": "Bloquant",
+      "items": [
+        {
+          "code": "REQUIRED_MISSING",
+          "message": "Champ requis manquant",
+          "refId": "<ID>"
+        },
+        {
+          "code": "PERCENT_SUM_EXCEEDED",
+          "message": "La somme dépasse 100%",
+          "refId": "C1T21"
+        },
+        {
+          "code": "INVALID_UNIT",
+          "message": "Unité invalide",
+          "refId": "<ID>"
+        }
+      ],
+      "display": "Affichent l'ID et la règle en cause pour faciliter le QA"
+    }
+  },
+  "migrations": {
+    "1.0.0→1.1.0": [
+      {
+        "from": "C1T22E02",
+        "to": "C1T22E02a"
+      }
+    ]
+  },
+  "privacy": {
+    "pii_fields": ["date_naissance"],
+    "rest_encrypted": true,
+    "export_redaction": ["identifiants"]
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "id": "C1T07",
+  "version": "1.0.0",
+  "title": "Médication active",
+  "description": "Identification des médicaments actuellement pris par le patient qui peuvent influencer le risque de lésions de pression",
+  "category": "medication_assessment",
+  "column": 1,
+  "table": 7,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T07E01",
+      "type": "boolean",
+      "label": "AINS*",
+      "description": "Anti-inflammatoire non stéroïdien",
+      "required": false,
+      "legend": "info",
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient prend des AINS",
+        "tooltip": "Anti-inflammatoire non stéroïdien (ibuprofène, naproxène, diclofénac, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E02",
+      "type": "boolean",
+      "label": "Antibiotique",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient prend des antibiotiques",
+        "tooltip": "Médicaments antibactériens (pénicilline, céphalosporines, fluoroquinolones, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E03",
+      "type": "boolean",
+      "label": "Anticoagulant",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient prend des anticoagulants",
+        "tooltip": "Médicaments anticoagulants (warfarine, héparine, DOAC, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E04",
+      "type": "boolean",
+      "label": "Antiplaquettaire",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient prend des antiplaquettaires",
+        "tooltip": "Médicaments antiplaquettaires (aspirine, clopidogrel, ticagrélor, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E05",
+      "type": "boolean",
+      "label": "Chimiothérapie",
+     
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient reçoit une chimiothérapie",
+        "tooltip": "Traitement chimiothérapeutique anticancéreux"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E06",
+      "type": "boolean",
+      "label": "Colchicine",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient prend de la colchicine",
+        "tooltip": "Colchicine (traitement de la goutte et autres affections inflammatoires)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E07",
+      "type": "boolean",
+      "label": "Corticostéroïde",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient prend des corticostéroïdes",
+        "tooltip": "Corticostéroïdes (prednisone, hydrocortisone, dexaméthasone, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E08",
+      "type": "boolean",
+      "label": "Immunosuppresseur ou anti-rejet",
+     
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient prend des immunosuppresseurs",
+        "tooltip": "Immunosuppresseurs ou anti-rejet (ciclosporine, tacrolimus, mycophénolate, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E09",
+      "type": "boolean",
+      "label": "Radiothérapie",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient reçoit une radiothérapie",
+        "tooltip": "Traitement par radiothérapie (rayons X, gamma, etc.)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T07E10",
+      "type": "boolean",
+      "label": "Vasopresseur",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient reçoit des vasopresseurs",
+        "tooltip": "Vasopresseurs (noradrénaline, adrénaline, dopamine, etc.)"
+      },
+      "routes": []
+    }
+  ],
+  "validation_rules": {
+    "multiple_selection": {
+      "min_selections": 0,
+      "max_selections": 10,
+      "allow_none": true
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Médication active du patient",
+    "instructions": "Sélectionnez tous les types de médicaments que le patient prend actuellement. Aucune sélection n'est obligatoire."
+  },
+  "data_structure": {
+    "active_medications": {
+      "nsaid": "C1T07E01",
+      "antibiotic": "C1T07E02",
+      "anticoagulant": "C1T07E03",
+      "antiplatelet": "C1T07E04",
+      "chemotherapy": "C1T07E05",
+      "colchicine": "C1T07E06",
+      "corticosteroid": "C1T07E07",
+      "immunosuppressant": "C1T07E08",
+      "radiotherapy": "C1T07E09",
+      "vasopressor": "C1T07E10"
+    },
+    "export_format": {
+      "selected_medications": "Array of selected medication IDs"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Certains médicaments peuvent influencer le risque de lésions de pression",
+    "documentation": "Tous les médicaments sélectionnés seront documentés dans l'évaluation du risque",
+    "risk_considerations": {
+      "nsaid": "Peut masquer les signes d'inflammation",
+      "antibiotic": "Peut indiquer une infection existante",
+      "anticoagulant": "Risque hémorragique accru",
+      "antiplatelet": "Risque hémorragique accru",
+      "chemotherapy": "Immunosuppression, altération de la cicatrisation",
+      "colchicine": "Peut affecter la cicatrisation",
+      "corticosteroid": "Immunosuppression, altération de la cicatrisation, amincissement cutané",
+      "immunosuppressant": "Immunosuppression sévère",
+      "radiotherapy": "Altération de la cicatrisation, fragilité cutanée",
+      "vasopressor": "Altération de la perfusion tissulaire"
+    },
+    "monitoring": {
+      "immunosuppressants": "Surveillance accrue des signes d'infection",
+      "anticoagulants": "Surveillance des signes hémorragiques",
+      "corticosteroids": "Surveillance de la fragilité cutanée",
+      "vasopressors": "Surveillance de la perfusion périphérique"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Sélection de la médication active",
+    "aria_description": "Cochez tous les types de médicaments que le patient prend actuellement",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_label": "Liste des médicaments actifs"
+  }
+}

@@ -95,7 +95,7 @@ const ProductFilters = ({ filters, onFiltersChange }) => {
       fontWeight: '600',
       color: c.text,
     },
-    filterGroupExpandIcon: {
+    filterGroupExpandIonicons: {
       transform: [{ rotate: '0deg' }],
     },
     filterGroupContent: {
@@ -129,15 +129,15 @@ const ProductFilters = ({ filters, onFiltersChange }) => {
     activeFilterText: {
       color: c.primaryText,
     },
-    filterIcon: {
+    filterIonicons: {
       fontSize: 14,
     },
-    absorptionIcons: {
+    absorptionIoniconss: {
       flexDirection: 'row',
       alignItems: 'center',
       marginLeft: spacing.xs,
     },
-    absorptionIcon: {
+    absorptionIonicons: {
       marginRight: 2,
     },
   }));
@@ -198,7 +198,7 @@ const ProductFilters = ({ filters, onFiltersChange }) => {
             name="checkmark" 
             size={12} 
             color={colors.primaryText} 
-            style={s.filterIcon} 
+            style={s.filterIonicons} 
           />
         )}
       </TouchableOpacity>
@@ -219,7 +219,7 @@ const ProductFilters = ({ filters, onFiltersChange }) => {
             name={isExpanded ? 'chevron-up' : 'chevron-down'}
             size={16}
             color={colors.textSecondary}
-            style={[s.filterGroupExpandIcon, { transform: [{ rotate: isExpanded ? '180deg' : '0deg' }] }]}
+            style={[s.filterGroupExpandIonicons, { transform: [{ rotate: isExpanded ? '180deg' : '0deg' }] }]}
           />
         </TouchableOpacity>
         
@@ -249,14 +249,14 @@ const ProductFilters = ({ filters, onFiltersChange }) => {
         <TText style={[s.filterText, isSelected && s.activeFilterText]}>
           {option}
         </TText>
-        <View style={s.absorptionIcons}>
+        <View style={s.absorptionIoniconss}>
           {[1, 2, 3].map((i) => (
             <Ionicons
               key={i}
               name="water"
               size={10}
               color={i <= level ? (isSelected ? colors.primaryText : colors.primary) : colors.textTertiary}
-              style={s.absorptionIcon}
+              style={s.absorptionIonicons}
             />
           ))}
         </View>
@@ -265,7 +265,7 @@ const ProductFilters = ({ filters, onFiltersChange }) => {
             name="checkmark" 
             size={12} 
             color={colors.primaryText} 
-            style={s.filterIcon} 
+            style={s.filterIonicons} 
           />
         )}
       </TouchableOpacity>

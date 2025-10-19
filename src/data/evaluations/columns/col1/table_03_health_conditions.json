@@ -1,0 +1,325 @@
+{
+  "id": "C1T03",
+  "version": "1.0.0",
+  "title": "Conditions de santé actuelle",
+  "description": "Identification des conditions de santé actuelles du patient qui peuvent influencer le risque de lésions de pression",
+  "category": "medical_history",
+  "column": 1,
+  "table": 3,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T03E01",
+      "type": "boolean",
+      "label": "Altération de la capacité cognitive",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente des troubles cognitifs",
+        "tooltip": "Démence, confusion, troubles de la mémoire, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E02",
+      "type": "boolean",
+      "label": "Amputation",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient a subi une amputation",
+        "tooltip": "Amputation partielle ou totale d'un membre"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E03",
+      "type": "boolean",
+      "label": "Anémie non contrôlée",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une anémie non contrôlée",
+        "tooltip": "Hémoglobine basse non traitée ou mal contrôlée"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E04",
+      "type": "boolean",
+      "label": "Cancer actif",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient a un cancer actif",
+        "tooltip": "Cancer en cours de traitement, récidive ou non traité"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E05",
+      "type": "boolean",
+      "label": "Maladie hépatique non contrôlée",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une maladie hépatique non contrôlée",
+        "tooltip": "Hépatite, cirrhose, insuffisance hépatique non contrôlée"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E06",
+      "type": "boolean",
+      "label": "Immunosuppression",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient est immunosupprimé",
+        "tooltip": "Traitement immunosuppresseur, VIH, greffe, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E07",
+      "type": "boolean",
+      "label": "Désaturation en O₂",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une désaturation en oxygène",
+        "tooltip": "SpO₂ < 90% ou oxygénothérapie requise"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E08",
+      "type": "boolean",
+      "label": "Diabète de type 1",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient a un diabète de type 1",
+        "tooltip": "Diabète insulinodépendant (diabète juvénile)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E09",
+      "type": "boolean",
+      "label": "Diabète de type 2",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient a un diabète de type 2",
+        "tooltip": "Diabète non insulinodépendant (diabète de l'adulte)"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E10",
+      "type": "boolean",
+      "label": "Grossesse",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient est enceinte",
+        "tooltip": "Grossesse en cours"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E11",
+      "type": "boolean",
+      "label": "HTA non contrôlée*",
+      "required": false,
+      "legend": "info",
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une HTA non contrôlée",
+        "tooltip": "Hypertension artérielle non contrôlée par le traitement"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E12",
+      "type": "boolean",
+      "label": "Arythmie cardiaque",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une arythmie cardiaque",
+        "tooltip": "Fibrillation auriculaire, extrasystoles, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E13",
+      "type": "boolean",
+      "label": "Hypovolémie",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une hypovolémie",
+        "tooltip": "Déshydratation, hémorragie, choc hypovolémique"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E14",
+      "type": "boolean",
+      "label": "Désordre thyroïdien non contrôlé",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente un désordre thyroïdien non contrôlé",
+        "tooltip": "Hypothyroïdie, hyperthyroïdie non contrôlée"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E15",
+      "type": "boolean",
+      "label": "Incontinence",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une incontinence",
+        "tooltip": "Incontinence urinaire et/ou fécale"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E16",
+      "type": "boolean",
+      "label": "Insuffisance rénale non contrôlée",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une insuffisance rénale non contrôlée",
+        "tooltip": "Créatinine élevée, dialyse, insuffisance rénale chronique"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E17",
+      "type": "multiple_choice_with_text",
+      "label": "Maladie auto-immune ou inflammatoire non contrôlée",
+      "required": false,
+      "conditional": {
+        "show_text_field": true,
+        "text_field_label": "Précisez la maladie",
+        "text_field_placeholder": "Ex: polyarthrite rhumatoïde, lupus, maladie de Crohn, etc.",
+        "text_field_required": true,
+        "text_field_max_length": 200
+      },
+      "ui": {
+        "component": "CheckboxWithText",
+        "help": "Cochez et précisez si le patient présente une maladie auto-immune ou inflammatoire non contrôlée",
+        "tooltip": "Maladies auto-immunes, inflammatoires chroniques non contrôlées"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E18",
+      "type": "boolean",
+      "label": "Maladie cardiaque",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une maladie cardiaque",
+        "tooltip": "Insuffisance cardiaque, cardiopathie, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E19",
+      "type": "boolean",
+      "label": "Maladie pulmonaire ou respiratoire non contrôlée",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une maladie pulmonaire ou respiratoire non contrôlée",
+        "tooltip": "Asthme, BPCO, pneumonie non contrôlée, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T03E20",
+      "type": "boolean",
+      "label": "MVAP*",
+      "required": false,
+      "legend": "info",
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente une MVAP",
+        "tooltip": "Maladie vasculaire artérielle périphérique (artérite des membres inférieurs)"
+      },
+      "routes": []
+    }
+  ],
+  "validation_rules": {
+    "multiple_selection": {
+      "min_selections": 0,
+      "max_selections": 20,
+      "allow_none": true
+    },
+    "conditional_text": {
+      "C1T03E17": {
+        "required_when_checked": true,
+        "min_length": 2,
+        "max_length": 200
+      }
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Conditions de santé actuelle du patient",
+    "instructions": "Sélectionnez toutes les conditions de santé qui s'appliquent au patient. Aucune sélection n'est obligatoire."
+  },
+  "data_structure": {
+    "health_conditions": {
+      "cognitive_impairment": "C1T03E01",
+      "amputation": "C1T03E02",
+      "uncontrolled_anemia": "C1T03E03",
+      "active_cancer": "C1T03E04",
+      "uncontrolled_liver_disease": "C1T03E05",
+      "immunosuppression": "C1T03E06",
+      "oxygen_desaturation": "C1T03E07",
+      "diabetes_type1": "C1T03E08",
+      "diabetes_type2": "C1T03E09",
+      "pregnancy": "C1T03E10",
+      "uncontrolled_hypertension": "C1T03E11",
+      "cardiac_arrhythmia": "C1T03E12",
+      "hypovolemia": "C1T03E13",
+      "uncontrolled_thyroid_disorder": "C1T03E14",
+      "incontinence": "C1T03E15",
+      "uncontrolled_renal_failure": "C1T03E16",
+      "autoimmune_inflammatory": "C1T03E17",
+      "cardiac_disease": "C1T03E18",
+      "uncontrolled_respiratory_disease": "C1T03E19",
+      "peripheral_arterial_disease": "C1T03E20"
+    },
+    "export_format": {
+      "selected_conditions": "Array of selected condition IDs",
+      "autoimmune_details": "Text from C1T03E17 if checked"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Ces conditions peuvent influencer le risque de lésions de pression et nécessitent une attention particulière",
+    "documentation": "Toutes les conditions sélectionnées seront documentées dans l'évaluation du risque"
+  },
+  "accessibility": {
+    "aria_label": "Sélection des conditions de santé actuelles",
+    "aria_description": "Cochez toutes les conditions de santé actuelles du patient",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_label": "Liste des conditions de santé"
+  }
+}

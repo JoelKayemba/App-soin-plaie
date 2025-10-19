@@ -103,11 +103,11 @@ const ProductCard = ({ product }) => {
       width: 100,
       marginRight: spacing.sm,
     },
-    absorptionIcons: {
+    absorptionIoniconss: {
       flexDirection: 'row',
       alignItems: 'center',
     },
-    absorptionIcon: {
+    absorptionIonicons: {
       marginRight: spacing.xs,
     },
     absorptionText: {
@@ -119,7 +119,7 @@ const ProductCard = ({ product }) => {
       flexDirection: 'row',
       alignItems: 'center',
     },
-    antimicrobialIcon: {
+    antimicrobialIonicons: {
       marginRight: spacing.xs,
     },
     antimicrobialText: {
@@ -163,7 +163,7 @@ const ProductCard = ({ product }) => {
       fontWeight: '600',
       color: c.text,
     },
-    expandIcon: {
+    expandIonicons: {
       transform: [{ rotate: detailsExpanded ? '180deg' : '0deg' }],
     },
     detailItem: {
@@ -215,7 +215,7 @@ const ProductCard = ({ product }) => {
 
   const s = useStyles();
 
-  const getAbsorptionIcons = (level) => {
+  const getAbsorptionIoniconss = (level) => {
     const icons = [];
     for (let i = 0; i < 3; i++) {
       icons.push(
@@ -224,7 +224,7 @@ const ProductCard = ({ product }) => {
           name="water"
           size={16}
           color={i < level ? colors.primary : (colors.isDark ? colors.textSecondary : colors.textTertiary)}
-          style={s.absorptionIcon}
+          style={s.absorptionIonicons}
         />
       );
     }
@@ -328,8 +328,8 @@ const ProductCard = ({ product }) => {
         {/* Absorption */}
         <View style={s.propertyRow}>
           <TText style={s.propertyLabel}>Absorption</TText>
-          <View style={s.absorptionIcons}>
-            {getAbsorptionIcons(product.absorption)}
+          <View style={s.absorptionIoniconss}>
+            {getAbsorptionIoniconss(product.absorption)}
             <TText style={s.absorptionText}>{getAbsorptionText(product.absorption)}</TText>
           </View>
         </View>
@@ -343,7 +343,7 @@ const ProductCard = ({ product }) => {
                 name="bug"
                 size={16}
                 color={colors.success}
-                style={s.antimicrobialIcon}
+                style={s.antimicrobialIonicons}
               />
               <TText style={s.antimicrobialText}>{product.antimicrobial}</TText>
             </View>
@@ -393,7 +393,7 @@ const ProductCard = ({ product }) => {
             name="chevron-up"
             size={20}
             color={colors.textSecondary}
-            style={s.expandIcon}
+            style={s.expandIonicons}
           />
         </TouchableOpacity>
 

@@ -1,0 +1,699 @@
+{
+  "id": "C1T34",
+  "version": "1.0.0",
+  "title": "Pied diabétique",
+  "description": "Évaluation sensorielle et inspection du pied diabétique",
+  "category": "diabetic_assessment",
+  "column": 1,
+  "table": 34,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "conditional_table": {
+    "is_conditional": true,
+    "depends_on": "C1T11",
+    "trigger_condition": {
+      "source_field": "C1T11E06",
+      "operator": "contains",
+      "value": "pied_diabetique",
+      "description": "Si l'étiologie C1T11E06 contient pied_diabetique"
+    },
+    "activation_behavior": {
+      "phase": "immediate",
+      "priority": 1,
+      "auto_activate": true,
+      "user_notification": true,
+      "message": "Pied diabétique détecté : évaluation sensorielle et inspection requise"
+    }
+  },
+  "blocks": {
+    "neuropathy": {
+      "id": "C1T34_BlocA",
+      "title": "Bloc A — Neuropathie (raccourci \"déjà fait\")",
+      "description": "Évaluation de la neuropathie diabétique",
+      "elements": [
+        {
+          "id": "C1T34E00",
+          "type": "single_choice",
+          "label": "Neuropathie déjà évaluée ?",
+          "description": "Vérification si la neuropathie a déjà été évaluée",
+          "required": true,
+          "options": [
+            {
+              "id": "C1T34E00_oui",
+              "label": "Oui",
+              "type": "boolean",
+              "value": "oui",
+              "ui": {
+                "color": "blue",
+                "icon": "ℹ️"
+              }
+            },
+            {
+              "id": "C1T34E00_non",
+              "label": "Non",
+              "type": "boolean",
+              "value": "non",
+              "ui": {
+                "color": "orange",
+                "icon": "⚠️"
+              }
+            }
+          ],
+          "ui": {
+            "component": "RadioGroup",
+            "minSelections": 1,
+            "maxSelections": 1,
+            "help": "Sélectionnez si la neuropathie a déjà été évaluée",
+            "ariaDescription": "Sélection de l'évaluation préalable de la neuropathie"
+          },
+          "help_modal": {
+            "help_id": "neuro_overview",
+            "title": "Protocole d'évaluation de la neuropathie",
+            "content": "Rappel du protocole d'évaluation de la neuropathie diabétique"
+          }
+        },
+        {
+          "id": "C1T34R1",
+          "type": "single_choice",
+          "label": "Résultat de l'évaluation neuropathique",
+          "description": "Résultat final de l'évaluation neuropathique",
+          "required": false,
+          "condition": {
+            "eq": {
+              "var": "C1T34E00",
+              "value": "oui"
+            }
+          },
+          "options": [
+            {
+              "id": "C1T34R1_loss",
+              "label": "Perte de sensation protectrice",
+              "type": "boolean",
+              "value": "loss",
+              "ui": {
+                "color": "red",
+                "icon": "🚨"
+              }
+            },
+            {
+              "id": "C1T34R2_preserved",
+              "label": "Sensation protectrice préservée",
+              "type": "boolean",
+              "value": "preserved",
+              "ui": {
+                "color": "green",
+                "icon": "✅"
+              }
+            }
+          ],
+          "ui": {
+            "component": "RadioGroup",
+            "minSelections": 1,
+            "maxSelections": 1,
+            "help": "Sélectionnez le résultat de l'évaluation neuropathique",
+            "ariaDescription": "Sélection du résultat de l'évaluation neuropathique"
+          }
+        }
+      ]
+    },
+    "monofilament": {
+      "id": "C1T34_BlocB",
+      "title": "Bloc B — Monofilament Semmes-Weinstein 10 g",
+      "description": "Test de sensibilité au monofilament 10 g",
+      "condition": {
+        "eq": {
+          "var": "C1T34E00",
+          "value": "non"
+        }
+      },
+      "help_modal": {
+        "help_id": "semmes_10g",
+        "title": "Méthode Monofilament Semmes-Weinstein 10 g",
+        "content": "Schéma/photos + consignes pour le test de monofilament"
+      },
+      "elements": [
+        {
+          "id": "C1T34E01",
+          "type": "boolean",
+          "label": "Hallux plantaire droit",
+          "description": "Sensation au monofilament 10 g - Hallux plantaire droit",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si le hallux plantaire droit est ressenti"
+          }
+        },
+        {
+          "id": "C1T34E02",
+          "type": "boolean",
+          "label": "Tête 1er métatarse droit",
+          "description": "Sensation au monofilament 10 g - Tête 1er métatarse droit",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si la tête 1er métatarse droit est ressentie"
+          }
+        },
+        {
+          "id": "C1T34E03",
+          "type": "boolean",
+          "label": "Tête 3e métatarse droit",
+          "description": "Sensation au monofilament 10 g - Tête 3e métatarse droit",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si la tête 3e métatarse droit est ressentie"
+          }
+        },
+        {
+          "id": "C1T34E04",
+          "type": "boolean",
+          "label": "Tête 5e métatarse droit",
+          "description": "Sensation au monofilament 10 g - Tête 5e métatarse droit",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si la tête 5e métatarse droit est ressentie"
+          }
+        },
+        {
+          "id": "C1T34E05",
+          "type": "boolean",
+          "label": "Talon plantaire droit",
+          "description": "Sensation au monofilament 10 g - Talon plantaire droit",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si le talon plantaire droit est ressenti"
+          }
+        },
+        {
+          "id": "C1T34E06",
+          "type": "boolean",
+          "label": "Hallux plantaire gauche",
+          "description": "Sensation au monofilament 10 g - Hallux plantaire gauche",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si le hallux plantaire gauche est ressenti"
+          }
+        },
+        {
+          "id": "C1T34E07",
+          "type": "boolean",
+          "label": "Tête 1er métatarse gauche",
+          "description": "Sensation au monofilament 10 g - Tête 1er métatarse gauche",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si la tête 1er métatarse gauche est ressentie"
+          }
+        },
+        {
+          "id": "C1T34E08",
+          "type": "boolean",
+          "label": "Tête 3e métatarse gauche",
+          "description": "Sensation au monofilament 10 g - Tête 3e métatarse gauche",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si la tête 3e métatarse gauche est ressentie"
+          }
+        },
+        {
+          "id": "C1T34E09",
+          "type": "boolean",
+          "label": "Tête 5e métatarse gauche",
+          "description": "Sensation au monofilament 10 g - Tête 5e métatarse gauche",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si la tête 5e métatarse gauche est ressentie"
+          }
+        },
+        {
+          "id": "C1T34E10",
+          "type": "boolean",
+          "label": "Talon plantaire gauche",
+          "description": "Sensation au monofilament 10 g - Talon plantaire gauche",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez si le site est ressenti",
+            "ariaDescription": "Cocher si le talon plantaire gauche est ressenti"
+          }
+        },
+        {
+          "id": "C1T34E11",
+          "type": "calculated",
+          "label": "Tous les sites cochés",
+          "description": "Résultat calculé - Tous les sites cochés",
+          "formula": "all_sites_checked(C1T34E01, C1T34E02, C1T34E03, C1T34E04, C1T34E05, C1T34E06, C1T34E07, C1T34E08, C1T34E09, C1T34E10)",
+          "ui": {
+            "component": "ResultBadge",
+            "read_only": true,
+            "color": "green"
+          }
+        },
+        {
+          "id": "C1T34E12",
+          "type": "calculated",
+          "label": "≥ 1 site manqué",
+          "description": "Résultat calculé - Au moins 1 site manqué",
+          "formula": "any_site_missed(C1T34E01, C1T34E02, C1T34E03, C1T34E04, C1T34E05, C1T34E06, C1T34E07, C1T34E08, C1T34E09, C1T34E10)",
+          "ui": {
+            "component": "ResultBadge",
+            "read_only": true,
+            "color": "red"
+          }
+        }
+      ]
+    },
+    "vibration": {
+      "id": "C1T34_BlocC",
+      "title": "Bloc C — Test de vibration (diapason 128 Hz)",
+      "description": "Test de sensibilité vibratoire",
+      "condition": {
+        "eq": {
+          "var": "C1T34E00",
+          "value": "non"
+        }
+      },
+      "help_modal": {
+        "help_id": "diapason_128hz",
+        "title": "Méthode Test de vibration (diapason 128 Hz)",
+        "content": "Instructions pour le test de vibration avec diapason 128 Hz"
+      },
+      "elements": [
+        {
+          "id": "C1T34E13",
+          "type": "boolean",
+          "label": "Sensation présente",
+          "description": "Sensation vibratoire présente",
+          "required": false,
+          "ui": {
+            "component": "RadioButton",
+            "help": "Cochez si la sensation vibratoire est présente",
+            "ariaDescription": "Cocher si la sensation vibratoire est présente"
+          }
+        },
+        {
+          "id": "C1T34E14",
+          "type": "boolean",
+          "label": "Sensation absente",
+          "description": "Sensation vibratoire absente",
+          "required": false,
+          "ui": {
+            "component": "RadioButton",
+            "help": "Cochez si la sensation vibratoire est absente",
+            "ariaDescription": "Cocher si la sensation vibratoire est absente"
+          }
+        }
+      ]
+    },
+    "inspection": {
+      "id": "C1T34_BlocD",
+      "title": "Bloc D — Inspection",
+      "description": "Inspection visuelle du pied diabétique",
+      "elements": [
+        {
+          "id": "C1T34E15",
+          "type": "boolean",
+          "label": "Callosités",
+          "description": "Présence de callosités",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a des callosités",
+            "ariaDescription": "Cocher s'il y a des callosités"
+          }
+        },
+        {
+          "id": "C1T34E16",
+          "type": "boolean",
+          "label": "Déformation du pied ou des orteils",
+          "description": "Présence de déformations",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a des déformations",
+            "ariaDescription": "Cocher s'il y a des déformations du pied ou des orteils"
+          }
+        },
+        {
+          "id": "C1T34E17",
+          "type": "boolean",
+          "label": "Premier orteil rigide, amplitude diminuée ou absente",
+          "description": "Rigidité du premier orteil",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a une rigidité du premier orteil",
+            "ariaDescription": "Cocher s'il y a une rigidité du premier orteil"
+          }
+        },
+        {
+          "id": "C1T34E18",
+          "type": "boolean",
+          "label": "Chaussures inappropriées",
+          "description": "Chaussures inadaptées",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a des chaussures inappropriées",
+            "ariaDescription": "Cocher s'il y a des chaussures inappropriées"
+          }
+        },
+        {
+          "id": "C1T34E19",
+          "type": "boolean",
+          "label": "Xérose",
+          "description": "Sécheresse cutanée",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a une xérose",
+            "ariaDescription": "Cocher s'il y a une xérose"
+          }
+        },
+        {
+          "id": "C1T34E20",
+          "type": "boolean",
+          "label": "Mycose interdigitale",
+          "description": "Infection fongique entre les orteils",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a une mycose interdigitale",
+            "ariaDescription": "Cocher s'il y a une mycose interdigitale"
+          }
+        },
+        {
+          "id": "C1T34E21",
+          "type": "boolean",
+          "label": "Fissure",
+          "description": "Présence de fissures",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a des fissures",
+            "ariaDescription": "Cocher s'il y a des fissures"
+          }
+        },
+        {
+          "id": "C1T34E22",
+          "type": "boolean",
+          "label": "Pied de Charcot suspecté",
+          "description": "Suspicion de pied de Charcot",
+          "required": false,
+          "alert_level": "critical",
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a une suspicion de pied de Charcot",
+            "ariaDescription": "Cocher s'il y a une suspicion de pied de Charcot",
+            "alert_icon": "🚨"
+          },
+          "help_modal": {
+            "help_id": "charcot_info",
+            "title": "Information sur le pied de Charcot",
+            "content": "Informations détaillées sur le pied de Charcot"
+          },
+          "routes": [
+            {
+              "to": "ConstatPiedCharcotSuspecte",
+              "phase": "immediate",
+              "priority": 1,
+              "note": "Pied de Charcot suspecté - alerte clinique immédiate",
+              "message": "🚨 Pied de Charcot suspecté : évaluation immédiate requise"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "conclusion": {
+    "id": "C1T34_Conclusion",
+    "title": "Conclusion sensorielle (automatique)",
+    "description": "Résultat automatique de l'évaluation sensorielle",
+    "rule": "Sensation protectrice préservée ⟶ si C1T34E11 (tous les sites cochés) ET C1T34E13 (vibration présente). Perte de sensation protectrice ⟶ sinon (≥1 site manqué OU vibration absente).",
+    "elements": [
+      {
+        "id": "C1T34R1",
+        "type": "calculated",
+        "label": "Perte de sensation protectrice",
+        "description": "Résultat calculé - Perte de sensation protectrice",
+        "formula": "neuropathy_conclusion(C1T34E11, C1T34E13, C1T34E12, C1T34E14)",
+        "condition": {
+          "or": [
+            {
+              "eq": {
+                "var": "C1T34E12",
+                "value": true
+              }
+            },
+            {
+              "eq": {
+                "var": "C1T34E14",
+                "value": true
+              }
+            }
+          ]
+        },
+        "ui": {
+          "component": "ResultBadge",
+          "read_only": true,
+          "color": "red",
+          "icon": "🚨"
+        }
+      },
+      {
+        "id": "C1T34R2",
+        "type": "calculated",
+        "label": "Sensation protectrice préservée",
+        "description": "Résultat calculé - Sensation protectrice préservée",
+        "formula": "neuropathy_conclusion(C1T34E11, C1T34E13, C1T34E12, C1T34E14)",
+        "condition": {
+          "and": [
+            {
+              "eq": {
+                "var": "C1T34E11",
+                "value": true
+              }
+            },
+            {
+              "eq": {
+                "var": "C1T34E13",
+                "value": true
+              }
+            }
+          ]
+        },
+        "ui": {
+          "component": "ResultBadge",
+          "read_only": true,
+          "color": "green",
+          "icon": "✅"
+        }
+      }
+    ]
+  },
+  "validation_rules": {
+    "conditional_blocks": {
+      "monofilament": {
+        "depends_on": "C1T34E00",
+        "required_when_parent_selected": false,
+        "parent_value": "non"
+      },
+      "vibration": {
+        "depends_on": "C1T34E00",
+        "required_when_parent_selected": false,
+        "parent_value": "non"
+      }
+    },
+    "error_messages": {
+      "neuropathy_evaluation_required": "Veuillez sélectionner si la neuropathie a déjà été évaluée",
+      "neuropathy_result_required": "Veuillez sélectionner le résultat de l'évaluation neuropathique"
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "large",
+    "group_label": "Pied diabétique",
+    "instructions": "Évaluation sensorielle et inspection du pied diabétique. Table conditionnelle : n'apparaît que si pied diabétique est sélectionné dans l'étiologie de la plaie.",
+    "sections": [
+      {
+        "title": "Bloc A — Neuropathie (raccourci \"déjà fait\")",
+        "elements": ["C1T34E00", "C1T34R1", "C1T34R2"],
+        "type": "conditional_section",
+        "help_modal": "neuro_overview"
+      },
+      {
+        "title": "Bloc B — Monofilament Semmes-Weinstein 10 g",
+        "elements": [
+          "C1T34E01", "C1T34E02", "C1T34E03", "C1T34E04", "C1T34E05",
+          "C1T34E06", "C1T34E07", "C1T34E08", "C1T34E09", "C1T34E10",
+          "C1T34E11", "C1T34E12"
+        ],
+        "type": "conditional_section",
+        "help_modal": "semmes_10g",
+        "condition": "C1T34E00 = non"
+      },
+      {
+        "title": "Bloc C — Test de vibration (diapason 128 Hz)",
+        "elements": ["C1T34E13", "C1T34E14"],
+        "type": "conditional_section",
+        "help_modal": "diapason_128hz",
+        "condition": "C1T34E00 = non"
+      },
+      {
+        "title": "Bloc D — Inspection",
+        "elements": [
+          "C1T34E15", "C1T34E16", "C1T34E17", "C1T34E18",
+          "C1T34E19", "C1T34E20", "C1T34E21", "C1T34E22"
+        ],
+        "type": "checkbox_section"
+      },
+      {
+        "title": "Conclusion sensorielle (automatique)",
+        "elements": ["C1T34R1", "C1T34R2"],
+        "type": "result_section"
+      }
+    ],
+    "alert_display": {
+      "critical_alerts": {
+        "icon": "🚨",
+        "color": "red",
+        "position": "top",
+        "persistent": true
+      }
+    }
+  },
+  "data_structure": {
+    "neuropathy_evaluation": {
+      "already_evaluated": "Boolean",
+      "result": "String (loss/preserved)"
+    },
+    "monofilament_test": {
+      "sites": {
+        "hallux_right": "Boolean",
+        "metatarsal1_right": "Boolean",
+        "metatarsal3_right": "Boolean",
+        "metatarsal5_right": "Boolean",
+        "heel_right": "Boolean",
+        "hallux_left": "Boolean",
+        "metatarsal1_left": "Boolean",
+        "metatarsal3_left": "Boolean",
+        "metatarsal5_left": "Boolean",
+        "heel_left": "Boolean"
+      },
+      "results": {
+        "all_sites_checked": "Boolean",
+        "any_site_missed": "Boolean"
+      }
+    },
+    "vibration_test": {
+      "sensation_present": "Boolean",
+      "sensation_absent": "Boolean"
+    },
+    "inspection": {
+      "callosities": "Boolean",
+      "deformities": "Boolean",
+      "rigid_toe": "Boolean",
+      "inappropriate_shoes": "Boolean",
+      "xerosis": "Boolean",
+      "interdigital_fungus": "Boolean",
+      "fissures": "Boolean",
+      "charcot_suspected": "Boolean"
+    },
+    "conclusion": {
+      "protective_sensation": "String (preserved/lost)"
+    },
+    "export_format": {
+      "neuropathy_evaluation": "Object",
+      "monofilament_test": "Object",
+      "vibration_test": "Object",
+      "inspection": "Object",
+      "conclusion": "Object",
+      "constats_triggered": "Array of constat IDs"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Évaluation sensorielle et inspection du pied diabétique",
+    "documentation": "Tous les résultats (B+C+conclusion) sont stockés dans un groupe logique evaluation_neuropathique",
+    "diabetic_foot_assessment": {
+      "neuropathy": {
+        "purpose": "Évaluation de la neuropathie diabétique",
+        "methods": [
+          "Monofilament Semmes-Weinstein 10 g",
+          "Test de vibration (diapason 128 Hz)"
+        ],
+        "significance": "La neuropathie est un facteur de risque majeur pour les ulcères du pied diabétique"
+      },
+      "inspection": {
+        "purpose": "Détection de signes précoces de complications",
+        "elements": [
+          "Callosités",
+          "Déformations",
+          "Rigidité",
+          "Chaussures inappropriées",
+          "Xérose",
+          "Mycose interdigitale",
+          "Fissures",
+          "Pied de Charcot suspecté"
+        ],
+        "significance": "L'inspection régulière permet de détecter précocement les complications"
+      }
+    },
+    "follow_up": {
+      "immediate_evaluation": "Dès qu'un signe de complication est détecté",
+      "constat_generation": "Routes vers Constats/Plan seront ajoutées plus tard",
+      "examples": [
+        "C1T34R1 → constat 'perte de sensation protectrice'",
+        "C1T34E22 → constat 'pied de Charcot suspecté'"
+      ]
+    }
+  },
+  "accessibility": {
+    "aria_label": "Pied diabétique",
+    "aria_description": "Évaluation sensorielle et inspection du pied diabétique. Table conditionnelle : n'apparaît que si pied diabétique est sélectionné dans l'étiologie de la plaie.",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "neuropathy": "Bloc A — Neuropathie",
+      "monofilament": "Bloc B — Monofilament Semmes-Weinstein 10 g",
+      "vibration": "Bloc C — Test de vibration (diapason 128 Hz)",
+      "inspection": "Bloc D — Inspection",
+      "conclusion": "Conclusion sensorielle (automatique)"
+    },
+    "radio_groups": {
+      "aria_required": true,
+      "aria_invalid": "false",
+      "instructions": "Sélectionnez une option"
+    },
+    "checkbox_groups": {
+      "aria_required": false,
+      "instructions": "Sélections multiples possibles"
+    },
+    "conditional_sections": {
+      "aria_required": "false when parent selected",
+      "instructions": "Section conditionnelle selon l'évaluation préalable"
+    },
+    "help_modals": {
+      "aria_label": "Aide contextuelle",
+      "aria_description": "Informations détaillées sur la méthode d'évaluation"
+    }
+  }
+}
