@@ -1,0 +1,400 @@
+{
+  "id": "C1T21",
+  "version": "1.0.0",
+  "title": "Composition du lit de la plaie",
+  "description": "Évaluation de la composition tissulaire du lit de la plaie en pourcentages",
+  "category": "wound_assessment",
+  "column": 1,
+  "table": 21,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T21E01",
+      "type": "number",
+      "label": "Tissu nécrotique",
+      "description": "Pourcentage de tissu nécrotique dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de tissu nécrotique dans le lit de la plaie",
+        "tooltip": "Tissu mort ou en cours de nécrose dans le lit de la plaie"
+      },
+      "routes": [
+        {
+          "to": "BWAT_Necrotic_Tissue",
+          "phase": "immediate",
+          "priority": 1,
+          "condition": {
+            "gt": {
+              "var": "C1T21E01",
+              "value": 0
+            }
+          },
+          "note": "Si tissu nécrotique > 0%, poursuivre vers Table 22 - BWAT Types et quantité de tissus nécrotiques",
+          "message": "Tissu nécrotique détecté : évaluation BWAT des tissus nécrotiques requise"
+        }
+      ],
+      "clinical_notes": {
+        "description": "Tissu mort ou en cours de nécrose",
+        "significance": "Indique la présence de tissu non viable nécessitant débridement"
+      }
+    },
+    {
+      "id": "C1T21E02",
+      "type": "number",
+      "label": "Muscle / fascia",
+      "description": "Pourcentage de muscle ou fascia dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de muscle ou fascia dans le lit de la plaie",
+        "tooltip": "Tissu musculaire ou fascia visible dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Tissu musculaire ou fascia",
+        "significance": "Indique l'atteinte des structures musculaires ou fasciales"
+      }
+    },
+    {
+      "id": "C1T21E03",
+      "type": "number",
+      "label": "Os",
+      "description": "Pourcentage d'os dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage d'os dans le lit de la plaie",
+        "tooltip": "Tissu osseux visible dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Tissu osseux",
+        "significance": "Indique l'atteinte de l'os, nécessite évaluation approfondie"
+      }
+    },
+    {
+      "id": "C1T21E04",
+      "type": "number",
+      "label": "Vaisseau",
+      "description": "Pourcentage de vaisseaux dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de vaisseaux dans le lit de la plaie",
+        "tooltip": "Vaisseaux sanguins visibles dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Vaisseaux sanguins",
+        "significance": "Indique l'atteinte vasculaire, risque hémorragique"
+      }
+    },
+    {
+      "id": "C1T21E05",
+      "type": "number",
+      "label": "Tendon",
+      "description": "Pourcentage de tendon dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de tendon dans le lit de la plaie",
+        "tooltip": "Tissu tendineux visible dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Tissu tendineux",
+        "significance": "Indique l'atteinte tendineuse, impact sur la fonction"
+      }
+    },
+    {
+      "id": "C1T21E06",
+      "type": "number",
+      "label": "Ligament",
+      "description": "Pourcentage de ligament dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de ligament dans le lit de la plaie",
+        "tooltip": "Tissu ligamentaire visible dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Tissu ligamentaire",
+        "significance": "Indique l'atteinte ligamentaire, impact sur la stabilité"
+      }
+    },
+    {
+      "id": "C1T21E07",
+      "type": "number",
+      "label": "Tissu adipeux",
+      "description": "Pourcentage de tissu adipeux dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de tissu adipeux dans le lit de la plaie",
+        "tooltip": "Tissu adipeux (graisse) visible dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Tissu adipeux (graisse)",
+        "significance": "Indique l'atteinte du tissu adipeux sous-cutané"
+      }
+    },
+    {
+      "id": "C1T21E08",
+      "type": "number",
+      "label": "Greffon",
+      "description": "Pourcentage de greffon dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de greffon dans le lit de la plaie",
+        "tooltip": "Tissu de greffe visible dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Tissu de greffe",
+        "significance": "Indique la présence d'un greffon dans la plaie"
+      }
+    },
+    {
+      "id": "C1T21E09",
+      "type": "number",
+      "label": "Hématome",
+      "description": "Pourcentage d'hématome dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage d'hématome dans le lit de la plaie",
+        "tooltip": "Collection de sang dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Collection de sang",
+        "significance": "Indique la présence d'un hématome, risque d'infection"
+      }
+    },
+    {
+      "id": "C1T21E10",
+      "type": "number",
+      "label": "Corps étranger",
+      "description": "Pourcentage de corps étranger dans le lit de la plaie",
+      "required": false,
+      "validation": {
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "%",
+        "help": "Saisissez le pourcentage de corps étranger dans le lit de la plaie",
+        "tooltip": "Matériel étranger visible dans le lit de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Matériel étranger",
+        "significance": "Indique la présence d'un corps étranger, risque d'infection"
+      }
+    }
+  ],
+  "validation_rules": {
+    "percentage_sum": {
+      "max_total": 100,
+      "allow_under_100": true,
+      "warning_threshold": 100,
+      "error_threshold": 100,
+      "warning_message": "La somme des pourcentages est inférieure à 100% (évaluation incomplète)",
+      "error_message": "La somme des pourcentages ne peut pas dépasser 100%"
+    },
+    "individual_fields": {
+      "min_value": 0,
+      "max_value": 100,
+      "step": 1,
+      "unit": "%"
+    }
+  },
+  "ui_configuration": {
+    "layout": "grid",
+    "spacing": "medium",
+    "group_label": "Composition du lit de la plaie",
+    "instructions": "Saisissez le pourcentage de chaque type de tissu dans le lit de la plaie. La somme ne doit pas dépasser 100%.",
+    "sections": [
+      {
+        "title": "Composition tissulaire (%)",
+        "elements": [
+          "C1T21E01", "C1T21E02", "C1T21E03", "C1T21E04", "C1T21E05",
+          "C1T21E06", "C1T21E07", "C1T21E08", "C1T21E09", "C1T21E10"
+        ],
+        "type": "percentage_grid",
+        "required": false
+      }
+    ],
+    "summary_display": {
+      "show_total": true,
+      "show_warning": true,
+      "show_error": true
+    }
+  },
+  "data_structure": {
+    "tissue_composition": {
+      "necrotic_tissue": "C1T21E01",
+      "muscle_fascia": "C1T21E02",
+      "bone": "C1T21E03",
+      "vessel": "C1T21E04",
+      "tendon": "C1T21E05",
+      "ligament": "C1T21E06",
+      "adipose_tissue": "C1T21E07",
+      "graft": "C1T21E08",
+      "hematoma": "C1T21E09",
+      "foreign_body": "C1T21E10"
+    },
+    "calculated_total": {
+      "sum": "Sum of all percentages",
+      "status": "valid|warning|error"
+    },
+    "export_format": {
+      "necrotic_tissue_percent": "Number (0-100)",
+      "muscle_fascia_percent": "Number (0-100)",
+      "bone_percent": "Number (0-100)",
+      "vessel_percent": "Number (0-100)",
+      "tendon_percent": "Number (0-100)",
+      "ligament_percent": "Number (0-100)",
+      "adipose_tissue_percent": "Number (0-100)",
+      "graft_percent": "Number (0-100)",
+      "hematoma_percent": "Number (0-100)",
+      "foreign_body_percent": "Number (0-100)",
+      "total_percent": "Number (sum of all percentages)",
+      "validation_status": "String (valid|warning|error)"
+    }
+  },
+  "clinical_notes": {
+    "importance": "La composition du lit de la plaie détermine le plan de traitement et les interventions nécessaires",
+    "documentation": "Tous les pourcentages seront documentés pour l'évaluation tissulaire",
+    "tissue_significance": {
+      "necrotic_tissue": {
+        "description": "Tissu mort ou en cours de nécrose",
+        "clinical_implications": "Nécessite débridement, évaluation BWAT des tissus nécrotiques"
+      },
+      "muscle_fascia": {
+        "description": "Tissu musculaire ou fascia",
+        "clinical_implications": "Atteinte des structures musculaires, impact sur la fonction"
+      },
+      "bone": {
+        "description": "Tissu osseux",
+        "clinical_implications": "Atteinte osseuse, risque d'ostéomyélite, évaluation approfondie"
+      },
+      "vessel": {
+        "description": "Vaisseaux sanguins",
+        "clinical_implications": "Atteinte vasculaire, risque hémorragique"
+      },
+      "tendon": {
+        "description": "Tissu tendineux",
+        "clinical_implications": "Atteinte tendineuse, impact sur la fonction"
+      },
+      "ligament": {
+        "description": "Tissu ligamentaire",
+        "clinical_implications": "Atteinte ligamentaire, impact sur la stabilité"
+      },
+      "adipose_tissue": {
+        "description": "Tissu adipeux (graisse)",
+        "clinical_implications": "Atteinte du tissu adipeux sous-cutané"
+      },
+      "graft": {
+        "description": "Tissu de greffe",
+        "clinical_implications": "Présence d'un greffon, évaluation de la prise"
+      },
+      "hematoma": {
+        "description": "Collection de sang",
+        "clinical_implications": "Risque d'infection, évacuation possible"
+      },
+      "foreign_body": {
+        "description": "Matériel étranger",
+        "clinical_implications": "Risque d'infection, retrait nécessaire"
+      }
+    },
+    "routing_logic": {
+      "necrotic_tissue_detection": {
+        "condition": "C1T21E01 > 0%",
+        "action": "Poursuivre vers Table 22 - BWAT Types et quantité de tissus nécrotiques",
+        "phase": "immediate",
+        "priority": 1
+      }
+    }
+  },
+  "accessibility": {
+    "aria_label": "Composition du lit de la plaie",
+    "aria_description": "Saisissez le pourcentage de chaque type de tissu dans le lit de la plaie",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "main_section": "Composition tissulaire en pourcentages"
+    },
+    "percentage_announcements": {
+      "individual": "Pourcentage de [tissu] dans le lit de la plaie",
+      "total": "Somme totale des pourcentages",
+      "validation": "Statut de validation de la somme"
+    }
+  }
+}

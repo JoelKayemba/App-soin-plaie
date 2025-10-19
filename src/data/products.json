@@ -1,0 +1,222 @@
+[
+  {
+    "id": "1",
+    "name": "Aquacel Ag+ Extra",
+    "brand": "Convatec",
+    "class": "Pellicule transparente",
+    "category": "dressings",
+    "image": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&h=300&fit=crop&crop=center",
+    "absorption": 1,
+    "antimicrobial": "Iode",
+    "autoadhesive": true,
+    "waterproof": true,
+    "cuttable": true,
+    "stackable": false,
+    "pediatric": false,
+    "indications": [
+      "Protection de plaies superficielles",
+      "Fixation de cathéters",
+      "Prévention"
+    ],
+    "contraindications": [
+      "Plaies infectées",
+      "Hypersensibilité aux composants",
+      "Plaies profondes"
+    ],
+    "advantages": [
+      "Transparence pour surveillance",
+      "Perméabilité à l'air",
+      "Facilité d'application"
+    ],
+    "disadvantages": [
+      "Résistance limitée à l'eau",
+      "Adhérence variable selon la peau"
+    ],
+    "precautions": [
+      "Vérifier l'intégrité avant application",
+      "Surveiller les signes d'infection",
+      "Changer si souillé ou décollé"
+    ],
+    "changeInterval": "3-7 jours ou selon l'état",
+    "sizes": [
+      "5x7 cm - Code: AQAG5X7",
+      "10x10 cm - Code: AQAG10X10",
+      "15x15 cm - Code: AQAG15X15"
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Alginate de Calcium",
+    "brand": "Urgo",
+    "class": "Pansement absorbant",
+    "category": "dressings",
+    "image": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop&crop=center",
+    "absorption": 3,
+    "antimicrobial": null,
+    "autoadhesive": false,
+    "waterproof": false,
+    "cuttable": true,
+    "stackable": true,
+    "pediatric": true,
+    "indications": [
+      "Plaies exsudatives",
+      "Plaies de pression",
+      "Ulcères veineux"
+    ],
+    "contraindications": [
+      "Plaies sèches",
+      "Plaies avec escarre sèche"
+    ],
+    "advantages": [
+      "Absorption élevée",
+      "Formation de gel",
+      "Débridement autolytique"
+    ],
+    "disadvantages": [
+      "Nécessite un pansement secondaire",
+      "Peut adhérer à la plaie"
+    ],
+    "precautions": [
+      "Humidifier avant retrait",
+      "Surveiller l'adhérence",
+      "Changer selon l'exsudat"
+    ],
+    "changeInterval": "1-3 jours selon l'exsudat",
+    "sizes": [
+      "5x5 cm - Code: URGALG5X5",
+      "10x10 cm - Code: URGALG10X10"
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Chlorhexidine 0.5%",
+    "brand": "B. Braun",
+    "class": "Solution antiseptique",
+    "category": "cleaning",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop&crop=center",
+    "absorption": 0,
+    "antimicrobial": "Chlorhexidine",
+    "autoadhesive": false,
+    "waterproof": false,
+    "cuttable": false,
+    "stackable": false,
+    "pediatric": true,
+    "indications": [
+      "Nettoyage des plaies",
+      "Préparation cutanée",
+      "Antisepsie préopératoire"
+    ],
+    "contraindications": [
+      "Hypersensibilité à la chlorhexidine",
+      "Application sur muqueuses",
+      "Plaies profondes"
+    ],
+    "advantages": [
+      "Spectre large",
+      "Résiduel prolongé",
+      "Bonne tolérance"
+    ],
+    "disadvantages": [
+      "Coloration temporaire",
+      "Séchage cutané"
+    ],
+    "precautions": [
+      "Éviter le contact avec les yeux",
+      "Rincer abondamment",
+      "Surveiller les réactions"
+    ],
+    "changeInterval": "Selon protocole",
+    "sizes": [
+      "500ml - Code: CHX500",
+      "1000ml - Code: CHX1000"
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Barrière Cutanée",
+    "brand": "Coloplast",
+    "class": "Protecteur cutané",
+    "category": "protection",
+    "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop&crop=center",
+    "absorption": 0,
+    "antimicrobial": null,
+    "autoadhesive": true,
+    "waterproof": true,
+    "cuttable": true,
+    "stackable": false,
+    "pediatric": true,
+    "indications": [
+      "Protection de la peau saine",
+      "Prévention des escarres",
+      "Protection autour des stomies"
+    ],
+    "contraindications": [
+      "Peau lésée",
+      "Infection active"
+    ],
+    "advantages": [
+      "Protection efficace",
+      "Perméabilité à l'air",
+      "Facilité d'application"
+    ],
+    "disadvantages": [
+      "Coût élevé",
+      "Adhérence variable"
+    ],
+    "precautions": [
+      "Nettoyer la peau avant application",
+      "Surveiller l'état cutané",
+      "Changer si décollé"
+    ],
+    "changeInterval": "3-7 jours",
+    "sizes": [
+      "10x10 cm - Code: COLBAR10X10",
+      "15x15 cm - Code: COLBAR15X15"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Collagenase",
+    "brand": "Smith & Nephew",
+    "class": "Débridement enzymatique",
+    "category": "debridement",
+    "image": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop&crop=center",
+    "absorption": 1,
+    "antimicrobial": null,
+    "autoadhesive": false,
+    "waterproof": false,
+    "cuttable": false,
+    "stackable": false,
+    "pediatric": false,
+    "indications": [
+      "Débridement enzymatique",
+      "Escarre fibrineuse",
+      "Nécrose"
+    ],
+    "contraindications": [
+      "Plaies propres",
+      "Hypersensibilité",
+      "Infection active"
+    ],
+    "advantages": [
+      "Débridement sélectif",
+      "Non traumatique",
+      "Efficacité prouvée"
+    ],
+    "disadvantages": [
+      "Coût élevé",
+      "Application quotidienne",
+      "Durée de traitement"
+    ],
+    "precautions": [
+      "Application quotidienne",
+      "Surveiller l'évolution",
+      "Arrêter si infection"
+    ],
+    "changeInterval": "Quotidien",
+    "sizes": [
+      "15g - Code: SNCOL15",
+      "30g - Code: SNCOL30"
+    ]
+  }
+]

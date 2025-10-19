@@ -1,11 +1,15 @@
 // src/screens/HomeScreen.js
 import React, { useState } from 'react';
 import { Image, View, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import SectionHeader from '@/components/common/SectionHeader';
 import { TView, TText } from '@/components/ui/Themed';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';
 import ToolsSection from '@/components/home/ToolsSection';
+import NewsSection from '@/components/home/NewsSection';
+import ClinicalWarning from '@/components/common/ClinicalWarning';
+
 
 const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,6 +57,7 @@ const HomeScreen = ({ navigation }) => {
   const s = useStyles();
 
   const handleSettingsPress = () => navigation.navigate('Settings');
+  const handleSearchPress = () => navigation.navigate('Search');
 
   const tools = [
     {
@@ -116,17 +121,37 @@ const HomeScreen = ({ navigation }) => {
 
     const handleOpenTool = (it) => navigation.navigate(it.screen);
     const handleVoirTout = () => navigation.navigate('AllTools');
+    
+    const handleNewsPress = (newsItem) => {
+      // Navigation vers la section appropriée selon le type de nouveauté
+      switch (newsItem.route) {
+        case 'Products':
+          navigation.navigate('Produits');
+          break;
+        case 'Lexique':
+          navigation.navigate('Lexique');
+          break;
+        case 'References':
+          navigation.navigate('References');
+          break;
+        default:
+          // Par défaut, aller vers la page d'accueil
+          break;
+      }
+    };
 
   return (
-    <TView style={s.root}>
-      <SectionHeader
-        searchValue={searchQuery}
-        onChangeSearch={setSearchQuery}
-        onPressSettings={handleSettingsPress}
-      />
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <TView style={s.root}>
+        <SectionHeader
+          searchValue={searchQuery}
+          onChangeSearch={setSearchQuery}
+          onPressSettings={handleSettingsPress}
+          onPressSearch={handleSearchPress}
+        />
 
-      <ScrollView style={s.content} showsVerticalScrollIndicator={false}>
-        <View style={s.heroCard}>
+                <ScrollView style={s.content} showsVerticalScrollIndicator={false}>
+          <View style={s.heroCard}>
           {/* Texte à gauche */}
           <View style={s.heroText}>
             <TText style={s.title}>Bienvenue!</TText>
@@ -144,9 +169,23 @@ const HomeScreen = ({ navigation }) => {
             />
           </View>
         </View>
+        
+    
+        
         <ToolsSection items={tools} onPressItem={handleOpenTool} onPressVoirTout={handleVoirTout} />
-      </ScrollView>
-    </TView>
+        
+        {/* Section Nouveautés */}
+        <NewsSection onNewsPress={handleNewsPress} navigation={navigation} />
+        
+        {/* Test des icônes */}
+    
+        
+        </ScrollView>
+      </TView>
+
+      {/* Modal d'avertissement clinique */}
+      <ClinicalWarning />
+    </SafeAreaView>
   );
 };
 

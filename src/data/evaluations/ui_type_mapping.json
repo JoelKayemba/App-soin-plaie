@@ -1,0 +1,373 @@
+{
+  "version": "1.0.0",
+  "description": "Correspondance entre les types de données JSON et les composants UI",
+  "metadata": {
+    "created": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "type_mappings": {
+    "single_choice": {
+      "component": "RadioGroup",
+      "props": {
+        "options": "element.options",
+        "value": "data[element.id]",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "required": "element.required",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "single_choice",
+        "required": "element.required"
+      }
+    },
+    "multiple_choice": {
+      "component": "CheckboxGroup",
+      "props": {
+        "options": "element.options",
+        "value": "data[element.id] || []",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "required": "element.required",
+        "minSelections": "element.minSelections",
+        "maxSelections": "element.maxSelections",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "multiple_choice",
+        "required": "element.required",
+        "minSelections": "element.minSelections",
+        "maxSelections": "element.maxSelections"
+      }
+    },
+    "multiple_selection": {
+      "component": "CheckboxGroup",
+      "props": {
+        "options": "element.options",
+        "value": "data[element.id] || []",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "required": "element.required",
+        "minSelections": "element.minSelections",
+        "maxSelections": "element.maxSelections",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "multiple_choice",
+        "required": "element.required",
+        "minSelections": "element.minSelections",
+        "maxSelections": "element.maxSelections"
+      }
+    },
+    "multiple_choice_with_text": {
+      "component": "MultipleChoiceWithText",
+      "props": {
+        "options": "element.options",
+        "value": "data[element.id] || {}",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "required": "element.required",
+        "minSelections": "element.minSelections",
+        "maxSelections": "element.maxSelections",
+        "placeholder": "element.placeholder",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "multiple_choice_with_text",
+        "required": "element.required",
+        "minSelections": "element.minSelections",
+        "maxSelections": "element.maxSelections"
+      }
+    },
+    "boolean": {
+      "component": "BooleanInput",
+      "props": {
+        "value": "data[element.id]",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "required": "element.required",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "boolean",
+        "required": "element.required"
+      }
+    },
+    "number": {
+      "component": "NumericInput",
+      "props": {
+        "value": "data[element.id]",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "placeholder": "element.placeholder",
+        "unit": "element.unit",
+        "required": "element.required",
+        "min": "element.validation?.min",
+        "max": "element.validation?.max",
+        "step": "element.validation?.step",
+        "precision": "element.validation?.precision",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "number",
+        "required": "element.required",
+        "min": "element.validation?.min",
+        "max": "element.validation?.max"
+      }
+    },
+    "text": {
+      "component": "TextInput",
+      "props": {
+        "value": "data[element.id] || ''",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "placeholder": "element.placeholder",
+        "required": "element.required",
+        "multiline": "element.multiline",
+        "minLength": "element.min_length",
+        "maxLength": "element.max_length",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "required": "element.required",
+        "minLength": "element.min_length",
+        "maxLength": "element.max_length"
+      }
+    },
+    "date": {
+      "component": "DateInput",
+      "props": {
+        "value": "data[element.id]",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "placeholder": "element.placeholder",
+        "required": "element.required",
+        "minDate": "element.validation?.min_date",
+        "maxDate": "element.validation?.max_date",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "date",
+        "required": "element.required"
+      }
+    },
+    "calculated": {
+      "component": "CalculatedField",
+      "props": {
+        "value": "data[element.id]",
+        "label": "element.label",
+        "description": "element.description",
+        "unit": "element.unit",
+        "icon": "element.icon"
+      },
+      "validation": {
+        "readonly": true
+      }
+    },
+    "informational": {
+      "component": "InfoField",
+      "props": {
+        "content": "element.content || element.description",
+        "type": "element.info_type || 'info'",
+        "icon": "element.icon"
+      },
+      "validation": {
+        "readonly": true
+      }
+    },
+    "photo": {
+      "component": "PhotoUpload",
+      "props": {
+        "value": "data[element.id] || []",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "required": "element.required",
+        "maxPhotos": "element.maxPhotos || 3",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "photo",
+        "required": "element.required",
+        "maxPhotos": "element.maxPhotos || 3"
+      }
+    },
+    "scale": {
+      "component": "ScaleInput",
+      "props": {
+        "value": "data[element.id]",
+        "onValueChange": "updateWithValidation",
+        "label": "element.label",
+        "description": "element.description",
+        "required": "element.required",
+        "scale": "element.scale || []",
+        "error": "errors[element.id]",
+        "disabled": "element.disabled",
+        "help": "element.help"
+      },
+      "validation": {
+        "type": "scale",
+        "required": "element.required"
+      }
+    },
+    "mixed_input": {
+      "component": "MixedInputSection",
+      "props": {
+        "elements": "element.elements",
+        "label": "element.label",
+        "description": "element.description",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      },
+      "validation": {
+        "recursive": true
+      }
+    },
+    "mixed_questions": {
+      "component": "MixedQuestionsSection",
+      "props": {
+        "elements": "element.elements",
+        "label": "element.label",
+        "description": "element.description",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      },
+      "validation": {
+        "recursive": true
+      }
+    }
+  },
+  "section_mappings": {
+    "conditional_section": {
+      "component": "ConditionalSection",
+      "props": {
+        "condition": "section.condition",
+        "elements": "section.elements",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      }
+    },
+    "checkbox_section": {
+      "component": "CheckboxSection",
+      "props": {
+        "elements": "section.elements",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      }
+    },
+    "result_section": {
+      "component": "ResultSection",
+      "props": {
+        "results": "section.results",
+        "data": "data"
+      }
+    },
+    "radio_section": {
+      "component": "RadioSection",
+      "props": {
+        "elements": "section.elements",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      }
+    },
+    "numeric_section": {
+      "component": "NumericSection",
+      "props": {
+        "elements": "section.elements",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      }
+    },
+    "choice_section": {
+      "component": "ChoiceSection",
+      "props": {
+        "elements": "section.elements",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      }
+    },
+    "form_section": {
+      "component": "FormSection",
+      "props": {
+        "elements": "section.elements",
+        "data": "data",
+        "errors": "errors",
+        "onDataChange": "onDataChange"
+      }
+    }
+  },
+  "special_components": {
+    "bwat_attribution": {
+      "component": "BWATAttribution",
+      "props": {
+        "attribution": "tableData.bwat_attribution"
+      }
+    },
+    "clinical_alert": {
+      "component": "ClinicalAlert",
+      "props": {
+        "alert": "tableData.clinical_alert"
+      }
+    }
+  },
+  "validation_rules": {
+    "required_fields": {
+      "behavior": "Bloque navigation si non rempli",
+      "implementation": "required: true"
+    },
+    "numeric_validation": {
+      "properties": ["min", "max", "step", "unit"],
+      "formatting": "ex. g/L, mmHg, cm, %"
+    },
+    "percentage_sums": {
+      "rule": "sum(elements) ≤ 100",
+      "targets": ["C1T21"],
+      "require_exact_100": false,
+      "warning": "Si < 100 (incomplet)",
+      "error": "Si > 100"
+    },
+    "conditional_groups": {
+      "rule": "Si parent coché → sous-questions deviennent required",
+      "example": "Groupe Douleur"
+    },
+    "multiple_selections": {
+      "constraints": ["minSelections", "maxSelections"]
+    }
+  }
+}
+
+

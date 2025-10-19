@@ -1,6 +1,7 @@
 // src/app/BradenQScreen.jsx
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity, Modal, Alert, SafeAreaView } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Modal, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TView, TText, TIcon } from '@/components/ui/Themed';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import useResponsive from '@/hooks/useResponsive';

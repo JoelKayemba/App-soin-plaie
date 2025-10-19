@@ -1,0 +1,230 @@
+{
+  "id": "C1T08",
+  "version": "1.0.0",
+  "title": "Environnement et sphère psychosociale",
+  "description": "Évaluation des facteurs environnementaux et psychosociales influençant le risque de lésions de pression",
+  "category": "psychosocial_assessment",
+  "column": 1,
+  "table": 8,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T08E01",
+      "type": "boolean",
+      "label": "Emploi limitant la cicatrisation",
+     
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si l'emploi du patient peut limiter la cicatrisation",
+        "tooltip": "Travail physique intense, exposition à des produits chimiques, positions prolongées, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E02",
+      "type": "boolean",
+      "label": "Hygiène et conditions de vie inadéquates",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si les conditions de vie sont inadéquates",
+        "tooltip": "Logement insalubre, accès limité à l'eau, conditions d'hygiène difficiles"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E03",
+      "type": "boolean",
+      "label": "Peu ou pas de réseau de soutien",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient a peu ou pas de réseau de soutien",
+        "tooltip": "Isolement social, absence de famille proche, peu d'amis, etc."
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E04",
+      "type": "boolean",
+      "label": "Accès difficile aux soins",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si l'accès aux soins est difficile",
+        "tooltip": "Distance géographique, transport, coûts, disponibilité des services"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E05",
+      "type": "boolean",
+      "label": "Incapacité à effectuer les autosoins",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient a des difficultés avec les autosoins",
+        "tooltip": "Limitations physiques, cognitives ou motrices pour les soins personnels"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E06",
+      "type": "boolean",
+      "label": "Précarité financière",
+      
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient vit une précarité financière",
+        "tooltip": "Revenus insuffisants, difficultés financières, accès limité aux ressources"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E07",
+      "type": "boolean",
+      "label": "Anxiété, stress",
+     
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente de l'anxiété ou du stress",
+        "tooltip": "Anxiété, stress, préoccupations liées à la santé ou à la situation"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E08",
+      "type": "boolean",
+      "label": "Manque d'adhésion au traitement",
+   
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si le patient présente un manque d'adhésion au traitement",
+        "tooltip": "Non-respect des médicaments, des rendez-vous, des recommandations"
+      },
+      "routes": []
+    },
+    {
+      "id": "C1T08E09",
+      "type": "single_choice",
+      "label": "La présence de cette plaie affecte-t-elle votre vie sociale, professionnelle ou familiale ?",
+     
+      "required": true,
+      "options": [
+        {
+          "value": "yes",
+          "label": "Oui"
+        },
+        {
+          "value": "no",
+          "label": "Non"
+        }
+      ],
+      "ui": {
+        "component": "RadioGroup",
+        "help": "Sélectionnez si la plaie affecte votre vie sociale, professionnelle ou familiale",
+        "tooltip": "Impact sur les relations, le travail, les activités familiales"
+      },
+      "routes": []
+    }
+  ],
+  "validation_rules": {
+    "required_fields": ["C1T08E09"],
+    "multiple_selection": {
+      "psychosocial_factors": {
+        "min_selections": 0,
+        "max_selections": 8,
+        "allow_none": true,
+        "options": ["C1T08E01", "C1T08E02", "C1T08E03", "C1T08E04", "C1T08E05", "C1T08E06", "C1T08E07", "C1T08E08"]
+      }
+    },
+    "radio_groups": {
+      "social_impact": {
+        "field": "C1T08E09",
+        "required": true,
+        "mutually_exclusive": true
+      }
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Environnement et sphère psychosociale",
+    "instructions": "Sélectionnez tous les facteurs qui s'appliquent au patient et répondez à la question obligatoire sur l'impact social",
+    "sections": [
+      {
+        "title": "Facteurs environnementaux et psychosociales",
+        "elements": ["C1T08E01", "C1T08E02", "C1T08E03", "C1T08E04", "C1T08E05", "C1T08E06", "C1T08E07", "C1T08E08"],
+        "type": "checkbox_group",
+        "required": false
+      },
+      {
+        "title": "La présence de cette plaie affecte-t-elle votre vie sociale, professionnelle ou familiale ?",
+        "elements": ["C1T08E09"],
+        "type": "radio_group",
+        "required": true
+      }
+    ]
+  },
+  "data_structure": {
+    "psychosocial_assessment": {
+      "environmental_factors": {
+        "limiting_employment": "C1T08E01",
+        "inadequate_living_conditions": "C1T08E02",
+        "limited_support_network": "C1T08E03",
+        "difficult_care_access": "C1T08E04",
+        "self_care_limitations": "C1T08E05",
+        "financial_precarity": "C1T08E06",
+        "anxiety_stress": "C1T08E07",
+        "poor_treatment_adherence": "C1T08E08"
+      },
+      "social_impact": "C1T08E09"
+    },
+    "export_format": {
+      "selected_factors": "Array of selected psychosocial factor IDs",
+      "social_impact": "String value from C1T08E09 (yes/no)"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Les facteurs psychosocials peuvent significativement influencer le risque de lésions de pression et l'adhésion au traitement",
+    "documentation": "Tous les facteurs identifiés seront documentés dans l'évaluation du risque",
+    "interventions": {
+      "employment": "Adaptation du poste de travail, arrêt temporaire si nécessaire",
+      "living_conditions": "Référence vers services sociaux, amélioration des conditions",
+      "support_network": "Mobilisation du réseau, services communautaires",
+      "care_access": "Planification des soins, transport médical",
+      "self_care": "Éducation, aide à domicile, ergothérapie",
+      "financial": "Référence vers services sociaux, programmes d'aide",
+      "psychological": "Soutien psychologique, gestion du stress",
+      "adherence": "Éducation thérapeutique, simplification du traitement"
+    },
+    "risk_considerations": {
+      "high_risk": "Plusieurs facteurs présents",
+      "moderate_risk": "Quelques facteurs présents",
+      "low_risk": "Peu ou pas de facteurs"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Évaluation environnementale et psychosociale",
+    "aria_description": "Sélectionnez les facteurs qui s'appliquent et répondez à la question sur l'impact social",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "psychosocial_factors": "Facteurs environnementaux et psychosocials",
+      "social_impact": "Impact de la plaie sur la vie sociale, professionnelle ou familiale"
+    }
+  }
+}

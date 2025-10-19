@@ -1,0 +1,895 @@
+{
+  "id": "C1T27",
+  "version": "1.0.0",
+  "title": "Signes et symptômes d'infection",
+  "description": "Identification des signes locaux et systémiques d'infection",
+  "category": "infection_assessment",
+  "column": 1,
+  "table": 27,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "clinical_alert": {
+    "enabled": true,
+    "type": "informational",
+    "title": "Note clinique importante",
+    "message": "Une neuropathie, une MVAS ou une immunosuppression peut masquer les symptômes ou signes d'une infection locale.",
+    "icon": "⚠️",
+    "position": "top",
+    "persistent": true,
+    "ui": {
+      "component": "AlertBanner",
+      "variant": "warning",
+      "dismissible": false
+    }
+  },
+  "behavior": {
+    "type": "multiple_selection",
+    "min_selections": 0,
+    "max_selections": 27,
+    "priority": "high",
+    "interrupts_flow": true,
+    "description": "Dès qu'un élément est sélectionné, le système déclenche une évaluation immédiate des constats associés",
+    "routing_behavior": {
+      "immediate_routing": true,
+      "bypass_continuation": true,
+      "description": "Chaque élément sélectionné déclenche une route directe vers d'autres colonnes sans attendre la suite de l'évaluation",
+      "note": "Les routes spécifiques seront ajoutées plus tard selon les besoins cliniques"
+    }
+  },
+  "elements": [
+    {
+      "id": "C1T27E01",
+      "type": "boolean",
+      "label": "Hypergranulation friable",
+      "description": "Tissu de granulation excessif et fragile",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une hypergranulation friable",
+        "tooltip": "Tissu de granulation excessif et fragile",
+        "ariaDescription": "Cocher s'il y a une hypergranulation friable"
+      },
+      "clinical_notes": {
+        "description": "Tissu de granulation excessif et fragile",
+        "significance": "Peut indiquer une infection ou une inflammation chronique"
+      }
+    },
+    {
+      "id": "C1T27E02",
+      "type": "boolean",
+      "label": "Granulation friable qui saigne facilement au toucher",
+      "description": "Tissu de granulation fragile avec saignement au contact",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si la granulation saigne facilement au toucher",
+        "tooltip": "Tissu de granulation fragile avec saignement au contact",
+        "ariaDescription": "Cocher si la granulation saigne facilement au toucher"
+      },
+      "clinical_notes": {
+        "description": "Tissu de granulation fragile avec saignement au contact",
+        "significance": "Peut indiquer une infection ou une inflammation"
+      }
+    },
+    {
+      "id": "C1T27E03",
+      "type": "boolean",
+      "label": "Exsudat changé ou augmenté",
+      "description": "Modification de la qualité ou augmentation de la quantité d'exsudat",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez si l'exsudat a changé ou augmenté",
+        "tooltip": "Modification de la qualité ou augmentation de la quantité d'exsudat",
+        "ariaDescription": "Cocher si l'exsudat a changé ou augmenté"
+      },
+      "clinical_notes": {
+        "description": "Modification de la qualité ou augmentation de la quantité d'exsudat",
+        "significance": "Peut indiquer une infection ou une inflammation"
+      }
+    },
+    {
+      "id": "C1T27E04",
+      "type": "boolean",
+      "label": "Retard de cicatrisation malgré les bonnes pratiques",
+      "description": "Absence d'amélioration malgré un traitement approprié",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a un retard de cicatrisation malgré les bonnes pratiques",
+        "tooltip": "Absence d'amélioration malgré un traitement approprié",
+        "ariaDescription": "Cocher s'il y a un retard de cicatrisation malgré les bonnes pratiques"
+      },
+      "clinical_notes": {
+        "description": "Absence d'amélioration malgré un traitement approprié",
+        "significance": "Peut indiquer une infection ou d'autres complications"
+      }
+    },
+    {
+      "id": "C1T27E05",
+      "type": "boolean",
+      "label": "Érythème, rougeur > 2 cm au pourtour de la plaie",
+      "description": "Rougeur étendue autour de la plaie",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a un érythème > 2 cm au pourtour de la plaie",
+        "tooltip": "Rougeur étendue autour de la plaie",
+        "ariaDescription": "Cocher s'il y a un érythème > 2 cm au pourtour de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Rougeur étendue autour de la plaie",
+        "significance": "Signe d'inflammation ou d'infection locale"
+      }
+    },
+    {
+      "id": "C1T27E06",
+      "type": "boolean",
+      "label": "Chaleur locale",
+      "description": "Augmentation de la température locale",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une chaleur locale",
+        "tooltip": "Augmentation de la température locale de plus de 1,75°C comparativement au site controlatéral",
+        "ariaDescription": "Cocher s'il y a une chaleur locale"
+      },
+      "detailed_definition": {
+        "title": "Chaleur locale",
+        "description": "Augmentation de la température locale de plus de 1,75°C comparativement au site controlatéral",
+        "measurement": "Comparaison avec le site controlatéral",
+        "threshold": "> 1,75°C",
+        "significance": "Signe d'inflammation ou d'infection locale"
+      },
+      "clinical_notes": {
+        "description": "Augmentation de la température locale de plus de 1,75°C comparativement au site controlatéral",
+        "significance": "Signe d'inflammation ou d'infection locale"
+      }
+    },
+    {
+      "id": "C1T27E07",
+      "type": "boolean",
+      "label": "Rougeur < 2 cm au pourtour de la plaie",
+      "description": "Rougeur limitée autour de la plaie",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une rougeur < 2 cm au pourtour de la plaie",
+        "tooltip": "Rougeur limitée autour de la plaie",
+        "ariaDescription": "Cocher s'il y a une rougeur < 2 cm au pourtour de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Rougeur limitée autour de la plaie",
+        "significance": "Signe d'inflammation légère"
+      }
+    },
+    {
+      "id": "C1T27E08",
+      "type": "boolean",
+      "label": "Œdème",
+      "description": "Gonflement des tissus environnants",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a un œdème",
+        "tooltip": "Gonflement des tissus environnants",
+        "ariaDescription": "Cocher s'il y a un œdème"
+      },
+      "clinical_notes": {
+        "description": "Gonflement des tissus environnants",
+        "significance": "Signe d'inflammation ou d'infection"
+      }
+    },
+    {
+      "id": "C1T27E09",
+      "type": "boolean",
+      "label": "Cellulite",
+      "description": "Infection des tissus mous",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une cellulite",
+        "tooltip": "Infection des tissus mous",
+        "ariaDescription": "Cocher s'il y a une cellulite"
+      },
+      "clinical_notes": {
+        "description": "Infection des tissus mous",
+        "significance": "Infection des tissus mous nécessitant un traitement"
+      }
+    },
+    {
+      "id": "C1T27E10",
+      "type": "boolean",
+      "label": "Stagnation ou grandissement de la plaie",
+      "description": "Absence d'amélioration ou aggravation de la plaie",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une stagnation ou un grandissement de la plaie",
+        "tooltip": "Absence d'amélioration ou aggravation de la plaie",
+        "ariaDescription": "Cocher s'il y a une stagnation ou un grandissement de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Absence d'amélioration ou aggravation de la plaie",
+        "significance": "Peut indiquer une infection ou d'autres complications"
+      }
+    },
+    {
+      "id": "C1T27E11",
+      "type": "boolean",
+      "label": "Douleur augmentée ou nouvelle",
+      "description": "Augmentation de la douleur existante ou apparition d'une nouvelle douleur",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une douleur augmentée ou nouvelle",
+        "tooltip": "Augmentation de la douleur existante ou apparition d'une nouvelle douleur",
+        "ariaDescription": "Cocher s'il y a une douleur augmentée ou nouvelle"
+      },
+      "clinical_notes": {
+        "description": "Augmentation de la douleur existante ou apparition d'une nouvelle douleur",
+        "significance": "Peut indiquer une infection ou une inflammation"
+      }
+    },
+    {
+      "id": "C1T27E12",
+      "type": "mixed_questions",
+      "label": "Mauvaise odeur après le nettoyage / odeur changée",
+      "description": "Odeur anormale persistante après nettoyage",
+      "required": false,
+      "elements": [
+        {
+          "id": "C1T27E12_presence",
+          "type": "boolean",
+          "label": "Mauvaise odeur présente",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a une mauvaise odeur",
+            "ariaDescription": "Cocher s'il y a une mauvaise odeur"
+          }
+        },
+        {
+          "id": "C1T27E12_intensity",
+          "type": "single_choice",
+          "label": "Intensité de l'odeur",
+          "required": false,
+          "condition": {
+            "eq": {
+              "var": "C1T27E12_presence",
+              "value": true
+            }
+          },
+          "options": [
+            {
+              "id": "C1T27E12_light",
+              "label": "Légère",
+              "type": "boolean"
+            },
+            {
+              "id": "C1T27E12_moderate",
+              "label": "Moyenne",
+              "type": "boolean"
+            },
+            {
+              "id": "C1T27E12_strong",
+              "label": "Forte",
+              "type": "boolean"
+            }
+          ],
+          "ui": {
+            "component": "RadioGroup",
+            "help": "Sélectionnez l'intensité de l'odeur"
+          }
+        }
+      ],
+      "ui": {
+        "component": "FormGroup"
+      },
+      "clinical_notes": {
+        "description": "Odeur anormale persistante après nettoyage",
+        "significance": "Peut indiquer une infection ou une nécrose"
+      }
+    },
+    {
+      "id": "C1T27E13",
+      "type": "boolean",
+      "label": "Lymphangite",
+      "description": "Inflammation des vaisseaux lymphatiques",
+      "required": false,
+      "alert_level": "critical",
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une lymphangite",
+        "tooltip": "Inflammation des vaisseaux lymphatiques",
+        "ariaDescription": "Cocher s'il y a une lymphangite",
+        "alert_icon": "⚑"
+      },
+      "clinical_notes": {
+        "description": "Inflammation des vaisseaux lymphatiques",
+        "significance": "Alerte clinique - nécessite une évaluation immédiate"
+      },
+      "routes": [
+        {
+          "to": "ConstatLymphangite",
+          "phase": "immediate",
+          "priority": 1,
+          "note": "Lymphangite détectée - alerte clinique",
+          "message": "⚑ Lymphangite détectée : évaluation immédiate requise"
+        }
+      ]
+    },
+    {
+      "id": "C1T27E14",
+      "type": "boolean",
+      "label": "Crépitants sous-cutanés",
+      "description": "Sensation de crépitement sous la peau",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a des crépitants sous-cutanés",
+        "tooltip": "Sensation de crépitement sous la peau",
+        "ariaDescription": "Cocher s'il y a des crépitants sous-cutanés"
+      },
+      "clinical_notes": {
+        "description": "Sensation de crépitement sous la peau",
+        "significance": "Peut indiquer une infection à gaz ou une nécrose"
+      }
+    },
+    {
+      "id": "C1T27E15",
+      "type": "boolean",
+      "label": "Induration",
+      "description": "Durcissement des tissus environnants",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une induration",
+        "tooltip": "Durcissement des tissus environnants",
+        "ariaDescription": "Cocher s'il y a une induration"
+      },
+      "clinical_notes": {
+        "description": "Durcissement des tissus environnants",
+        "significance": "Signe d'inflammation ou d'infection"
+      }
+    },
+    {
+      "id": "C1T27E16",
+      "type": "boolean",
+      "label": "Nouvelles lésions satellites",
+      "description": "Apparition de nouvelles lésions autour de la plaie principale",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a de nouvelles lésions satellites",
+        "tooltip": "Apparition de nouvelles lésions autour de la plaie principale",
+        "ariaDescription": "Cocher s'il y a de nouvelles lésions satellites"
+      },
+      "clinical_notes": {
+        "description": "Apparition de nouvelles lésions autour de la plaie principale",
+        "significance": "Peut indiquer une propagation de l'infection"
+      }
+    },
+    {
+      "id": "C1T27E17",
+      "type": "boolean",
+      "label": "Lymphadénopathie",
+      "description": "Ganglion hypertrophié",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une lymphadénopathie",
+        "tooltip": "Ganglion hypertrophié",
+        "ariaDescription": "Cocher s'il y a une lymphadénopathie"
+      },
+      "detailed_definition": {
+        "title": "Lymphadénopathie",
+        "description": "Ganglion hypertrophié",
+        "significance": "Peut indiquer une infection ou une inflammation"
+      },
+      "clinical_notes": {
+        "description": "Ganglion hypertrophié",
+        "significance": "Peut indiquer une infection ou une inflammation"
+      }
+    },
+    {
+      "id": "C1T27E18",
+      "type": "boolean",
+      "label": "Leucocytose",
+      "description": "Augmentation du nombre de globules blancs",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une leucocytose",
+        "tooltip": "Augmentation du nombre de globules blancs",
+        "ariaDescription": "Cocher s'il y a une leucocytose"
+      },
+      "clinical_notes": {
+        "description": "Augmentation du nombre de globules blancs",
+        "significance": "Signe systémique d'infection"
+      }
+    },
+    {
+      "id": "C1T27E19",
+      "type": "boolean",
+      "label": "Déhiscence ou réouverture de la plaie",
+      "description": "Ouverture ou réouverture de la plaie",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une déhiscence ou réouverture de la plaie",
+        "tooltip": "Ouverture ou réouverture de la plaie",
+        "ariaDescription": "Cocher s'il y a une déhiscence ou réouverture de la plaie"
+      },
+      "clinical_notes": {
+        "description": "Ouverture ou réouverture de la plaie",
+        "significance": "Peut indiquer une infection ou une complication"
+      }
+    },
+    {
+      "id": "C1T27E20",
+      "type": "boolean",
+      "label": "Hyperglycémie",
+      "description": "Augmentation du taux de glucose sanguin",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a une hyperglycémie",
+        "tooltip": "Augmentation du taux de glucose sanguin",
+        "ariaDescription": "Cocher s'il y a une hyperglycémie"
+      },
+      "clinical_notes": {
+        "description": "Augmentation du taux de glucose sanguin",
+        "significance": "Peut compliquer la cicatrisation et favoriser l'infection"
+      }
+    },
+    {
+      "id": "C1T27E21",
+      "type": "mixed_questions",
+      "label": "Fièvre",
+      "description": "Augmentation de la température corporelle",
+      "required": false,
+      "elements": [
+        {
+          "id": "C1T27E21_presence",
+          "type": "boolean",
+          "label": "Fièvre présente",
+          "required": false,
+          "ui": {
+            "component": "Checkbox",
+            "help": "Cochez s'il y a une fièvre",
+            "ariaDescription": "Cocher s'il y a une fièvre"
+          }
+        },
+        {
+          "id": "C1T27E21_temperature",
+          "type": "number",
+          "label": "Température",
+          "required": false,
+          "condition": {
+            "eq": {
+              "var": "C1T27E21_presence",
+              "value": true
+            }
+          },
+          "validation": {
+            "min": 35,
+            "max": 42,
+            "step": 0.1,
+            "unit": "°C"
+          },
+          "ui": {
+            "component": "NumericInput",
+            "help": "Saisissez la température"
+          }
+        },
+        {
+          "id": "C1T27E21_method",
+          "type": "single_choice",
+          "label": "Méthode de mesure",
+          "required": false,
+          "condition": {
+            "eq": {
+              "var": "C1T27E21_presence",
+              "value": true
+            }
+          },
+          "options": [
+            {
+              "id": "C1T27E21_oral",
+              "label": "Buccal",
+              "type": "boolean"
+            },
+            {
+              "id": "C1T27E21_rectal",
+              "label": "Rectal",
+              "type": "boolean"
+            },
+            {
+              "id": "C1T27E21_tympanic",
+              "label": "Tympanique",
+              "type": "boolean"
+            },
+            {
+              "id": "C1T27E21_transcutaneous",
+              "label": "Transcutané",
+              "type": "boolean"
+            },
+            {
+              "id": "C1T27E21_axillary",
+              "label": "Axillaire",
+              "type": "boolean"
+            }
+          ],
+          "ui": {
+            "component": "RadioGroup",
+            "help": "Sélectionnez la méthode de mesure"
+          }
+        }
+      ],
+      "ui": {
+        "component": "FormGroup"
+      },
+      "clinical_notes": {
+        "description": "Augmentation de la température corporelle",
+        "significance": "Signe systémique d'infection"
+      }
+    },
+    {
+      "id": "C1T27E22",
+      "type": "boolean",
+      "label": "Signes de septicémie",
+      "description": "Atteinte générale de l'état",
+      "required": false,
+      "alert_level": "critical",
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a des signes de septicémie",
+        "tooltip": "Atteinte générale de l'état : malaise, léthargie, fièvre persistante, confusion, hypotension, perte d'appétit, douleurs abdominales, nausées, vomissements, diarrhée",
+        "ariaDescription": "Cocher s'il y a des signes de septicémie",
+        "alert_icon": "⚑"
+      },
+      "detailed_definition": {
+        "title": "Signes de septicémie",
+        "description": "Atteinte générale de l'état",
+        "symptoms": [
+          "Malaise",
+          "Léthargie",
+          "Fièvre persistante",
+          "Confusion",
+          "Hypotension",
+          "Perte d'appétit",
+          "Douleurs abdominales",
+          "Nausées",
+          "Vomissements",
+          "Diarrhée"
+        ],
+        "significance": "Alerte clinique - nécessite une évaluation immédiate"
+      },
+      "clinical_notes": {
+        "description": "Atteinte générale de l'état : malaise, léthargie, fièvre persistante, confusion, hypotension, perte d'appétit, douleurs abdominales, nausées, vomissements, diarrhée",
+        "significance": "Alerte clinique - nécessite une évaluation immédiate"
+      },
+      "routes": [
+        {
+          "to": "ConstatSepticemie",
+          "phase": "immediate",
+          "priority": 1,
+          "note": "Signes de septicémie détectés - alerte clinique",
+          "message": "⚑ Signes de septicémie détectés : évaluation immédiate requise"
+        }
+      ]
+    },
+    {
+      "id": "C1T27E23",
+      "type": "boolean",
+      "label": "Signes de gangrène infectée",
+      "description": "Infection avec nécrose tissulaire",
+      "required": false,
+      "alert_level": "critical",
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a des signes de gangrène infectée",
+        "tooltip": "Écoulement purulent, nécrose humide, odeur nauséabonde, douleur importante, cellulite des tissus environnants, fièvre, frissons, altération de l'état général",
+        "ariaDescription": "Cocher s'il y a des signes de gangrène infectée",
+        "alert_icon": "⚑"
+      },
+      "detailed_definition": {
+        "title": "Signes de gangrène infectée",
+        "description": "Infection avec nécrose tissulaire",
+        "symptoms": [
+          "Écoulement purulent",
+          "Nécrose humide",
+          "Odeur nauséabonde",
+          "Douleur importante",
+          "Cellulite des tissus environnants",
+          "Fièvre",
+          "Frissons",
+          "Altération de l'état général"
+        ],
+        "significance": "Alerte clinique - nécessite une évaluation immédiate"
+      },
+      "clinical_notes": {
+        "description": "Écoulement purulent, nécrose humide, odeur nauséabonde, douleur importante, cellulite des tissus environnants, fièvre, frissons, altération de l'état général",
+        "significance": "Alerte clinique - nécessite une évaluation immédiate"
+      },
+      "routes": [
+        {
+          "to": "ConstatGangreneInfectee",
+          "phase": "immediate",
+          "priority": 1,
+          "note": "Signes de gangrène infectée détectés - alerte clinique",
+          "message": "⚑ Signes de gangrène infectée détectés : évaluation immédiate requise"
+        }
+      ]
+    },
+    {
+      "id": "C1T27E24",
+      "type": "boolean",
+      "label": "Signes de fasciite nécrosante",
+      "description": "Infection des tissus profonds",
+      "required": false,
+      "alert_level": "critical",
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a des signes de fasciite nécrosante",
+        "tooltip": "Tissus rouges, chauds, tuméfiés, douleur disproportionnée, sensation de \"coup de poignard\"",
+        "ariaDescription": "Cocher s'il y a des signes de fasciite nécrosante",
+        "alert_icon": "⚑"
+      },
+      "detailed_definition": {
+        "title": "Signes de fasciite nécrosante",
+        "description": "Infection des tissus profonds",
+        "symptoms": [
+          "Tissus rouges",
+          "Chauds",
+          "Tuméfiés",
+          "Douleur disproportionnée",
+          "Sensation de \"coup de poignard\""
+        ],
+        "significance": "Alerte clinique - nécessite une évaluation immédiate"
+      },
+      "clinical_notes": {
+        "description": "Tissus rouges, chauds, tuméfiés, douleur disproportionnée, sensation de \"coup de poignard\"",
+        "significance": "Alerte clinique - nécessite une évaluation immédiate"
+      },
+      "routes": [
+        {
+          "to": "ConstatFasciiteNecrosante",
+          "phase": "immediate",
+          "priority": 1,
+          "note": "Signes de fasciite nécrosante détectés - alerte clinique",
+          "message": "⚑ Signes de fasciite nécrosante détectés : évaluation immédiate requise"
+        }
+      ]
+    },
+    {
+      "id": "C1T27E25",
+      "type": "boolean",
+      "label": "Nouveau sinus ou tunnel",
+      "description": "Apparition d'un nouveau trajet anormal",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a un nouveau sinus ou tunnel",
+        "tooltip": "Apparition d'un nouveau trajet anormal",
+        "ariaDescription": "Cocher s'il y a un nouveau sinus ou tunnel"
+      },
+      "clinical_notes": {
+        "description": "Apparition d'un nouveau trajet anormal",
+        "significance": "Peut indiquer une propagation de l'infection"
+      }
+    },
+    {
+      "id": "C1T27E26",
+      "type": "boolean",
+      "label": "Placard érythémateux avec lésions satellites ponctiformes prurigineuses",
+      "description": "Zone rouge avec petites lésions qui démangent",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a un placard érythémateux avec lésions satellites",
+        "tooltip": "Zone rouge avec petites lésions qui démangent",
+        "ariaDescription": "Cocher s'il y a un placard érythémateux avec lésions satellites"
+      },
+      "clinical_notes": {
+        "description": "Zone rouge avec petites lésions qui démangent",
+        "significance": "Peut indiquer une infection fongique ou bactérienne"
+      }
+    },
+    {
+      "id": "C1T27E27",
+      "type": "boolean",
+      "label": "Contact osseux avec un stylet stérile",
+      "description": "Os palpable avec un stylet stérile",
+      "required": false,
+      "ui": {
+        "component": "Checkbox",
+        "help": "Cochez s'il y a un contact osseux avec un stylet stérile",
+        "tooltip": "Os palpable avec un stylet stérile",
+        "ariaDescription": "Cocher s'il y a un contact osseux avec un stylet stérile"
+      },
+      "clinical_notes": {
+        "description": "Os palpable avec un stylet stérile",
+        "significance": "Peut indiquer une ostéomyélite ou une exposition osseuse"
+      }
+    }
+  ],
+  "validation_rules": {
+    "multiple_selection": {
+      "min_selections": 0,
+      "max_selections": 27,
+      "required": false
+    },
+    "conditional_fields": {
+      "C1T27E12_intensity": {
+        "depends_on": "C1T27E12_presence",
+        "required_when_parent_selected": true
+      },
+      "C1T27E21_temperature": {
+        "depends_on": "C1T27E21_presence",
+        "required_when_parent_selected": true
+      },
+      "C1T27E21_method": {
+        "depends_on": "C1T27E21_presence",
+        "required_when_parent_selected": true
+      }
+    },
+    "error_messages": {
+      "too_many_selections": "Trop de sélections (maximum 27)",
+      "conditional_field_required": "Ce champ est requis lorsque l'élément parent est sélectionné"
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Signes et symptômes d'infection",
+    "instructions": "Sélection multiple (0 à N). Dès qu'un élément est sélectionné, le système déclenche une évaluation immédiate des constats associés. Chaque élément déclenche une route directe vers d'autres colonnes sans attendre la suite de l'évaluation.",
+    "alert_display": {
+      "critical_alerts": {
+        "icon": "⚑",
+        "color": "red",
+        "position": "top",
+        "persistent": true
+      },
+      "info_tooltips": {
+        "icon": "*",
+        "color": "blue",
+        "position": "inline"
+      }
+    },
+    "sections": [
+      {
+        "title": "Signes locaux",
+        "elements": [
+          "C1T27E01", "C1T27E02", "C1T27E03", "C1T27E04", "C1T27E05",
+          "C1T27E06", "C1T27E07", "C1T27E08", "C1T27E09", "C1T27E10",
+          "C1T27E11", "C1T27E12", "C1T27E14", "C1T27E15", "C1T27E16",
+          "C1T27E19", "C1T27E25", "C1T27E26", "C1T27E27"
+        ],
+        "type": "checkbox_group"
+      },
+      {
+        "title": "Signes systémiques",
+        "elements": [
+          "C1T27E13", "C1T27E17", "C1T27E18", "C1T27E20", "C1T27E21"
+        ],
+        "type": "checkbox_group"
+      },
+      {
+        "title": "Alertes cliniques critiques",
+        "elements": [
+          "C1T27E22", "C1T27E23", "C1T27E24"
+        ],
+        "type": "checkbox_group",
+        "alert_level": "critical"
+      }
+    ]
+  },
+  "data_structure": {
+    "selected_elements": {
+      "type": "array",
+      "items": "String (C1T27E##)",
+      "description": "Liste des éléments sélectionnés"
+    },
+    "conditional_data": {
+      "C1T27E12": {
+        "presence": "Boolean",
+        "intensity": "String (Légère/Moyenne/Forte)"
+      },
+      "C1T27E21": {
+        "presence": "Boolean",
+        "temperature": "Number (°C)",
+        "method": "String (Buccal/Rectal/Tympanique/Transcutané/Axillaire)"
+      }
+    },
+    "export_format": {
+      "selected_signs": "Array of selected element IDs",
+      "conditional_data": "Object with conditional field values",
+      "alert_level": "String (normal/critical)",
+      "has_critical_alerts": "Boolean",
+      "critical_elements": "Array of critical element IDs"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Identification des signes locaux et systémiques d'infection",
+    "documentation": "Chaque sélection génère un identifiant unique stocké pour le lien ultérieur avec la table de constats",
+    "infection_assessment": {
+      "local_signs": [
+        "Hypergranulation friable",
+        "Granulation friable qui saigne facilement",
+        "Exsudat changé ou augmenté",
+        "Retard de cicatrisation",
+        "Érythème, rougeur",
+        "Chaleur locale",
+        "Œdème",
+        "Cellulite",
+        "Stagnation ou grandissement",
+        "Douleur augmentée ou nouvelle",
+        "Mauvaise odeur",
+        "Crépitants sous-cutanés",
+        "Induration",
+        "Nouvelles lésions satellites",
+        "Déhiscence ou réouverture",
+        "Nouveau sinus ou tunnel",
+        "Placard érythémateux",
+        "Contact osseux"
+      ],
+      "systemic_signs": [
+        "Lymphangite",
+        "Lymphadénopathie",
+        "Leucocytose",
+        "Hyperglycémie",
+        "Fièvre"
+      ],
+      "critical_alerts": [
+        "Signes de septicémie",
+        "Signes de gangrène infectée",
+        "Signes de fasciite nécrosante"
+      ]
+    },
+    "special_considerations": {
+      "neuropathy": "Peut masquer les symptômes d'infection",
+      "mvas": "Peut masquer les symptômes d'infection",
+      "immunosuppression": "Peut masquer les symptômes d'infection"
+    },
+    "follow_up": {
+      "immediate_evaluation": "Dès qu'un élément est sélectionné",
+      "constat_generation": "Routes directes vers la colonne Constat",
+      "priority": "Prioritaire sur la continuité du flux d'évaluation",
+      "routing_behavior": {
+        "immediate_routing": "Chaque élément sélectionné déclenche une route directe vers d'autres colonnes",
+        "bypass_continuation": "Sans attendre la suite de l'évaluation",
+        "note": "Les routes spécifiques seront ajoutées plus tard selon les besoins cliniques"
+      }
+    }
+  },
+  "accessibility": {
+    "aria_label": "Signes et symptômes d'infection",
+    "aria_description": "Sélection multiple (0 à N). Dès qu'un élément est sélectionné, le système déclenche une évaluation immédiate des constats associés. Chaque élément déclenche une route directe vers d'autres colonnes sans attendre la suite de l'évaluation.",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "local_signs": "Signes locaux d'infection",
+      "systemic_signs": "Signes systémiques d'infection",
+      "critical_alerts": "Alertes cliniques critiques"
+    },
+    "checkbox_groups": {
+      "aria_required": false,
+      "instructions": "Sélections multiples possibles"
+    },
+    "conditional_fields": {
+      "aria_required": "true when parent selected",
+      "aria_invalid": "false",
+      "instructions": "Champ requis lorsque l'élément parent est sélectionné"
+    },
+    "alert_indicators": {
+      "critical": "⚑ Alerte clinique critique",
+      "info": "* Information détaillée disponible"
+    }
+  }
+}

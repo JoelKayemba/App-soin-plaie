@@ -1,0 +1,286 @@
+{
+  "id": "C1T16",
+  "version": "1.0.0",
+  "title": "BWAT – Taille",
+  "description": "Évaluation de la taille de la plaie selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+  "category": "wound_assessment",
+  "column": 1,
+  "table": 16,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "bwat_attribution": {
+    "title": "BWAT - Bates-Jensen Wound Assessment Tool",
+    "version": "Version traduite autorisée",
+    "attribution": "Janvier 2019. Traduit par Valérie Chaplain et Isabelle Reeves avec permission de Barbara Bates-Jensen. Reproduction autorisée par ces trois personnes.",
+    "display": true,
+    "ui": {
+      "component": "AttributionBadge",
+      "position": "top"
+    }
+  },
+  "elements": [
+    {
+      "id": "C1T16E01",
+      "type": "number",
+      "label": "Longueur",
+      "description": "Longueur de la plaie en centimètres",
+      "required": true,
+      "validation": {
+        "min": 0.1,
+        "max": 100,
+        "step": 0.1,
+        "unit": "cm"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "cm",
+        "help": "Mesurez la longueur de la plaie à angle droit (en cm)",
+        "tooltip": "Longueur maximale de la plaie, mesurée perpendiculairement à la largeur"
+      },
+      "measurement_notes": {
+        "technique": "Mesure à angle droit",
+        "position": "Position perpendiculaire à la largeur"
+      }
+    },
+    {
+      "id": "C1T16E02",
+      "type": "number",
+      "label": "Largeur",
+      "description": "Largeur de la plaie en centimètres",
+      "required": true,
+      "validation": {
+        "min": 0.1,
+        "max": 100,
+        "step": 0.1,
+        "unit": "cm"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "cm",
+        "help": "Mesurez la largeur de la plaie à angle droit (en cm)",
+        "tooltip": "Largeur maximale de la plaie, mesurée perpendiculairement à la longueur"
+      },
+      "measurement_notes": {
+        "technique": "Mesure à angle droit",
+        "position": "Position perpendiculaire à la longueur"
+      }
+    },
+    {
+      "id": "C1T16E03",
+      "type": "calculated",
+      "label": "Surface calculée",
+      "description": "Surface de la plaie calculée automatiquement",
+      "formula": "C1T16E01 * C1T16E02",
+      "unit": "cm²",
+      "rounding": 1,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "blue",
+        "help": "Surface calculée automatiquement (longueur × largeur)",
+        "tooltip": "Calcul automatique de la surface de la plaie"
+      },
+      "derived_from": ["C1T16E01", "C1T16E02"]
+    }
+  ],
+  "classification": {
+    "id": "C1T16E04",
+    "type": "calculated",
+    "label": "Classification BWAT",
+    "description": "Score BWAT basé sur la surface calculée",
+    "formula": "bwat_size_classification",
+    "derived_from": "C1T16E03",
+    "ui": {
+      "component": "ResultBadge",
+      "color": "dynamic",
+      "help": "Classification automatique selon l'échelle BWAT"
+    },
+    "scores": [
+      {
+        "id": "C1T16E04_0",
+        "score": 0,
+        "label": "Plaie guérie",
+        "description": "Plaie complètement guérie",
+        "condition": "surface = 0",
+        "color": "#4CAF50",
+        "icon": "check_circle"
+      },
+      {
+        "id": "C1T16E04_1",
+        "score": 1,
+        "label": "< 4 cm²",
+        "description": "Surface inférieure à 4 cm²",
+        "condition": "surface < 4",
+        "color": "#8BC34A",
+        "icon": "circle"
+      },
+      {
+        "id": "C1T16E04_2",
+        "score": 2,
+        "label": "4 à 16 cm²",
+        "description": "Surface entre 4 et 16 cm²",
+        "condition": "surface >= 4 && surface <= 16",
+        "color": "#FFC107",
+        "icon": "circle"
+      },
+      {
+        "id": "C1T16E04_3",
+        "score": 3,
+        "label": "16,1 à 36 cm²",
+        "description": "Surface entre 16,1 et 36 cm²",
+        "condition": "surface > 16 && surface <= 36",
+        "color": "#FF9800",
+        "icon": "circle"
+      },
+      {
+        "id": "C1T16E04_4",
+        "score": 4,
+        "label": "36,1 à 80 cm²",
+        "description": "Surface entre 36,1 et 80 cm²",
+        "condition": "surface > 36 && surface <= 80",
+        "color": "#F44336",
+        "icon": "circle"
+      },
+      {
+        "id": "C1T16E04_5",
+        "score": 5,
+        "label": "> 80 cm²",
+        "description": "Surface supérieure à 80 cm²",
+        "condition": "surface > 80",
+        "color": "#9C27B0",
+        "icon": "circle"
+      }
+    ]
+  },
+  "photo_requirement": {
+    "required": true,
+    "id": "C1T16E05",
+    "label": "Photo de la plaie",
+    "description": "Photo de la plaie avec mesure",
+    "type": "photo",
+    "validation": {
+      "required": true,
+      "max_size": "10MB",
+      "formats": ["jpg", "jpeg", "png"]
+    },
+    "ui": {
+      "component": "PhotoCapture",
+      "help": "Prenez une photo de la plaie avec les mesures visibles",
+      "tooltip": "Photo obligatoire pour documentation et suivi"
+    },
+    "measurement_overlay": {
+      "enabled": true,
+      "show_ruler": true,
+      "show_dimensions": true
+    }
+  },
+  "validation_rules": {
+    "measurements": {
+      "both_required": true,
+      "min_values": {
+        "length": 0.1,
+        "width": 0.1
+      },
+      "max_values": {
+        "length": 100,
+        "width": 100
+      }
+    },
+    "photo": {
+      "required": true,
+      "validation_message": "Photo de la plaie obligatoire pour l'évaluation BWAT"
+    },
+    "calculation": {
+      "auto_calculate": true,
+      "rounding": 1
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "BWAT – Taille",
+    "instructions": "Mesurez la plaie à angle droit et prenez une photo",
+    "sections": [
+      {
+        "title": "Mesures",
+        "elements": ["C1T16E01", "C1T16E02", "C1T16E03"],
+        "type": "measurement_group"
+      },
+      {
+        "title": "Classification BWAT",
+        "elements": ["C1T16E04"],
+        "type": "classification_display"
+      },
+      {
+        "title": "Documentation",
+        "elements": ["C1T16E05"],
+        "type": "photo_section"
+      }
+    ]
+  },
+  "data_structure": {
+    "measurements": {
+      "length": "C1T16E01",
+      "width": "C1T16E02",
+      "surface": "C1T16E03"
+    },
+    "classification": {
+      "score": "C1T16E04",
+      "label": "Classification textuelle",
+      "color": "Couleur d'affichage"
+    },
+    "photo": {
+      "file_path": "C1T16E05",
+      "metadata": "Informations sur la photo"
+    },
+    "export_format": {
+      "length_cm": "Number",
+      "width_cm": "Number",
+      "surface_cm2": "Number",
+      "bwat_score": "Number (0-5)",
+      "bwat_classification": "String",
+      "photo_path": "String"
+    }
+  },
+  "clinical_notes": {
+    "importance": "La taille de la plaie est un indicateur clé de la progression de la cicatrisation",
+    "documentation": "Toutes les mesures seront documentées pour le suivi BWAT",
+    "measurement_technique": {
+      "method": "Mesure à angle droit",
+      "positioning": "Position perpendiculaire des mesures",
+      "accuracy": "Précision au dixième de centimètre"
+    },
+    "classification_significance": {
+      "score_0": "Plaie guérie - objectif atteint",
+      "score_1": "Plaie de petite taille - bon pronostic",
+      "score_2": "Plaie de taille modérée - suivi régulier",
+      "score_3": "Plaie de taille importante - attention particulière",
+      "score_4": "Plaie de grande taille - évaluation approfondie",
+      "score_5": "Plaie de très grande taille - orientation spécialisée"
+    },
+    "follow_up": {
+      "frequency": "Mesure à chaque évaluation",
+      "trend_analysis": "Évolution de la surface dans le temps",
+      "healing_progression": "Réduction de la surface = amélioration"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Évaluation BWAT de la taille de la plaie",
+    "aria_description": "Mesure de la longueur et largeur de la plaie avec calcul automatique de la surface",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "measurement_announcements": {
+      "length": "Longueur de la plaie en centimètres",
+      "width": "Largeur de la plaie en centimètres",
+      "surface": "Surface calculée en centimètres carrés",
+      "classification": "Classification BWAT avec score et description"
+    },
+    "photo_accessibility": {
+      "alt_text": "Photo de la plaie avec mesures visibles",
+      "instructions": "Photo obligatoire pour documentation et suivi"
+    }
+  }
+}

@@ -6,7 +6,7 @@ module.exports = function (api) {
       ['module-resolver', {
         alias: { '@': './src' }
       }],
-      'react-native-reanimated/plugin'
+      'react-native-worklets/plugin', 
     ],
   };
 };

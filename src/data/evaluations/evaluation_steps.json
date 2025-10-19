@@ -1,0 +1,158 @@
+{
+  "version": "1.0.0",
+  "description": "Configuration des étapes d'évaluation pour la colonne 1",
+  "metadata": {
+    "created": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "evaluation_flow": {
+    "column_1": {
+      "id": "C1",
+      "title": "Évaluation clinique",
+      "description": "Évaluation complète du patient et de la plaie",
+      "steps": [
+        {
+          "id": "C1T01",
+          "order": 1,
+          "title": "Données de base",
+          "description": "Informations générales du patient",
+          "required": true,
+          "category": "patient_data"
+        },
+        {
+          "id": "C1T02",
+          "order": 2,
+          "title": "Allergies",
+          "description": "Identification des allergies du patient",
+          "required": false,
+          "category": "medical_history"
+        },
+        {
+          "id": "C1T03",
+          "order": 3,
+          "title": "Conditions de santé actuelle",
+          "description": "Conditions de santé actuelles qui peuvent influencer le risque",
+          "required": false,
+          "category": "medical_history"
+        },
+        {
+          "id": "C1T04",
+          "order": 4,
+          "title": "Poids & IMC",
+          "description": "Évaluation du poids et calcul de l'IMC avec classification",
+          "required": false,
+          "category": "anthropometric_data"
+        },
+        {
+          "id": "C1T05",
+          "order": 5,
+          "title": "Nutrition",
+          "description": "Évaluation de l'état nutritionnel et hydrique du patient",
+          "required": false,
+          "category": "nutritional_assessment"
+        },
+        {
+          "id": "C1T06",
+          "order": 6,
+          "title": "Facteurs de risque",
+          "description": "Identification des facteurs de risque modifiables et non modifiables",
+          "required": false,
+          "category": "risk_assessment"
+        },
+        {
+          "id": "C1T07",
+          "order": 7,
+          "title": "Médication active",
+          "description": "Identification des médicaments actuellement pris par le patient",
+          "required": false,
+          "category": "medication_assessment"
+        },
+        {
+          "id": "C1T08",
+          "order": 8,
+          "title": "Environnement et sphère psychosociale",
+          "description": "Évaluation des facteurs environnementaux et psychosociales influençant le risque",
+          "required": false,
+          "category": "psychosocial_assessment"
+        },
+        {
+          "id": "C1T09",
+          "order": 9,
+          "title": "Assurances",
+          "description": "Type de couverture d'assurance du patient pour l'accès aux soins",
+          "required": true,
+          "category": "administrative_data"
+        },
+        {
+          "id": "C1T10",
+          "order": 10,
+          "title": "Niveau de soins",
+          "description": "Détermination du niveau de soins requis pour orienter la profondeur des interventions",
+          "required": true,
+          "category": "care_planning"
+        },
+        {
+          "id": "C1T11",
+          "order": 11,
+          "title": "Histoire de la plaie",
+          "description": "Évaluation complète de l'histoire de la plaie incluant apparition, étiologie et stades",
+          "required": true,
+          "category": "wound_assessment"
+        },
+        {
+          "id": "C1T12",
+          "order": 12,
+          "title": "Symptômes",
+          "description": "Évaluation des symptômes associés à la plaie avec sous-questions détaillées pour la douleur",
+          "required": true,
+          "category": "symptom_assessment"
+        },
+        {
+          "id": "C1T13",
+          "order": 13,
+          "title": "Perceptions et objectifs",
+          "description": "Recueil de la vision subjective du patient et de son entourage sur la plaie et les objectifs de soins",
+          "required": false,
+          "category": "patient_perspective"
+        },
+        {
+          "id": "C1T34",
+          "order": 34,
+          "title": "Pied diabétique",
+          "description": "Évaluation spécialisée du pied diabétique avec critères de gravité et éléments de risque",
+          "required": false,
+          "category": "specialized_assessment",
+          "conditional": {
+            "triggered_by": "C1T11",
+            "condition": "pied_diabetique_selected"
+          }
+        }
+      ]
+    }
+  },
+  "navigation_rules": {
+    "linear_progression": true,
+    "allow_skip_optional": true,
+    "require_completion_before_next": true,
+    "conditional_steps": {
+      "enabled": true,
+      "evaluation_engine": "rulebook_conditions"
+    }
+  },
+  "progress_tracking": {
+    "show_step_numbers": true,
+    "show_completion_percentage": true,
+    "show_category_progress": true,
+    "categories": [
+      "patient_data",
+      "risk_assessment", 
+      "care_assessment",
+      "wound_assessment",
+      "bwat_assessment",
+      "infection_assessment",
+      "laboratory_assessment",
+      "specialized_assessment"
+    ]
+  }
+}

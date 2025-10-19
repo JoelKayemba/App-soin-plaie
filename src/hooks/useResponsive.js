@@ -1,6 +1,7 @@
 // src/hooks/useResponsive.js
 import { useMemo } from 'react';
 import { useWindowDimensions, Platform } from 'react-native';
+import { useFontScale } from './useFontSize';
 
 export const BREAKPOINTS = {
   compact: 0,      // téléphone
@@ -12,6 +13,7 @@ export const BREAKPOINTS = {
 export default function useResponsive() {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
+  const fontScale = useFontScale();
 
   const windowClass =
     width >= BREAKPOINTS.wide ? 'wide' :
@@ -26,11 +28,13 @@ export default function useResponsive() {
     windowClass === 'expanded' ? 3 :
     windowClass === 'medium' ? 2 : 1;
 
-  // Échelle typographique & spacing
-  const typeScale =
+  // Échelle typographique & spacing (intégrée avec la taille de police utilisateur)
+  const baseTypeScale =
     windowClass === 'wide' ? 1.2 :
     windowClass === 'expanded' ? 1.12 :
     windowClass === 'medium' ? 1.06 : 1.0;
+  
+  const typeScale = baseTypeScale * fontScale;
 
   const spacing = useMemo(() => {
     const base = 8;
@@ -54,7 +58,8 @@ export default function useResponsive() {
     isTablet,
     windowClass,   // 'compact' | 'medium' | 'expanded' | 'wide'
     gridColumns,
-    typeScale,
+    typeScale,     // Maintenant intégré avec la taille de police utilisateur
+    fontScale,     // Facteur de police utilisateur (0.85, 1.0, 1.15)
     spacing,
   };
 }

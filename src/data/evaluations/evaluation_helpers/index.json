@@ -1,0 +1,73 @@
+{
+  "id": "evaluation_helpers_index",
+  "version": "1.0.0",
+  "title": "Index des aides d'évaluation",
+  "description": "Catalogue centralisé des aides et définitions pour l'évaluation clinique",
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "helper_categories": {
+    "burn_stages": {
+      "file": "burn_stages.json",
+      "description": "Aides pour les stades de brûlure",
+      "helpers": [
+        "burn_stage_1",
+        "burn_stage_2a", 
+        "burn_stage_2b",
+        "burn_stage_3",
+        "burn_stage_4"
+      ]
+    },
+    "pressure_stages": {
+      "file": "pressure_stages.json",
+      "description": "Aides pour les stades de lésion de pression",
+      "helpers": [
+        "pressure_stage_1",
+        "pressure_stage_2",
+        "pressure_stage_3",
+        "pressure_stage_4",
+        "pressure_stage_ltp",
+        "pressure_stage_undetermined"
+      ]
+    }
+  },
+  "helper_types": {
+    "modal": {
+      "description": "Aide affichée dans un modal avec contenu détaillé",
+      "properties": ["title", "content", "media"]
+    },
+    "tooltip": {
+      "description": "Aide courte affichée au survol",
+      "properties": ["text"]
+    },
+    "inline": {
+      "description": "Aide affichée directement dans l'interface",
+      "properties": ["text", "collapsible"]
+    }
+  },
+  "media_types": {
+    "image": {
+      "description": "Image illustrative",
+      "formats": ["jpg", "png", "svg"],
+      "max_size": "2MB"
+    },
+    "video": {
+      "description": "Vidéo explicative",
+      "formats": ["mp4", "webm"],
+      "max_duration": "2 minutes"
+    },
+    "pdf": {
+      "description": "Document PDF",
+      "max_size": "5MB"
+    }
+  },
+  "usage": {
+    "help_id_reference": "Chaque élément d'évaluation peut référencer un help_id",
+    "resolution": "Le système résout le help_id vers le contenu approprié",
+    "display": "Affichage selon le type d'aide (modal, tooltip, inline)",
+    "media": "Support des médias selon le type spécifié"
+  }
+}

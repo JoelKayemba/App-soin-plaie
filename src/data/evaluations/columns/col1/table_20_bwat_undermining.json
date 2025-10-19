@@ -1,0 +1,464 @@
+{
+  "id": "C1T20",
+  "version": "1.0.0",
+  "title": "BWAT – Sous-minage",
+  "description": "Évaluation du sous-minage de la plaie selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+  "category": "wound_assessment",
+  "column": 1,
+  "table": 20,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "bwat_attribution": {
+    "title": "BWAT - Bates-Jensen Wound Assessment Tool",
+    "version": "Version traduite autorisée",
+    "attribution": "Janvier 2019. Traduit par Valérie Chaplain et Isabelle Reeves avec permission de Barbara Bates-Jensen. Reproduction autorisée par ces trois personnes.",
+    "display": true,
+    "ui": {
+      "component": "AttributionBadge",
+      "position": "top"
+    }
+  },
+  "elements": [
+    {
+      "id": "C1T20E01",
+      "type": "boolean",
+      "label": "0 = Plaie guérie",
+      "description": "Plaie complètement guérie",
+      "score": 0,
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si la plaie est complètement guérie",
+        "tooltip": "Plaie complètement guérie",
+        "ariaDescription": "Cocher si la plaie est complètement guérie"
+      },
+      "clinical_notes": {
+        "description": "Plaie complètement guérie",
+        "undermining_status": "Guérison complète",
+        "color": "#4CAF50"
+      }
+    },
+    {
+      "id": "C1T20E02",
+      "type": "boolean",
+      "label": "1 = Aucun sous-minage",
+      "description": "Absence de sous-minage",
+      "score": 1,
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez s'il n'y a aucun sous-minage",
+        "tooltip": "Absence de sous-minage",
+        "ariaDescription": "Cocher s'il n'y a aucun sous-minage"
+      },
+      "clinical_notes": {
+        "description": "Absence de sous-minage",
+        "undermining_status": "Aucun sous-minage",
+        "color": "#8BC34A"
+      }
+    },
+    {
+      "id": "C1T20E03",
+      "type": "boolean",
+      "label": "2 = Sous-minage < 2 cm, peu importe l'orientation",
+      "description": "Sous-minage de moins de 2 cm",
+      "score": 2,
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si le sous-minage est inférieur à 2 cm",
+        "tooltip": "Sous-minage de moins de 2 cm, peu importe l'orientation",
+        "ariaDescription": "Cocher si le sous-minage est inférieur à 2 cm"
+      },
+      "clinical_notes": {
+        "description": "Sous-minage de moins de 2 cm, peu importe l'orientation",
+        "undermining_status": "Sous-minage léger",
+        "color": "#FFC107"
+      }
+    },
+    {
+      "id": "C1T20E04",
+      "type": "boolean",
+      "label": "3 = Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie",
+      "description": "Sous-minage modéré impliquant moins de 50% des bords",
+      "score": 3,
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si le sous-minage est de 2-4 cm impliquant moins de 50% des bords",
+        "tooltip": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie",
+        "ariaDescription": "Cocher si le sous-minage est de 2-4 cm impliquant moins de 50% des bords"
+      },
+      "clinical_notes": {
+        "description": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie",
+        "undermining_status": "Sous-minage modéré",
+        "color": "#FF9800"
+      }
+    },
+    {
+      "id": "C1T20E05",
+      "type": "boolean",
+      "label": "4 = Sous-minage 2–4 cm impliquant > 50 % des bords de la plaie",
+      "description": "Sous-minage modéré impliquant plus de 50% des bords",
+      "score": 4,
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si le sous-minage est de 2-4 cm impliquant plus de 50% des bords",
+        "tooltip": "Sous-minage 2–4 cm impliquant > 50 % des bords de la plaie",
+        "ariaDescription": "Cocher si le sous-minage est de 2-4 cm impliquant plus de 50% des bords"
+      },
+      "clinical_notes": {
+        "description": "Sous-minage 2–4 cm impliquant > 50 % des bords de la plaie",
+        "undermining_status": "Sous-minage modéré étendu",
+        "color": "#F44336"
+      }
+    },
+    {
+      "id": "C1T20E06",
+      "type": "boolean",
+      "label": "5 = Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
+      "description": "Sous-minage sévère ou présence de sinus/tunnel",
+      "score": 5,
+      "required": false,
+      "ui": {
+        "component": "RadioButton",
+        "help": "Sélectionnez si le sous-minage est supérieur à 4 cm ou s'il y a des sinus/tunnels",
+        "tooltip": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
+        "ariaDescription": "Cocher si le sous-minage est supérieur à 4 cm ou s'il y a des sinus/tunnels"
+      },
+      "clinical_notes": {
+        "description": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
+        "undermining_status": "Sous-minage sévère",
+        "color": "#9C27B0"
+      }
+    }
+  ],
+  "complementary_fields": {
+    "clock_position": {
+      "id": "C1T20E07",
+      "type": "text",
+      "label": "Localisation circulaire du sous-minage",
+      "description": "Position du sous-minage selon la notation horloge",
+      "required": false,
+      "validation": {
+        "pattern": "^De \\d{1,2} h à \\d{1,2} h$",
+        "placeholder": "De ___ h à ___ h",
+        "help": "Ex: De 2 h à 6 h, De 9 h à 12 h"
+      },
+      "ui": {
+        "component": "TextInput",
+        "placeholder": "De ___ h à ___ h",
+        "help": "Indiquez la localisation circulaire du sous-minage selon la notation horloge",
+        "tooltip": "Utilisez la notation horloge pour localiser le sous-minage (ex: De 2 h à 6 h)"
+      },
+      "conditional_display": {
+        "condition": {
+          "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+        }
+      }
+    },
+    "depth": {
+      "id": "C1T20E08",
+      "type": "number",
+      "label": "Profondeur",
+      "description": "Profondeur du sous-minage en centimètres",
+      "required": false,
+      "validation": {
+        "min": 0.1,
+        "max": 20,
+        "step": 0.1,
+        "unit": "cm"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "cm",
+        "help": "Mesurez la profondeur du sous-minage en centimètres",
+        "tooltip": "Profondeur du sous-minage en centimètres"
+      },
+      "conditional_display": {
+        "condition": {
+          "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+        }
+      }
+    }
+  },
+  "additional_tracts": {
+    "sinus": {
+      "id": "C1T20E09",
+      "type": "number",
+      "label": "Sinus",
+      "description": "Trajet simple",
+      "required": false,
+      "validation": {
+        "min": 0.1,
+        "max": 20,
+        "step": 0.1,
+        "unit": "cm"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "cm",
+        "help": "Mesurez la profondeur du sinus en centimètres",
+        "tooltip": "Trajet simple"
+      },
+      "detailed_definition": {
+        "title": "Sinus",
+        "description": "Trajet simple",
+        "clinical_characteristics": [
+          "Trajet simple",
+          "Cavité qui s'étend dans les tissus",
+          "Pas de connexion avec d'autres structures"
+        ]
+      },
+      "conditional_display": {
+        "condition": {
+          "anyOf": ["C1T20E06"]
+        }
+      }
+    },
+    "tunnel": {
+      "id": "C1T20E10",
+      "type": "number",
+      "label": "Tunnel",
+      "description": "Trajet menant à une autre cavité ou une autre plaie",
+      "required": false,
+      "validation": {
+        "min": 0.1,
+        "max": 20,
+        "step": 0.1,
+        "unit": "cm"
+      },
+      "ui": {
+        "component": "NumericInput",
+        "placeholder": "cm",
+        "help": "Mesurez la profondeur du tunnel en centimètres",
+        "tooltip": "Trajet menant à une autre cavité ou une autre plaie"
+      },
+      "detailed_definition": {
+        "title": "Tunnel",
+        "description": "Trajet menant à une autre cavité ou une autre plaie",
+        "clinical_characteristics": [
+          "Trajet menant à une autre cavité",
+          "Connexion avec une autre plaie",
+          "Passage entre deux structures"
+        ]
+      },
+      "conditional_display": {
+        "condition": {
+          "anyOf": ["C1T20E06"]
+        }
+      }
+    },
+    "fistula": {
+      "id": "C1T20E11",
+      "type": "mixed",
+      "label": "Fistule",
+      "description": "Trajet menant à un organe interne",
+      "required": false,
+      "fields": [
+        {
+          "id": "C1T20E11_depth",
+          "type": "number",
+          "label": "Profondeur de la fistule",
+          "validation": {
+            "min": 0.1,
+            "max": 20,
+            "step": 0.1,
+            "unit": "cm"
+          },
+          "ui": {
+            "component": "NumericInput",
+            "placeholder": "cm",
+            "help": "Mesurez la profondeur de la fistule en centimètres"
+          }
+        },
+        {
+          "id": "C1T20E11_organ",
+          "type": "text",
+          "label": "Organe concerné",
+          "validation": {
+            "max_length": 200,
+            "placeholder": "Ex: intestin, vessie, utérus..."
+          },
+          "ui": {
+            "component": "TextInput",
+            "placeholder": "Ex: intestin, vessie, utérus...",
+            "help": "Précisez l'organe interne concerné par la fistule"
+          }
+        }
+      ],
+      "ui": {
+        "component": "MixedInput",
+        "help": "Mesurez la profondeur et précisez l'organe concerné",
+        "tooltip": "Trajet menant à un organe interne"
+      },
+      "detailed_definition": {
+        "title": "Fistule",
+        "description": "Trajet menant à un organe interne",
+        "clinical_characteristics": [
+          "Trajet menant à un organe interne",
+          "Connexion anormale entre deux structures",
+          "Peut impliquer des organes creux"
+        ]
+      },
+      "conditional_display": {
+        "condition": {
+          "anyOf": ["C1T20E06"]
+        }
+      }
+    }
+  },
+  "validation_rules": {
+    "single_selection": {
+      "min_selections": 1,
+      "max_selections": 1,
+      "allow_none": false,
+      "required": true
+    },
+    "complementary_fields": {
+      "conditional_required": {
+        "C1T20E07": {
+          "condition": {
+            "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+          },
+          "required": false
+        },
+        "C1T20E08": {
+          "condition": {
+            "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+          },
+          "required": false
+        }
+      }
+    },
+    "error_messages": {
+      "no_selection": "Veuillez sélectionner un score de sous-minage BWAT",
+      "multiple_selections": "Un seul score de sous-minage peut être sélectionné"
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "BWAT – Sous-minage",
+    "instructions": "Sélectionnez le score qui décrit le mieux le sous-minage de la plaie",
+    "component_type": "RadioGroup",
+    "show_detailed_definitions": true,
+    "definition_display": "tooltip_and_modal",
+    "sections": [
+      {
+        "title": "Évaluation du sous-minage",
+        "elements": ["C1T20E01", "C1T20E02", "C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"],
+        "type": "radio_group",
+        "required": true
+      },
+      {
+        "title": "Caractéristiques du sous-minage",
+        "elements": ["C1T20E07", "C1T20E08"],
+        "type": "complementary_fields",
+        "required": false,
+        "conditional": true
+      },
+      {
+        "title": "Autres trajets possibles",
+        "elements": ["C1T20E09", "C1T20E10", "C1T20E11"],
+        "type": "additional_tracts",
+        "required": false,
+        "conditional": true
+      }
+    ]
+  },
+  "data_structure": {
+    "selected_undermining": {
+      "id": "Selected undermining ID",
+      "score": "BWAT score (0-5)",
+      "label": "Selected undermining label",
+      "description": "Selected undermining description"
+    },
+    "complementary_data": {
+      "clock_position": "C1T20E07",
+      "depth": "C1T20E08"
+    },
+    "additional_tracts": {
+      "sinus_depth": "C1T20E09",
+      "tunnel_depth": "C1T20E10",
+      "fistula": {
+        "depth": "C1T20E11_depth",
+        "organ": "C1T20E11_organ"
+      }
+    },
+    "export_format": {
+      "undermining_id": "String (C1T20E01-C1T20E06)",
+      "bwat_score": "Number (0-5)",
+      "undermining_label": "String (Score description)",
+      "undermining_description": "String (Clinical description)",
+      "clock_position": "String (Clock notation)",
+      "depth_cm": "Number (Depth in cm)",
+      "sinus_depth_cm": "Number (Sinus depth in cm)",
+      "tunnel_depth_cm": "Number (Tunnel depth in cm)",
+      "fistula": {
+        "depth_cm": "Number (Fistula depth in cm)",
+        "organ": "String (Affected organ)"
+      }
+    }
+  },
+  "clinical_notes": {
+    "importance": "L'évaluation du sous-minage est cruciale pour déterminer la complexité de la plaie et le plan de traitement",
+    "documentation": "Le score de sous-minage sera documenté pour le suivi BWAT",
+    "undermining_significance": {
+      "score_0": {
+        "description": "Plaie complètement guérie",
+        "clinical_implications": "Objectif de traitement atteint"
+      },
+      "score_1": {
+        "description": "Absence de sous-minage",
+        "clinical_implications": "Plaie simple, traitement local"
+      },
+      "score_2": {
+        "description": "Sous-minage léger (< 2 cm)",
+        "clinical_implications": "Surveillance, traitement local adapté"
+      },
+      "score_3": {
+        "description": "Sous-minage modéré (2-4 cm, < 50% des bords)",
+        "clinical_implications": "Traitement spécialisé, évaluation approfondie"
+      },
+      "score_4": {
+        "description": "Sous-minage modéré étendu (2-4 cm, > 50% des bords)",
+        "clinical_implications": "Traitement spécialisé, débridement possible"
+      },
+      "score_5": {
+        "description": "Sous-minage sévère (> 4 cm) ou sinus/tunnel",
+        "clinical_implications": "Orientation spécialisée urgente, débridement nécessaire"
+      }
+    },
+    "bwat_integration": {
+      "score_contribution": "Contribution au score total BWAT",
+      "follow_up": "Évolution du score dans le temps",
+      "healing_progression": "Réduction du score = amélioration"
+    }
+  },
+  "accessibility": {
+    "aria_label": "BWAT - Évaluation du sous-minage de la plaie",
+    "aria_description": "Sélectionnez le score qui décrit le mieux le sous-minage de la plaie",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "main_selection": "Évaluation du sous-minage",
+      "complementary": "Caractéristiques du sous-minage",
+      "additional": "Autres trajets possibles"
+    },
+    "radio_group": {
+      "aria_required": true,
+      "aria_invalid": "false",
+      "instructions": "Un seul score de sous-minage peut être sélectionné"
+    },
+    "detailed_definitions": {
+      "aria_label": "Définition détaillée du score",
+      "aria_description": "Informations cliniques détaillées sur le score sélectionné"
+    }
+  }
+}

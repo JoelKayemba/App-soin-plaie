@@ -1,0 +1,22 @@
+// Export des composants de formulaires
+export { default as FormGroup } from './FormGroup';
+export { default as RadioGroup } from './RadioGroup';
+export { default as CheckboxGroup } from './CheckboxGroup';
+export { default as NumericInput } from './NumericInput';
+export { default as TextInput } from './TextInput';
+export { default as DateInput } from './DateInput';
+export { default as BirthDateInput } from './BirthDateInput';
+export { default as DateTextInput } from './DateTextInput';
+export { default as BooleanInput } from './BooleanInput';
+export { default as SimpleCheckbox } from './SimpleCheckbox';
+export { default as CheckboxWithText } from './CheckboxWithText';
+export { default as CalculatedField } from './CalculatedField';
+export { default as ResultBadge } from './ResultBadge';
+export { default as InfoField } from './InfoField';
+export { default as MultipleChoiceWithText } from './MultipleChoiceWithText';
+export { default as PhotoUpload } from './PhotoUpload';
+export { default as ScaleInput } from './ScaleInput';
+export { default as VisualScale } from './VisualScale';
+export { default as PACSLACScale } from './PACSLACScale';
+export { default as HelperModal } from './HelperModal';
+export { default as SpecializedAlert } from './SpecializedAlert';

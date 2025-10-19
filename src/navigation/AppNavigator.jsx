@@ -7,6 +7,12 @@ import IpscbScreen from '../app/IpscbScreen';
 import BradenScreen from '../app/BradenScreen';
 import BradenQScreen from '../app/BradenQScreen';
 import ReferenceScreen from '../app/ReferenceScreen';
+import NewsScreen from '../app/NewsScreen';
+import SearchScreen from '../app/SearchScreen';
+import SettingsScreen from '../app/SettingsScreen';
+import AppearanceScreen from '../app/settings/AppearanceScreen';
+import FavoritesScreen from '../app/FavoritesScreen';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +26,11 @@ const AppNavigator = () => {
       <Stack.Screen name="Braden" component={BradenScreen} />
       <Stack.Screen name="BradenQ" component={BradenQScreen} />
       <Stack.Screen name="References" component={ReferenceScreen} />
+      <Stack.Screen name="News" component={NewsScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="AppearanceSettings" component={AppearanceScreen} />
+      <Stack.Screen name="Favoris" component={FavoritesScreen} />
     </Stack.Navigator>
   );
 };

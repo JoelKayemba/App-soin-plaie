@@ -1,0 +1,127 @@
+{
+  "id": "C1T33",
+  "version": "1.0.0",
+  "title": "Lymphœdème",
+  "description": "Vérifier si le patient atteint de lymphœdème porte actuellement un vêtement compressif thérapeutique",
+  "category": "therapeutic_equipment",
+  "column": 1,
+  "table": 33,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T33E01",
+      "type": "single_choice",
+      "label": "Porte un vêtement compressif ?",
+      "description": "Vérification du port d'un vêtement compressif thérapeutique",
+      "required": true,
+      "options": [
+        {
+          "id": "C1T33E01_oui",
+          "label": "Oui",
+          "type": "boolean",
+          "value": "oui",
+          "ui": {
+            "color": "green",
+            "icon": "✅"
+          }
+        },
+        {
+          "id": "C1T33E01_non",
+          "label": "Non",
+          "type": "boolean",
+          "value": "non",
+          "ui": {
+            "color": "red",
+            "icon": "❌"
+          }
+        }
+      ],
+      "ui": {
+        "component": "RadioGroup",
+        "minSelections": 1,
+        "maxSelections": 1,
+        "help": "Sélectionnez si le patient porte un vêtement compressif",
+        "ariaDescription": "Sélection du port d'un vêtement compressif thérapeutique"
+      },
+      "clinical_notes": {
+        "description": "Vérification du port d'un vêtement compressif thérapeutique",
+        "significance": "Essentiel pour la prise en charge du lymphœdème"
+      }
+    }
+  ],
+  "validation_rules": {
+    "required_selection": {
+      "C1T33E01": {
+        "required": true,
+        "minSelections": 1,
+        "maxSelections": 1
+      }
+    },
+    "error_messages": {
+      "compression_garment_required": "Veuillez sélectionner si le patient porte un vêtement compressif"
+    }
+  },
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Lymphœdème",
+    "instructions": "Vérifier si le patient atteint de lymphœdème porte actuellement un vêtement compressif thérapeutique",
+    "sections": [
+      {
+        "title": "Vêtement compressif",
+        "elements": ["C1T33E01"],
+        "type": "radio_section"
+      }
+    ]
+  },
+  "data_structure": {
+    "compression_garment_worn": {
+      "value": "String (oui/non)"
+    },
+    "export_format": {
+      "compression_garment_worn": "Boolean",
+      "treatment_influence": "Boolean (true si absent)"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Vérifier si le patient atteint de lymphœdème porte actuellement un vêtement compressif thérapeutique",
+    "documentation": "Cette donnée influence le plan de traitement et les recommandations de vêtement compressif",
+    "lymphedema_management": {
+      "compression_garment": {
+        "purpose": "Réduction de l'œdème et amélioration de la circulation lymphatique",
+        "types": [
+          "Vêtement compressif",
+          "Bas de compression",
+          "Manchon compressif",
+          "Autres dispositifs de compression"
+        ],
+        "significance": "Essentiel pour la prise en charge du lymphœdème"
+      }
+    },
+    "follow_up": {
+      "if_absent": "Pourrait déclencher ultérieurement un constat 'Absence de vêtement compressif'",
+      "treatment_plan": "Influence le plan de traitement et les recommandations de vêtement compressif"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Lymphœdème",
+    "aria_description": "Vérifier si le patient atteint de lymphœdème porte actuellement un vêtement compressif thérapeutique",
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "group_aria_labels": {
+      "compression_garment": "Vêtement compressif"
+    },
+    "radio_groups": {
+      "aria_required": true,
+      "aria_invalid": "false",
+      "instructions": "Sélectionnez une option"
+    }
+  }
+}
+
+
