@@ -18,7 +18,7 @@ const RadioGroup = ({
   style,
   ...props 
 }) => {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const [selectedValue, setSelectedValue] = useState(value || null);
 
   // Synchroniser avec la valeur externe
@@ -77,13 +77,27 @@ const RadioGroup = ({
               style={[
                 styles.option,
                 {
-                  borderColor: isSelected ? colors.primary : colors.border,
-                  backgroundColor: isSelected ? colors.primary + '10' : colors.surface,
+                  borderColor: isSelected 
+                    ? colors.primary 
+                    : isDark 
+                      ? colors.border 
+                      : colors.border,
+                  borderWidth: isSelected ? 2 : 1.5,
+                  backgroundColor: isSelected 
+                    ? (isDark ? colors.primary + '15' : colors.primary + '08') 
+                    : isDark 
+                      ? colors.surface 
+                      : colors.white,
+                  shadowColor: isDark ? 'transparent' : colors.shadow,
+                  shadowOffset: isDark ? { width: 0, height: 0 } : { width: 0, height: 1 },
+                  shadowOpacity: isDark ? 0 : 0.04,
+                  shadowRadius: isDark ? 0 : 2,
+                  elevation: isDark ? 0 : 1,
                 }
               ]}
               onPress={() => handleSelection(optionValue)}
               disabled={disabled}
-              activeOpacity={0.7}
+              activeOpacity={0.8}
             >
               <View style={styles.optionContent}>
                 <View style={[
@@ -98,15 +112,26 @@ const RadioGroup = ({
                   )}
                 </View>
                 
-                <TText style={[
-                  styles.optionLabel,
-                  { 
-                    color: disabled ? colors.textTertiary : colors.text,
-                    fontWeight: isSelected ? '600' : '400'
-                  }
-                ]}>
-                  {optionLabel}
-                </TText>
+                <View style={styles.optionTextContainer}>
+                  <TText style={[
+                    styles.optionLabel,
+                    { 
+                      color: disabled ? colors.textTertiary : colors.text,
+                      fontWeight: isSelected ? '600' : '400'
+                    }
+                  ]}>
+                    {optionLabel}
+                  </TText>
+                  
+                  {option.description && (
+                    <TText style={[
+                      styles.optionDescription,
+                      { color: colors.textSecondary }
+                    ]}>
+                      {option.description}
+                    </TText>
+                  )}
+                </View>
                 
                 {option.icon && (
                   <TIcon 
@@ -164,34 +189,47 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   optionsContainer: {
-    gap: spacing.sm,
+    gap: 12,
   },
   option: {
-    borderWidth: 1,
-    borderRadius: spacing.radius.md,
-    padding: spacing.md,
+    borderRadius: 12,
+    padding: 16,
   },
   optionContent: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    minHeight: 24,
+  },
+  optionTextContainer: {
+    flex: 1,
+    marginRight: spacing.xs,
   },
   radioButton: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
-    marginRight: spacing.md,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2.5,
+    marginRight: 12,
+    marginTop: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
   radioInner: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
   },
   optionLabel: {
     fontSize: 16,
     flex: 1,
+    lineHeight: 22,
+    fontWeight: '500',
+  },
+  optionDescription: {
+    fontSize: 13,
+    marginTop: spacing.xs,
+    lineHeight: 18,
+    fontWeight: '400',
   },
   optionIcon: {
     marginLeft: spacing.sm,

@@ -18,5 +18,6 @@ export { default as PhotoUpload } from './PhotoUpload';
 export { default as ScaleInput } from './ScaleInput';
 export { default as VisualScale } from './VisualScale';
 export { default as PACSLACScale } from './PACSLACScale';
+export { default as VisualSelector } from './VisualSelector';
 export { default as HelperModal } from './HelperModal';
 export { default as SpecializedAlert } from './SpecializedAlert';

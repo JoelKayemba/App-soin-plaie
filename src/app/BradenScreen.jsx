@@ -11,10 +11,10 @@ import bradenData from '@/data/braden.json';
 
 const BradenScreen = () => {
   const [showResultModal, setShowResultModal] = useState(false);
-  const { makeStyles, colors, elevation } = useThemeMode();
+  const [storedScores, setStoredScores] = useState({});
+  const { makeStyles, colors, elevation, isDark } = useThemeMode();
   const { spacing, typeScale } = useResponsive();
 
-  // Utiliser le hook personnalisé pour la logique métier
   const {
     selectedScores,
     expandedTexts,
@@ -24,7 +24,7 @@ const BradenScreen = () => {
     toggleTextExpansion,
     resetSelections,
     isComplete
-  } = useBradenCalculator();
+  } = useBradenCalculator(storedScores, setStoredScores);
 
   // Réinitialiser toutes les sélections avec confirmation
   const handleResetSelections = () => {
@@ -49,7 +49,7 @@ const BradenScreen = () => {
     }
   };
 
-  const useStyles = makeStyles((c) => ({
+  const useStyles = makeStyles((c, isDarkMode) => ({
     root: { flex: 1 },
     header: {
       flexDirection: 'row',
@@ -254,57 +254,76 @@ const BradenScreen = () => {
     },
     modalOverlay: {
       flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor: 'rgba(0, 0, 0, 0.6)',
       justifyContent: 'center',
       alignItems: 'center',
+      padding: spacing.lg,
     },
     modalContent: {
-      backgroundColor: c.surface,
-      borderRadius: 16,
-      padding: spacing.lg,
+      backgroundColor: isDarkMode ? c.surface : '#FFFFFF',
+      borderRadius: 24,
+      padding: spacing.xl,
       margin: spacing.lg,
       maxWidth: 400,
       width: '100%',
-      ...elevation(3),
+      shadowOffset: { width: 0, height: 10 },
+      shadowOpacity: isDarkMode ? 0.3 : 0.15,
+      shadowRadius: isDarkMode ? 8 : 20,
+      elevation: isDarkMode ? 8 : 12,
+      borderWidth: 1,
+      borderColor: isDarkMode ? c.border : 'rgba(226, 232, 240, 0.3)',
     },
     modalTitle: {
-      fontSize: 20 * typeScale,
-      fontWeight: '700',
+      fontSize: 24 * typeScale,
+      fontWeight: '800',
       color: c.text,
       textAlign: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.xl,
+      letterSpacing: -0.5,
     },
     modalRiskLevel: {
       alignItems: 'center',
-      marginBottom: spacing.lg,
+      marginBottom: spacing.xl,
+      paddingVertical: spacing.lg,
+      paddingHorizontal: spacing.md,
+      borderRadius: 16,
+      backgroundColor: isDarkMode ? c.surfaceLight : '#F8FAFC',
     },
     modalRiskText: {
-      fontSize: 18 * typeScale,
-      fontWeight: '700',
-      marginBottom: spacing.xs,
-    },
-    modalScore: {
-      fontSize: 32 * typeScale,
+      fontSize: 20 * typeScale,
       fontWeight: '700',
       marginBottom: spacing.sm,
+      textAlign: 'center',
+    },
+    modalScore: {
+      fontSize: 36 * typeScale,
+      fontWeight: '800',
+      marginBottom: spacing.xs,
+      textAlign: 'center',
     },
     modalDescription: {
       fontSize: 16 * typeScale,
-      color: c.text,
+      color: c.textSecondary,
       textAlign: 'center',
-      lineHeight: 24,
-      marginBottom: spacing.lg,
+      lineHeight: 26,
+      marginBottom: spacing.xl,
+      paddingHorizontal: spacing.sm,
     },
     modalButton: {
       backgroundColor: c.primary,
-      paddingVertical: spacing.md,
-      borderRadius: 12,
+      paddingVertical: spacing.lg,
+      borderRadius: 16,
       alignItems: 'center',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.15,
+      shadowRadius: 8,
+      elevation: 4,
     },
     modalButtonText: {
       fontSize: 16 * typeScale,
       fontWeight: '700',
-      color: '#fff',
+      color: '#FFFFFF',
+      letterSpacing: 0.3,
     },
   }));
 

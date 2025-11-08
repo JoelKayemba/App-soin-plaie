@@ -12,7 +12,7 @@ import SearchScreen from '../app/SearchScreen';
 import SettingsScreen from '../app/SettingsScreen';
 import AppearanceScreen from '../app/settings/AppearanceScreen';
 import FavoritesScreen from '../app/FavoritesScreen';
-
+import HelperOverlayScreen from '../app/HelperOverlayScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +31,11 @@ const AppNavigator = () => {
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="AppearanceSettings" component={AppearanceScreen} />
       <Stack.Screen name="Favoris" component={FavoritesScreen} />
+      <Stack.Screen
+        name="HelperDetails"
+        component={HelperOverlayScreen}
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
     </Stack.Navigator>
   );
 };

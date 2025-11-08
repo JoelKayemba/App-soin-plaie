@@ -22,442 +22,194 @@
       "position": "top"
     }
   },
-  "sub_blocks": {
-    "coloration": {
-      "id": "C1T26Q1",
-      "title": "Sous-bloc 1 — Coloration",
-      "description": "Évaluation de la coloration de la peau environnante",
+  "elements": [
+    {
+      "id": "C1T26_COLORATION",
       "type": "single_choice",
+      "label": "Coloration de la peau environnante",
+      "description": "Sélectionnez la coloration observée autour de la plaie",
       "required": true,
-      "elements": [
+      "options": [
         {
           "id": "C1T26E01",
-          "type": "boolean",
-          "label": "1 = Rose ou normale selon le groupe ethnique",
+          "label": "1",
           "description": "Rose ou normale selon le groupe ethnique",
-          "score": 1,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez si la peau est rose ou normale selon le groupe ethnique",
-            "tooltip": "Rose ou normale selon le groupe ethnique",
-            "ariaDescription": "Cocher si la peau est rose ou normale selon le groupe ethnique"
-          },
-          "clinical_notes": {
-            "description": "Rose ou normale selon le groupe ethnique",
-            "skin_status": "Coloration normale",
-            "color": "#4CAF50"
-          }
+          "score": 1
         },
         {
           "id": "C1T26E02",
-          "type": "boolean",
-          "label": "2 = Rouge vif et/ou qui blanchit au toucher",
+          "label": "2",
           "description": "Rouge vif et/ou qui blanchit au toucher",
-          "score": 2,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez si la peau est rouge vif et/ou blanchit au toucher",
-            "tooltip": "Rouge vif et/ou qui blanchit au toucher",
-            "ariaDescription": "Cocher si la peau est rouge vif et/ou blanchit au toucher"
-          },
-          "clinical_notes": {
-            "description": "Rouge vif et/ou qui blanchit au toucher",
-            "skin_status": "Inflammation légère",
-            "color": "#8BC34A"
-          }
+          "score": 2
         },
         {
           "id": "C1T26E03",
-          "type": "boolean",
-          "label": "3 = Pâleur blanche, grise ou hypo-pigmentée",
+          "label": "3",
           "description": "Pâleur blanche, grise ou hypo-pigmentée",
-          "score": 3,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez si la peau présente une pâleur blanche, grise ou hypo-pigmentée",
-            "tooltip": "Pâleur blanche, grise ou hypo-pigmentée",
-            "ariaDescription": "Cocher si la peau présente une pâleur blanche, grise ou hypo-pigmentée"
-          },
-          "clinical_notes": {
-            "description": "Pâleur blanche, grise ou hypo-pigmentée",
-            "skin_status": "Pâleur anormale",
-            "color": "#FFC107"
-          }
+          "score": 3
         },
         {
           "id": "C1T26E04",
-          "type": "boolean",
-          "label": "4 = Rouge foncé ou violacée et/ou qui ne blanchit pas",
+          "label": "4",
           "description": "Rouge foncé ou violacée et/ou qui ne blanchit pas",
-          "score": 4,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez si la peau est rouge foncé ou violacée et/ou ne blanchit pas",
-            "tooltip": "Rouge foncé ou violacée et/ou qui ne blanchit pas",
-            "ariaDescription": "Cocher si la peau est rouge foncé ou violacée et/ou ne blanchit pas"
-          },
-          "clinical_notes": {
-            "description": "Rouge foncé ou violacée et/ou qui ne blanchit pas",
-            "skin_status": "Inflammation sévère",
-            "color": "#FF9800"
-          }
+          "score": 4
         },
         {
           "id": "C1T26E05",
-          "type": "boolean",
-          "label": "5 = Noire ou hyper-pigmentée",
+          "label": "5",
           "description": "Noire ou hyper-pigmentée",
-          "score": 5,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez si la peau est noire ou hyper-pigmentée",
-            "tooltip": "Noire ou hyper-pigmentée",
-            "ariaDescription": "Cocher si la peau est noire ou hyper-pigmentée"
-          },
-          "clinical_notes": {
-            "description": "Noire ou hyper-pigmentée",
-            "skin_status": "Hyper-pigmentation",
-            "color": "#F44336"
-          }
+          "score": 5
         }
-      ]
+      ],
+      "ui": {
+        "component": "RadioGroup"
+      }
     },
-    "edema": {
-      "id": "C1T26Q2",
-      "title": "Sous-bloc 2 — Œdème",
-      "description": "Évaluation de l'œdème de la peau environnante",
+    {
+      "id": "C1T26_EDEMA",
       "type": "single_choice",
+      "label": "Œdème de la peau environnante",
+      "description": "Sélectionnez le niveau d'œdème observé autour de la plaie",
       "required": true,
-      "elements": [
+      "options": [
         {
           "id": "C1T26E06",
-          "type": "boolean",
-          "label": "1 = Aucun gonflement ou œdème",
+          "label": "1",
           "description": "Aucun gonflement ou œdème",
-          "score": 1,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il n'y a aucun gonflement ou œdème",
-            "tooltip": "Aucun gonflement ou œdème",
-            "ariaDescription": "Cocher s'il n'y a aucun gonflement ou œdème"
-          },
-          "clinical_notes": {
-            "description": "Aucun gonflement ou œdème",
-            "skin_status": "Pas d'œdème",
-            "color": "#4CAF50"
-          }
+          "score": 1
         },
         {
           "id": "C1T26E07",
-          "type": "boolean",
-          "label": "2 = Œdème sans godet < 4 cm autour de la plaie",
-          "description": "Œdème sans godet de moins de 4 cm autour de la plaie",
-          "score": 2,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a un œdème sans godet de moins de 4 cm autour de la plaie",
-            "tooltip": "Œdème sans godet de moins de 4 cm autour de la plaie",
-            "ariaDescription": "Cocher s'il y a un œdème sans godet de moins de 4 cm autour de la plaie"
-          },
-          "clinical_notes": {
-            "description": "Œdème sans godet de moins de 4 cm autour de la plaie",
-            "skin_status": "Œdème léger",
-            "color": "#8BC34A"
-          }
+          "label": "2",
+          "description": "Œdème sans godet < 4 cm autour de la plaie",
+          "score": 2
         },
         {
           "id": "C1T26E08",
-          "type": "boolean",
-          "label": "3 = Œdème sans godet > 4 cm autour de la plaie",
-          "description": "Œdème sans godet de plus de 4 cm autour de la plaie",
-          "score": 3,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a un œdème sans godet de plus de 4 cm autour de la plaie",
-            "tooltip": "Œdème sans godet de plus de 4 cm autour de la plaie",
-            "ariaDescription": "Cocher s'il y a un œdème sans godet de plus de 4 cm autour de la plaie"
-          },
-          "clinical_notes": {
-            "description": "Œdème sans godet de plus de 4 cm autour de la plaie",
-            "skin_status": "Œdème modéré",
-            "color": "#FFC107"
-          }
+          "label": "3",
+          "description": "Œdème sans godet > 4 cm autour de la plaie",
+          "score": 3
         },
         {
           "id": "C1T26E09",
-          "type": "boolean",
-          "label": "4 = Œdème à godet < 4 cm autour de la plaie",
-          "description": "Œdème à godet de moins de 4 cm autour de la plaie",
-          "score": 4,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a un œdème à godet de moins de 4 cm autour de la plaie",
-            "tooltip": "Œdème à godet de moins de 4 cm autour de la plaie",
-            "ariaDescription": "Cocher s'il y a un œdème à godet de moins de 4 cm autour de la plaie"
-          },
-          "clinical_notes": {
-            "description": "Œdème à godet de moins de 4 cm autour de la plaie",
-            "skin_status": "Œdème sévère",
-            "color": "#FF9800"
-          }
+          "label": "4",
+          "description": "Œdème à godet < 4 cm autour de la plaie",
+          "score": 4
         },
         {
           "id": "C1T26E10",
-          "type": "boolean",
-          "label": "5 = Crépitement et/ou œdème à godet ≥ 4 cm autour de la plaie",
-          "description": "Crépitement et/ou œdème à godet de 4 cm ou plus autour de la plaie",
-          "score": 5,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a un crépitement et/ou un œdème à godet de 4 cm ou plus",
-            "tooltip": "Crépitement et/ou œdème à godet de 4 cm ou plus autour de la plaie",
-            "ariaDescription": "Cocher s'il y a un crépitement et/ou un œdème à godet de 4 cm ou plus"
-          },
-          "clinical_notes": {
-            "description": "Crépitement et/ou œdème à godet de 4 cm ou plus autour de la plaie",
-            "skin_status": "Œdème très sévère",
-            "color": "#F44336"
-          }
+          "label": "5",
+          "description": "Crépitement et/ou œdème à godet ≥ 4 cm autour de la plaie",
+          "score": 5
         }
-      ]
+      ],
+      "ui": {
+        "component": "RadioGroup"
+      }
     },
-    "induration": {
-      "id": "C1T26Q3",
-      "title": "Sous-bloc 3 — Induration",
-      "description": "Évaluation de l'induration de la peau environnante",
+    {
+      "id": "C1T26_INDURATION",
       "type": "single_choice",
+      "label": "Induration de la peau environnante",
+      "description": "Sélectionnez le niveau d'induration observé autour de la plaie",
       "required": true,
-      "elements": [
+      "options": [
         {
           "id": "C1T26E11",
-          "type": "boolean",
-          "label": "1 = Aucune induration",
+          "label": "1",
           "description": "Aucune induration",
-          "score": 1,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il n'y a aucune induration",
-            "tooltip": "Aucune induration",
-            "ariaDescription": "Cocher s'il n'y a aucune induration"
-          },
-          "clinical_notes": {
-            "description": "Aucune induration",
-            "skin_status": "Pas d'induration",
-            "color": "#4CAF50"
-          }
+          "score": 1
         },
         {
           "id": "C1T26E12",
-          "type": "boolean",
-          "label": "2 = Induration < 2 cm autour de la plaie",
-          "description": "Induration de moins de 2 cm autour de la plaie",
-          "score": 2,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a une induration de moins de 2 cm autour de la plaie",
-            "tooltip": "Induration de moins de 2 cm autour de la plaie",
-            "ariaDescription": "Cocher s'il y a une induration de moins de 2 cm autour de la plaie"
-          },
-          "clinical_notes": {
-            "description": "Induration de moins de 2 cm autour de la plaie",
-            "skin_status": "Induration légère",
-            "color": "#8BC34A"
-          }
+          "label": "2",
+          "description": "Induration < 2 cm autour de la plaie",
+          "score": 2
         },
         {
           "id": "C1T26E13",
-          "type": "boolean",
-          "label": "3 = Induration 2–4 cm impliquant < 50 % de la périphérie",
-          "description": "Induration de 2-4 cm impliquant moins de 50% de la périphérie",
-          "score": 3,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a une induration de 2-4 cm impliquant moins de 50% de la périphérie",
-            "tooltip": "Induration de 2-4 cm impliquant moins de 50% de la périphérie",
-            "ariaDescription": "Cocher s'il y a une induration de 2-4 cm impliquant moins de 50% de la périphérie"
-          },
-          "clinical_notes": {
-            "description": "Induration de 2-4 cm impliquant moins de 50% de la périphérie",
-            "skin_status": "Induration modérée",
-            "color": "#FFC107"
-          }
+          "label": "3",
+          "description": "Induration 2–4 cm impliquant < 50 % de la périphérie",
+          "score": 3
         },
         {
           "id": "C1T26E14",
-          "type": "boolean",
-          "label": "4 = Induration 2–4 cm impliquant > 50 % de la périphérie",
-          "description": "Induration de 2-4 cm impliquant plus de 50% de la périphérie",
-          "score": 4,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a une induration de 2-4 cm impliquant plus de 50% de la périphérie",
-            "tooltip": "Induration de 2-4 cm impliquant plus de 50% de la périphérie",
-            "ariaDescription": "Cocher s'il y a une induration de 2-4 cm impliquant plus de 50% de la périphérie"
-          },
-          "clinical_notes": {
-            "description": "Induration de 2-4 cm impliquant plus de 50% de la périphérie",
-            "skin_status": "Induration sévère",
-            "color": "#FF9800"
-          }
+          "label": "4",
+          "description": "Induration 2–4 cm impliquant > 50 % de la périphérie",
+          "score": 4
         },
         {
           "id": "C1T26E15",
-          "type": "boolean",
-          "label": "5 = Induration > 4 cm, peu importe la localisation",
-          "description": "Induration de plus de 4 cm, peu importe la localisation",
-          "score": 5,
-          "required": false,
-          "ui": {
-            "component": "RadioButton",
-            "help": "Sélectionnez s'il y a une induration de plus de 4 cm, peu importe la localisation",
-            "tooltip": "Induration de plus de 4 cm, peu importe la localisation",
-            "ariaDescription": "Cocher s'il y a une induration de plus de 4 cm, peu importe la localisation"
-          },
-          "clinical_notes": {
-            "description": "Induration de plus de 4 cm, peu importe la localisation",
-            "skin_status": "Induration très sévère",
-            "color": "#F44336"
-          }
+          "label": "5",
+          "description": "Induration > 4 cm, peu importe la localisation",
+          "score": 5
         }
-      ]
+      ],
+      "ui": {
+        "component": "RadioGroup"
+      }
     },
-    "associated_lesions": {
-      "id": "C1T26Q4",
-      "title": "Sous-bloc 4 — Lésions associées",
-      "description": "Évaluation des lésions associées de la peau environnante",
+    {
+      "id": "C1T26_ASSOCIATED_LESIONS",
       "type": "multiple_choice",
+      "label": "Lésions associées",
+      "description": "Sélectionnez toutes les lésions associées observées autour de la plaie",
       "required": false,
-      "elements": [
+      "maxSelections": 4,
+      "options": [
         {
           "id": "C1T26E16",
-          "type": "boolean",
-          "label": "Excoriations",
-          "description": "Lésion linéaire secondaire au grattage, à la friction ou à une écorchure",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez s'il y a des excoriations",
-            "tooltip": "Lésion linéaire secondaire au grattage, à la friction ou à une écorchure",
-            "ariaDescription": "Cocher s'il y a des excoriations"
-          },
-          "detailed_definition": {
-            "title": "Excoriations",
-            "description": "Lésion linéaire secondaire au grattage, à la friction ou à une écorchure",
-            "clinical_characteristics": [
-              "Lésion linéaire",
-              "Secondaire au grattage",
-              "Secondaire à la friction",
-              "Secondaire à une écorchure"
-            ],
-            "common_causes": "Grattage, friction, écorchure"
-          },
-          "clinical_notes": {
-            "description": "Lésion linéaire secondaire au grattage, à la friction ou à une écorchure",
-            "skin_status": "Excoriations présentes"
-          }
+          "label": "Excoriations (Lésion linéaire secondaire au grattage, à la friction ou à une écorchure)",
+          "description": "Lésion linéaire secondaire au grattage, à la friction ou à une écorchure"
         },
         {
           "id": "C1T26E17",
-          "type": "boolean",
           "label": "Dermite de stase",
-          "description": "Inflammation de la peau due à une mauvaise circulation veineuse",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez s'il y a une dermite de stase",
-            "tooltip": "Inflammation de la peau due à une mauvaise circulation veineuse",
-            "ariaDescription": "Cocher s'il y a une dermite de stase"
-          },
-          "clinical_notes": {
-            "description": "Inflammation de la peau due à une mauvaise circulation veineuse",
-            "skin_status": "Dermite de stase présente"
-          }
+          "description": "Inflammation de la peau due à une mauvaise circulation veineuse"
         },
         {
           "id": "C1T26E18",
-          "type": "boolean",
-          "label": "Macération",
-          "description": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez s'il y a une macération",
-            "tooltip": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat",
-            "ariaDescription": "Cocher s'il y a une macération"
-          },
-          "detailed_definition": {
-            "title": "Macération",
-            "description": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat",
-            "clinical_characteristics": [
-              "Aspect blanchâtre",
-              "Épaississement de la peau",
-              "Causé par un excès d'exsudat",
-              "Peau ramollie"
-            ],
-            "common_causes": "Excès d'exsudat, pansement trop humide"
-          },
-          "clinical_notes": {
-            "description": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat",
-            "skin_status": "Macération présente"
-          }
+          "label": "Macération (Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat)",
+          "description": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat"
         },
         {
           "id": "C1T26E19",
-          "type": "boolean",
           "label": "Desquamation",
-          "description": "Perte de couches superficielles de la peau",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez s'il y a une desquamation",
-            "tooltip": "Perte de couches superficielles de la peau",
-            "ariaDescription": "Cocher s'il y a une desquamation"
-          },
-          "clinical_notes": {
-            "description": "Perte de couches superficielles de la peau",
-            "skin_status": "Desquamation présente"
-          }
+          "description": "Perte de couches superficielles de la peau"
         }
-      ]
+      ],
+      "ui": {
+        "component": "CheckboxGroup"
+      }
     }
-  },
+  ],
   "validation_rules": {
-    "single_choice_blocks": {
-      "coloration": {
-        "min_selections": 1,
-        "max_selections": 1,
-        "required": true
-      },
-      "edema": {
-        "min_selections": 1,
-        "max_selections": 1,
-        "required": true
-      },
-      "induration": {
-        "min_selections": 1,
-        "max_selections": 1,
-        "required": true
+    "single_selection": {
+      "elements": {
+        "C1T26_COLORATION": {
+          "min_selections": 1,
+          "max_selections": 1,
+          "required": true
+        },
+        "C1T26_EDEMA": {
+          "min_selections": 1,
+          "max_selections": 1,
+          "required": true
+        },
+        "C1T26_INDURATION": {
+          "min_selections": 1,
+          "max_selections": 1,
+          "required": true
+        }
       }
     },
-    "multiple_choice_block": {
-      "associated_lesions": {
-        "min_selections": 0,
-        "max_selections": 4,
-        "required": false
+    "multiple_selection": {
+      "elements": {
+        "C1T26_ASSOCIATED_LESIONS": {
+          "min_selections": 0,
+          "max_selections": 4,
+          "required": false
+        }
       }
     },
     "error_messages": {
@@ -477,25 +229,25 @@
     "sections": [
       {
         "title": "Coloration",
-        "elements": ["C1T26E01", "C1T26E02", "C1T26E03", "C1T26E04", "C1T26E05"],
+        "elements": ["C1T26_COLORATION"],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Œdème",
-        "elements": ["C1T26E06", "C1T26E07", "C1T26E08", "C1T26E09", "C1T26E10"],
+        "elements": ["C1T26_EDEMA"],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Induration",
-        "elements": ["C1T26E11", "C1T26E12", "C1T26E13", "C1T26E14", "C1T26E15"],
+        "elements": ["C1T26_INDURATION"],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Lésions associées",
-        "elements": ["C1T26E16", "C1T26E17", "C1T26E18", "C1T26E19"],
+        "elements": ["C1T26_ASSOCIATED_LESIONS"],
         "type": "checkbox_group",
         "required": false
       }
@@ -503,25 +255,29 @@
   },
   "data_structure": {
     "coloration_score": {
-      "id": "Selected coloration ID",
+      "id": "C1T26_COLORATION",
+      "value": "Selected option ID (C1T26E01-C1T26E05)",
       "score": "Coloration score (1-5)",
       "label": "Selected coloration label",
       "description": "Selected coloration description"
     },
     "edema_score": {
-      "id": "Selected edema ID",
+      "id": "C1T26_EDEMA",
+      "value": "Selected option ID (C1T26E06-C1T26E10)",
       "score": "Edema score (1-5)",
       "label": "Selected edema label",
       "description": "Selected edema description"
     },
     "induration_score": {
-      "id": "Selected induration ID",
+      "id": "C1T26_INDURATION",
+      "value": "Selected option ID (C1T26E11-C1T26E15)",
       "score": "Induration score (1-5)",
       "label": "Selected induration label",
       "description": "Selected induration description"
     },
     "associated_lesions": {
-      "selected": "Array of selected lesion IDs",
+      "id": "C1T26_ASSOCIATED_LESIONS",
+      "selected_ids": "Array of selected lesion IDs",
       "count": "Number of selected lesions"
     },
     "export_format": {

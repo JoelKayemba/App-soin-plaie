@@ -67,7 +67,7 @@ const EvaluationScreen = () => {
 
   // Gestion des changements de données
   const handleDataChange = useCallback((fieldId, value) => {
-    console.log(`📝 Changement de données pour ${fieldId}:`, value);
+   // console.log(`📝Changement de données pour ${fieldId}:`, value);
     
     // Mettre à jour les données
     const newEvaluationData = {
@@ -84,7 +84,7 @@ const EvaluationScreen = () => {
     if (currentStep.id === 'C1T11' && fieldId === 'C1T11E06') {
       const isPiedDiabetiqueSelected = Array.isArray(value) && value.includes('pied_diabetique');
       setShouldNavigateToTable34(isPiedDiabetiqueSelected);
-      console.log('🔍 Mise à jour flag navigation table 34:', isPiedDiabetiqueSelected);
+      //console.log(' Mise à jour flag navigation table 34:', isPiedDiabetiqueSelected);
     }
 
     // Vérifier les redirections immédiates
@@ -149,10 +149,10 @@ const EvaluationScreen = () => {
   // Navigation vers l'étape précédente
   const handlePrevious = useCallback(() => {
     if (currentStepIndex > 0) {
-      // Si on est sur la table 34 (Pied diabétique), retourner à la table 11
-      if (currentStep.id === 'C1T34') {
-        console.log('🔙 Navigation depuis table 34 vers table 11');
-        handleNavigateToTable('C1T11');
+      // Si on est sur la table 22 (Tissus nécrotiques), retourner à la table 21
+      if (currentStep.id === 'C1T22') {
+        //console.log('Navigation depuis table 22 vers table 21');
+        handleNavigateToTable('C1T21');
         return;
       }
       
@@ -162,7 +162,6 @@ const EvaluationScreen = () => {
 
   // Navigation vers l'étape suivante
   const handleNext = useCallback(() => {
-    // Vérifier si l'étape courante est valide
     const isStepValid = validateCurrentStep();
     
     if (currentStep.required && !isStepValid) {
@@ -174,8 +173,20 @@ const EvaluationScreen = () => {
       return;
     }
 
+    const findNextIndex = (startIndex) => {
+      let nextIndex = startIndex + 1;
+      while (nextIndex < steps.length) {
+        const nextStepId = steps[nextIndex].id;
+        if (nextStepId === 'C1T34' && !shouldNavigateToTable34) {
+          nextIndex++;
+          continue;
+        }
+        break;
+      }
+      return nextIndex;
+    };
+
     if (isLastStep) {
-      // Dernière étape - terminer l'évaluation
       Alert.alert(
         'Évaluation terminée',
         'Voulez-vous terminer l\'évaluation ?',
@@ -185,19 +196,72 @@ const EvaluationScreen = () => {
         ]
       );
     } else {
-      // Vérifier s'il y a des conditions de navigation spéciales (table 34 après pied diabétique)
-      console.log('🔍 handleNext - currentStep.id:', currentStep.id);
-      console.log('🔍 handleNext - shouldNavigateToTable34:', shouldNavigateToTable34);
+      if (currentStep.id === 'C1T21') {
+        const necroticTissueValue = parseFloat(evaluationData[currentStep.id]?.['C1T21E01']) || 0;
+        
+        if (necroticTissueValue > 0) {
+          handleNavigateToTable('C1T22');
+          return;
+        } else {
+          const currentIndex = steps.findIndex(s => s.id === currentStep.id);
+          let nextIndex = currentIndex + 1;
+          while (nextIndex < steps.length && steps[nextIndex].id === 'C1T22') {
+            nextIndex++;
+          }
+          while (nextIndex < steps.length && steps[nextIndex].id === 'C1T34' && !shouldNavigateToTable34) {
+            nextIndex++;
+          }
+
+          if (nextIndex < steps.length) {
+            setCurrentStepIndex(nextIndex);
+            return;
+          }
+
+          Alert.alert(
+            'Évaluation terminée',
+            'Voulez-vous terminer l\'évaluation ?',
+            [
+              { text: 'Annuler', style: 'cancel' },
+              { text: 'Terminer', onPress: handleFinishEvaluation }
+            ]
+          );
+          return;
+        }
+      }
       
-      if (currentStep.id === 'C1T11' && shouldNavigateToTable34) {
-        console.log('🚀 Navigation conditionnelle vers la table 34 (Pied diabétique)');
-        handleNavigateToTable('C1T34');
+      if (currentStep.id === 'C1T22') {
+        const currentIndex = steps.findIndex(s => s.id === currentStep.id);
+        let nextIndex = findNextIndex(currentIndex);
+        if (nextIndex < steps.length) {
+          setCurrentStepIndex(nextIndex);
+        } else {
+          Alert.alert(
+            'Évaluation terminée',
+            'Voulez-vous terminer l\'évaluation ?',
+            [
+              { text: 'Annuler', style: 'cancel' },
+              { text: 'Terminer', onPress: handleFinishEvaluation }
+            ]
+          );
+        }
         return;
       }
       
-      setCurrentStepIndex(prev => prev + 1);
+      const nextIndex = findNextIndex(currentStepIndex);
+      if (nextIndex < steps.length) {
+        setCurrentStepIndex(nextIndex);
+      } else {
+        Alert.alert(
+          'Évaluation terminée',
+          'Voulez-vous terminer l\'évaluation ?',
+          [
+            { text: 'Annuler', style: 'cancel' },
+            { text: 'Terminer', onPress: handleFinishEvaluation }
+          ]
+        );
+      }
     }
-  }, [currentStep, validateCurrentStep, isLastStep, shouldNavigateToTable34, handleNavigateToTable]);
+  }, [currentStep, currentStepIndex, evaluationData, handleFinishEvaluation, handleNavigateToTable, isLastStep, shouldNavigateToTable34, steps, validateCurrentStep]);
 
   // Terminer l'évaluation
   const handleFinishEvaluation = useCallback(() => {
@@ -261,16 +325,10 @@ const EvaluationScreen = () => {
 
   // Réinitialiser le flag de navigation conditionnelle quand on change de table
   useEffect(() => {
-    if (currentStep.id !== 'C1T11') {
-      setShouldNavigateToTable34(false);
-    } else {
-      // Vérifier l'état initial de la table 11
-      const currentStepData = evaluationData[currentStep.id] || {};
-      const etiology = currentStepData['C1T11E06'];
-      const isPiedDiabetiqueSelected = Array.isArray(etiology) && etiology.includes('pied_diabetique');
-      setShouldNavigateToTable34(isPiedDiabetiqueSelected);
-    }
-  }, [currentStep.id, evaluationData]);
+    const etiology = evaluationData?.['C1T11']?.['C1T11E06'];
+    const isPiedDiabetiqueSelected = Array.isArray(etiology) && etiology.includes('pied_diabetique');
+    setShouldNavigateToTable34(isPiedDiabetiqueSelected);
+  }, [evaluationData]);
 
   // Mettre à jour la validation quand les données changent
   useEffect(() => {
@@ -345,6 +403,7 @@ const EvaluationScreen = () => {
         onDataChange={handleDataChange}
         onValidationChange={handleValidationChange}
         onNavigateToTable={handleNavigateToTable}
+        evaluationData={evaluationData}
       />
     );
   };

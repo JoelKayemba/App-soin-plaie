@@ -15,13 +15,19 @@
   "activation_conditions": {
     "lower_limb": {
       "condition": {
-        "anyOf": ["C1T14E05", "C1T14E06"]
+        "anyOf": ["C1T14E01_05", "C1T14E01_06"]
       },
       "blocks": ["inspection", "palpation", "edinburgh_questionnaire", "ipscb"]
     },
+    "upper_limb": {
+      "condition": {
+        "anyOf": ["C1T14E01_03", "C1T14E01_04"]
+      },
+      "blocks": ["inspection", "palpation"]
+    },
     "other_locations": {
       "condition": {
-        "noneOf": ["C1T14E05", "C1T14E06"]
+        "noneOf": ["C1T14E01_03", "C1T14E01_04", "C1T14E01_05", "C1T14E01_06"]
       },
       "blocks": ["inspection", "palpation"]
     }
@@ -31,151 +37,80 @@
       "id": "C1T15I",
       "title": "Bloc A — Inspection",
       "description": "Signes visuels d'atteinte vasculaire",
-      "type": "multiple_choice",
+      "type": "single_choice",
       "required": false,
       "elements": [
         {
           "id": "C1T15I01",
-          "type": "boolean",
-          "label": "Pâleur",
-          "description": "Pâleur cutanée",
+          "type": "single_choice",
+          "label": "Signe d'inspection observé",
+          "description": "Sélectionnez le signe d'inspection observé",
           "required": false,
+          "options": [
+            {
+              "id": "C1T15I01_01",
+              "label": "Pâleur",
+              "description": "Pâleur cutanée"
+            },
+            {
+              "id": "C1T15I01_02",
+              "label": "Membre marbré",
+              "description": "Aspect marbré du membre"
+            },
+            {
+              "id": "C1T15I01_03",
+              "label": "Absence de poils",
+              "description": "Absence de pilosité"
+            },
+            {
+              "id": "C1T15I01_04",
+              "label": "Pied rouge homard lorsque pendant et pâle lorsque surélevé",
+              "description": "Signe de dépendance vasculaire"
+            },
+            {
+              "id": "C1T15I01_05",
+              "label": "Ongles striés",
+              "description": "Stries sur les ongles"
+            },
+            {
+              "id": "C1T15I01_06",
+              "label": "Ongles épais",
+              "description": "Épaississement des ongles"
+            },
+            {
+              "id": "C1T15I01_07",
+              "label": "Ongles jaunes",
+              "description": "Coloration jaune des ongles"
+            },
+            {
+              "id": "C1T15I01_08",
+              "label": "Ongles cassants",
+              "description": "Fragilité des ongles"
+            },
+            {
+              "id": "C1T15I01_09",
+              "label": "Peau sèche",
+              "description": "Sécheresse cutanée"
+            },
+            {
+              "id": "C1T15I01_10",
+              "label": "Peau atrophiée",
+              "description": "Atrophie cutanée"
+            },
+            {
+              "id": "C1T15I01_11",
+              "label": "Peau mince",
+              "description": "Amincissement cutané"
+            },
+            {
+              "id": "C1T15I01_12",
+              "label": "Peau luisante",
+              "description": "Aspect luisant de la peau"
+            }
+          ],
           "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si vous observez une pâleur",
-            "tooltip": "Pâleur cutanée anormale"
-          }
-        },
-        {
-          "id": "C1T15I02",
-          "type": "boolean",
-          "label": "Membre marbré",
-          "description": "Aspect marbré du membre",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si le membre présente un aspect marbré",
-            "tooltip": "Marbrures cutanées, aspect réticulé"
-          }
-        },
-        {
-          "id": "C1T15I03",
-          "type": "boolean",
-          "label": "Absence de poils",
-          "description": "Absence de pilosité",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si vous observez une absence de poils",
-            "tooltip": "Diminution ou absence de pilosité"
-          }
-        },
-        {
-          "id": "C1T15I04",
-          "type": "boolean",
-          "label": "Pied rouge homard en position pendante et pâle en surélévation",
-          "description": "Signe de dépendance vasculaire",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si vous observez ce signe",
-            "tooltip": "Rougeur en position pendante, pâleur en surélévation"
-          }
-        },
-        {
-          "id": "C1T15I05",
-          "type": "boolean",
-          "label": "Ongles striés",
-          "description": "Stries sur les ongles",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si les ongles présentent des stries",
-            "tooltip": "Stries longitudinales ou transversales"
-          }
-        },
-        {
-          "id": "C1T15I06",
-          "type": "boolean",
-          "label": "Ongles épais",
-          "description": "Épaississement des ongles",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si les ongles sont épais",
-            "tooltip": "Onychogryphose, épaississement anormal"
-          }
-        },
-        {
-          "id": "C1T15I07",
-          "type": "boolean",
-          "label": "Ongles jaunes",
-          "description": "Coloration jaune des ongles",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si les ongles sont jaunes",
-            "tooltip": "Coloration jaunâtre des ongles"
-          }
-        },
-        {
-          "id": "C1T15I08",
-          "type": "boolean",
-          "label": "Ongles cassants",
-          "description": "Fragilité des ongles",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si les ongles sont cassants",
-            "tooltip": "Ongles fragiles, qui se cassent facilement"
-          }
-        },
-        {
-          "id": "C1T15I09",
-          "type": "boolean",
-          "label": "Peau sèche",
-          "description": "Sécheresse cutanée",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si la peau est sèche",
-            "tooltip": "Sécheresse cutanée anormale"
-          }
-        },
-        {
-          "id": "C1T15I10",
-          "type": "boolean",
-          "label": "Peau atrophiée",
-          "description": "Atrophie cutanée",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si la peau est atrophiée",
-            "tooltip": "Amincissement, atrophie cutanée"
-          }
-        },
-        {
-          "id": "C1T15I11",
-          "type": "boolean",
-          "label": "Peau mince",
-          "description": "Amincissement cutané",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si la peau est mince",
-            "tooltip": "Amincissement anormal de la peau"
-          }
-        },
-        {
-          "id": "C1T15I12",
-          "type": "boolean",
-          "label": "Peau luisante",
-          "description": "Aspect luisant de la peau",
-          "required": false,
-          "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si la peau est luisante",
-            "tooltip": "Aspect brillant, luisant de la peau"
+            "component": "RadioGroup",
+            "help": "Sélectionnez le signe d'inspection observé"
           }
         }
       ]
@@ -194,158 +129,140 @@
           "description": "Froideur au toucher",
           "required": false,
           "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si vous ressentez une froideur",
-            "tooltip": "Froideur anormale au toucher"
+            "component": "Checkbox"
           }
         },
         {
           "id": "C1T15P02",
           "type": "boolean",
-          "label": "Retour capillaire >2 secondes",
+          "label": "Retour capillaire > 2 secondes",
           "description": "Retour capillaire prolongé",
           "required": false,
           "ui": {
-            "component": "Checkbox",
-            "help": "Cochez si le retour capillaire est >2 secondes",
-            "tooltip": "Test de blanchiment prolongé"
-          }
-        }
-      ],
-      "pulse_assessment": {
-        "lower_limb": {
-          "pedal_pulse": {
-            "id": "C1T15P03",
-            "label": "Pouls pédieux",
-            "description": "Pouls de l'artère pédieuse",
-            "type": "single_choice",
-            "required": false,
-            "condition": {
-              "anyOf": ["C1T14E05", "C1T14E06"]
-            },
-            "options": [
-              {
-                "id": "C1T15P03_0",
-                "label": "0/4 absent",
-                "description": "Pouls absent",
-                "legend": "info"
-              },
-              {
-                "id": "C1T15P03_1",
-                "label": "1/4 diminué",
-                "description": "Pouls diminué"
-              },
-              {
-                "id": "C1T15P03_2",
-                "label": "2/4 normal",
-                "description": "Pouls normal"
-              },
-              {
-                "id": "C1T15P03_3",
-                "label": "3/4 augmenté",
-                "description": "Pouls augmenté"
-              },
-              {
-                "id": "C1T15P03_4",
-                "label": "4/4 bondissant",
-                "description": "Pouls bondissant"
-              }
-            ],
-            "photo_required": true,
-            "ui": {
-              "component": "RadioGroup",
-              "help": "Évaluez le pouls pédieux"
-            }
-          },
-          "posterior_tibial_pulse": {
-            "id": "C1T15P04",
-            "label": "Pouls tibial postérieur",
-            "description": "Pouls de l'artère tibiale postérieure",
-            "type": "single_choice",
-            "required": false,
-            "condition": {
-              "anyOf": ["C1T14E05", "C1T14E06"]
-            },
-            "options": [
-              {
-                "id": "C1T15P04_0",
-                "label": "0/4 absent",
-                "description": "Pouls absent",
-                "legend": "info"
-              },
-              {
-                "id": "C1T15P04_1",
-                "label": "1/4 diminué",
-                "description": "Pouls diminué"
-              },
-              {
-                "id": "C1T15P04_2",
-                "label": "2/4 normal",
-                "description": "Pouls normal"
-              },
-              {
-                "id": "C1T15P04_3",
-                "label": "3/4 augmenté",
-                "description": "Pouls augmenté"
-              },
-              {
-                "id": "C1T15P04_4",
-                "label": "4/4 bondissant",
-                "description": "Pouls bondissant"
-              }
-            ],
-            "photo_required": true,
-            "ui": {
-              "component": "RadioGroup",
-              "help": "Évaluez le pouls tibial postérieur"
-            }
+            "component": "Checkbox"
           }
         },
-        "upper_limb": {
-          "radial_pulse": {
-            "id": "C1T15P05",
-            "label": "Pouls radial",
-            "description": "Pouls de l'artère radiale",
-            "type": "single_choice",
-            "required": false,
-            "condition": {
-              "anyOf": ["C1T14E03", "C1T14E04"]
+        {
+          "id": "C1T15P03",
+          "label": "Pouls pédieux",
+          "description": "Pouls de l'artère pédieuse",
+          "type": "multiple_choice",
+          "required": false,
+          "condition": {
+            "anyOf": ["C1T14E01_05", "C1T14E01_06"]
+          },
+          "options": [
+            {
+              "id": "C1T15P03_0",
+              "label": "0/4 absent*",
+              "description": "absent"
             },
-            "options": [
-              {
-                "id": "C1T15P05_0",
-                "label": "0/4 absent",
-                "description": "Pouls absent",
-                "legend": "info"
-              },
-              {
-                "id": "C1T15P05_1",
-                "label": "1/4 diminué",
-                "description": "Pouls diminué"
-              },
-              {
-                "id": "C1T15P05_2",
-                "label": "2/4 normal",
-                "description": "Pouls normal"
-              },
-              {
-                "id": "C1T15P05_3",
-                "label": "3/4 augmenté",
-                "description": "Pouls augmenté"
-              },
-              {
-                "id": "C1T15P05_4",
-                "label": "4/4 bondissant",
-                "description": "Pouls bondissant"
-              }
-            ],
-            "ui": {
-              "component": "RadioGroup",
-              "help": "Évaluez le pouls radial"
+            {
+              "id": "C1T15P03_1",
+              "label": "1/4 diminué*",
+              "description": "diminué"
+            },
+            {
+              "id": "C1T15P03_2",
+              "label": "2/4 normal*",
+              "description": "normal"
+            },
+            {
+              "id": "C1T15P03_3",
+              "label": "3/4 augmenté*",
+              "description": "augmenté"
+            },
+            {
+              "id": "C1T15P03_4",
+              "label": "4/4 bondissant*",
+              "description": "bondissant"
             }
+          ],
+          "ui": {
+            "component": "CheckboxGroup"
+          }
+        },
+        {
+          "id": "C1T15P04",
+          "label": "Pouls tibial postérieur",
+          "description": "Pouls de l'artère tibiale postérieure",
+          "type": "multiple_choice",
+          "required": false,
+          "condition": {
+            "anyOf": ["C1T14E01_05", "C1T14E01_06"]
+          },
+          "options": [
+            {
+              "id": "C1T15P04_0",
+              "label": "0/4 absent*",
+              "description": "absent"
+            },
+            {
+              "id": "C1T15P04_1",
+              "label": "1/4 diminué*",
+              "description": "diminué"
+            },
+            {
+              "id": "C1T15P04_2",
+              "label": "2/4 normal*",
+              "description": "normal"
+            },
+            {
+              "id": "C1T15P04_3",
+              "label": "3/4 augmenté*",
+              "description": "augmenté"
+            },
+            {
+              "id": "C1T15P04_4",
+              "label": "4/4 bondissant*",
+              "description": "bondissant"
+            }
+          ],
+          "ui": {
+            "component": "CheckboxGroup"
+          }
+        },
+        {
+          "id": "C1T15P05",
+          "label": "Pouls radial",
+          "description": "Pouls de l'artère radiale",
+          "type": "multiple_choice",
+          "required": false,
+          "condition": {
+            "anyOf": ["C1T14E01_03", "C1T14E01_04"]
+          },
+          "options": [
+            {
+              "id": "C1T15P05_0",
+              "label": "0/4 absent*",
+              "description": "absent"
+            },
+            {
+              "id": "C1T15P05_1",
+              "label": "1/4 diminué*",
+              "description": "diminué"
+            },
+            {
+              "id": "C1T15P05_2",
+              "label": "2/4 normal*",
+              "description": "normal"
+            },
+            {
+              "id": "C1T15P05_3",
+              "label": "3/4 augmenté*",
+              "description": "augmenté"
+            },
+            {
+              "id": "C1T15P05_4",
+              "label": "4/4 bondissant*",
+              "description": "bondissant"
+            }
+          ],
+          "ui": {
+            "component": "CheckboxGroup"
           }
         }
-      }
+      ]
     },
     "edinburgh_questionnaire": {
       "id": "C1T15E",
@@ -354,12 +271,12 @@
       "type": "questionnaire",
       "required": false,
       "condition": {
-        "anyOf": ["C1T14E05", "C1T14E06"]
+        "anyOf": ["C1T14E01_05", "C1T14E01_06"]
       },
       "questions": [
         {
           "id": "C1T15E01",
-          "label": "Ressentez-vous une douleur/gêne dans une jambe quand vous marchez ?",
+          "label": "Ressentez-vous une douleur ou une gêne dans une jambe lorsque vous marchez ?",
           "type": "single_choice",
           "required": true,
           "options": [
@@ -381,7 +298,7 @@
             "questions": [
               {
                 "id": "C1T15E02",
-                "label": "Douleur parfois au repos (assis ou immobile) ?",
+                "label": "Cette douleur commence-t-elle parfois à se manifester quand vous êtes debout immobile ou assis ?",
                 "type": "single_choice",
                 "required": true,
                 "options": [
@@ -397,7 +314,7 @@
               },
               {
                 "id": "C1T15E03",
-                "label": "Douleur lors de montée d'escalier ou marche rapide ?",
+                "label": "Ressentez-vous cette douleur quand vous montez une côte ou quand vous marchez vite ?",
                 "type": "single_choice",
                 "required": true,
                 "options": [
@@ -413,7 +330,7 @@
               },
               {
                 "id": "C1T15E04",
-                "label": "Douleur lors de marche normale sur terrain plat ?",
+                "label": "La ressentez-vous quand vous marchez d'un pas normal sur un terrain plat ?",
                 "type": "single_choice",
                 "required": true,
                 "options": [
@@ -435,17 +352,17 @@
                 "options": [
                   {
                     "id": "C1T15E05_persists",
-                    "label": "Persiste >10 min"
+                    "label": "Elle persiste habituellement plus de 10 minutes"
                   },
                   {
                     "id": "C1T15E05_disappears",
-                    "label": "Disparaît ≤10 min"
+                    "label": "Elle disparaît habituellement en 10 minutes ou moins"
                   }
                 ]
               },
               {
                 "id": "C1T15E06",
-                "label": "Localisation de la douleur",
+                "label": "Où ressentez-vous cette douleur ou cette gêne ?",
                 "type": "multiple_choice",
                 "required": false,
                 "options": [
@@ -463,7 +380,7 @@
                   },
                   {
                     "id": "C1T15E06_joints",
-                    "label": "Articulations"
+                    "label": "Articulatio"
                   }
                 ]
               }
@@ -472,25 +389,30 @@
         }
       ],
       "interpretation": {
-        "claudication_intermittent": {
-          "condition": "Q1=oui, Q2=non, Q3=oui, Q4=oui, Q5=≤10min, Q6=jambes",
-          "result": "Claudication intermittente"
+        "claudication_intermittent_forte": {
+          "condition": "Q1=oui, Q2=non, Q3=oui, Q4=oui, Q5=≤10min, Q6=fesses_cuisses_mollets",
+          "result": "Claudication intermittente forte"
+        },
+        "claudication_intermittent_faible": {
+          "condition": "Q1=oui, Q2=non, Q3=oui, Q4=non, Q5=≤10min, Q6=fesses_cuisses_mollets",
+          "result": "Claudication intermittente faible"
         }
       }
     },
     "ipscb": {
       "id": "C1T15D",
-      "title": "Bloc D — IPSCB (Indice Pression Systolique Cheville Bras)",
-      "description": "Mesure de l'index de pression systolique cheville-bras",
+      "title": "Bloc D — IPSCB*indice de pression systolique cheville bras",
+      "description": "indice de pression systolique cheville bras",
       "type": "calculation",
       "required": false,
       "condition": {
-        "anyOf": ["C1T14E05", "C1T14E06"]
+        "anyOf": ["C1T14E01_05", "C1T14E01_06"]
       },
+      "video_link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "measurements": [
         {
           "id": "C1T15D01",
-          "label": "PAS bras (plus élevé des 2)",
+          "label": "PAS*pression artérielle systolique la plus élevée des deux bras",
           "type": "number",
           "unit": "mmHg",
           "validation": {
@@ -498,15 +420,14 @@
             "max": 300,
             "step": 1
           },
-          "required": true,
+          "required": false,
           "ui": {
             "component": "NumericInput",
-            "placeholder": "mmHg",
-            "help": "Entrez la pression artérielle systolique du bras (la plus élevée)"
+            "placeholder": "mmHg"
           }
         },
         {
-          "id": "C1T15D02",
+          "id": "C1T15D03",
           "label": "PAS artère tibiale postérieure droite",
           "type": "number",
           "unit": "mmHg",
@@ -518,12 +439,11 @@
           "required": false,
           "ui": {
             "component": "NumericInput",
-            "placeholder": "mmHg",
-            "help": "Entrez la pression de l'artère tibiale postérieure droite"
+            "placeholder": "mmHg"
           }
         },
         {
-          "id": "C1T15D03",
+          "id": "C1T15D04",
           "label": "PAS artère pédieuse droite",
           "type": "number",
           "unit": "mmHg",
@@ -535,12 +455,11 @@
           "required": false,
           "ui": {
             "component": "NumericInput",
-            "placeholder": "mmHg",
-            "help": "Entrez la pression de l'artère pédieuse droite"
+            "placeholder": "mmHg"
           }
         },
         {
-          "id": "C1T15D04",
+          "id": "C1T15D05",
           "label": "PAS artère tibiale postérieure gauche",
           "type": "number",
           "unit": "mmHg",
@@ -552,12 +471,11 @@
           "required": false,
           "ui": {
             "component": "NumericInput",
-            "placeholder": "mmHg",
-            "help": "Entrez la pression de l'artère tibiale postérieure gauche"
+            "placeholder": "mmHg"
           }
         },
         {
-          "id": "C1T15D05",
+          "id": "C1T15D06",
           "label": "PAS artère pédieuse gauche",
           "type": "number",
           "unit": "mmHg",
@@ -569,54 +487,105 @@
           "required": false,
           "ui": {
             "component": "NumericInput",
-            "placeholder": "mmHg",
-            "help": "Entrez la pression de l'artère pédieuse gauche"
+            "placeholder": "mmHg"
           }
         }
       ],
       "calculation": {
-        "formula": "max(PAS_membre_inférieur) / PAS_bras",
-        "output_field": "C1T15D06",
-        "label": "IPSCB calculé",
+        "formula": "PAS artère du membre inférieur / PAS la plus élevée des deux bras",
+        "output_fields": {
+          "C1T15D07": "IPSCB tibiale postérieure droite",
+          "C1T15D08": "IPSCB pédieuse droite", 
+          "C1T15D09": "IPSCB tibiale postérieure gauche",
+          "C1T15D10": "IPSCB pédieuse gauche"
+        },
+        "label": "Calcul PAS de l'artère du membre inférieur divisé par la PAS la plus élevée des deux bras et le résultat",
         "rounding": 2
       },
+      "results": [
+        {
+          "id": "C1T15D07",
+          "type": "calculated",
+          "label": "IPSCB tibiale postérieure droite",
+          "formula": "C1T15D03 / C1T15D01",
+          "unit": "",
+          "ui": {
+            "component": "ResultBadge",
+            "help": "Résultat automatiquement calculé"
+          }
+        },
+        {
+          "id": "C1T15D08", 
+          "type": "calculated",
+          "label": "IPSCB pédieuse droite",
+          "formula": "C1T15D04 / C1T15D01",
+          "unit": "",
+          "ui": {
+            "component": "ResultBadge",
+            "help": "Résultat automatiquement calculé"
+          }
+        },
+        {
+          "id": "C1T15D09",
+          "type": "calculated", 
+          "label": "IPSCB tibiale postérieure gauche",
+          "formula": "C1T15D05 / C1T15D01",
+          "unit": "",
+          "ui": {
+            "component": "ResultBadge",
+            "help": "Résultat automatiquement calculé"
+          }
+        },
+        {
+          "id": "C1T15D10",
+          "type": "calculated",
+          "label": "IPSCB pédieuse gauche", 
+          "formula": "C1T15D06 / C1T15D01",
+          "unit": "",
+          "ui": {
+            "component": "ResultBadge",
+            "help": "Résultat automatiquement calculé"
+          }
+        }
+      ],
       "interpretation": {
         "indeterminate": {
-          "condition": "≥ 1.40",
-          "label": "Indéterminé",
-          "description": "Artères non compressibles",
+          "condition": "> 1.40",
+          "label": "Indéterminé car artères non compressibles",
+          "description": "chiffre si > 1,40 = indéterminé car artères non compressibles",
           "color": "#FF9800"
         },
         "normal": {
           "condition": "1.0 - 1.4",
           "label": "Normal",
-          "description": "Valeurs normales",
+          "description": "chiffre si 1,0 à 1,4 = normal",
           "color": "#4CAF50"
         },
         "borderline": {
           "condition": "0.9 - 0.99",
           "label": "Limite",
-          "description": "Valeurs limites",
+          "description": "chiffre si 0,9 à 0,99 = limite",
           "color": "#FF9800"
         },
         "mild": {
           "condition": "0.7 - 0.89",
           "label": "Anormal, atteinte légère",
-          "description": "Atteinte vasculaire légère",
+          "description": "chiffre si 0,7 à 0,89 = anormal, atteinte légère",
           "color": "#F44336"
         },
         "moderate": {
           "condition": "0.4 - 0.69",
-          "label": "Anormal, atteinte modérée",
-          "description": "Atteinte vasculaire modérée",
+          "label": "Anormal, atteinte modéré",
+          "description": "chiffre si 0,4 à 0,69 = anormal, atteinte modéré",
           "color": "#F44336"
         },
         "severe": {
           "condition": "< 0.4",
-          "label": "Anormal, atteinte sévère",
-          "description": "Atteinte vasculaire sévère",
-          "color": "#9C27B0",
-          "legend": "alert"
+          "label": "***Anormal, atteinte sévère",
+          "description": "chiffre si <0,4 = ***anormal, atteinte sévère",
+          "color": "#F44336",
+          "legend": "alert",
+          "red_flag": true
         }
       }
     }

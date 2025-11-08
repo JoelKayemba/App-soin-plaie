@@ -1,11 +1,11 @@
 {
   "id": "burn_stages_helpers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Aides pour les stades de brûlure",
-  "description": "Définitions et critères cliniques pour les différents stades de brûlure",
+  "description": "Repères cliniques détaillés pour l'évaluation des brûlures selon le degré.",
   "metadata": {
     "created": "2025-01-05",
-    "updated": "2025-01-05",
+    "updated": "2025-01-10",
     "author": "Système d'évaluation clinique",
     "language": "fr-CA"
   },
@@ -15,16 +15,21 @@
       "title": "Brûlure 1er degré",
       "type": "modal",
       "content": {
-        "criteria": "Critères cliniques : érythème, douleur, peau intacte",
-        "depth": "Profondeur : épiderme uniquement",
-        "examples": "Exemples : coup de soleil léger, contact bref avec surface chaude",
-        "healing": "Cicatrisation : 3-5 jours",
-        "treatment": "Traitement : refroidissement, analgésiques, hydratation"
-      },
-      "media": {
-        "type": "image",
-        "url": "/assets/burn_stage_1.jpg",
-        "alt": "Exemple de brûlure 1er degré"
+        "tissus_atteints": [
+          "Épiderme"
+        ],
+        "apparence": [
+          "Érythémateuse et luisante",
+          "Œdème léger",
+          "Pas de phlyctène"
+        ],
+        "remplissage_capillaire": [
+          "≤ 2 secondes",
+          "Blanchiment à la pression"
+        ],
+        "sensation": [
+          "Douleur variant d'un prurit à une douleur vive"
+        ]
       }
     },
     "burn_stage_2a": {
@@ -32,17 +37,25 @@
       "title": "Brûlure 2e degré superficiel",
       "type": "modal",
       "content": {
-        "criteria": "Critères cliniques : phlyctènes claires, douleur vive, base rosée",
-        "depth": "Profondeur : derme superficiel",
-        "examples": "Exemples : ébouillantage, contact prolongé avec surface chaude",
-        "healing": "Cicatrisation : 7-14 jours",
-        "treatment": "Traitement : protection des phlyctènes, pansements adaptés",
-        "risk": "Risque : infection modéré"
-      },
-      "media": {
-        "type": "image",
-        "url": "/assets/burn_stage_2a.jpg",
-        "alt": "Exemple de brûlure 2e degré superficiel"
+        "tissus_atteints": [
+          "Derme réticulaire",
+          "Racine du follicule pileux habituellement intacte"
+        ],
+        "apparence": [
+          "Érythémateuse/rose pâle",
+          "Œdème léger à modéré",
+          "Phlyctènes séreuses aux parois fines",
+          "Phlyctènes intactes pouvant grossir"
+        ],
+        "remplissage_capillaire": [
+          "≤ 2 secondes",
+          "Blanchiment à la pression"
+        ],
+        "sensation": [
+          "Douleur vive",
+          "Sensibilité résiduelle potentielle au soleil, vent, froid, friction",
+          "Prurit possible"
+        ]
       }
     },
     "burn_stage_2b": {
@@ -50,17 +63,24 @@
       "title": "Brûlure 2e degré profond",
       "type": "modal",
       "content": {
-        "criteria": "Critères cliniques : teinte blanchâtre, douleur diminuée, base pâle",
-        "depth": "Profondeur : derme profond",
-        "examples": "Exemples : contact prolongé avec liquide chaud, vapeur",
-        "healing": "Cicatrisation : 3-4 semaines",
-        "treatment": "Traitement : débridement, pansements spécialisés",
-        "risk": "Risque : infection élevé, cicatrisation lente"
-      },
-      "media": {
-        "type": "image",
-        "url": "/assets/burn_stage_2b.jpg",
-        "alt": "Exemple de brûlure 2e degré profond"
+        "tissus_atteints": [
+          "Derme papillaire",
+          "Annexes cutanées souvent atteintes"
+        ],
+        "apparence": [
+          "Sèche, tachetée de manière inégale, rouge foncé, apparence de plaque décolorée",
+          "Œdème bien présent",
+          "Phlyctènes séreuses aux parois épaisses, souvent éclatées",
+          "Phlyctènes intactes qui peuvent grossir"
+        ],
+        "remplissage_capillaire": [
+          "> 2 secondes ou absent",
+          "Pas de blanchiment à la pression"
+        ],
+        "sensation": [
+          "Sensibilité uniquement à la pression",
+          "Peut devenir douloureux après quelques jours"
+        ]
       }
     },
     "burn_stage_3": {
@@ -68,17 +88,22 @@
       "title": "Brûlure 3e degré",
       "type": "modal",
       "content": {
-        "criteria": "Critères cliniques : aspect cuir, insensibilité, nécrose",
-        "depth": "Profondeur : derme complet",
-        "examples": "Exemples : contact prolongé avec flamme, liquide très chaud",
-        "healing": "Cicatrisation : impossible sans greffe",
-        "treatment": "Traitement : débridement chirurgical, greffe de peau",
-        "orientation": "Orientation : spécialisée obligatoire"
-      },
-      "media": {
-        "type": "image",
-        "url": "/assets/burn_stage_3.jpg",
-        "alt": "Exemple de brûlure 3e degré"
+        "tissus_atteints": [
+          "Tissus sous-cutanés"
+        ],
+        "apparence": [
+          "Sèche, aspect de cuir souple, blanc ou noir",
+          "Parfois vaisseaux sanguins carbonisés",
+          "Peu de phlyctènes ; si présentes, phlyctènes aux parois minces, ne grossissant pas",
+          "Œdème"
+        ],
+        "remplissage_capillaire": [
+          "Absent"
+        ],
+        "sensation": [
+          "Absente au niveau de la brûlure",
+          "Peut être présente en périphérie"
+        ]
       }
     },
     "burn_stage_4": {
@@ -86,18 +111,19 @@
       "title": "Brûlure 4e degré",
       "type": "modal",
       "content": {
-        "criteria": "Critères cliniques : atteinte muscle/os, carbonisation",
-        "depth": "Profondeur : structures profondes",
-        "examples": "Exemples : électrocution, explosion, contact prolongé avec flamme",
-        "healing": "Cicatrisation : impossible sans reconstruction",
-        "treatment": "Traitement : débridement extensif, reconstruction",
-        "urgency": "Urgence : vitale",
-        "transfer": "Transfert : spécialisé immédiat"
-      },
-      "media": {
-        "type": "image",
-        "url": "/assets/burn_stage_4.jpg",
-        "alt": "Exemple de brûlure 4e degré"
+        "tissus_atteints": [
+          "Structures profondes : os, tendons, muscles, etc."
+        ],
+        "apparence": [
+          "Sèche, carbonisation",
+          "Pas de phlyctène"
+        ],
+        "remplissage_capillaire": [
+          "Absent"
+        ],
+        "sensation": [
+          "Absente"
+        ]
       }
     }
   }

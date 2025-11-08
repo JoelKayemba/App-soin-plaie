@@ -42,7 +42,7 @@
   "sub_blocks": {
     "quality": {
       "id": "C1T22Q",
-      "title": "Sous-bloc 1 — Qualité du tissu nécrotique",
+      "title": "Qualité du tissu nécrotique",
       "description": "Évaluation de la qualité du tissu nécrotique",
       "type": "single_choice",
       "required": true,
@@ -190,7 +190,7 @@
     },
     "quantity": {
       "id": "C1T22Q2",
-      "title": "Sous-bloc 2 — Quantité",
+      "title": "Quantité",
       "description": "Évaluation de la quantité de tissu nécrotique",
       "type": "calculated",
       "required": true,

@@ -1,0 +1,49 @@
+{
+  "id": "C1T29",
+  "version": "1.0.0",
+  "title": "Échelle de Braden",
+  "description": "Évaluez le risque de lésions de pression à l'aide de l'échelle de Braden.",
+  "category": "risk_assessment",
+  "column": 1,
+  "table": 29,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "elements": [
+    {
+      "id": "C1T29_SCALE",
+      "type": "braden_scale",
+      "scale_type": "braden",
+      "label": "Échelle de Braden",
+      "description": "Sélectionnez le score (1 à 4) correspondant au profil de l'usager pour chacune des dimensions. Les résultats s'actualisent automatiquement."
+    }
+  ],
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "large",
+    "group_label": "Échelle de Braden",
+    "instructions": "Attribuez un score pour chaque dimension. Le score total et le niveau de risque sont calculés automatiquement."
+  },
+  "data_structure": {
+    "selections": {
+      "id": "C1T29_SCALE",
+      "type": "object",
+      "description": "Scores sélectionnés par dimension (1 à 4)"
+    },
+    "totalScore": "Number",
+    "riskLevel": {
+      "level": "String",
+      "color": "String",
+      "description": "String"
+    }
+  },
+  "export_format": {
+    "braden_selections": "Object (dimension -> score)",
+    "braden_total": "Number",
+    "braden_risk_level": "String",
+    "braden_risk_description": "String"
+  }
+}

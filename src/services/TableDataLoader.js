@@ -80,8 +80,8 @@ class TableDataLoader {
     }
 
         try {
-          // Chargement des onze premières tables pour test
-          console.log('🔄 Chargement des tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12 et 13 pour test...');
+          // Chargement des tables pour test
+          console.log('🔄 Chargement des tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 et 34...');
           
           const table01 = await import('@/data/evaluations/columns/col1/table_01_basic_data.json');
           const table02 = await import('@/data/evaluations/columns/col1/table_02_allergies.json');
@@ -96,6 +96,26 @@ class TableDataLoader {
           const table11 = await import('@/data/evaluations/columns/col1/table_11_wound_history.json');
           const table12 = await import('@/data/evaluations/columns/col1/table_12_symptoms.json');
           const table13 = await import('@/data/evaluations/columns/col1/table_13_perceptions_goals.json');
+          const table14 = await import('@/data/evaluations/columns/col1/table_14_wound_location.json');
+          const table15 = await import('@/data/evaluations/columns/col1/table_15_vascular_assessment.json');
+          const table16 = await import('@/data/evaluations/columns/col1/table_16_bwat_size.json');
+          const table17 = await import('@/data/evaluations/columns/col1/table_17_wound_shape.json');
+          const table18 = await import('@/data/evaluations/columns/col1/table_18_bwat_depth.json');
+          const table19 = await import('@/data/evaluations/columns/col1/table_19_bwat_edges.json');
+          const table20 = await import('@/data/evaluations/columns/col1/table_20_bwat_undermining.json');
+          const table21 = await import('@/data/evaluations/columns/col1/table_21_wound_bed_composition.json');
+          const table22 = await import('@/data/evaluations/columns/col1/table_22_bwat_necrotic_tissue.json');
+          const table23 = await import('@/data/evaluations/columns/col1/table_23_bwat_granulation_tissue.json');
+          const table24 = await import('@/data/evaluations/columns/col1/table_24_bwat_epithelialization.json');
+          const table25 = await import('@/data/evaluations/columns/col1/table_25_bwat_exudate.json');
+          const table26 = await import('@/data/evaluations/columns/col1/table_26_bwat_surrounding_skin.json');
+          const table27 = await import('@/data/evaluations/columns/col1/table_27_infection_signs_symptoms.json');
+          const table28 = await import('@/data/evaluations/columns/col1/table_28_laboratory_tests.json');
+          const table29 = await import('@/data/evaluations/columns/col1/table_29_braden_scale.json');
+          const table30 = await import('@/data/evaluations/columns/col1/table_30_braden_q_scale.json');
+          const table31 = await import('@/data/evaluations/columns/col1/table_31_pressure_injury.json');
+          const table32 = await import('@/data/evaluations/columns/col1/table_32_venous_ulcer.json');
+          const table33 = await import('@/data/evaluations/columns/col1/table_33_arterial_ulcer.json');
           const table34 = await import('@/data/evaluations/columns/col1/table_34_diabetic_foot.json');
 
           // Créer l'objet avec les tables nécessaires
@@ -113,11 +133,31 @@ class TableDataLoader {
             'table_11_wound_history.json': table11.default || table11,
             'table_12_symptoms.json': table12.default || table12,
             'table_13_perceptions_goals.json': table13.default || table13,
+            'table_14_wound_location.json': table14.default || table14,
+            'table_15_vascular_assessment.json': table15.default || table15,
+            'table_16_bwat_size.json': table16.default || table16,
+            'table_17_wound_shape.json': table17.default || table17,
+            'table_18_bwat_depth.json': table18.default || table18,
+            'table_19_bwat_edges.json': table19.default || table19,
+            'table_20_bwat_undermining.json': table20.default || table20,
+            'table_21_wound_bed_composition.json': table21.default || table21,
+            'table_22_bwat_necrotic_tissue.json': table22.default || table22,
+            'table_23_bwat_granulation_tissue.json': table23.default || table23,
+            'table_24_bwat_epithelialization.json': table24.default || table24,
+            'table_25_bwat_exudate.json': table25.default || table25,
+            'table_26_bwat_surrounding_skin.json': table26.default || table26,
+            'table_27_infection_signs_symptoms.json': table27.default || table27,
+            'table_28_laboratory_tests.json': table28.default || table28,
+            'table_29_braden_scale.json': table29.default || table29,
+            'table_30_braden_q_scale.json': table30.default || table30,
+            'table_31_pressure_injury.json': table31.default || table31,
+            'table_32_venous_ulcer.json': table32.default || table32,
+            'table_33_arterial_ulcer.json': table33.default || table33,
             'table_34_diabetic_foot.json': table34.default || table34
           };
 
           this.allTablesLoaded = true;
-          console.log('✅ Tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13 et 34 chargées avec succès');
+          console.log('✅ Tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 et 34 chargées avec succès');
           return this.allTablesCache;
     } catch (error) {
       console.error('❌ Erreur lors de l\'import de la première table:', error);
@@ -164,9 +204,11 @@ class TableDataLoader {
       '26': 'table_26_bwat_surrounding_skin.json',
       '27': 'table_27_infection_signs_symptoms.json',
       '28': 'table_28_laboratory_tests.json',
+      '29': 'table_29_braden_scale.json',
+      '30': 'table_30_braden_q_scale.json',
       '31': 'table_31_pressure_injury.json',
       '32': 'table_32_venous_ulcer.json',
-      '33': 'table_33_lymphedema.json',
+      '33': 'table_33_arterial_ulcer.json',
       '34': 'table_34_diabetic_foot.json'
     };
 
