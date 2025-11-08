@@ -25,180 +25,51 @@
   "elements": [
     {
       "id": "C1T19E01",
-      "type": "boolean",
-      "label": "0 = Plaie guérie",
-      "description": "Plaie complètement guérie",
-      "score": 0,
-      "required": false,
+      "type": "single_choice",
+      "label": "Caractérisation des bords",
+      "description": "Sélectionnez le score qui décrit le mieux les bords de la plaie",
+      "required": true,
+      "options": [
+        {
+          "id": "C1T19E01_01",
+          "label": "0",
+          "description": "Plaie guérie - Plaie complètement guérie",
+          "score": 0
+        },
+        {
+          "id": "C1T19E01_02",
+          "label": "1",
+          "description": "Indistincts, diffus, aucun clairement visible - Incapable de distinguer clairement les contours de la plaie",
+          "score": 1
+        },
+        {
+          "id": "C1T19E01_03",
+          "label": "2",
+          "description": "Distincts, limites clairement visibles, attachés, au même niveau que le lit de la plaie - Bords égaux ou au même niveau que le lit de la plaie, aucun côté ou dénivellation présent; plat",
+          "score": 2
+        },
+        {
+          "id": "C1T19E01_04",
+          "label": "3",
+          "description": "Bien définis, non attachés à la base de la plaie - Bords présents; le lit de la plaie est plus profond; dénivellation peu marquée, sans sous-minage",
+          "score": 3
+        },
+        {
+          "id": "C1T19E01_05",
+          "label": "4",
+          "description": "Bien définis, non attachés à la base de la plaie, roulés, épaissis - Souples à fermes et flexibles au toucher",
+          "score": 4
+        },
+        {
+          "id": "C1T19E01_06",
+          "label": "5",
+          "description": "Bien définis, fibrosés cicatriciels ou hyperkératosiques - Bords durs, rigides au toucher; amas de tissus ou callosité autour de la plaie",
+          "score": 5
+        }
+      ],
       "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie est complètement guérie",
-        "tooltip": "Plaie complètement guérie",
-        "ariaDescription": "Cocher si la plaie est complètement guérie"
-      },
-      "clinical_notes": {
-        "description": "Plaie complètement guérie",
-        "edge_status": "Guérison complète",
-        "color": "#4CAF50"
-      }
-    },
-    {
-      "id": "C1T19E02",
-      "type": "boolean",
-      "label": "1 = Indistincts, diffus, aucun clairement visible",
-      "description": "Incapable de distinguer clairement les contours de la plaie",
-      "score": 1,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si les bords sont indistincts et diffus",
-        "tooltip": "Incapable de distinguer clairement les contours de la plaie",
-        "ariaDescription": "Cocher si les bords sont indistincts et diffus"
-      },
-      "detailed_definition": {
-        "title": "Score 1 - Indistincts, diffus, aucun clairement visible",
-        "description": "Incapable de distinguer clairement les contours de la plaie",
-        "clinical_characteristics": [
-          "Bords indistincts",
-          "Bords diffus",
-          "Aucun bord clairement visible",
-          "Contours de la plaie non discernables"
-        ],
-        "common_causes": "Plaie en début de formation, inflammation, œdème"
-      },
-      "clinical_notes": {
-        "description": "Incapable de distinguer clairement les contours de la plaie",
-        "edge_status": "Bords indistincts",
-        "color": "#8BC34A"
-      }
-    },
-    {
-      "id": "C1T19E03",
-      "type": "boolean",
-      "label": "2 = Distincts, limites clairement visibles, attachés, au même niveau que le lit de la plaie",
-      "description": "Bords égaux ou au même niveau que le lit de la plaie, aucun côté ou dénivellation présent; plat",
-      "score": 2,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si les bords sont distincts et attachés au même niveau",
-        "tooltip": "Bords égaux ou au même niveau que le lit de la plaie, aucun côté ou dénivellation présent; plat",
-        "ariaDescription": "Cocher si les bords sont distincts et attachés au même niveau"
-      },
-      "detailed_definition": {
-        "title": "Score 2 - Distincts, limites clairement visibles, attachés",
-        "description": "Bords égaux ou au même niveau que le lit de la plaie, aucun côté ou dénivellation présent; plat",
-        "clinical_characteristics": [
-          "Bords distincts",
-          "Limites clairement visibles",
-          "Bords attachés",
-          "Au même niveau que le lit de la plaie",
-          "Aucun côté ou dénivellation présent",
-          "Plat"
-        ],
-        "common_causes": "Plaie en cours de cicatrisation, bonne évolution"
-      },
-      "clinical_notes": {
-        "description": "Bords égaux ou au même niveau que le lit de la plaie, aucun côté ou dénivellation présent; plat",
-        "edge_status": "Bords distincts et attachés",
-        "color": "#FFC107"
-      }
-    },
-    {
-      "id": "C1T19E04",
-      "type": "boolean",
-      "label": "3 = Bien définis, non attachés à la base de la plaie",
-      "description": "Bords présents; le lit de la plaie est plus profond; dénivellation peu marquée, sans sous-minage",
-      "score": 3,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si les bords sont bien définis et non attachés",
-        "tooltip": "Bords présents; le lit de la plaie est plus profond; dénivellation peu marquée, sans sous-minage",
-        "ariaDescription": "Cocher si les bords sont bien définis et non attachés"
-      },
-      "detailed_definition": {
-        "title": "Score 3 - Bien définis, non attachés à la base de la plaie",
-        "description": "Bords présents; le lit de la plaie est plus profond; dénivellation peu marquée, sans sous-minage",
-        "clinical_characteristics": [
-          "Bords bien définis",
-          "Non attachés à la base de la plaie",
-          "Bords présents",
-          "Le lit de la plaie est plus profond",
-          "Dénivellation peu marquée",
-          "Sans sous-minage"
-        ],
-        "common_causes": "Plaie en cours de cicatrisation, dénivellation modérée"
-      },
-      "clinical_notes": {
-        "description": "Bords présents; le lit de la plaie est plus profond; dénivellation peu marquée, sans sous-minage",
-        "edge_status": "Bords bien définis et non attachés",
-        "color": "#FF9800"
-      }
-    },
-    {
-      "id": "C1T19E05",
-      "type": "boolean",
-      "label": "4 = Bien définis, non attachés à la base de la plaie, roulés, épaissis",
-      "description": "Souples à fermes et flexibles au toucher",
-      "score": 4,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si les bords sont bien définis, roulés et épaissis",
-        "tooltip": "Souples à fermes et flexibles au toucher",
-        "ariaDescription": "Cocher si les bords sont bien définis, roulés et épaissis"
-      },
-      "detailed_definition": {
-        "title": "Score 4 - Bien définis, non attachés, roulés, épaissis",
-        "description": "Souples à fermes et flexibles au toucher",
-        "clinical_characteristics": [
-          "Bords bien définis",
-          "Non attachés à la base de la plaie",
-          "Bords roulés",
-          "Bords épaissis",
-          "Souples à fermes au toucher",
-          "Flexibles au toucher"
-        ],
-        "common_causes": "Plaie chronique, épaississement des bords"
-      },
-      "clinical_notes": {
-        "description": "Souples à fermes et flexibles au toucher",
-        "edge_status": "Bords roulés et épaissis",
-        "color": "#F44336"
-      }
-    },
-    {
-      "id": "C1T19E06",
-      "type": "boolean",
-      "label": "5 = Bien définis, fibrosés cicatriciels ou hyperkératosiques",
-      "description": "Bords durs, rigides au toucher; amas de tissus ou callosité autour de la plaie",
-      "score": 5,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si les bords sont fibrosés cicatriciels ou hyperkératosiques",
-        "tooltip": "Bords durs, rigides au toucher; amas de tissus ou callosité autour de la plaie",
-        "ariaDescription": "Cocher si les bords sont fibrosés cicatriciels ou hyperkératosiques"
-      },
-      "detailed_definition": {
-        "title": "Score 5 - Bien définis, fibrosés cicatriciels ou hyperkératosiques",
-        "description": "Bords durs, rigides au toucher; amas de tissus ou callosité autour de la plaie",
-        "clinical_characteristics": [
-          "Bords bien définis",
-          "Fibrosés cicatriciels",
-          "Hyperkératosiques",
-          "Bords durs au toucher",
-          "Rigides au toucher",
-          "Amas de tissus autour de la plaie",
-          "Callosité autour de la plaie"
-        ],
-        "common_causes": "Plaie chronique, fibrose, hyperkératose"
-      },
-      "clinical_notes": {
-        "description": "Bords durs, rigides au toucher; amas de tissus ou callosité autour de la plaie",
-        "edge_status": "Bords fibrosés ou hyperkératosiques",
-        "color": "#9C27B0"
+        "component": "RadioGroup",
+        "help": "Sélectionnez un seul score de bords BWAT"
       }
     }
   ],
@@ -219,17 +90,10 @@
     "spacing": "medium",
     "group_label": "BWAT – Bords",
     "instructions": "Sélectionnez le score qui décrit le mieux les bords de la plaie",
-    "component_type": "RadioGroup",
-    "show_detailed_definitions": true,
-    "definition_display": "tooltip_and_modal",
-    "photo_correlation": {
-      "enabled": true,
-      "instruction": "Les observations visuelles doivent être corroborées par l'inspection de la photo ou de l'image de la plaie"
-    },
     "sections": [
       {
         "title": "Caractérisation des bords",
-        "elements": ["C1T19E01", "C1T19E02", "C1T19E03", "C1T19E04", "C1T19E05", "C1T19E06"],
+        "elements": ["C1T19E01"],
         "type": "radio_group",
         "required": true
       }
@@ -237,15 +101,16 @@
   },
   "data_structure": {
     "selected_edges": {
-      "id": "Selected edges ID",
+      "id": "C1T19E01",
+      "value": "Selected option ID (C1T19E01_01 to C1T19E01_06)",
       "score": "BWAT score (0-5)",
       "label": "Selected edges label",
       "description": "Selected edges description"
     },
     "export_format": {
-      "edges_id": "String (C1T19E01-C1T19E06)",
+      "edges_id": "String (C1T19E01_01-C1T19E01_06)",
       "bwat_score": "Number (0-5)",
-      "edges_label": "String (Score description)",
+      "edges_label": "String (Score number)",
       "edges_description": "String (Clinical description)"
     }
   },

@@ -1,53 +1,70 @@
 // src/features/calculators/braden-q/useBradenQCalculator.js
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
-const useBradenQCalculator = () => {
-  const [selectedScores, setSelectedScores] = useState({});
+const shallowEqual = (objA = {}, objB = {}) => {
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+  if (keysA.length !== keysB.length) return false;
+  for (const key of keysA) {
+    if (objA[key] !== objB[key]) return false;
+  }
+  return true;
+};
+
+const useBradenQCalculator = (initialScores = {}, onScoresChange) => {
+  const [selectedScores, setSelectedScores] = useState(initialScores || {});
   const [expandedTexts, setExpandedTexts] = useState({});
 
-  // Calculer le score total
+  useEffect(() => {
+    if (!initialScores) return;
+    setSelectedScores(prev => (shallowEqual(prev, initialScores) ? prev : initialScores));
+  }, [initialScores]);
+
   const totalScore = useMemo(() => {
     return Object.values(selectedScores).reduce((sum, score) => sum + score, 0);
   }, [selectedScores]);
 
-  // Déterminer le niveau de risque
   const riskLevel = useMemo(() => {
-    if (totalScore >= 18) return { 
+    if (totalScore >= 23) return { 
       level: 'Aucun risque', 
       color: '#4CAF50', 
-      description: 'L\'enfant n\'est pas exposé au risque de développer une lésion de pression.' 
+      description: 'Le patient n\'est pas exposé au risque de développer une lésion de pression.' 
     };
-    if (totalScore >= 15) return { 
+    if (totalScore >= 20) return { 
       level: 'Faible risque', 
       color: '#FF9800', 
-      description: 'L\'enfant présente un faible risque de développer une lésion de pression.' 
+      description: 'Le patient présente un faible risque de développer une lésion de pression.' 
     };
-    if (totalScore >= 13) return { 
+    if (totalScore >= 16) return { 
       level: 'Risque modéré', 
       color: '#FF5722', 
-      description: 'L\'enfant présente un risque modéré de développer une lésion de pression.' 
+      description: 'Le patient présente un risque modéré de développer une lésion de pression.' 
     };
-    if (totalScore >= 10) return { 
+    if (totalScore >= 13) return { 
       level: 'Risque élevé', 
       color: '#F44336', 
-      description: 'L\'enfant présente un risque élevé de développer une lésion de pression.' 
+      description: 'Le patient présente un risque élevé de développer une lésion de pression.' 
     };
     return { 
       level: 'Risque très élevé', 
       color: '#D32F2F', 
-      description: 'L\'enfant présente un risque très élevé de développer une lésion de pression.' 
+      description: 'Le patient présente un risque très élevé de développer une lésion de pression.' 
     };
   }, [totalScore]);
 
-  // Sélectionner un score pour une dimension
-  const selectScore = (dimensionId, score) => {
-    setSelectedScores(prev => ({
-      ...prev,
-      [dimensionId]: score
-    }));
+  const notifyChange = (updatedScores) => {
+    onScoresChange?.(updatedScores);
   };
 
-  // Basculer l'expansion du texte
+  const selectScore = (dimensionId, score) => {
+    setSelectedScores(prev => {
+      if (prev[dimensionId] === score) return prev;
+      const updated = { ...prev, [dimensionId]: score };
+      notifyChange(updated);
+      return updated;
+    });
+  };
+
   const toggleTextExpansion = (dimensionId, score) => {
     const key = `${dimensionId}-${score}`;
     setExpandedTexts(prev => ({
@@ -56,13 +73,12 @@ const useBradenQCalculator = () => {
     }));
   };
 
-  // Réinitialiser toutes les sélections
   const resetSelections = () => {
     setSelectedScores({});
     setExpandedTexts({});
+    notifyChange({});
   };
 
-  // Vérifier si toutes les dimensions sont sélectionnées
   const isComplete = (totalDimensions) => {
     return totalDimensions === Object.keys(selectedScores).length;
   };

@@ -25,116 +25,51 @@
   "elements": [
     {
       "id": "C1T20E01",
-      "type": "boolean",
-      "label": "0 = Plaie guérie",
-      "description": "Plaie complètement guérie",
-      "score": 0,
-      "required": false,
+      "type": "single_choice",
+      "label": "Évaluation du sous-minage",
+      "description": "Sélectionnez le score qui décrit le mieux le sous-minage de la plaie",
+      "required": true,
+      "options": [
+        {
+          "id": "C1T20E01_01",
+          "label": "0",
+          "description": "Plaie guérie - Plaie complètement guérie",
+          "score": 0
+        },
+        {
+          "id": "C1T20E01_02",
+          "label": "1",
+          "description": "Aucun sous-minage - Absence de sous-minage",
+          "score": 1
+        },
+        {
+          "id": "C1T20E01_03",
+          "label": "2",
+          "description": "Sous-minage < 2 cm, peu importe l'orientation - Sous-minage de moins de 2 cm",
+          "score": 2
+        },
+        {
+          "id": "C1T20E01_04",
+          "label": "3",
+          "description": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie - Sous-minage modéré impliquant moins de 50% des bords",
+          "score": 3
+        },
+        {
+          "id": "C1T20E01_05",
+          "label": "4",
+          "description": "Sous-minage 2–4 cm impliquant > 50 % des bords de la plaie - Sous-minage modéré impliquant plus de 50% des bords",
+          "score": 4
+        },
+        {
+          "id": "C1T20E01_06",
+          "label": "5",
+          "description": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit - Sous-minage sévère ou présence de sinus/tunnel",
+          "score": 5
+        }
+      ],
       "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie est complètement guérie",
-        "tooltip": "Plaie complètement guérie",
-        "ariaDescription": "Cocher si la plaie est complètement guérie"
-      },
-      "clinical_notes": {
-        "description": "Plaie complètement guérie",
-        "undermining_status": "Guérison complète",
-        "color": "#4CAF50"
-      }
-    },
-    {
-      "id": "C1T20E02",
-      "type": "boolean",
-      "label": "1 = Aucun sous-minage",
-      "description": "Absence de sous-minage",
-      "score": 1,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez s'il n'y a aucun sous-minage",
-        "tooltip": "Absence de sous-minage",
-        "ariaDescription": "Cocher s'il n'y a aucun sous-minage"
-      },
-      "clinical_notes": {
-        "description": "Absence de sous-minage",
-        "undermining_status": "Aucun sous-minage",
-        "color": "#8BC34A"
-      }
-    },
-    {
-      "id": "C1T20E03",
-      "type": "boolean",
-      "label": "2 = Sous-minage < 2 cm, peu importe l'orientation",
-      "description": "Sous-minage de moins de 2 cm",
-      "score": 2,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si le sous-minage est inférieur à 2 cm",
-        "tooltip": "Sous-minage de moins de 2 cm, peu importe l'orientation",
-        "ariaDescription": "Cocher si le sous-minage est inférieur à 2 cm"
-      },
-      "clinical_notes": {
-        "description": "Sous-minage de moins de 2 cm, peu importe l'orientation",
-        "undermining_status": "Sous-minage léger",
-        "color": "#FFC107"
-      }
-    },
-    {
-      "id": "C1T20E04",
-      "type": "boolean",
-      "label": "3 = Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie",
-      "description": "Sous-minage modéré impliquant moins de 50% des bords",
-      "score": 3,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si le sous-minage est de 2-4 cm impliquant moins de 50% des bords",
-        "tooltip": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie",
-        "ariaDescription": "Cocher si le sous-minage est de 2-4 cm impliquant moins de 50% des bords"
-      },
-      "clinical_notes": {
-        "description": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie",
-        "undermining_status": "Sous-minage modéré",
-        "color": "#FF9800"
-      }
-    },
-    {
-      "id": "C1T20E05",
-      "type": "boolean",
-      "label": "4 = Sous-minage 2–4 cm impliquant > 50 % des bords de la plaie",
-      "description": "Sous-minage modéré impliquant plus de 50% des bords",
-      "score": 4,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si le sous-minage est de 2-4 cm impliquant plus de 50% des bords",
-        "tooltip": "Sous-minage 2–4 cm impliquant > 50 % des bords de la plaie",
-        "ariaDescription": "Cocher si le sous-minage est de 2-4 cm impliquant plus de 50% des bords"
-      },
-      "clinical_notes": {
-        "description": "Sous-minage 2–4 cm impliquant > 50 % des bords de la plaie",
-        "undermining_status": "Sous-minage modéré étendu",
-        "color": "#F44336"
-      }
-    },
-    {
-      "id": "C1T20E06",
-      "type": "boolean",
-      "label": "5 = Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
-      "description": "Sous-minage sévère ou présence de sinus/tunnel",
-      "score": 5,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si le sous-minage est supérieur à 4 cm ou s'il y a des sinus/tunnels",
-        "tooltip": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
-        "ariaDescription": "Cocher si le sous-minage est supérieur à 4 cm ou s'il y a des sinus/tunnels"
-      },
-      "clinical_notes": {
-        "description": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
-        "undermining_status": "Sous-minage sévère",
-        "color": "#9C27B0"
+        "component": "RadioGroup",
+        "help": "Sélectionnez un seul score de sous-minage BWAT"
       }
     }
   ],
@@ -158,7 +93,7 @@
       },
       "conditional_display": {
         "condition": {
-          "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+          "anyOf": ["C1T20E01_03", "C1T20E01_04", "C1T20E01_05", "C1T20E01_06"]
         }
       }
     },
@@ -182,7 +117,7 @@
       },
       "conditional_display": {
         "condition": {
-          "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+          "anyOf": ["C1T20E01_03", "C1T20E01_04", "C1T20E01_05", "C1T20E01_06"]
         }
       }
     }
@@ -217,7 +152,7 @@
       },
       "conditional_display": {
         "condition": {
-          "anyOf": ["C1T20E06"]
+          "anyOf": ["C1T20E01_06"]
         }
       }
     },
@@ -250,7 +185,7 @@
       },
       "conditional_display": {
         "condition": {
-          "anyOf": ["C1T20E06"]
+          "anyOf": ["C1T20E01_06"]
         }
       }
     },
@@ -308,7 +243,7 @@
       },
       "conditional_display": {
         "condition": {
-          "anyOf": ["C1T20E06"]
+          "anyOf": ["C1T20E01_06"]
         }
       }
     }
@@ -324,13 +259,13 @@
       "conditional_required": {
         "C1T20E07": {
           "condition": {
-            "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+            "anyOf": ["C1T20E01_03", "C1T20E01_04", "C1T20E01_05", "C1T20E01_06"]
           },
           "required": false
         },
         "C1T20E08": {
           "condition": {
-            "anyOf": ["C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"]
+            "anyOf": ["C1T20E01_03", "C1T20E01_04", "C1T20E01_05", "C1T20E01_06"]
           },
           "required": false
         }
@@ -346,13 +281,10 @@
     "spacing": "medium",
     "group_label": "BWAT – Sous-minage",
     "instructions": "Sélectionnez le score qui décrit le mieux le sous-minage de la plaie",
-    "component_type": "RadioGroup",
-    "show_detailed_definitions": true,
-    "definition_display": "tooltip_and_modal",
     "sections": [
       {
         "title": "Évaluation du sous-minage",
-        "elements": ["C1T20E01", "C1T20E02", "C1T20E03", "C1T20E04", "C1T20E05", "C1T20E06"],
+        "elements": ["C1T20E01"],
         "type": "radio_group",
         "required": true
       },
@@ -374,7 +306,8 @@
   },
   "data_structure": {
     "selected_undermining": {
-      "id": "Selected undermining ID",
+      "id": "C1T20E01",
+      "value": "Selected option ID (C1T20E01_01 to C1T20E01_06)",
       "score": "BWAT score (0-5)",
       "label": "Selected undermining label",
       "description": "Selected undermining description"
@@ -392,9 +325,9 @@
       }
     },
     "export_format": {
-      "undermining_id": "String (C1T20E01-C1T20E06)",
+      "undermining_id": "String (C1T20E01_01-C1T20E01_06)",
       "bwat_score": "Number (0-5)",
-      "undermining_label": "String (Score description)",
+      "undermining_label": "String (Score number)",
       "undermining_description": "String (Clinical description)",
       "clock_position": "String (Clock notation)",
       "depth_cm": "Number (Depth in cm)",

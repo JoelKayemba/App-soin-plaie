@@ -7,7 +7,7 @@ import useResponsive from '@/hooks/useResponsive';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const NewsSection = ({ onNewsPress, navigation }) => {
-  const { makeStyles, colors } = useThemeMode();
+  const { makeStyles, colors, isDark } = useThemeMode();
   const { spacing, typeScale } = useResponsive();
 
   const newsData = [
@@ -45,40 +45,54 @@ const NewsSection = ({ onNewsPress, navigation }) => {
 
   const useStyles = makeStyles((c) => ({
     container: {
-      marginBottom: spacing.lg,
-      marginTop: spacing.lg
+      marginBottom: spacing.xl,
+      marginTop: spacing.lg,
+      paddingHorizontal: spacing.sm,
     },
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.lg,
+      paddingHorizontal: spacing.xs,
     },
     title: {
-      fontSize: 20 * typeScale,
-      fontWeight: '600',
-    
+      fontSize: 22 * typeScale,
+      fontWeight: '800',
+      color: c.text,
+      letterSpacing: -0.3,
     },
     voirToutButton: {
       fontSize: 14 * typeScale,
       color: c.primary,
-      fontWeight: '500',
+      fontWeight: '600',
     },
     newsContainer: {
-      paddingHorizontal: spacing.sm,
+      borderRadius: 16,
+      backgroundColor: isDark ? c.surface : '#FFFFFF',
+      borderWidth: 1,
+      borderColor: isDark ? c.border : 'rgba(226, 232, 240, 0.6)',
+      overflow: 'hidden',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.06,
+      shadowRadius: 8,
+      elevation: 2,
     },
     newsItem: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: spacing.md,
-      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.lg,
+      paddingHorizontal: spacing.lg,
       borderBottomWidth: 1,
       borderBottomColor: c.border,
     },
+    lastNewsItem: {
+      borderBottomWidth: 0,
+    },
     iconContainer: {
-      width: 32,
-      height: 32,
-      borderRadius: 16,
+      width: 44,
+      height: 44,
+      borderRadius: 12,
       justifyContent: 'center',
       alignItems: 'center',
       marginRight: spacing.md,
@@ -87,19 +101,22 @@ const NewsSection = ({ onNewsPress, navigation }) => {
       flex: 1,
     },
     newsTitle: {
-      fontSize: 14 * typeScale,
+      fontSize: 15 * typeScale,
       fontWeight: '600',
       color: c.text,
       marginBottom: spacing.xs,
+      lineHeight: 20,
     },
     newsDescription: {
-      fontSize: 12 * typeScale,
+      fontSize: 13 * typeScale,
       color: c.textSecondary,
+      lineHeight: 18,
     },
     timeAgo: {
       fontSize: 12 * typeScale,
       color: c.textTertiary,
-      marginLeft: spacing.sm,
+      marginLeft: spacing.md,
+      fontWeight: '500',
     },
   }));
 
@@ -145,24 +162,28 @@ const NewsSection = ({ onNewsPress, navigation }) => {
       </View>
       
       <View style={s.newsContainer}>
-        {newsData.map((newsItem) => (
+        {newsData.map((newsItem, index) => (
           <TouchableOpacity
             key={newsItem.id}
-            style={s.newsItem}
+            style={[
+              s.newsItem,
+              index === newsData.length - 1 && s.lastNewsItem
+            ]}
             onPress={() => handleNewsPress(newsItem)}
+            activeOpacity={0.7}
           >
-            <TView 
+            <View 
               style={[
                 s.iconContainer,
-                { backgroundColor: newsItem.color + '20' }
+                { backgroundColor: isDark ? `${newsItem.color}20` : `${newsItem.color}15` }
               ]}
             >
               <Ionicons
                 name={newsItem.icon}
-                size={16}
+                size={20}
                 color={newsItem.color}
               />
-            </TView>
+            </View>
             <View style={s.newsContent}>
               <TText style={s.newsTitle}>{newsItem.title}</TText>
               <TText style={s.newsDescription}>{newsItem.description}</TText>

@@ -33,8 +33,8 @@
         {
           "id": "C1T25E01",
           "type": "boolean",
-          "label": "1 = Aucun visible",
-          "description": "Aucun exsudat visible",
+          "label": "1",
+          "description": "Aucun visible - Aucun exsudat visible",
           "score": 1,
           "required": false,
           "ui": {
@@ -52,8 +52,8 @@
         {
           "id": "C1T25E02",
           "type": "boolean",
-          "label": "2 = Sanguin",
-          "description": "Liquide, rouge vif",
+          "label": "2",
+          "description": "Sanguin - Liquide, rouge vif",
           "score": 2,
           "required": false,
           "ui": {
@@ -82,8 +82,8 @@
         {
           "id": "C1T25E03",
           "type": "boolean",
-          "label": "3 = Sérosanguin",
-          "description": "Liquide, aqueux, rouge pâle ou rosé",
+          "label": "3",
+          "description": "Sérosanguin - Liquide, aqueux, rouge pâle ou rosé",
           "score": 3,
           "required": false,
           "ui": {
@@ -112,8 +112,8 @@
         {
           "id": "C1T25E04",
           "type": "boolean",
-          "label": "4 = Séreux",
-          "description": "Liquide, aqueux, translucide, clair",
+          "label": "4",
+          "description": "Séreux - Liquide, aqueux, translucide, clair",
           "score": 4,
           "required": false,
           "ui": {
@@ -143,8 +143,8 @@
         {
           "id": "C1T25E05",
           "type": "boolean",
-          "label": "5 = Purulent",
-          "description": "Liquide aqueux ou épais, opaque, beige/jaunâtre ou vert, avec ou sans odeur",
+          "label": "5",
+          "description": "Purulent - Liquide aqueux ou épais, opaque, beige/jaunâtre ou vert, avec ou sans odeur",
           "score": 5,
           "required": false,
           "ui": {
@@ -192,8 +192,8 @@
         {
           "id": "C1T25E06",
           "type": "boolean",
-          "label": "1 = Aucun, plaie sèche",
-          "description": "Le lit de la plaie est sec",
+          "label": "1",
+          "description": "Aucun, plaie sèche - Le lit de la plaie est sec",
           "score": 1,
           "required": false,
           "ui": {
@@ -222,8 +222,8 @@
         {
           "id": "C1T25E07",
           "type": "boolean",
-          "label": "2 = Humide, sans exsudat observable",
-          "description": "Minime : tissus de la plaie humides; exsudat non mesurable",
+          "label": "2",
+          "description": "Humide, sans exsudat observable - Minime : tissus de la plaie humides; exsudat non mesurable",
           "score": 2,
           "required": false,
           "ui": {
@@ -252,8 +252,8 @@
         {
           "id": "C1T25E08",
           "type": "boolean",
-          "label": "3 = Faible",
-          "description": "Tissus humides, humidité répartie uniformément; pansement imbibé ≤ 25%",
+          "label": "3",
+          "description": "Faible - Tissus humides, humidité répartie uniformément; pansement imbibé ≤ 25%",
           "score": 3,
           "required": false,
           "ui": {
@@ -282,8 +282,8 @@
         {
           "id": "C1T25E09",
           "type": "boolean",
-          "label": "4 = Modéré",
-          "description": "Tissus saturés, exsudat parfois non réparti; pansement imbibé > 25% à ≤ 75%",
+          "label": "4",
+          "description": "Modéré - Tissus saturés, exsudat parfois non réparti; pansement imbibé > 25% à ≤ 75%",
           "score": 4,
           "required": false,
           "ui": {
@@ -312,8 +312,8 @@
         {
           "id": "C1T25E10",
           "type": "boolean",
-          "label": "5 = Abondant",
-          "description": "Tissus baignant dans le liquide, exsudat libre; pansement imbibé > 75%",
+          "label": "5",
+          "description": "Abondant - Tissus baignant dans le liquide, exsudat libre; pansement imbibé > 75%",
           "score": 5,
           "required": false,
           "ui": {

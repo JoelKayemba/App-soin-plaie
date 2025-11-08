@@ -40,23 +40,31 @@ const ToolsSection = ({ title = 'Outils', items = [], onPressItem, onPressVoirTo
   return (
     <View style={{ marginTop: spacing.lg }}>
       {/* Header */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: spacing.md }}>
-        <TText style={{ fontSize: 20 * typeScale, fontWeight: '700', flex: 1 }}>
+      <View style={{ 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        marginBottom: spacing.md,
+        paddingHorizontal: spacing.md,
+      }}>
+        <TText style={{ 
+          fontSize: 20 * typeScale, 
+          fontWeight: '700', 
+          flex: 1,
+          color: colors.text,
+        }}>
           {title}
         </TText>
-        {/* <TouchableOpacity onPress={onPressVoirTout} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-              <TText style={{ fontSize: 14 * typeScale, fontWeight: '600', color: colors.primary }}>
-                Voir tout
-              </TText>
-            </TouchableOpacity>
-        */}
       </View>
 
-
       {/* Grid */}
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -spacing.sm / 2 }}>
+      <View style={{ 
+        flexDirection: 'row', 
+        flexWrap: 'wrap', 
+        marginHorizontal: -spacing.lg / 2,
+        paddingHorizontal: spacing.md,
+      }}>
         {items.map((it, idx) => {
-          // Fond de carte selon le mode
+          // Fond de carte selon le mode (style original)
           const cardBg = isDark ? (it.colorDark || it.color || colors.primary)
                                 : (it.color || colors.primary);
           // Icône = palette inversée
@@ -70,46 +78,83 @@ const ToolsSection = ({ title = 'Outils', items = [], onPressItem, onPressVoirTo
           const chipBg = isDark ? (colors.surfaceLight ?? '#2A2F3A') : '#FFFFFF';
 
           return (
-            <View key={idx} style={{ width: computeWidth(idx), padding: spacing.md / 2 }}>
+            <View key={idx} style={{ 
+              width: computeWidth(idx), 
+              padding: spacing.sm / 2,
+            }}>
               <TouchableOpacity
                 activeOpacity={0.88}
                 onPress={() => onPressItem?.(it, idx)}
                 style={{
                   backgroundColor: cardBg,
-                  borderRadius: 14,
-                  padding: spacing.md,
+                  borderRadius: 16,
+                  padding: spacing.lg,
                   ...elevation(2),
-                  minHeight:137,
-                  justifyContent: 'space-between', // pour bien répartir le contenu
-
+                  height: 170, // Hauteur fixe pour toutes les cartes
+                  justifyContent: 'space-between',
+                  flexDirection: 'column',
                 }}
               >
-                {/* Ligne top: chip + flèche */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: spacing.sm }}>
+                {/* Header avec icône et flèche */}
+                <View style={{ 
+                  flexDirection: 'row', 
+                  alignItems: 'center', 
+                  justifyContent: 'space-between',
+                  marginBottom: spacing.sm,
+                }}>
                   <View
                     style={{
-                      width: 52, height: 52, borderRadius: 26,
-                      alignItems: 'center', justifyContent: 'center',
+                      width: 44, 
+                      height: 44, 
+                      borderRadius: 12,
+                      alignItems: 'center', 
+                      justifyContent: 'center',
                       backgroundColor: chipBg,
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.1,
+                      shadowRadius: 2,
+                      elevation: 1,
                     }}
                   >
-                    <TIcon name={it.icon} size={22} color={iconColor} />
+                    <TIcon name={it.icon} size={20} color={iconColor} />
                   </View>
 
-                  <View style={{ flex: 1 }} />
-
-                  <TIcon name="chevron-forward" size={20} color={readable} />
+                  <TIcon 
+                    name="chevron-forward" 
+                    size={16} 
+                    color={readable} 
+                    style={{ opacity: 0.8 }}
+                  />
                 </View>
 
-                {/* Titre + sous-titre */}
-                <TText style={{ fontSize: 15 * typeScale, fontWeight: '700', marginBottom: 4, color: readable }}>
-                  {it.title}
-                </TText>
-                {!!it.subtitle && (
-                  <TText style={{ fontSize: 13 * typeScale, opacity: 0.9, color: readable }}>
-                    {it.subtitle}
-                  </TText>
-                )}
+                {/* Contenu principal avec gestion intelligente de l'espace */}
+                <View style={{ flex: 1, justifyContent: 'space-between' }}>
+                  {/* Titre */}
+                  <View style={{ marginBottom: spacing.xs }}>
+                    <TText style={{ 
+                      fontSize: 14 * typeScale, 
+                      fontWeight: '700', 
+                      color: readable,
+                      lineHeight: 18,
+                    }} numberOfLines={2}>
+                      {it.title}
+                    </TText>
+                  </View>
+                  
+                  {/* Sous-titre avec espace limité */}
+                  {!!it.subtitle && (
+                    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                      <TText style={{ 
+                        fontSize: 11 * typeScale, 
+                        opacity: 0.85, 
+                        color: readable,
+                        lineHeight: 14,
+                      }} numberOfLines={4}>
+                        {it.subtitle}
+                      </TText>
+                    </View>
+                  )}
+                </View>
               </TouchableOpacity>
             </View>
           );

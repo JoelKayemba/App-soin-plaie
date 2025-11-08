@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { TView, TText } from './Themed';
 import { useTheme } from '@/context/ThemeContext';
 import { 
@@ -20,10 +21,10 @@ import {
   ScaleInput,
   VisualScale,
   PACSLACScale,
-  HelperModal,
+  VisualSelector,
   SpecializedAlert
 } from './forms';
-import { BWATAttribution, ClinicalAlert } from './special';
+import { BWATAttribution, ClinicalAlert, BradenScale } from './special';
 import DebugInfo from './DebugInfo';
 import spacing from '@/styles/spacing';
 
@@ -37,16 +38,16 @@ const ContentDetector = ({
   errors, 
   onDataChange, 
   onValidationChange,
-  onNavigateToTable 
+  onNavigateToTable,
+  evaluationData 
 }) => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
 
   // States pour les modales et alertes
-  const [helperModalVisible, setHelperModalVisible] = useState(false);
-  const [currentHelperData, setCurrentHelperData] = useState(null);
-  const [helperTitle, setHelperTitle] = useState('');
   const [specializedAlertVisible, setSpecializedAlertVisible] = useState(false);
   const [specializedCondition, setSpecializedCondition] = useState('');
+  const [questionnaireKey, setQuestionnaireKey] = useState(0);
 
   // Fonction pour fermer le clavier
   const dismissKeyboard = () => {
@@ -87,6 +88,167 @@ const ContentDetector = ({
     };
   };
 
+  // Fonction pour interpréter les résultats IPSCB (identique à useIPSCBCalculator.js)
+  const interpretIPSCB = (valeur) => {
+    if (!valeur) return null;
+    
+    const num = parseFloat(valeur);
+    if (num > 1.40) return {
+      niveau: 'Indéterminé',
+      description: 'Artères non compressibles',
+      color: '#9E9E9E'
+    };
+    if (num >= 1.0) return {
+      niveau: 'Normal',
+      description: 'Valeur normale',
+      color: '#4CAF50'
+    };
+    if (num >= 0.9) return {
+      niveau: 'Limite',
+      description: 'Valeur limite',
+      color: '#FF9800'
+    };
+    if (num >= 0.7) return {
+      niveau: 'Anormal, atteinte légère',
+      description: 'Atteinte artérielle légère',
+      color: '#FFC107'
+    };
+    if (num >= 0.4) return {
+      niveau: 'Anormal, atteinte modérée',
+      description: 'Atteinte artérielle modérée',
+      color: '#FF5722'
+    };
+    return {
+      niveau: 'Anormal, atteinte sévère',
+      description: 'Atteinte artérielle sévère',
+      color: '#D32F2F'
+    };
+  };
+
+  // Fonction pour calculer les indices IPSCB
+  const calculateIPSCB = () => {
+    if (tableData?.id !== 'C1T15') return;
+    
+    // C1T15D01 est maintenant "la plus élevée des deux bras"
+    const pasBrasMax = parseFloat(data['C1T15D01']) || 0;
+    const tibialePosterieureDroite = parseFloat(data['C1T15D03']) || 0;
+    const pedieuseDroite = parseFloat(data['C1T15D04']) || 0;
+    const tibialePosterieureGauche = parseFloat(data['C1T15D05']) || 0;
+    const pedieuseGauche = parseFloat(data['C1T15D06']) || 0;
+    
+    if (pasBrasMax === 0) return; // Pas de calcul si aucun bras
+    
+    // Calculer les 4 indices IPSCB
+    const calculerIPSCB = (pressionPied) => {
+      if (pressionPied === 0) return null;
+      return (pressionPied / pasBrasMax).toFixed(2);
+    };
+    
+    const nouveauxCalculs = {
+      'C1T15D07': calculerIPSCB(tibialePosterieureDroite),
+      'C1T15D08': calculerIPSCB(pedieuseDroite),
+      'C1T15D09': calculerIPSCB(tibialePosterieureGauche),
+      'C1T15D10': calculerIPSCB(pedieuseGauche)
+    };
+    
+    // Vérifier s'il y a des changements à appliquer
+    const hasChanges = Object.keys(nouveauxCalculs).some(key => {
+      const nouvelleValeur = nouveauxCalculs[key];
+      const valeurActuelle = data[key];
+      return nouvelleValeur !== valeurActuelle;
+    });
+    
+    if (hasChanges) {
+      // Appliquer les nouveaux calculs
+      Object.keys(nouveauxCalculs).forEach(key => {
+        if (nouveauxCalculs[key] !== null) {
+          onDataChange(key, nouveauxCalculs[key]);
+        }
+      });
+    }
+  };
+
+  // Auto-calcul des indices IPSCB quand les valeurs changent
+  useEffect(() => {
+    calculateIPSCB();
+  }, [data['C1T15D01'], data['C1T15D03'], data['C1T15D04'], data['C1T15D05'], data['C1T15D06']]);
+
+  // Fonction pour calculer la surface de la plaie BWAT
+  const calculateBWATSurface = () => {
+    if (tableData?.id !== 'C1T16') return;
+    
+    const longueur = parseFloat(data['C1T16E01']) || 0;
+    const largeur = parseFloat(data['C1T16E02']) || 0;
+    
+    if (longueur > 0 && largeur > 0) {
+      const surface = (longueur * largeur).toFixed(1);
+      if (data['C1T16E03'] !== surface) {
+        onDataChange('C1T16E03', surface);
+      }
+    }
+  };
+
+  // Fonction pour classer selon l'échelle BWAT
+  const classifyBWATSize = (surface) => {
+    const num = parseFloat(surface) || 0;
+    
+    if (num === 0) return {
+      score: 0,
+      label: 'Plaie guérie',
+      description: 'Plaie complètement guérie',
+      color: '#4CAF50'
+    };
+    if (num < 4) return {
+      score: 1,
+      label: '< 4 cm²',
+      description: 'Surface inférieure à 4 cm²',
+      color: '#8BC34A'
+    };
+    if (num <= 16) return {
+      score: 2,
+      label: '4 à 16 cm²',
+      description: 'Surface entre 4 et 16 cm²',
+      color: '#FFC107'
+    };
+    if (num <= 36) return {
+      score: 3,
+      label: '16,1 à 36 cm²',
+      description: 'Surface entre 16,1 et 36 cm²',
+      color: '#FF9800'
+    };
+    if (num <= 80) return {
+      score: 4,
+      label: '36,1 à 80 cm²',
+      description: 'Surface entre 36,1 et 80 cm²',
+      color: '#F44336'
+    };
+    return {
+      score: 5,
+      label: '> 80 cm²',
+      description: 'Surface supérieure à 80 cm²',
+      color: '#9C27B0'
+    };
+  };
+
+  // Auto-calcul de la surface BWAT quand les valeurs changent
+  useEffect(() => {
+    calculateBWATSurface();
+  }, [data['C1T16E01'], data['C1T16E02']]);
+
+  // Forcer le re-rendu du questionnaire d'Édimbourg quand la première question change
+  useEffect(() => {
+    if (tableData?.id === 'C1T15') {
+      setQuestionnaireKey(prev => prev + 1);
+    }
+  }, [data['C1T15E01']]);
+
+  // Forcer le re-rendu des champs conditionnels de la table 20 quand la sélection change
+  useEffect(() => {
+    if (tableData?.id === 'C1T20') {
+      // Le re-rendu se fera automatiquement via shouldShowElement qui vérifie data['C1T20E01']
+    }
+  }, [data['C1T20E01']]);
+
   // Fonction pour afficher l'aide (helper modal)
   const showHelper = (helpId, title) => {
     let helperData = null;
@@ -98,9 +260,14 @@ const ContentDetector = ({
     }
     
     if (helperData) {
-      setCurrentHelperData(helperData);
-      setHelperTitle(title);
-      setHelperModalVisible(true);
+      console.log('[ContentDetector] Helper chargé:', helpId, helperData);
+      navigation.navigate('HelperDetails', {
+        helperId: helpId,
+        helperTitle: title || helperData.title,
+        helperData
+      });
+    } else {
+      console.warn('[ContentDetector] Aucun helper trouvé pour', helpId);
     }
   };
 
@@ -110,9 +277,35 @@ const ContentDetector = ({
     setSpecializedAlertVisible(true);
   };
 
+  const renderSpecialNote = () => {
+    if (!tableData?.special_note) return null;
+    const { title, message, severity } = tableData.special_note;
+    const alertType = severity === 'critical' ? 'alert' : severity === 'important' ? 'important' : 'info';
+
+    return (
+      <TView style={{ marginBottom: spacing.lg }}>
+        <ClinicalAlert
+          alert={{
+            type: alertType,
+            title: title || 'Information importante',
+            message
+          }}
+        />
+      </TView>
+    );
+  };
 
   // Fonction pour rendre un élément selon son type
   const renderElement = (element) => {
+    if (!element || !element.id) {
+      console.warn('Table 22 - Élément invalide:', element);
+      return null;
+    }
+
+    // Debug pour la table 22
+    if (tableData.id === 'C1T22') {
+      console.log('Table 22 - renderElement appelé pour:', element.id, 'type:', element.type, 'options:', element.options?.length);
+    }
 
     const commonProps = {
       error: errors[element.id],
@@ -146,6 +339,44 @@ const ContentDetector = ({
             onHelpPress: option.help_id ? () => showHelper(option.help_id, option.label) : undefined
           })) : 
           element.options || [];
+
+        // Pour la table 24, vérifier si le biofilm est suspecté et afficher une alerte stylisée
+        if (tableData.id === 'C1T24' && element.id === 'C1T24E01') {
+          const selectedValue = data[element.id];
+          const isBiofilmSuspect = selectedValue && selectedValue !== 'C1T24E01_01';
+          
+          const radioGroupElement = createElementWithCommonProps(RadioGroup, {
+            options: enhancedOptions,
+            value: data[element.id],
+            onValueChange: (value) => handleDataChange(element.id, value),
+            label: element.label,
+            description: element.description,
+            required: element.required,
+            error: undefined // Ne pas afficher l'erreur dans le RadioGroup, utiliser ClinicalAlert à la place
+          });
+          
+          if (isBiofilmSuspect) {
+            const alertElement = createElement(ClinicalAlert, {
+              alert: {
+                type: 'warning',
+                title: 'Biofilm suspecté',
+                message: tableData.validation_rules?.error_messages?.biofilm_suspect || 
+                  "Biofilm suspecté : évaluation approfondie recommandée (épithélium ≠ 100%)",
+                note: "Lorsque l'épithéliatisation n'est pas complète (≠ 100%), un biofilm peut être présent et nécessite une évaluation approfondie."
+              },
+              style: { marginTop: spacing.md }
+            }, `${element.id}-biofilm-alert`);
+            
+            return (
+              <React.Fragment key={element.id}>
+                {radioGroupElement}
+                {alertElement}
+              </React.Fragment>
+            );
+          }
+          
+          return radioGroupElement;
+        }
 
         return createElementWithCommonProps(RadioGroup, {
           options: enhancedOptions,
@@ -199,6 +430,40 @@ const ContentDetector = ({
         });
 
       case 'boolean':
+        if (tableData.id === 'C1T27') {
+          const currentValue = !!data[element.id];
+          const checkboxElement = createElement(SimpleCheckbox, {
+            ...commonProps,
+            value: currentValue,
+            onValueChange: (value) => handleDataChange(element.id, value),
+            label: element.label,
+            description: element.description,
+            required: element.required,
+            help: element.help
+          }, element.id);
+
+          if (element.alert && currentValue) {
+            const alertElement = createElement(ClinicalAlert, {
+              alert: {
+                type: element.alert?.type === 'emergency' ? 'alert' : 'important',
+                title: element.alert?.title || 'Urgence clinique détectée',
+                message: element.alert?.message || 'Ce signe requiert une prise en charge immédiate.',
+                note: "Orienter immédiatement le patient vers l'urgence ou contacter un médecin."
+              },
+              style: { marginTop: spacing.md }
+            }, `${element.id}-alert`);
+
+            return (
+              <React.Fragment key={`${element.id}-wrapper`}>
+                {checkboxElement}
+                {alertElement}
+              </React.Fragment>
+            );
+          }
+
+          return checkboxElement;
+        }
+
         // Pour les tables avec sélections multiples (allergies, conditions de santé, nutrition, médication, psychosocial), utiliser SimpleCheckbox
         if (tableData.id === 'C1T02' || tableData.id === 'C1T03' || tableData.id === 'C1T05' || tableData.id === 'C1T07' || tableData.id === 'C1T08') {
           return createElementWithCommonProps(SimpleCheckbox, {
@@ -334,6 +599,46 @@ const ContentDetector = ({
             return null; // Ne pas afficher le badge si la condition n'est pas remplie
           }
         }
+
+        // Logique spéciale pour la quantité de tissu nécrotique (table 22)
+        if (tableData.id === 'C1T22' && element.id && element.id.startsWith('C1T22E0') && parseInt(element.id.slice(-1)) >= 6 && parseInt(element.id.slice(-1)) <= 10) {
+          // Récupérer la valeur de C1T21E01 depuis les données d'évaluation
+          const necroticTissueValue = parseFloat(evaluationData?.['C1T21']?.['C1T21E01']) || 0;
+          
+          // Vérifier la condition pour chaque élément de quantité
+          let shouldDisplay = false;
+          const elementNum = parseInt(element.id.slice(-1));
+          
+          if (elementNum === 6 && necroticTissueValue === 0) {
+            shouldDisplay = true;
+          } else if (elementNum === 7 && necroticTissueValue > 0 && necroticTissueValue < 25) {
+            shouldDisplay = true;
+          } else if (elementNum === 8 && necroticTissueValue >= 25 && necroticTissueValue <= 50) {
+            shouldDisplay = true;
+          } else if (elementNum === 9 && necroticTissueValue > 50 && necroticTissueValue < 75) {
+            shouldDisplay = true;
+          } else if (elementNum === 10 && necroticTissueValue >= 75 && necroticTissueValue <= 100) {
+            shouldDisplay = true;
+          }
+          
+          if (!shouldDisplay) {
+            return null; // Ne pas afficher si la condition n'est pas remplie
+          }
+          
+          // Extraire le score du label (ex: "1 = Aucun visible" -> "1")
+          const scoreMatch = element.label.match(/^(\d+)\s*=/);
+          const scoreValue = scoreMatch ? scoreMatch[1] : element.label.split('=')[0].trim();
+          
+          return createElementWithCommonProps(ResultBadge, {
+            value: scoreValue,
+            label: element.label,
+            description: element.description,
+            displayFormat: element.ui?.display_format,
+            color: element.ui?.color || element.clinical_notes?.color,
+            icon: element.icon,
+            help: element.help || element.ui?.help
+          });
+        }
         
         // Pour les classifications IMC de la table 04, évaluer la condition automatiquement
         if (tableData.id === 'C1T04' && element.bmi_category && element.condition) {
@@ -343,6 +648,45 @@ const ContentDetector = ({
           if (!shouldShow) {
             return null; // Ne pas afficher cette classification si la condition n'est pas remplie
           }
+        }
+
+        // Logique spéciale pour la classification BWAT (table 16)
+        if (tableData.id === 'C1T16' && element.id === 'C1T16E04') {
+          const surfaceValue = data['C1T16E03'];
+          if (!surfaceValue || surfaceValue === '0' || surfaceValue === '0.0') {
+            return null; // Ne pas afficher si pas de surface calculée
+          }
+          
+          const classification = classifyBWATSize(surfaceValue);
+          if (classification) {
+            return createElementWithCommonProps(ResultBadge, {
+              value: classification.label,
+              label: element.label || 'Classification BWAT',
+              description: classification.description,
+              displayFormat: element.ui?.display_format,
+              color: classification.color,
+              icon: element.icon,
+              help: element.help || `Score BWAT: ${classification.score}`
+            });
+          }
+        }
+
+        // Logique spéciale pour la surface calculée BWAT (table 16)
+        if (tableData.id === 'C1T16' && element.id === 'C1T16E03') {
+          const surfaceValue = data[element.id];
+          if (surfaceValue && surfaceValue !== '0' && surfaceValue !== '0.0') {
+            return createElementWithCommonProps(ResultBadge, {
+              value: surfaceValue,
+              label: element.label,
+              description: element.description,
+              displayFormat: element.ui?.display_format || `${surfaceValue} cm²`,
+              color: element.ui?.color || colors.primary,
+              icon: element.icon,
+              help: element.help,
+              unit: element.unit || 'cm²'
+            });
+          }
+          return null; // Ne pas afficher si pas de surface calculée
         }
         
         // Utiliser ResultBadge si spécifié dans ui.component, sinon CalculatedField
@@ -413,6 +757,48 @@ const ContentDetector = ({
             ))}
           </TView>
         );
+
+      case 'coordinates':
+        // Callback pour synchroniser avec le radio group principal (Table 14)
+        const onLocationSelect = (selectedZoneId) => {
+          if (tableData.id === 'C1T14' && selectedZoneId) {
+            // Mettre à jour le champ principal de sélection
+            handleDataChange('C1T14E01', selectedZoneId);
+          }
+        };
+        
+        return createElementWithCommonProps(VisualSelector, {
+          value: data[element.id] || null,
+          onValueChange: (value) => handleDataChange(element.id, value),
+          onLocationSelect: onLocationSelect,
+          selectedOptionId: tableData.id === 'C1T14' ? data['C1T14E01'] : null, // Synchroniser avec le radio group principal
+          label: element.label,
+          description: element.description,
+          help: element.help,
+          required: element.required,
+          width: element.ui?.width || 300,
+          height: element.ui?.height || 400
+        });
+
+      case 'calculated':
+        // Affichage des résultats calculés IPSCB
+        return createElementWithCommonProps(ResultBadge, {
+          value: data[element.id] || '0.00',
+          label: element.label,
+          description: element.description,
+          displayFormat: element.ui?.display_format || 'decimal',
+          color: element.ui?.color || colors.success,
+          icon: element.icon,
+          help: element.help,
+          unit: element.unit || ''
+        });
+
+      case 'braden_scale':
+        return createElementWithCommonProps(BradenScale, {
+          scaleType: element.scale_type || element.scaleType || 'braden',
+          value: data[element.id] || {},
+          onValueChange: (value) => handleDataChange(element.id, value)
+        });
 
       default:
         return (
@@ -531,7 +917,13 @@ const ContentDetector = ({
 
   // Gestion des changements de données
   const handleDataChange = (fieldId, value) => {
-    console.log(`📝 Changement de données pour ${fieldId}:`, value);
+    //console.log(` Changement de données pour ${fieldId}:`, value);
+    
+    // Debug spécial pour la table 14 (localisation)
+    if (fieldId === 'C1T14E01') {
+     // console.log(` Table 14 - Changement de localisation détecté:`, value);
+      //console.log(` Table 14 - Type de la valeur:`, typeof value);
+    }
     
     // Logique spéciale pour la table 11 (Histoire de la plaie)
     if (tableData.id === 'C1T11') {
@@ -592,21 +984,40 @@ const ContentDetector = ({
   // Fonction pour vérifier si un élément conditionnel doit être affiché
   const shouldShowElement = (element) => {
     // Si l'élément n'a pas de condition, l'afficher
-    if (!element.conditional) return true;
+    if (!element.conditional && !element.conditional_display) return true;
 
-    const { depends_on, value } = element.conditional;
-    
-    // Vérifier si la dépendance est satisfaite
-    if (depends_on && value !== undefined) {
-      const dependentValue = data[depends_on];
+    // Gestion des conditions standard (conditional)
+    if (element.conditional) {
+      const { depends_on, value } = element.conditional;
       
-      // Pour les sélections multiples (arrays)
-      if (Array.isArray(dependentValue)) {
-        return dependentValue.includes(value);
+      // Vérifier si la dépendance est satisfaite
+      if (depends_on && value !== undefined) {
+        const dependentValue = data[depends_on];
+        
+        // Pour les sélections multiples (arrays)
+        if (Array.isArray(dependentValue)) {
+          return dependentValue.includes(value);
+        }
+        
+        // Pour les sélections simples
+        return dependentValue === value;
       }
+    }
+
+    // Gestion des conditions conditional_display (table 20)
+    if (element.conditional_display && element.conditional_display.condition) {
+      const { anyOf } = element.conditional_display.condition;
       
-      // Pour les sélections simples
-      return dependentValue === value;
+      if (anyOf && Array.isArray(anyOf)) {
+        // Pour la table 20, vérifier si la valeur sélectionnée dans C1T20E01 correspond à l'une des options
+        const selectedValue = data['C1T20E01'];
+        return anyOf.includes(selectedValue);
+      }
+    }
+
+    // Pour la table 22, ne pas filtrer les éléments de qualité (ils doivent toujours être affichés)
+    if (tableData.id === 'C1T22' && element.id === 'C1T22E01') {
+      return true;
     }
 
     return true;
@@ -615,30 +1026,323 @@ const ContentDetector = ({
   // Fonction pour extraire tous les éléments des blocs (pour table 34)
   const getAllElementsFromBlocks = () => {
     if (!tableData.blocks) {
-      console.log('🔍 Table 34 - Aucun bloc trouvé');
+      console.log(' Table 34 - Aucun bloc trouvé');
       return [];
     }
     
     const allElements = [];
     Object.values(tableData.blocks).forEach((block, index) => {
-      console.log(`🔍 Table 34 - Bloc ${index}:`, block.title || block.id, 'éléments:', block.elements?.length || 0);
+      // console.log(` Table 34 - Bloc ${index}:`, block.title || block.id, 'éléments:', block.elements?.length || 0);
       if (block.elements && Array.isArray(block.elements)) {
         allElements.push(...block.elements);
       }
     });
-    console.log('🔍 Table 34 - Total éléments extraits:', allElements.length);
+   //console.log('Table 34 - Total éléments extraits:', allElements.length);
     return allElements;
+  };
+
+  // Nouvelle approche : fonction simple qui retourne TOUS les blocs
+  // La logique d'affichage conditionnel sera gérée directement dans le rendu
+  const getAllBlocksForTable15 = () => {
+    if (tableData?.id !== 'C1T15' || !tableData.blocks) {
+      return [];
+    }
+    
+    // Retourner tous les blocs disponibles dans l'ordre
+    const allBlocks = [
+      tableData.blocks.inspection,
+      tableData.blocks.palpation,
+      tableData.blocks.edinburgh_questionnaire,
+      tableData.blocks.ipscb
+    ].filter(Boolean); // Filtrer les blocs qui n'existent pas
+    
+    //console.log(' Table 15 - All available blocks:', allBlocks.map(b => b?.id));
+    return allBlocks;
+  };
+
+  // Fonction pour extraire tous les éléments des blocs actifs (pour table 15)
+  const getAllElementsFromActiveBlocks = () => {
+    if (tableData?.id !== 'C1T15') return [];
+    
+    const activeBlocks = getAllBlocksForTable15();
+    const allElements = [];
+    
+    activeBlocks.forEach((block) => {
+      // Ajouter les éléments de mesure
+      if (block.measurements && Array.isArray(block.measurements)) {
+        allElements.push(...block.measurements);
+      }
+      
+      // Ajouter les éléments standard
+      if (block.elements && Array.isArray(block.elements)) {
+        allElements.push(...block.elements);
+      }
+      
+      // Ajouter les résultats calculés pour la section IPSCB
+      if (block.results && Array.isArray(block.results)) {
+        allElements.push(...block.results);
+      }
+    });
+    
+    return allElements;
+  };
+
+  // Nouvelle approche : fonction qui gère l'affichage conditionnel directement
+  const renderTable15Blocks = () => {
+    if (tableData?.id !== 'C1T15') return null;
+    
+    // Récupérer la sélection de localisation de plusieurs façons
+    let locationSelection = data['C1T14E01'];
+   // console.log('Table 15 - === NOUVELLE APPROCHE ===');
+    //console.log('Table 15 - Location selection direct:', locationSelection);
+    //console.log('Table 15 - All data keys:', Object.keys(data));
+    //console.log('Table 15 - C1T14 keys:', Object.keys(data).filter(k => k.startsWith('C1T14')));
+    
+    // Essayer de trouver la sélection autrement si elle n'est pas trouvée directement
+    if (!locationSelection) {
+      const possibleKeys = ['C1T14E01_05', 'C1T14E01_06'];
+      for (const key of possibleKeys) {
+        if (data[key] === true || data[key] === key) {
+          locationSelection = key;
+          //console.log(' Table 15 - Found location via alternative key:', key);
+          break;
+        }
+      }
+    }
+    
+    //console.log(' Table 15 - Final location selection:', locationSelection);
+    
+    // Obtenir tous les blocs disponibles
+    const allBlocks = getAllBlocksForTable15();
+    //console.log('Table 15 - All blocks available:', allBlocks.map(b => b?.id));
+    
+    if (allBlocks.length === 0) {
+      return (
+        <TView style={styles.emptyContainer}>
+          <TText style={[styles.emptyText, { color: colors.textSecondary }]}>
+            Aucun bloc disponible
+          </TText>
+        </TView>
+      );
+    }
+
+    // Fonction pour déterminer si un bloc est spécifique aux membres inférieurs
+    const isLowerLimbSpecific = (block) => {
+      if (!block || !block.id) return false;
+      return block.id === 'C1T15E' || block.id === 'C1T15D'; // Questionnaire d'Édimbourg et IPSCB
+    };
+
+    // Vérifier si la localisation est un membre inférieur
+    const isLowerLimb = locationSelection === 'C1T14E01_05' || locationSelection === 'C1T14E01_06';
+
+    return (
+      <TView style={styles.table15Container}>
+        {allBlocks.map((block, blockIndex) => {
+          // Vérifier si ce bloc est spécifique aux membres inférieurs
+          const isLowerLimbBlock = isLowerLimbSpecific(block);
+          const showLowerLimbMessage = isLowerLimbBlock && !isLowerLimb;
+          // Rendre les éléments du bloc
+          const blockElements = [];
+          
+          // Éléments standard
+          if (block.elements && Array.isArray(block.elements)) {
+            block.elements.forEach((element, elementIndex) => {
+              if (shouldShowElement(element)) {
+                blockElements.push(
+                  <TView key={`${block.id}-element-${elementIndex}`} style={styles.blockElement}>
+                    {renderElement(element)}
+                  </TView>
+                );
+              }
+            });
+          }
+          
+          // Mesures pour IPSCB
+          if (block.measurements && Array.isArray(block.measurements)) {
+            block.measurements.forEach((measurement, measurementIndex) => {
+              if (shouldShowElement(measurement)) {
+                blockElements.push(
+                  <TView key={`${block.id}-measurement-${measurementIndex}`} style={styles.blockElement}>
+                    {renderElement(measurement)}
+                  </TView>
+                );
+              }
+            });
+          }
+          
+          // Résultats calculés pour IPSCB avec interprétation colorée
+          if (block.results && Array.isArray(block.results) && block.id === 'C1T15D') {
+            block.results.forEach((result, resultIndex) => {
+              if (shouldShowElement(result)) {
+                const resultValue = data[result.id];
+                const shouldDisplayResult = resultValue && resultValue !== 'N/A' && resultValue !== null && resultValue !== undefined;
+                
+                if (shouldDisplayResult) {
+                  // Interpréter le résultat IPSCB pour obtenir la couleur et le niveau
+                  const interpretation = interpretIPSCB(resultValue);
+                  
+                  if (interpretation) {
+                    blockElements.push(
+                      <TView key={`${block.id}-result-${resultIndex}`} style={styles.blockElement}>
+                        <TView style={styles.ipscbResultContainer}>
+                          <TText style={[styles.ipscbResultLabel, { color: colors.text }]}>
+                            {result.label}
+                          </TText>
+                          <TView style={[
+                            styles.ipscbResultBadge, 
+                            { 
+                              backgroundColor: interpretation.color + '15',
+                              borderColor: interpretation.color,
+                            }
+                          ]}>
+                            <TText style={[
+                              styles.ipscbResultValue, 
+                              { color: interpretation.color }
+                            ]}>
+                              {resultValue}
+                            </TText>
+                            <TText style={[
+                              styles.ipscbResultLevel, 
+                              { color: interpretation.color }
+                            ]}>
+                              {interpretation.niveau}
+                            </TText>
+                          </TView>
+                        </TView>
+                      </TView>
+                    );
+                  }
+                }
+              }
+            });
+          } else if (block.results && Array.isArray(block.results)) {
+            // Pour les autres blocs, utiliser le rendu standard
+            block.results.forEach((result, resultIndex) => {
+              if (shouldShowElement(result)) {
+                const resultValue = data[result.id];
+                const shouldDisplayResult = resultValue && resultValue !== 'N/A' && resultValue !== null && resultValue !== undefined;
+                
+                if (shouldDisplayResult) {
+                  blockElements.push(
+                    <TView key={`${block.id}-result-${resultIndex}`} style={styles.blockElement}>
+                      {renderElement(result)}
+                    </TView>
+                  );
+                }
+              }
+            });
+          }
+
+          // Gestion spéciale pour le questionnaire d'Édimbourg
+          if (block.id === 'C1T15E' && block.questions) {
+            block.questions.forEach((question, questionIndex) => {
+              // Rendre la question principale
+              const questionElement = {
+                id: question.id,
+                type: question.type,
+                label: question.label,
+                required: question.required,
+                options: question.options,
+                conditional_questions: question.conditional_questions,
+                ui: question.ui || {}
+              };
+              
+              if (shouldShowElement(questionElement)) {
+                blockElements.push(
+                  <TView key={`${block.id}-question-${questionIndex}-${questionnaireKey}`} style={styles.blockElement}>
+                    {renderElement(questionElement)}
+                  </TView>
+                );
+                
+                // Vérifier si on doit afficher les questions conditionnelles
+                if (question.conditional_questions && question.conditional_questions.questions) {
+                  const firstQuestionValue = data[question.id];
+                  const shouldShowConditional = firstQuestionValue === question.conditional_questions.condition;
+                  
+                 // console.log(` Questionnaire Édimbourg - Question ${question.id}:`, firstQuestionValue);
+                  //console.log(` Questionnaire Édimbourg - Condition:`, question.conditional_questions.condition);
+                  //console.log(`Questionnaire Édimbourg - Show conditional:`, shouldShowConditional);
+                  
+                  if (shouldShowConditional) {
+                    question.conditional_questions.questions.forEach((conditionalQuestion, conditionalIndex) => {
+                      const conditionalElement = {
+                        id: conditionalQuestion.id,
+                        type: conditionalQuestion.type,
+                        label: conditionalQuestion.label,
+                        required: conditionalQuestion.required,
+                        options: conditionalQuestion.options,
+                        ui: conditionalQuestion.ui || {}
+                      };
+                      
+                      blockElements.push(
+                        <TView key={`${block.id}-conditional-${conditionalIndex}-${questionnaireKey}`} style={styles.blockElement}>
+                          {renderElement(conditionalElement)}
+                        </TView>
+                      );
+                    });
+                  }
+                }
+              }
+            });
+          }
+
+          // Liens vidéo pour IPSCB
+          const videoLink = block.video_link;
+          
+          return (
+            <TView key={`block-${blockIndex}`} style={[styles.blockContainer, { backgroundColor: colors.surface }]}>
+              {/* Titre du bloc */}
+              {block.title && (
+                <TView style={styles.blockHeader}>
+                  <TText style={[styles.blockTitle, { color: colors.text }]}>
+                    {block.title}
+                  </TText>
+                  {block.description && (
+                    <TText style={[styles.blockDescription, { color: colors.textSecondary }]}>
+                      {block.description}
+                    </TText>
+                  )}
+                </TView>
+              )}
+              
+              {/* Message informatif pour les blocs spécifiques aux membres inférieurs */}
+              {showLowerLimbMessage && (
+                <TView style={[styles.infoBox, { backgroundColor: colors.surfaceLight, borderColor: colors.primary }]}>
+                  <TText style={[styles.infoText, { color: colors.primary }]}>
+                    ⚠️ Ce bloc ne doit être rempli que si la plaie est localisée au membre inférieur (jambe, pied).
+                  </TText>
+                </TView>
+              )}
+              
+              {/* Lien vidéo pour IPSCB */}
+              {videoLink && (
+                <TView style={styles.videoLinkContainer}>
+                  <TText style={[styles.videoLinkText, { color: colors.primary }]}>
+                    Lien vers vidéo
+                  </TText>
+                </TView>
+              )}
+              
+              {/* Contenu du bloc */}
+              <TView style={styles.blockContent}>
+                {blockElements}
+              </TView>
+            </TView>
+          );
+        })}
+      </TView>
+    );
   };
 
   // Fonction pour convertir les questions en éléments (Table 13)
   const convertQuestionsToElements = () => {
     if (!tableData.questions || !Array.isArray(tableData.questions)) {
-      console.log('🔍 Table 13 - Aucune question trouvée');
+      //console.log('Table 13 - Aucune question trouvée');
       return [];
     }
     
     const convertedElements = tableData.questions.map((question, index) => {
-      console.log(`🔍 Table 13 - Conversion question ${index}:`, question.qid, question.label);
+      //console.log(`Table 13 - Conversion question ${index}:`, question.qid, question.label);
       
       // Convertir la structure question en structure element
       return {
@@ -659,7 +1363,92 @@ const ContentDetector = ({
       };
     });
     
-    console.log('🔍 Table 13 - Total éléments convertis:', convertedElements.length);
+    //console.log('Table 13 - Total éléments convertis:', convertedElements.length);
+    return convertedElements;
+  };
+
+  // Fonction pour convertir les additional_fields en éléments (Table 14)
+  const convertAdditionalFieldsToElements = () => {
+    if (!tableData.additional_fields || typeof tableData.additional_fields !== 'object') {
+      //console.log(' Table 14 - Aucun champ additionnel trouvé');
+      return [];
+    }
+    
+    const convertedElements = Object.values(tableData.additional_fields).map((field, index) => {
+     // console.log(` Table 14 - Conversion champ additionnel ${index}:`, field.id, field.label);
+      
+      return {
+        id: field.id,
+        type: field.type,
+        label: field.label,
+        description: field.description,
+        required: field.required || false,
+        validation: field.validation || {},
+        ui: field.ui || {},
+        help: field.ui?.help
+      };
+    });
+    
+    //console.log('Table 14 - Total champs additionnels convertis:', convertedElements.length);
+    return convertedElements;
+  };
+
+  // Fonction pour convertir les champs complémentaires et additionnels de la table 20
+  const convertTable20FieldsToElements = () => {
+    const convertedElements = [];
+    
+    // Convertir les champs complémentaires
+    if (tableData.complementary_fields && typeof tableData.complementary_fields === 'object') {
+      Object.values(tableData.complementary_fields).forEach((field) => {
+        convertedElements.push({
+          id: field.id,
+          type: field.type,
+          label: field.label,
+          description: field.description,
+          required: field.required || false,
+          validation: field.validation || {},
+          ui: field.ui || {},
+          help: field.ui?.help,
+          conditional_display: field.conditional_display
+        });
+      });
+    }
+    
+    // Convertir les trajets additionnels
+    if (tableData.additional_tracts && typeof tableData.additional_tracts === 'object') {
+      Object.values(tableData.additional_tracts).forEach((tract) => {
+        // Pour les trajets de type mixed (fistule), créer un élément pour chaque champ
+        if (tract.type === 'mixed' && tract.fields) {
+          tract.fields.forEach((field) => {
+            convertedElements.push({
+              id: field.id,
+              type: field.type,
+              label: `${tract.label} - ${field.label}`,
+              description: field.description || tract.description,
+              required: field.required || false,
+              validation: field.validation || {},
+              ui: field.ui || {},
+              help: field.ui?.help,
+              conditional_display: tract.conditional_display
+            });
+          });
+        } else {
+          // Pour les trajets simples (sinus, tunnel)
+          convertedElements.push({
+            id: tract.id,
+            type: tract.type,
+            label: tract.label,
+            description: tract.description,
+            required: tract.required || false,
+            validation: tract.validation || {},
+            ui: tract.ui || {},
+            help: tract.ui?.help,
+            conditional_display: tract.conditional_display
+          });
+        }
+      });
+    }
+    
     return convertedElements;
   };
 
@@ -683,7 +1472,7 @@ const ContentDetector = ({
     
     // Fonction pour gérer le changement de valeur
     const handleSubquestionChange = (value) => {
-      console.log('🔍 Table 12 - Changement sous-question:', subquestion.qid || subquestion.id, value);
+      //console.log(' Table 12 - Changement sous-question:', subquestion.qid || subquestion.id, value);
       handleDataChange(subquestion.qid || subquestion.id, value);
     };
 
@@ -811,18 +1600,128 @@ const ContentDetector = ({
     );
   };
 
+  // Fonction pour convertir les sub_blocks de la table 25 en éléments
+  const convertTable25SubBlocksToElements = () => {
+    const convertedElements = [];
+    
+    if (tableData.sub_blocks && typeof tableData.sub_blocks === 'object') {
+      Object.values(tableData.sub_blocks).forEach((subBlock) => {
+        // Pour les deux sous-blocs (quality et quantity), convertir les éléments boolean en un seul single_choice
+        if (subBlock.type === 'single_choice' && subBlock.elements && Array.isArray(subBlock.elements)) {
+          const options = subBlock.elements.map((element) => ({
+            id: element.id,
+            label: element.label.split('=')[0].trim(), // Extraire juste le score (ex: "1")
+            description: element.description,
+            score: element.score
+          }));
+          
+          // Déterminer l'ID principal selon le sous-bloc
+          let mainElementId;
+          if (subBlock.id === 'C1T25Q1') {
+            mainElementId = 'C1T25E01'; // Qualité
+          } else if (subBlock.id === 'C1T25Q2') {
+            mainElementId = 'C1T25E06'; // Quantité
+          } else {
+            mainElementId = subBlock.elements[0]?.id || 'C1T25E01';
+          }
+          
+          convertedElements.push({
+            id: mainElementId,
+            type: 'single_choice',
+            label: subBlock.title || subBlock.id,
+            description: subBlock.description,
+            options: options,
+            required: subBlock.required || true,
+            ui: {
+              component: 'RadioGroup'
+            }
+          });
+        }
+      });
+    }
+    
+    return convertedElements;
+  };
+
+  // Fonction pour convertir les sub_blocks de la table 22 en éléments
+  const convertTable22SubBlocksToElements = () => {
+    const convertedElements = [];
+    
+    console.log('Table 22 - sub_blocks disponibles:', tableData.sub_blocks ? Object.keys(tableData.sub_blocks) : 'aucun');
+    console.log('Table 22 - tableData:', tableData.id, 'sub_blocks:', !!tableData.sub_blocks);
+    
+    if (tableData.sub_blocks && typeof tableData.sub_blocks === 'object') {
+      Object.values(tableData.sub_blocks).forEach((subBlock, index) => {
+        console.log(`Table 22 - Sous-bloc ${index}:`, subBlock.id, subBlock.type, 'éléments:', subBlock.elements?.length);
+        
+        // Pour le sous-bloc "quality", convertir les éléments boolean en un seul single_choice
+        if (subBlock.id === 'C1T22Q' && subBlock.type === 'single_choice' && subBlock.elements && Array.isArray(subBlock.elements)) {
+          // Créer un seul élément single_choice avec toutes les options
+          const options = subBlock.elements.map((element) => ({
+            id: element.id,
+            label: element.label.split('=')[0].trim(), // Extraire juste le score (ex: "1")
+            description: element.description,
+            score: element.score
+          }));
+          
+          console.log('Table 22 - Options créées pour qualité:', options.length);
+          
+          convertedElements.push({
+            id: 'C1T22E01', // Utiliser le premier ID comme ID principal
+            type: 'single_choice',
+            label: subBlock.title || 'Qualité du tissu nécrotique',
+            description: subBlock.description,
+            options: options,
+            required: subBlock.required || true,
+            ui: {
+              component: 'RadioGroup'
+            }
+          });
+        } else if (subBlock.elements && Array.isArray(subBlock.elements)) {
+          // Pour les autres sous-blocs (quantity), garder les éléments tels quels
+          console.log(`Table 22 - Ajout des éléments du sous-bloc ${subBlock.id}:`, subBlock.elements.length);
+          subBlock.elements.forEach((element) => {
+            convertedElements.push({
+              ...element,
+              subBlockId: subBlock.id,
+              subBlockTitle: subBlock.title,
+              subBlockDescription: subBlock.description
+            });
+          });
+        }
+      });
+    }
+    
+    console.log('Table 22 - Éléments convertis:', convertedElements.length, convertedElements.map(e => ({ id: e.id, type: e.type })));
+    return convertedElements;
+  };
+
   // Rendu des sections si elles existent
   const renderSections = () => {
     // Gestion spéciale pour différentes structures de table (même logique que renderContent)
     let elementsToUse = tableData.elements;
     if (!elementsToUse && tableData.blocks && tableData.id === 'C1T34') {
       elementsToUse = getAllElementsFromBlocks();
+    } else if (!elementsToUse && tableData.blocks && tableData.id === 'C1T15') {
+      elementsToUse = getAllElementsFromActiveBlocks();
     } else if (!elementsToUse && tableData.questions && tableData.id === 'C1T13') {
       elementsToUse = convertQuestionsToElements();
+    } else if (!elementsToUse && tableData.sub_blocks && tableData.id === 'C1T22') {
+      elementsToUse = convertTable22SubBlocksToElements();
+      console.log('Table 22 - renderSections - elementsToUse après conversion:', elementsToUse?.length);
+    } else if (!elementsToUse && tableData.sub_blocks && tableData.id === 'C1T25') {
+      elementsToUse = convertTable25SubBlocksToElements();
     }
 
     // Rendu des éléments principaux
-    const mainElements = elementsToUse?.filter(shouldShowElement).map(renderElement) || [];
+    const mainElements = elementsToUse?.filter(shouldShowElement).map(renderElement).filter(el => el !== null && el !== undefined) || [];
+    
+    // Debug pour la table 22
+    if (tableData.id === 'C1T22') {
+      console.log('Table 22 - elementsToUse:', elementsToUse?.length, elementsToUse?.map(e => ({ id: e.id, type: e.type })));
+      console.log('Table 22 - mainElements après filtrage:', mainElements.length);
+      console.log('Table 22 - mainElements:', mainElements.map((el, idx) => ({ idx, type: el?.type, key: el?.key })));
+    }
 
     // Gestion spéciale pour la table 12 avec ses sous-questions
     if (tableData.id === 'C1T12' && tableData.subquestions) {
@@ -831,7 +1730,7 @@ const ContentDetector = ({
       tableData.subquestions
         .filter(shouldShowSubquestion)
         .forEach(subquestion => {
-          console.log('🔍 Table 12 - Rendering subquestion:', subquestion.label, 'Type:', subquestion.type);
+          //console.log(' Table 12 - Rendering subquestion:', subquestion.label, 'Type:', subquestion.type);
           
           // Rendre la sous-question avec une clé unique
           const subquestionElement = renderSubquestion(subquestion);
@@ -862,6 +1761,28 @@ const ContentDetector = ({
       return [...mainElements, ...subquestionsElements];
     }
 
+    // Gestion spéciale pour la table 14 avec ses additional_fields
+    if (tableData.id === 'C1T14' && tableData.additional_fields) {
+      const additionalElements = convertAdditionalFieldsToElements();
+      const renderedAdditionalElements = additionalElements
+        .filter(shouldShowElement)
+        .map(renderElement)
+        .filter(element => element); // Filtrer les éléments null/undefined
+
+      return [...mainElements, ...renderedAdditionalElements];
+    }
+
+    // Gestion spéciale pour la table 20 avec ses champs complémentaires et additionnels
+    if (tableData.id === 'C1T20' && (tableData.complementary_fields || tableData.additional_tracts)) {
+      const table20Fields = convertTable20FieldsToElements();
+      const renderedTable20Fields = table20Fields
+        .filter(shouldShowElement)
+        .map(renderElement)
+        .filter(element => element); // Filtrer les éléments null/undefined
+
+      return [...mainElements, ...renderedTable20Fields];
+    }
+
     if (!tableData.ui_configuration?.sections) {
       // Rendu simple sans sections - juste les éléments avec gestion conditionnelle
       return mainElements;
@@ -883,20 +1804,49 @@ const ContentDetector = ({
       );
     }
 
+    // Gestion spéciale pour la table 15 avec blocs organisés
+    if (tableData.id === 'C1T15' && tableData.blocks) {
+      return (
+        <TView style={styles.contentContainer}>
+          {/* Affichage du titre et des instructions si présents */}
+          {tableData.ui_configuration?.group_label && (
+            <TView style={styles.headerContainer}>
+              <TText style={[styles.groupLabel, { color: colors.text }]}>
+                {tableData.ui_configuration.group_label}
+              </TText>
+            </TView>
+          )}
+          
+          {tableData.ui_configuration?.instructions && (
+            <TView style={styles.instructionsContainer}>
+              <TText style={[styles.instructions, { color: colors.textSecondary }]}>
+                {tableData.ui_configuration.instructions}
+              </TText>
+            </TView>
+          )}
+          
+          {/* Rendu spécialisé pour la table 15 */}
+          {renderTable15Blocks()}
+        </TView>
+      );
+    }
+
     // Gestion spéciale pour différentes structures de table
     let elementsToRender = tableData.elements;
    
     
     if (!elementsToRender && tableData.blocks && tableData.id === 'C1T34') {
       elementsToRender = getAllElementsFromBlocks();
-  
     } else if (!elementsToRender && tableData.questions && tableData.id === 'C1T13') {
       elementsToRender = convertQuestionsToElements();
-      
+    } else if (!elementsToRender && tableData.sub_blocks && tableData.id === 'C1T22') {
+      elementsToRender = convertTable22SubBlocksToElements();
+    } else if (!elementsToRender && tableData.sub_blocks && tableData.id === 'C1T25') {
+      elementsToRender = convertTable25SubBlocksToElements();
     }
 
-   
-    if (!elementsToRender || elementsToRender.length === 0) {
+    // Pour les tables 22 et 25, ne pas bloquer même si elementsToRender est vide car renderSections() gère les sub_blocks
+    if ((!elementsToRender || elementsToRender.length === 0) && tableData.id !== 'C1T22' && tableData.id !== 'C1T25') {
       return (
         <TView style={styles.emptyContainer}>
           <TText style={[styles.emptyText, { color: colors.textSecondary }]}>
@@ -925,6 +1875,8 @@ const ContentDetector = ({
           </TView>
         )}
         
+        {renderSpecialNote()}
+        
         {renderSections()}
       </TView>
     );
@@ -949,27 +1901,10 @@ const ContentDetector = ({
             <ClinicalAlert alert={tableData.clinical_alert} />
           )}
 
-          {/* Instructions */}
-          {tableData.ui_configuration?.instructions && (
-            <TView style={[styles.instructions, { backgroundColor: colors.surfaceLight }]}>
-              <TText style={[styles.instructionsText, { color: colors.textSecondary }]}>
-                {tableData.ui_configuration.instructions}
-              </TText>
-            </TView>
-          )}
-
           {/* Contenu principal */}
           {renderContent()}
         </TView>
       </TouchableWithoutFeedback>
-
-      {/* Modale d'aide pour les stades */}
-      <HelperModal
-        visible={helperModalVisible}
-        onClose={() => setHelperModalVisible(false)}
-        helperData={currentHelperData}
-        title={helperTitle}
-      />
 
       {/* Alerte spécialisée pour lymphœdème et pied diabétique */}
       <SpecializedAlert
@@ -1080,6 +2015,106 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
     fontStyle: 'italic',
+  },
+  // Styles spécifiques pour la table 15
+  table15Container: {
+    flex: 1,
+  },
+  blockContainer: {
+   marginBottom: spacing.xl,
+   //padding: spacing.md,
+    borderRadius: 16,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+  },
+  blockHeader: {
+    //marginBottom: spacing.lg,
+    paddingBottom: spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E5E5',
+  },
+  blockTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: spacing.sm,
+    letterSpacing: 0.5,
+  },
+  blockDescription: {
+    fontSize: 15,
+    lineHeight: 22,
+    opacity: 0.8,
+  },
+  blockContent: {
+    flex: 1,
+  },
+  blockElement: {
+    marginBottom: spacing.lg,
+    paddingHorizontal: spacing.sm,
+  },
+  videoLinkContainer: {
+    marginBottom: spacing.lg,
+    marginTop: spacing.md,
+    padding: spacing.md,
+    backgroundColor: '#F8F9FA',
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  videoLinkText: {
+    fontSize: 15,
+    fontWeight: '600',
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
+  infoBox: {
+    marginBottom: spacing.lg,
+    marginTop: spacing.sm,
+    padding: spacing.md,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderStyle: 'dashed',
+  },
+  infoText: {
+    fontSize: 14,
+    fontWeight: '500',
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+  // Styles pour les résultats IPSCB
+  ipscbResultContainer: {
+    marginBottom: spacing.md,
+  },
+  ipscbResultLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: spacing.sm,
+  },
+  ipscbResultBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    alignSelf: 'flex-start',
+    minWidth: 200,
+  },
+  ipscbResultValue: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  ipscbResultLevel: {
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'right',
+    flex: 1,
+    marginLeft: spacing.md,
   },
 });
 

@@ -117,6 +117,177 @@
           "category": "patient_perspective"
         },
         {
+          "id": "C1T14",
+          "order": 14,
+          "title": "Emplacement de la plaie",
+          "description": "Localisation anatomique de la plaie avec sélecteur visuel et options complémentaires",
+          "required": true,
+          "category": "anatomical_assessment"
+        },
+        {
+          "id": "C1T15",
+          "order": 15,
+          "title": "Évaluation de l'apport vasculaire",
+          "description": "Évaluation vasculaire conditionnelle selon la localisation de la plaie (membre inférieur: complète, membre supérieur: inspection et palpation uniquement)",
+          "required": false,
+          "category": "vascular_assessment",
+          "conditional": {
+            "triggered_by": "C1T14",
+            "condition": "location_selected"
+          }
+        },
+        {
+          "id": "C1T16",
+          "order": 16,
+          "title": "BWAT – Taille",
+          "description": "Évaluation de la taille de la plaie selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T17",
+          "order": 17,
+          "title": "Forme",
+          "description": "Évaluation de la morphologie visuelle de la plaie",
+          "required": true,
+          "category": "wound_assessment"
+        },
+        {
+          "id": "C1T18",
+          "order": 18,
+          "title": "BWAT – Profondeur",
+          "description": "Évaluation de la profondeur des tissus atteints selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T19",
+          "order": 19,
+          "title": "BWAT – Bords",
+          "description": "Évaluation des bords de la plaie selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T20",
+          "order": 20,
+          "title": "BWAT – Sous-minage",
+          "description": "Évaluation du sous-minage de la plaie selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T21",
+          "order": 21,
+          "title": "Composition du lit de la plaie",
+          "description": "Évaluation de la composition tissulaire du lit de la plaie en pourcentages",
+          "required": true,
+          "category": "wound_assessment"
+        },
+        {
+          "id": "C1T22",
+          "order": 22,
+          "title": "BWAT – Types et quantité de tissus nécrotiques",
+          "description": "Évaluation des types et quantité de tissus nécrotiques selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": false,
+          "category": "bwat_assessment",
+          "conditional": {
+            "triggered_by": "C1T21",
+            "condition": "necrotic_tissue_detected",
+            "source_field": "C1T21E01",
+            "operator": "gt",
+            "value": 0
+          }
+        },
+        {
+          "id": "C1T23",
+          "order": 23,
+          "title": "BWAT – Tissu de granulation",
+          "description": "Évaluation du tissu de granulation selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T24",
+          "order": 24,
+          "title": "BWAT – Épithéliatisation",
+          "description": "Évaluation de l'épithéliatisation selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T25",
+          "order": 25,
+          "title": "BWAT – Type et quantité d'exsudat",
+          "description": "Évaluation du type et quantité d'exsudat selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T26",
+          "order": 26,
+          "title": "BWAT – Peau environnante",
+          "description": "Évaluation de la peau environnante selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
+          "required": true,
+          "category": "bwat_assessment"
+        },
+        {
+          "id": "C1T27",
+          "order": 27,
+          "title": "Signes et symptômes d'infection",
+          "description": "Identification des signes locaux et systémiques d'infection",
+          "required": false,
+          "category": "infection_assessment"
+        },
+        {
+          "id": "C1T28",
+          "order": 28,
+          "title": "Tests de laboratoire",
+          "description": "Saisie des résultats biologiques pertinents",
+          "required": false,
+          "category": "laboratory_assessment"
+        },
+        {
+          "id": "C1T29",
+          "order": 29,
+          "title": "Échelle de Braden",
+          "description": "Évaluation du risque de lésions de pression (adultes)",
+          "required": false,
+          "category": "risk_assessment"
+        },
+        {
+          "id": "C1T30",
+          "order": 30,
+          "title": "Échelle de Braden-Q",
+          "description": "Évaluation du risque de lésions de pression (pédiatrique)",
+          "required": false,
+          "category": "risk_assessment"
+        },
+        {
+          "id": "C1T31",
+          "order": 31,
+          "title": "Lésion de pression",
+          "description": "Vérification de la présence d'une surface thérapeutique adaptée",
+          "required": false,
+          "category": "therapeutic_equipment"
+        },
+        {
+          "id": "C1T32",
+          "order": 32,
+          "title": "Ulcère veineux",
+          "description": "Vérification de la compression thérapeutique",
+          "required": false,
+          "category": "therapeutic_equipment"
+        },
+        {
+          "id": "C1T33",
+          "order": 33,
+          "title": "Ulcère artériel",
+          "description": "Vérification de la décharge adaptée",
+          "required": false,
+          "category": "therapeutic_equipment"
+        },
+        {
           "id": "C1T34",
           "order": 34,
           "title": "Pied diabétique",

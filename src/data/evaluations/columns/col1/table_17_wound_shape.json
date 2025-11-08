@@ -15,70 +15,35 @@
   "elements": [
     {
       "id": "C1T17E01",
-      "type": "boolean",
-      "label": "Ronde",
-      "description": "Forme circulaire ou approximativement ronde",
-      "required": false,
+      "type": "single_choice",
+      "label": "Forme de la plaie",
+      "description": "Sélectionnez la forme qui décrit le mieux la morphologie visuelle de la plaie",
+      "required": true,
+      "options": [
+        {
+          "id": "C1T17E01_01",
+          "label": "Ronde",
+          "description": "Forme circulaire ou approximativement ronde"
+        },
+        {
+          "id": "C1T17E01_02",
+          "label": "Ovale",
+          "description": "Forme elliptique ou ovale, plus longue que large"
+        },
+        {
+          "id": "C1T17E01_03",
+          "label": "Irrégulière",
+          "description": "Forme sans géométrie définie, contours imprévisibles"
+        },
+        {
+          "id": "C1T17E01_04",
+          "label": "Linéaire",
+          "description": "Forme allongée, en ligne droite ou courbe"
+        }
+      ],
       "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie a une forme ronde",
-        "tooltip": "Forme circulaire ou approximativement ronde",
-        "ariaDescription": "Cocher si la plaie a une forme ronde"
-      },
-      "clinical_notes": {
-        "description": "Forme circulaire, symétrique",
-        "common_causes": "Plaies de pression, ulcères circulaires"
-      }
-    },
-    {
-      "id": "C1T17E02",
-      "type": "boolean",
-      "label": "Ovale",
-      "description": "Forme elliptique ou ovale",
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie a une forme ovale",
-        "tooltip": "Forme elliptique ou ovale, plus longue que large",
-        "ariaDescription": "Cocher si la plaie a une forme ovale"
-      },
-      "clinical_notes": {
-        "description": "Forme elliptique, plus longue que large",
-        "common_causes": "Plaies de friction, ulcères veineux"
-      }
-    },
-    {
-      "id": "C1T17E03",
-      "type": "boolean",
-      "label": "Irrégulière",
-      "description": "Forme sans géométrie définie",
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie a une forme irrégulière",
-        "tooltip": "Forme sans géométrie définie, contours imprévisibles",
-        "ariaDescription": "Cocher si la plaie a une forme irrégulière"
-      },
-      "clinical_notes": {
-        "description": "Forme sans géométrie définie, contours imprévisibles",
-        "common_causes": "Plaies traumatiques, ulcères infectés, nécrose"
-      }
-    },
-    {
-      "id": "C1T17E04",
-      "type": "boolean",
-      "label": "Linéaire",
-      "description": "Forme allongée, en ligne",
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie a une forme linéaire",
-        "tooltip": "Forme allongée, en ligne droite ou courbe",
-        "ariaDescription": "Cocher si la plaie a une forme linéaire"
-      },
-      "clinical_notes": {
-        "description": "Forme allongée, en ligne droite ou courbe",
-        "common_causes": "Cicatrices chirurgicales, plaies de coupure, déchirures"
+        "component": "RadioGroup",
+        "help": "Sélectionnez une seule forme pour décrire la morphologie de la plaie"
       }
     }
   ],
@@ -99,11 +64,10 @@
     "spacing": "medium",
     "group_label": "Forme de la plaie",
     "instructions": "Sélectionnez la forme qui décrit le mieux la morphologie visuelle de la plaie",
-    "component_type": "RadioGroup",
     "sections": [
       {
         "title": "Morphologie de la plaie",
-        "elements": ["C1T17E01", "C1T17E02", "C1T17E03", "C1T17E04"],
+        "elements": ["C1T17E01"],
         "type": "radio_group",
         "required": true
       }
@@ -111,12 +75,12 @@
   },
   "data_structure": {
     "selected_shape": {
-      "id": "Selected shape ID",
-      "label": "Selected shape label",
-      "description": "Selected shape description"
+      "id": "C1T17E01",
+      "value": "Selected option ID (C1T17E01_01 to C1T17E01_04)",
+      "label": "Selected shape label (Ronde, Ovale, Irrégulière, Linéaire)"
     },
     "export_format": {
-      "shape_id": "String (C1T17E01-C1T17E04)",
+      "shape_id": "String (C1T17E01_01-C1T17E01_04)",
       "shape_label": "String (Ronde, Ovale, Irrégulière, Linéaire)",
       "shape_description": "String (Clinical description)"
     }

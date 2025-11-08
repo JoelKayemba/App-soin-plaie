@@ -20,7 +20,7 @@ const TextInput = ({
   style,
   ...props 
 }) => {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const [inputValue, setInputValue] = useState(value || '');
 
   const handleTextChange = (text) => {
@@ -83,7 +83,11 @@ const TextInput = ({
         styles.inputWrapper,
         {
           borderColor: (error || validationError) ? colors.error : colors.border,
-          backgroundColor: disabled ? colors.surfaceLight : colors.surface,
+          backgroundColor: disabled 
+            ? colors.surfaceLight 
+            : isDark 
+              ? colors.surface 
+              : colors.white, // Amélioration pour le mode clair
           minHeight: multiline ? 80 : spacing.height.input,
         }
       ]}>
@@ -146,14 +150,20 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   inputWrapper: {
-    borderWidth: 1,
-    borderRadius: spacing.radius.md,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    borderWidth: 1.5,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 1,
   },
   input: {
     fontSize: 16,
-    minHeight: 20,
+    minHeight: 22,
+    lineHeight: 22,
+    fontWeight: '400',
   },
   footer: {
     flexDirection: 'row',

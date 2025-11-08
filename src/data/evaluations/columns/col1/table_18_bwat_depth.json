@@ -25,171 +25,51 @@
   "elements": [
     {
       "id": "C1T18E01",
-      "type": "boolean",
-      "label": "0 = Plaie guérie",
-      "description": "Plaie complètement guérie",
-      "score": 0,
-      "required": false,
+      "type": "single_choice",
+      "label": "Profondeur des tissus atteints",
+      "description": "Sélectionnez le score qui décrit le mieux la profondeur des tissus atteints",
+      "required": true,
+      "options": [
+        {
+          "id": "C1T18E01_01",
+          "label": "0",
+          "description": "Plaie guérie - Plaie complètement guérie",
+          "score": 0
+        },
+        {
+          "id": "C1T18E01_02",
+          "label": "1",
+          "description": "Peau intacte avec érythème qui ne blanchit pas sous la pression - Dommage tissulaire, mais sans ouverture à la surface de la peau",
+          "score": 1
+        },
+        {
+          "id": "C1T18E01_03",
+          "label": "2",
+          "description": "Perte cutanée superficielle impliquant l'épiderme et/ou le derme - Superficiel, abrasion, phlyctène ou cratère peu profond",
+          "score": 2
+        },
+        {
+          "id": "C1T18E01_04",
+          "label": "3",
+          "description": "Perte cutanée profonde avec atteinte ou nécrose du tissu sous-cutané - Peut s'étendre jusqu'au fascia sans le traverser",
+          "score": 3
+        },
+        {
+          "id": "C1T18E01_05",
+          "label": "4",
+          "description": "Masquée par la nécrose - Visualisation impossible des couches de tissus en raison d'une nécrose",
+          "score": 4
+        },
+        {
+          "id": "C1T18E01_06",
+          "label": "5",
+          "description": "Perte cutanée profonde avec destruction extensive, nécrose tissulaire ou atteinte des structures profondes - Muscles, os ou structures comme tendons et capsules articulaires visibles",
+          "score": 5
+        }
+      ],
       "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie est complètement guérie",
-        "tooltip": "Plaie complètement guérie",
-        "ariaDescription": "Cocher si la plaie est complètement guérie"
-      },
-      "clinical_notes": {
-        "description": "Plaie complètement guérie",
-        "tissue_status": "Guérison complète",
-        "color": "#4CAF50"
-      }
-    },
-    {
-      "id": "C1T18E02",
-      "type": "boolean",
-      "label": "1 = Peau intacte avec érythème qui ne blanchit pas sous la pression",
-      "description": "Dommage tissulaire, mais sans ouverture à la surface de la peau",
-      "score": 1,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la peau est intacte avec érythème non-blanchissable",
-        "tooltip": "Dommage tissulaire, mais sans ouverture à la surface de la peau",
-        "ariaDescription": "Cocher si la peau est intacte avec érythème non-blanchissable"
-      },
-      "detailed_definition": {
-        "title": "Score 1 - Peau intacte avec érythème non-blanchissable",
-        "description": "Dommage tissulaire, mais sans ouverture à la surface de la peau",
-        "clinical_characteristics": [
-          "Peau intacte",
-          "Érythème persistant",
-          "Ne blanchit pas sous la pression",
-          "Pas d'ouverture cutanée"
-        ],
-        "common_causes": "Pression, friction, début de lésion de pression"
-      },
-      "clinical_notes": {
-        "description": "Dommage tissulaire, mais sans ouverture à la surface de la peau",
-        "tissue_status": "Atteinte sous-cutanée sans rupture",
-        "color": "#8BC34A"
-      }
-    },
-    {
-      "id": "C1T18E03",
-      "type": "boolean",
-      "label": "2 = Perte cutanée superficielle impliquant l'épiderme et/ou le derme",
-      "description": "Superficiel, abrasion, phlyctène ou cratère peu profond",
-      "score": 2,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la perte cutanée est superficielle",
-        "tooltip": "Superficiel, abrasion, phlyctène ou cratère peu profond. À la même hauteur ou surélevé par rapport à la peau",
-        "ariaDescription": "Cocher si la perte cutanée est superficielle"
-      },
-      "detailed_definition": {
-        "title": "Score 2 - Perte cutanée superficielle",
-        "description": "Superficiel, abrasion, phlyctène ou cratère peu profond",
-        "clinical_characteristics": [
-          "Atteinte de l'épiderme et/ou du derme",
-          "Superficiel",
-          "Abrasion, phlyctène ou cratère peu profond",
-          "À la même hauteur ou surélevé par rapport à la peau"
-        ],
-        "common_causes": "Friction, abrasion, phlyctène, début de lésion de pression"
-      },
-      "clinical_notes": {
-        "description": "Superficiel, abrasion, phlyctène ou cratère peu profond. À la même hauteur ou surélevé par rapport à la peau",
-        "tissue_status": "Atteinte superficielle",
-        "color": "#FFC107"
-      }
-    },
-    {
-      "id": "C1T18E04",
-      "type": "boolean",
-      "label": "3 = Perte cutanée profonde avec atteinte ou nécrose du tissu sous-cutané",
-      "description": "Peut s'étendre jusqu'au fascia sans le traverser",
-      "score": 3,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la perte cutanée est profonde avec atteinte sous-cutanée",
-        "tooltip": "Peut s'étendre jusqu'au fascia sans le traverser; avec ou sans sous-minage; présence possible de tissus de granulation",
-        "ariaDescription": "Cocher si la perte cutanée est profonde avec atteinte sous-cutanée"
-      },
-      "detailed_definition": {
-        "title": "Score 3 - Perte cutanée profonde avec atteinte sous-cutanée",
-        "description": "Peut s'étendre jusqu'au fascia sans le traverser",
-        "clinical_characteristics": [
-          "Atteinte ou nécrose du tissu sous-cutané",
-          "Peut s'étendre jusqu'au fascia sans le traverser",
-          "Avec ou sans sous-minage",
-          "Présence possible de tissus de granulation"
-        ],
-        "common_causes": "Lésion de pression stade 3, ulcère profond"
-      },
-      "clinical_notes": {
-        "description": "Peut s'étendre jusqu'au fascia sans le traverser; avec ou sans sous-minage; présence possible de tissus de granulation",
-        "tissue_status": "Atteinte profonde sous-cutanée",
-        "color": "#FF9800"
-      }
-    },
-    {
-      "id": "C1T18E05",
-      "type": "boolean",
-      "label": "4 = Masquée par la nécrose",
-      "description": "Visualisation impossible des couches de tissus en raison d'une nécrose",
-      "score": 4,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la plaie est masquée par la nécrose",
-        "tooltip": "Visualisation impossible des couches de tissus en raison d'une nécrose",
-        "ariaDescription": "Cocher si la plaie est masquée par la nécrose"
-      },
-      "detailed_definition": {
-        "title": "Score 4 - Masquée par la nécrose",
-        "description": "Visualisation impossible des couches de tissus en raison d'une nécrose",
-        "clinical_characteristics": [
-          "Nécrose présente",
-          "Visualisation impossible des couches de tissus",
-          "Évaluation de la profondeur impossible",
-          "Nécessite débridement pour évaluation"
-        ],
-        "common_causes": "Nécrose, escarre, infection"
-      },
-      "clinical_notes": {
-        "description": "Visualisation impossible des couches de tissus en raison d'une nécrose",
-        "tissue_status": "Nécrose masquant l'évaluation",
-        "color": "#F44336"
-      }
-    },
-    {
-      "id": "C1T18E06",
-      "type": "boolean",
-      "label": "5 = Perte cutanée profonde avec destruction extensive, nécrose tissulaire ou atteinte des structures profondes",
-      "description": "Muscles, os ou structures comme tendons et capsules articulaires visibles",
-      "score": 5,
-      "required": false,
-      "ui": {
-        "component": "RadioButton",
-        "help": "Sélectionnez si la perte cutanée est profonde avec atteinte des structures profondes",
-        "tooltip": "Muscles, os ou structures comme tendons et capsules articulaires visibles",
-        "ariaDescription": "Cocher si la perte cutanée est profonde avec atteinte des structures profondes"
-      },
-      "detailed_definition": {
-        "title": "Score 5 - Perte cutanée profonde avec atteinte des structures profondes",
-        "description": "Muscles, os ou structures comme tendons et capsules articulaires visibles",
-        "clinical_characteristics": [
-          "Destruction extensive",
-          "Nécrose tissulaire",
-          "Atteinte des structures profondes",
-          "Muscles, os, tendons, capsules articulaires visibles"
-        ],
-        "common_causes": "Lésion de pression stade 4, ulcère profond, nécrose extensive"
-      },
-      "clinical_notes": {
-        "description": "Muscles, os ou structures comme tendons et capsules articulaires visibles",
-        "tissue_status": "Atteinte des structures profondes",
-        "color": "#9C27B0"
+        "component": "RadioGroup",
+        "help": "Sélectionnez un seul score de profondeur BWAT"
       }
     }
   ],
@@ -210,13 +90,10 @@
     "spacing": "medium",
     "group_label": "BWAT – Profondeur",
     "instructions": "Sélectionnez le score qui décrit le mieux la profondeur des tissus atteints",
-    "component_type": "RadioGroup",
-    "show_detailed_definitions": true,
-    "definition_display": "tooltip_and_modal",
     "sections": [
       {
         "title": "Profondeur des tissus atteints",
-        "elements": ["C1T18E01", "C1T18E02", "C1T18E03", "C1T18E04", "C1T18E05", "C1T18E06"],
+        "elements": ["C1T18E01"],
         "type": "radio_group",
         "required": true
       }
@@ -224,15 +101,16 @@
   },
   "data_structure": {
     "selected_depth": {
-      "id": "Selected depth ID",
+      "id": "C1T18E01",
+      "value": "Selected option ID (C1T18E01_01 to C1T18E01_06)",
       "score": "BWAT score (0-5)",
       "label": "Selected depth label",
       "description": "Selected depth description"
     },
     "export_format": {
-      "depth_id": "String (C1T18E01-C1T18E06)",
+      "depth_id": "String (C1T18E01_01-C1T18E01_06)",
       "bwat_score": "Number (0-5)",
-      "depth_label": "String (Score description)",
+      "depth_label": "String (Score number)",
       "depth_description": "String (Clinical description)"
     }
   },

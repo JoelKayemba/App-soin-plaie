@@ -1,16 +1,29 @@
 // src/features/calculators/braden/useBradenCalculator.js
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
-const useBradenCalculator = () => {
-  const [selectedScores, setSelectedScores] = useState({});
+const shallowEqual = (objA = {}, objB = {}) => {
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+  if (keysA.length !== keysB.length) return false;
+  for (const key of keysA) {
+    if (objA[key] !== objB[key]) return false;
+  }
+  return true;
+};
+
+const useBradenCalculator = (initialScores = {}, onScoresChange) => {
+  const [selectedScores, setSelectedScores] = useState(initialScores || {});
   const [expandedTexts, setExpandedTexts] = useState({});
 
-  // Calculer le score total
+  useEffect(() => {
+    if (!initialScores) return;
+    setSelectedScores(prev => (shallowEqual(prev, initialScores) ? prev : initialScores));
+  }, [initialScores]);
+
   const totalScore = useMemo(() => {
     return Object.values(selectedScores).reduce((sum, score) => sum + score, 0);
   }, [selectedScores]);
 
-  // Déterminer le niveau de risque
   const riskLevel = useMemo(() => {
     if (totalScore >= 18) return { 
       level: 'Aucun risque', 
@@ -39,15 +52,19 @@ const useBradenCalculator = () => {
     };
   }, [totalScore]);
 
-  // Sélectionner un score pour une dimension
-  const selectScore = (dimensionId, score) => {
-    setSelectedScores(prev => ({
-      ...prev,
-      [dimensionId]: score
-    }));
+  const notifyChange = (updatedScores) => {
+    onScoresChange?.(updatedScores);
   };
 
-  // Basculer l'expansion du texte
+  const selectScore = (dimensionId, score) => {
+    setSelectedScores(prev => {
+      if (prev[dimensionId] === score) return prev;
+      const updated = { ...prev, [dimensionId]: score };
+      notifyChange(updated);
+      return updated;
+    });
+  };
+
   const toggleTextExpansion = (dimensionId, score) => {
     const key = `${dimensionId}-${score}`;
     setExpandedTexts(prev => ({
@@ -56,13 +73,12 @@ const useBradenCalculator = () => {
     }));
   };
 
-  // Réinitialiser toutes les sélections
   const resetSelections = () => {
     setSelectedScores({});
     setExpandedTexts({});
+    notifyChange({});
   };
 
-  // Vérifier si toutes les dimensions sont sélectionnées
   const isComplete = (totalDimensions) => {
     return totalDimensions === Object.keys(selectedScores).length;
   };
