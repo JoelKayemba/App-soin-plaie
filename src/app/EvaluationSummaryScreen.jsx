@@ -1,12 +1,13 @@
 import React, { useMemo, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { TView, TText, TIcon } from '@/components/ui/Themed';
 import { useTheme } from '@/context/ThemeContext';
 import spacing from '@/styles/spacing';
 import evaluationSteps from '@/data/evaluations/evaluation_steps.json';
 import { clearEvaluationProgress } from '@/storage/evaluationLocalStorage';
+import useEvaluationSummaryFormatter from '@/hooks/useEvaluationSummaryFormatter';
 
 const formatValue = (value) => {
   if (value === null || value === undefined) return '—';
@@ -34,6 +35,7 @@ const EvaluationSummaryScreen = () => {
   const route = useRoute();
   const { colors } = useTheme();
   const { evaluationId, tables = [], completedAt } = route.params || {};
+  const { isLoading, tables: formattedTables } = useEvaluationSummaryFormatter({ tables });
 
   useEffect(() => {
     console.log('[EvaluationSummaryScreen] params', {
@@ -41,7 +43,18 @@ const EvaluationSummaryScreen = () => {
       completedAt,
       tables,
     });
-  }, [evaluationId, completedAt, tables]);
+    tables.forEach((table) => {
+      console.log('[EvaluationSummaryScreen] table snapshot', {
+        tableId: table.id,
+        title: table.title,
+        answers: table.answers,
+        labels: table.labels,
+      });
+    });
+    formattedTables.forEach((table) => {
+      console.log('[EvaluationSummaryScreen] formatted table', table);
+    });
+  }, [evaluationId, completedAt, tables, formattedTables]);
 
   const stepMap = useMemo(buildStepMap, []);
 
@@ -71,14 +84,17 @@ const EvaluationSummaryScreen = () => {
             </TView>
           )}
 
-          {tables.length === 0 && (
+          {formattedTables.length === 0 && !isLoading && (
             <TText style={[styles.emptyMessage, { color: colors.textSecondary }]}>Aucune donnée à afficher.</TText>
           )}
 
-          {tables.map((table) => {
+          {isLoading && (
+            <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: spacing.lg }} />
+          )}
+
+          {!isLoading && formattedTables.map((table) => {
             const stepInfo = stepMap[table.id];
-            const entries = Object.entries(table.answers || {});
-            const labels = table.labels || {};
+            const entries = table.entries || [];
             return (
               <TView key={table.id} style={[styles.tableCard, { backgroundColor: colors.surface }]}> 
                 <TText style={[styles.tableTitle, { color: colors.text }]}>{table.title || stepInfo?.title || table.id}</TText>
@@ -91,16 +107,15 @@ const EvaluationSummaryScreen = () => {
                 {entries.length === 0 ? (
                   <TText style={[styles.emptyEntry, { color: colors.textSecondary }]}>Aucune réponse enregistrée.</TText>
                 ) : (
-                  entries.map(([fieldId, value]) => {
-                    const fieldMeta = labels[fieldId];
-                    const fieldLabel = fieldMeta?.label || fieldId;
-                    return (
-                      <View key={fieldId} style={styles.entryRow}>
-                        <TText style={[styles.entryKey, { color: colors.textSecondary }]}>{fieldLabel}</TText>
-                        <TText style={[styles.entryValue, { color: colors.text }]}>{formatValue(value)}</TText>
-                      </View>
-                    );
-                  })
+                  entries.map((entry) => (
+                    <View key={entry.id} style={styles.entryRow}>
+                      <TText style={[styles.entryKey, { color: colors.textSecondary }]}>{entry.label}</TText>
+                      <TText style={[styles.entryValue, { color: colors.text }]}>{entry.value}</TText>
+                      {entry.description ? (
+                        <TText style={[styles.entryDescription, { color: colors.textSecondary }]}>{entry.description}</TText>
+                      ) : null}
+                    </View>
+                  ))
                 )}
               </TView>
             );
@@ -192,6 +207,11 @@ const styles = StyleSheet.create({
   entryValue: {
     fontSize: 15,
     lineHeight: 20,
+  },
+  entryDescription: {
+    fontSize: 12,
+    marginTop: spacing.xs,
+    lineHeight: 17,
   },
   footer: {
     padding: spacing.lg,
