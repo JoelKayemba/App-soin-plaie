@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TView, TText, TIcon } from '@/components/ui/Themed';
@@ -15,6 +15,81 @@ import evaluationSteps from '@/data/evaluations/evaluation_steps.json';
 import uiTypeMapping from '@/data/evaluations/ui_type_mapping.json';
 import { tableDataLoader } from '@/services';
 import { testTableLoader } from '@/utils/testTableLoader';
+import { loadEvaluationProgress, loadTableAnswers, saveTableProgress, updateLastVisitedTable, clearEvaluationProgress } from '@/storage/evaluationLocalStorage';
+
+const extractAnswersFromTable = (tableId, tableData = {}) => {
+  if (!tableId || !tableData) return {};
+  return Object.fromEntries(
+    Object.entries(tableData).filter(([key]) => key.startsWith(tableId))
+  );
+};
+
+const collectLabelsFromTableData = (tableData = {}, accumulator = {}) => {
+  if (!tableData) {
+    return accumulator;
+  }
+
+  const registerElement = (element) => {
+    if (!element || typeof element !== 'object') return;
+    if (element.id) {
+      accumulator[element.id] = {
+        label: element.label || element.title || element.id,
+        description: element.description || element.help || null,
+      };
+    }
+
+    if (Array.isArray(element.elements)) {
+      element.elements.forEach(registerElement);
+    }
+
+    if (Array.isArray(element.additional_fields)) {
+      element.additional_fields.forEach(registerElement);
+    }
+
+    if (Array.isArray(element.complementary_fields)) {
+      element.complementary_fields.forEach(registerElement);
+    }
+
+    if (Array.isArray(element.additional_tracts)) {
+      element.additional_tracts.forEach(registerElement);
+    }
+  };
+
+  if (Array.isArray(tableData.elements)) {
+    tableData.elements.forEach(registerElement);
+  }
+
+  if (Array.isArray(tableData.sub_blocks)) {
+    tableData.sub_blocks.forEach((block) => {
+      if (Array.isArray(block.elements)) {
+        block.elements.forEach(registerElement);
+      }
+    });
+  }
+
+  if (Array.isArray(tableData.questions)) {
+    tableData.questions.forEach((question) => {
+      if (question.qid) {
+        accumulator[question.qid] = {
+          label: question.label || question.qid,
+          description: question.description || null,
+        };
+      }
+      if (Array.isArray(question.options)) {
+        question.options.forEach(registerElement);
+      }
+      if (Array.isArray(question.subquestions)) {
+        question.subquestions.forEach(registerElement);
+      }
+    });
+  }
+
+  if (Array.isArray(tableData.additional_fields)) {
+    tableData.additional_fields.forEach(registerElement);
+  }
+
+  return accumulator;
+};
 
 const EvaluationScreen = () => {
   const navigation = useNavigation();
@@ -37,6 +112,20 @@ const EvaluationScreen = () => {
 
   // Récupération des étapes de l'évaluation
   const steps = evaluationSteps.evaluation_flow.column_1.steps;
+  const evaluationId = evaluationSteps.evaluation_flow.column_1.id || 'C1';
+  const [savedProgress, setSavedProgress] = useState({
+    version: 1,
+    updatedAt: null,
+    lastVisitedTableId: null,
+    savedTables: {},
+  });
+  const savedProgressRef = useRef({
+    version: 1,
+    updatedAt: null,
+    lastVisitedTableId: null,
+    savedTables: {},
+  });
+  const [progressLoaded, setProgressLoaded] = useState(false);
   const currentStep = steps[currentStepIndex];
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === steps.length - 1;
@@ -46,57 +135,83 @@ const EvaluationScreen = () => {
 
   // Chargement des données de la table courante
   const loadCurrentTableData = useCallback(async () => {
-    if (!currentStep) return;
-    
+    if (!currentStep || !progressLoaded) return;
     setIsLoading(true);
     try {
-      // Charger les données réelles de la table
       const tableData = await tableDataLoader.loadTableData(currentStep.id);
-      
-      setEvaluationData(prev => ({
-        ...prev,
-        [currentStep.id]: tableData
-      }));
+      const savedAnswers = await loadTableAnswers(evaluationId, currentStep.id);
+      const answersToMerge = savedAnswers && Object.keys(savedAnswers).length > 0 ? savedAnswers : {};
+
+      setEvaluationData(prev => {
+        const existingData = prev[currentStep.id] || {};
+        return {
+          ...prev,
+          [currentStep.id]: {
+            ...tableData,
+            ...answersToMerge,
+            ...existingData,
+          }
+        };
+      });
     } catch (error) {
       console.error('Erreur lors du chargement des données:', error);
       Alert.alert('Erreur', 'Impossible de charger les données de cette étape.');
     } finally {
       setIsLoading(false);
     }
-  }, [currentStep]);
+  }, [currentStep, evaluationId, progressLoaded]);
 
   // Gestion des changements de données
   const handleDataChange = useCallback((fieldId, value) => {
-   // console.log(`📝Changement de données pour ${fieldId}:`, value);
-    
-    // Mettre à jour les données
+    if (!currentStep) return;
+
+    const tableId = currentStep.id;
+    const currentTableData = evaluationData[tableId] || {};
+
+    const updatedTableData = {
+      ...currentTableData,
+      [fieldId]: value,
+    };
+
     const newEvaluationData = {
       ...evaluationData,
-      [currentStep.id]: {
-        ...evaluationData[currentStep.id],
-        [fieldId]: value
-      }
+      [tableId]: updatedTableData,
     };
-    
+
     setEvaluationData(newEvaluationData);
 
-    // Vérifier la condition pour la table 34 (Pied diabétique)
-    if (currentStep.id === 'C1T11' && fieldId === 'C1T11E06') {
+    if (tableId === 'C1T11' && fieldId === 'C1T11E06') {
       const isPiedDiabetiqueSelected = Array.isArray(value) && value.includes('pied_diabetique');
       setShouldNavigateToTable34(isPiedDiabetiqueSelected);
-      //console.log(' Mise à jour flag navigation table 34:', isPiedDiabetiqueSelected);
     }
 
-    // Vérifier les redirections immédiates
-    if (currentStep && evaluationData[currentStep.id]) {
-      const tableData = evaluationData[currentStep.id];
-      const element = tableData.elements?.find(el => el.id === fieldId);
-      
-      if (element) {
-        processFieldChange(fieldId, value, element);
-      }
+    const element = currentTableData.elements?.find?.((el) => el.id === fieldId);
+    if (element) {
+      processFieldChange(fieldId, value, element);
     }
-  }, [currentStep, evaluationData, processFieldChange]);
+
+    const answers = extractAnswersFromTable(tableId, updatedTableData);
+    if (progressLoaded) {
+      saveTableProgress(
+        evaluationId,
+        tableId,
+        {
+          title: currentStep.title,
+          answers,
+          stepIndex: currentStepIndex,
+        },
+        { lastVisitedTableId: tableId }
+      )
+        .then((progress) => {
+          if (progress) {
+            setSavedProgress(progress);
+          }
+        })
+        .catch((error) => {
+          console.error('[EvaluationScreen] erreur sauvegarde table:', error);
+        });
+    }
+  }, [currentStep, currentStepIndex, evaluationData, evaluationId, processFieldChange, progressLoaded]);
 
   // Gestion des changements de validation
   const handleValidationChange = useCallback((isValid, errors) => {
@@ -264,10 +379,54 @@ const EvaluationScreen = () => {
   }, [currentStep, currentStepIndex, evaluationData, handleFinishEvaluation, handleNavigateToTable, isLastStep, shouldNavigateToTable34, steps, validateCurrentStep]);
 
   // Terminer l'évaluation
-  const handleFinishEvaluation = useCallback(() => {
-    // TODO: Implémenter la logique de fin d'évaluation
-    Alert.alert('Succès', 'Évaluation terminée avec succès !');
-  }, []);
+  const handleFinishEvaluation = useCallback(async () => {
+    try {
+      const completionTimestamp = new Date().toISOString();
+      const summaryTables = [];
+
+      for (let index = 0; index < steps.length; index++) {
+        const step = steps[index];
+        const tableId = step.id;
+        const currentData = evaluationData[tableId];
+        let answers = extractAnswersFromTable(tableId, currentData);
+
+        if (!answers || Object.keys(answers).length === 0) {
+          answers = await loadTableAnswers(evaluationId, tableId);
+        }
+
+        if (answers && Object.keys(answers).length > 0) {
+          let labelSource = currentData;
+          if (!labelSource || !labelSource.elements) {
+            try {
+              labelSource = await tableDataLoader.loadTableData(tableId);
+            } catch (error) {
+              console.warn('[EvaluationScreen] impossible de charger la table pour labels:', tableId, error);
+            }
+          }
+
+          const labels = collectLabelsFromTableData(labelSource, {});
+
+          summaryTables.push({
+            id: tableId,
+            order: step.order ?? index + 1,
+            title: step.title,
+            description: step.description,
+            answers,
+            labels,
+          });
+        }
+      }
+
+      navigation.navigate('EvaluationSummary', {
+        evaluationId,
+        completedAt: completionTimestamp,
+        tables: summaryTables,
+      });
+    } catch (error) {
+      console.error('[EvaluationScreen] erreur lors de la finalisation:', error);
+      Alert.alert('Erreur', 'Impossible de finaliser l\'évaluation. Veuillez réessayer.');
+    }
+  }, [evaluationData, evaluationId, navigation, steps]);
 
   // Annuler l'évaluation
   const handleCancel = useCallback(() => {
@@ -282,7 +441,7 @@ const EvaluationScreen = () => {
         }}
       ]
     );
-  }, []);
+  }, [navigation]);
 
   // Gérer la fermeture du modal de redirection
   const handleCloseRedirectAlert = useCallback(() => {
@@ -365,6 +524,46 @@ const EvaluationScreen = () => {
     };
   }, []);
 
+  // Chargement initial de la progression
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadProgress = async () => {
+      try {
+        const storedProgress = await loadEvaluationProgress(evaluationId);
+        if (!isMounted) return;
+
+        const normalizedProgress = storedProgress || {
+          version: 1,
+          updatedAt: null,
+          lastVisitedTableId: null,
+          savedTables: {},
+        };
+        setSavedProgress(normalizedProgress);
+        savedProgressRef.current = normalizedProgress;
+
+        if (normalizedProgress.lastVisitedTableId) {
+          const targetIndex = steps.findIndex(step => step.id === normalizedProgress.lastVisitedTableId);
+          if (targetIndex >= 0) {
+            setCurrentStepIndex(targetIndex);
+          }
+        }
+      } catch (error) {
+        console.error('[EvaluationScreen] erreur chargement progression:', error);
+      } finally {
+        if (isMounted) {
+          setProgressLoaded(true);
+        }
+      }
+    };
+
+    loadProgress();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [evaluationId, steps]);
+
   // Calcul du pourcentage de progression
   const progressPercentage = Math.round(((currentStepIndex + 1) / steps.length) * 100);
 
@@ -407,6 +606,22 @@ const EvaluationScreen = () => {
       />
     );
   };
+
+  useEffect(() => {
+    const currentStepId = currentStep?.id;
+    if (!progressLoaded || !currentStepId) return;
+    if (savedProgressRef.current.lastVisitedTableId === currentStepId) return;
+
+    updateLastVisitedTable(evaluationId, currentStepId)
+      .then((progress) => {
+        if (progress) {
+          setSavedProgress(progress);
+        }
+      })
+      .catch((error) => {
+        console.error('[EvaluationScreen] erreur mise à jour dernière table:', error);
+      });
+  }, [currentStep?.id, evaluationId, progressLoaded]);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
