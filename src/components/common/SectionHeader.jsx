@@ -6,7 +6,7 @@ import { useTheme } from '@/context/ThemeContext';
 
 
 const SectionHeader = ({ 
-  appName = 'SoinsExpert', 
+  appName = 'PlaieMobile', 
   searchValue, 
   onChangeText, 
   onPressSettings = () => console.log('Settings pressed'),

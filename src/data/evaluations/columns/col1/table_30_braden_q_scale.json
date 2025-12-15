@@ -28,7 +28,7 @@
       "type": "braden_scale",
       "scale_type": "braden_q",
       "label": "Échelle de Braden-Q",
-      "description": "Attribuez un score pour chaque dimension. Le score total et le niveau de risque pédiatrique sont calculés automatiquement."
+      "description": "Attribuez un score pour chaque dimension. Les scores varient selon la dimension (0-2, 0-3, ou 0-8 pour les dispositifs médicaux). Le score total et le niveau de risque pédiatrique sont calculés automatiquement."
     }
   ],
   "ui_configuration": {
@@ -41,7 +41,7 @@
     "selections": {
       "id": "C1T30_SCALE",
       "type": "object",
-      "description": "Scores sélectionnés (1 à 4 ou 1 à 5 selon la dimension)"
+      "description": "Scores sélectionnés (0-2, 0-3, ou 0-8 selon la dimension)"
     },
     "totalScore": "Number",
     "riskLevel": {

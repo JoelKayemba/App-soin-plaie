@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
 import ThemeProvider, { useTheme } from './src/context/ThemeContext';
 import { FontSizeProvider } from './src/hooks/useFontSize';
+import { EpicProvider } from './src/context/EpicContext';
 import { Provider, useDispatch } from 'react-redux';
 import { store } from './src/store';
 import { loadFavoritesFromStorage } from './src/store/favoritesPersistence';
@@ -69,7 +70,9 @@ export default function App() {
       <SafeAreaProvider>
         <ThemeProvider>
           <FontSizeProvider>
-            <ThemedNavigation />
+            <EpicProvider>
+              <ThemedNavigation />
+            </EpicProvider>
           </FontSizeProvider>
         </ThemeProvider>
       </SafeAreaProvider>

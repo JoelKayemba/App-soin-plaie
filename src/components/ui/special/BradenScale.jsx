@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { TView, TText } from '@/components/ui/Themed';
-import { RadioGroup } from '@/components/ui/forms';
+import { RadioGroup, NumericInput } from '@/components/ui/forms';
 import spacing from '@/styles/spacing';
 import bradenData from '@/data/braden.json';
 import bradenQData from '@/data/braden-q.json';
@@ -49,6 +49,29 @@ const BradenScale = ({
 
   const renderDimension = (dimension) => {
     const selectedValue = selectedScores[dimension.id] ?? value?.selections?.[dimension.id] ?? null;
+    
+    // Gestion spéciale pour le type "count" (dispositifs médicaux)
+    if (dimension.type === 'count') {
+      return (
+        <TView key={dimension.id} style={styles.dimensionCard}>
+          <TText style={styles.dimensionTitle}>{dimension.label}</TText>
+          {dimension.description ? (
+            <TText style={styles.dimensionDescription}>{dimension.description}</TText>
+          ) : null}
+          <NumericInput
+            label="Nombre de dispositifs médicaux"
+            value={selectedValue ?? 0}
+            onValueChange={(val) => selectScore(dimension.id, Math.min(val, dimension.max_score || 8))}
+            min={0}
+            max={dimension.max_score || 8}
+            step={1}
+            required
+          />
+        </TView>
+      );
+    }
+    
+    // Rendu standard avec RadioGroup
     const options = dimension.levels.map(level => ({
       id: `${dimension.id}_${level.score}`,
       label: `${level.score} - ${level.title}`,
@@ -74,10 +97,42 @@ const BradenScale = ({
 
   const summary = useMemo(() => ({ totalScore: totalScore || 0, riskLevel }), [totalScore, riskLevel]);
 
+  // Déterminer le texte du sous-titre selon le type d'échelle
+  const getSubtitle = () => {
+    if (scaleType === 'braden_q') {
+      return "Sélectionnez un score pour chaque dimension. Les scores varient selon la dimension (0-2, 0-3, ou 0-8 pour les dispositifs médicaux).";
+    }
+    return "Sélectionnez un score (1 à 4) pour chaque dimension.";
+  };
+
+  // Grouper les dimensions par catégorie si disponible
+  const renderDimensionsByCategory = () => {
+    if (!scaleData.categories || scaleType !== 'braden_q') {
+      // Pas de catégories ou pas Braden-Q : affichage simple
+      return scaleData.dimensions.map(renderDimension);
+    }
+
+    // Grouper par catégorie
+    return Object.entries(scaleData.categories).map(([categoryId, category]) => {
+      const categoryDimensions = category.dimensions
+        .map(dimId => scaleData.dimensions.find(d => d.id === dimId))
+        .filter(Boolean);
+
+      if (categoryDimensions.length === 0) return null;
+
+      return (
+        <TView key={categoryId} style={styles.categorySection}>
+          <TText style={styles.categoryTitle}>{category.label}</TText>
+          {categoryDimensions.map(renderDimension)}
+        </TView>
+      );
+    });
+  };
+
   return (
     <TView style={[styles.container, style]}>
-      <TText style={styles.subtitle}>Sélectionnez un score (1 à 4) pour chaque dimension.</TText>
-      {scaleData.dimensions.map(renderDimension)}
+      <TText style={styles.subtitle}>{getSubtitle()}</TText>
+      {renderDimensionsByCategory()}
 
       <TView style={[styles.summaryCard, { borderColor: summary.riskLevel.color }]}> 
         <TText style={styles.summaryTitle}>Score total</TText>
@@ -154,6 +209,16 @@ const styles = StyleSheet.create({
     color: '#F04438',
     fontSize: 12,
     fontWeight: '600'
+  },
+  categorySection: {
+    marginBottom: spacing.xl,
+    gap: spacing.md
+  },
+  categoryTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: spacing.sm,
+    color: '#1F2937'
   }
 });
 

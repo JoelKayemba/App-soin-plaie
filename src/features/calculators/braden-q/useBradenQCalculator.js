@@ -21,33 +21,38 @@ const useBradenQCalculator = (initialScores = {}, onScoresChange) => {
   }, [initialScores]);
 
   const totalScore = useMemo(() => {
-    return Object.values(selectedScores).reduce((sum, score) => sum + score, 0);
+    return Object.values(selectedScores).reduce((sum, score) => {
+      // Gérer les valeurs null/undefined (score non sélectionné)
+      const numScore = score ?? 0;
+      return sum + numScore;
+    }, 0);
   }, [selectedScores]);
 
   const riskLevel = useMemo(() => {
-    if (totalScore >= 23) return { 
-      level: 'Aucun risque', 
+    // Nouvelle échelle Braden-Q : score max = 23, plus le score est élevé, plus le risque est élevé
+    if (totalScore <= 3) return { 
+      level: 'Risque très faible', 
       color: '#4CAF50', 
-      description: 'Le patient n\'est pas exposé au risque de développer une lésion de pression.' 
+      description: 'Le patient présente un risque très faible de développer une lésion de pression.' 
     };
-    if (totalScore >= 20) return { 
-      level: 'Faible risque', 
-      color: '#FF9800', 
-      description: 'Le patient présente un faible risque de développer une lésion de pression.' 
+    if (totalScore <= 6) return { 
+      level: 'Risque faible', 
+      color: '#8BC34A', 
+      description: 'Le patient présente un risque faible de développer une lésion de pression.' 
     };
-    if (totalScore >= 16) return { 
+    if (totalScore <= 10) return { 
       level: 'Risque modéré', 
-      color: '#FF5722', 
+      color: '#FF9800', 
       description: 'Le patient présente un risque modéré de développer une lésion de pression.' 
     };
-    if (totalScore >= 13) return { 
+    if (totalScore <= 15) return { 
       level: 'Risque élevé', 
-      color: '#F44336', 
+      color: '#FF5722', 
       description: 'Le patient présente un risque élevé de développer une lésion de pression.' 
     };
     return { 
       level: 'Risque très élevé', 
-      color: '#D32F2F', 
+      color: '#F44336', 
       description: 'Le patient présente un risque très élevé de développer une lésion de pression.' 
     };
   }, [totalScore]);

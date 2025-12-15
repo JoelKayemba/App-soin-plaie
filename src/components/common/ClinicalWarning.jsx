@@ -126,7 +126,7 @@ const ClinicalWarning = () => {
 
           {/* Détails supplémentaires */}
           <TText style={s.warningText}>
-            Pour le moment, elle doit être utilisée auprès de la clientèle adulte. En cas de doute, consultez une personne d'expérience ou une ressource spécialisée.
+            Avant d’utiliser cette application, veuillez vous assurer que son usage correspond à votre champ d’exercice et à vos compétences professionnelles. Vous demeurez responsable de l’interprétation et de l’application des informations fournies. En cas de doute, consultez une personne d'expérience ou une ressource spécialisée.
           </TText>
 
           {/* Bouton de fermeture */}

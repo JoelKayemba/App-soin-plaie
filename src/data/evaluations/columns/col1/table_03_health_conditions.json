@@ -137,6 +137,7 @@
       "id": "C1T03E11",
       "type": "boolean",
       "label": "HTA non contrôlée*",
+      "description": "Hypertension artérielle",
       "required": false,
       "legend": "info",
       "ui": {
@@ -253,6 +254,7 @@
       "id": "C1T03E20",
       "type": "boolean",
       "label": "MVAP*",
+      "description": "Maladie vasculaire artérielle périphérique",
       "required": false,
       "legend": "info",
       "ui": {

@@ -164,7 +164,7 @@ const ProductsScreen = () => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'left', 'right']}>
       <TView style={s.root}>
         {/* En-tête avec bouton retour et titre */}
         <View style={s.header}>
