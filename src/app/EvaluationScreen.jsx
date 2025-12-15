@@ -6,13 +6,13 @@ import { useTheme } from '@/context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import ContentDetector from '@/components/ui/ContentDetector';
 import RedirectAlert from '@/components/ui/RedirectAlert';
+import { EpicConnectionButton, EpicConnectionStatus } from '@/components/epic';
 import useTableData from '@/hooks/useTableData';
 import useEvaluationRouting from '@/hooks/useEvaluationRouting';
 import spacing from '@/styles/spacing';
 
 // Import des données de configuration
 import evaluationSteps from '@/data/evaluations/evaluation_steps.json';
-import uiTypeMapping from '@/data/evaluations/ui_type_mapping.json';
 import { tableDataLoader } from '@/services';
 import { testTableLoader } from '@/utils/testTableLoader';
 import { loadEvaluationProgress, loadTableAnswers, saveTableProgress, updateLastVisitedTable, clearEvaluationProgress } from '@/storage/evaluationLocalStorage';
@@ -624,7 +624,7 @@ const EvaluationScreen = () => {
   }, [currentStep?.id, evaluationId, progressLoaded]);
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top', 'left', 'right']}>
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.touchableContainer}>
           <KeyboardAvoidingView 
@@ -651,6 +651,12 @@ const EvaluationScreen = () => {
         </TView>
 
         <View style={styles.placeholder} />
+      </TView>
+
+      {/* Composants Epic */}
+      <TView style={styles.epicContainer}>
+        <EpicConnectionStatus />
+        <EpicConnectionButton />
       </TView>
 
       {/* Barre de progression */}
@@ -805,6 +811,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     minWidth: 40,
     textAlign: 'right',
+  },
+  epicContainer: {
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm,
   },
   content: {
     flex: 1,

@@ -1,0 +1,423 @@
+{
+  "id": "C2T01",
+  "version": "1.0.0",
+  "title": "Cicatrisation possiblement ralentie par",
+  "description": "Constats automatiques identifiés à partir de l'évaluation qui peuvent ralentir la cicatrisation de la plaie",
+  "category": "wound_healing_assessment",
+  "column": 2,
+  "table": 1,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "read_only": true,
+  "auto_generated": true,
+  "source_mapping": {
+    "description": "Les constats sont générés automatiquement à partir des données de la colonne 1",
+    "mapping_rules": [
+      {
+        "constat_id": "C2T01E01",
+        "source": "C1T01",
+        "condition": "age >= 65",
+        "description": "Vieillissement détecté si âge >= 65 ans"
+      },
+      {
+        "constat_id": "C2T01E02",
+        "source": "C1T27",
+        "condition": "infection_signs_present",
+        "description": "Charge microbienne élevée si signes d'infection présents"
+      },
+      {
+        "constat_id": "C2T01E03",
+        "source": "C1T04",
+        "condition": "bmi_category === 'surpoids' || bmi_category === 'obesite'",
+        "description": "Surpoids détecté si IMC indique surpoids ou obésité"
+      },
+      {
+        "constat_id": "C2T01E04",
+        "source": "C1T04",
+        "condition": "bmi_category === 'sous_poids'",
+        "description": "Sous-poids détecté si IMC indique sous-poids"
+      },
+      {
+        "constat_id": "C2T01E05",
+        "source": "C1T27",
+        "condition": "biofilm_suspected",
+        "description": "Biofilm suspecté si signes cliniques présents"
+      },
+      {
+        "constat_id": "C2T01E06",
+        "source": "C1T03",
+        "condition": "C1T03E12 === true",
+        "description": "Diabète non contrôlé si coché dans conditions de santé"
+      },
+      {
+        "constat_id": "C2T01E07",
+        "source": "C1T05",
+        "condition": "nutrition_insufficient",
+        "description": "Apport nutritionnel/hydrique insuffisant si détecté"
+      },
+      {
+        "constat_id": "C2T01E08",
+        "source": "C1T03",
+        "condition": "C1T03E03 === true",
+        "description": "Anémie si coché dans conditions de santé"
+      },
+      {
+        "constat_id": "C2T01E09",
+        "source": "C1T03",
+        "condition": "C1T03E08 === true",
+        "description": "Hypoxie si désaturation en O₂ coché"
+      },
+      {
+        "constat_id": "C2T01E10",
+        "source": "C1T06",
+        "condition": "smoking_present",
+        "description": "Tabagisme si présent dans facteurs de risque"
+      },
+      {
+        "constat_id": "C2T01E11",
+        "source": "C1T03",
+        "condition": "C1T03E11 === true",
+        "description": "Hypertension non contrôlée si coché"
+      },
+      {
+        "constat_id": "C2T01E12",
+        "source": "C1T03",
+        "condition": "autoimmune_disease_present",
+        "description": "Maladie autoimmune/inflammatoire si présente"
+      },
+      {
+        "constat_id": "C2T01E13",
+        "source": "C1T03",
+        "condition": "C1T03E15 === true",
+        "description": "Insuffisance rénale non contrôlée si coché"
+      },
+      {
+        "constat_id": "C2T01E14",
+        "source": "C1T03",
+        "condition": "C1T03E06 === true",
+        "description": "Immunosuppression si coché"
+      },
+      {
+        "constat_id": "C2T01E15",
+        "source": "C1T03",
+        "condition": "C1T03E05 === true",
+        "description": "Maladie hépatique non contrôlée si coché"
+      },
+      {
+        "constat_id": "C2T01E16",
+        "source": "C1T03",
+        "condition": "thyroid_disorder_present",
+        "description": "Désordre thyroïdien si présent"
+      },
+      {
+        "constat_id": "C2T01E17",
+        "source": "C1T15",
+        "condition": "vascular_assessment_inadequate",
+        "description": "Vascularisation inadéquate si détectée dans évaluation vasculaire"
+      },
+      {
+        "constat_id": "C2T01E18",
+        "source": "C1T07",
+        "condition": "medication_affecting_healing",
+        "description": "Médication affectant la cicatrisation si présente"
+      }
+    ]
+  },
+  "elements": [
+    {
+      "id": "C2T01E01",
+      "type": "informational",
+      "label": "Vieillissement",
+      "description": "Processus de vieillissement naturel affectant la capacité de cicatrisation",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E02",
+      "type": "informational",
+      "label": "Charge microbienne élevée",
+      "description": "Présence importante de micro-organismes dans la plaie",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E03",
+      "type": "informational",
+      "label": "Surpoids",
+      "description": "Indice de masse corporelle (IMC) supérieur à la normale",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E04",
+      "type": "informational",
+      "label": "Sous poids",
+      "description": "Indice de masse corporelle (IMC) inférieur à la normale",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E05",
+      "type": "informational",
+      "label": "Biofilm suspecté",
+      "description": "Présence suspectée d'un biofilm bactérien dans la plaie",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E06",
+      "type": "informational",
+      "label": "Diabète non contrôlé",
+      "description": "Diabète mal équilibré avec glycémie instable",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E07",
+      "type": "informational",
+      "label": "Apport nutritionnel et/ou hydrique insuffisant",
+      "description": "Déficit en nutriments essentiels ou en hydratation",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E08",
+      "type": "informational",
+      "label": "Anémie",
+      "description": "Taux d'hémoglobine inférieur à la normale",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E09",
+      "type": "informational",
+      "label": "Hypoxie",
+      "description": "Déficit en oxygène dans les tissus",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E10",
+      "type": "informational",
+      "label": "Tabagisme",
+      "description": "Consommation de tabac active ou récente",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E11",
+      "type": "informational",
+      "label": "Hypertension non contrôlée",
+      "description": "Hypertension artérielle mal contrôlée par le traitement",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E12",
+      "type": "informational",
+      "label": "Maladie autoimmune ou inflammatoire non contrôlée",
+      "description": "Maladie autoimmune ou inflammatoire mal contrôlée (polyarthrite rhumatoïde, lupus, etc.)",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E13",
+      "type": "informational",
+      "label": "Insuffisance rénale non contrôlée",
+      "description": "Fonction rénale altérée non contrôlée",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E14",
+      "type": "informational",
+      "label": "Immunosuppression",
+      "description": "Système immunitaire affaibli (traitement immunosuppresseur, VIH, greffe, etc.)",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E15",
+      "type": "informational",
+      "label": "Maladie hépatique non contrôlée",
+      "description": "Maladie du foie non contrôlée (hépatite, cirrhose, etc.)",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E16",
+      "type": "informational",
+      "label": "Désordre thyroïdien non contrôlé",
+      "description": "Trouble de la thyroïde non contrôlé (hypothyroïdie, hyperthyroïdie, etc.)",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E17",
+      "type": "informational",
+      "label": "Vascularisation inadéquate ou incertaine",
+      "description": "Apport sanguin insuffisant ou incertain à la zone de la plaie",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E18",
+      "type": "informational",
+      "label": "Médication",
+      "description": "Médicament pouvant affecter la cicatrisation",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Détecté"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T01E18_DETAIL",
+      "type": "text",
+      "label": "Détails de la médication",
+      "description": "Précisions sur la médication affectant la cicatrisation",
+      "required": false,
+      "read_only": false,
+      "conditional": {
+        "depends_on": "C2T01E18",
+        "value": true
+      },
+      "ui": {
+        "component": "TextInput",
+        "placeholder": "Indiquez le nom de la médication",
+        "help": "Vous pouvez compléter les détails de la médication détectée",
+        "multiline": true
+      },
+      "routes": []
+    }
+  ],
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Constats de ralentissement de la cicatrisation",
+    "instructions": "Les constats suivants ont été détectés automatiquement à partir de votre évaluation. Vous pouvez compléter les détails si nécessaire."
+  },
+  "data_structure": {
+    "detected_constats": {
+      "type": "array",
+      "description": "Liste des IDs des constats détectés automatiquement"
+    },
+    "medication_detail": {
+      "id": "C2T01E18_DETAIL",
+      "type": "string",
+      "description": "Détail de la médication si C2T01E18 est détecté (complétable par l'utilisateur)"
+    },
+    "export_format": {
+      "detected_constats": "Array of detected constat IDs",
+      "medication": {
+        "detected": "Boolean (C2T01E18)",
+        "detail": "String (C2T01E18_DETAIL) if medication detected"
+      }
+    }
+  },
+  "clinical_notes": {
+    "importance": "Les constats de ralentissement de la cicatrisation sont générés automatiquement pour guider le plan de traitement",
+    "documentation": "Tous les constats détectés seront documentés dans le dossier du patient",
+    "treatment_implications": {
+      "nutrition": "Si apport nutritionnel insuffisant détecté, considérer une consultation en nutrition",
+      "infection": "Si charge microbienne élevée ou biofilm détecté, considérer un traitement antimicrobien",
+      "vascular": "Si vascularisation inadéquate détectée, évaluation vasculaire recommandée",
+      "medication": "Si médication affectant la cicatrisation détectée, réévaluation avec le médecin prescripteur"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Constats de ralentissement de la cicatrisation",
+    "instructions_aria": "Affichage des constats détectés automatiquement à partir de l'évaluation"
+  }
+}

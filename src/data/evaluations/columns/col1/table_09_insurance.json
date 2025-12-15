@@ -22,8 +22,8 @@
       "options": [
         {
           "value": "ramq",
-          "label": "RAMQ*"
-          
+          "label": "RAMQ*",
+          "description": "Régie de l'assurance maladie du Québec"
         },
         {
           "value": "private_collective",

@@ -1,0 +1,511 @@
+{
+  "id": "C2T03",
+  "version": "1.0.0",
+  "title": "Type de plaie",
+  "description": "Type de plaie déterminé automatiquement à partir de l'étiologie et des caractéristiques",
+  "category": "wound_type_assessment",
+  "column": 2,
+  "table": 3,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "read_only": true,
+  "auto_generated": true,
+  "source_mapping": {
+    "description": "Le type de plaie est déterminé automatiquement à partir de l'étiologie (table 11) et des caractéristiques spécifiques",
+    "mapping_rules": [
+      {
+        "constat_id": "C2T03E01",
+        "source": "C1T11E06",
+        "condition": "contains 'insuffisance_veineuse' AND NOT contains 'maladie_arterielle'",
+        "description": "Ulcère veineux si insuffisance veineuse seule"
+      },
+      {
+        "constat_id": "C2T03E02",
+        "source": "C1T11E06",
+        "condition": "contains 'maladie_arterielle' AND NOT contains 'insuffisance_veineuse'",
+        "description": "Ulcère artériel si maladie artérielle seule"
+      },
+      {
+        "constat_id": "C2T03E03",
+        "source": "C1T11E06",
+        "condition": "contains 'insuffisance_veineuse' AND contains 'maladie_arterielle'",
+        "description": "Ulcère mixte si les deux sont présents"
+      },
+      {
+        "constat_id": "C2T03E04",
+        "source": "C1T11E06 + C1T11E08",
+        "condition": "contains 'brulure'",
+        "description": "Brûlure détectée si étiologie brûlure"
+      },
+      {
+        "constat_id": "C2T03E05",
+        "source": "C1T11E08",
+        "condition": "value === 'stage_1'",
+        "description": "1er degré si stade 1 sélectionné"
+      },
+      {
+        "constat_id": "C2T03E06",
+        "source": "C1T11E08",
+        "condition": "value === 'stage_2a'",
+        "description": "2e degré superficiel si stade 2a sélectionné"
+      },
+      {
+        "constat_id": "C2T03E07",
+        "source": "C1T11E08",
+        "condition": "value === 'stage_2b'",
+        "description": "2e degré profond si stade 2b sélectionné"
+      },
+      {
+        "constat_id": "C2T03E08",
+        "source": "C1T11E08",
+        "condition": "value === 'stage_3' OR value === 'stage_4'",
+        "description": "3e ou 4e degré si stade 3 ou 4 sélectionné"
+      },
+      {
+        "constat_id": "C2T03E09",
+        "source": "C1T11E06",
+        "condition": "contains 'dechirure_cutanee'",
+        "description": "Déchirure cutanée si étiologie déchirure"
+      },
+      {
+        "constat_id": "C2T03E10",
+        "source": "C1T11E06 + C1T11E09",
+        "condition": "contains 'pression'",
+        "description": "Lésion de pression si étiologie pression"
+      },
+      {
+        "constat_id": "C2T03E11",
+        "source": "C1T11E09",
+        "condition": "value === 'stage_1'",
+        "description": "Stade 1 si sélectionné"
+      },
+      {
+        "constat_id": "C2T03E12",
+        "source": "C1T11E09",
+        "condition": "value === 'stage_2'",
+        "description": "Stade 2 si sélectionné"
+      },
+      {
+        "constat_id": "C2T03E13",
+        "source": "C1T11E09",
+        "condition": "value === 'stage_3'",
+        "description": "Stade 3 si sélectionné"
+      },
+      {
+        "constat_id": "C2T03E14",
+        "source": "C1T11E09",
+        "condition": "value === 'stage_4'",
+        "description": "Stade 4 si sélectionné"
+      },
+      {
+        "constat_id": "C2T03E15",
+        "source": "C1T11E09",
+        "condition": "value === 'ltp'",
+        "description": "LTP (lésion des tissus profonds) si sélectionné"
+      },
+      {
+        "constat_id": "C2T03E16",
+        "source": "C1T11E09",
+        "condition": "value === 'undetermined'",
+        "description": "Stade indéterminé si sélectionné"
+      },
+      {
+        "constat_id": "C2T03E17",
+        "source": "C1T11E06",
+        "condition": "contains 'autre_trauma'",
+        "description": "Plaie traumatique si autre trauma sélectionné"
+      },
+      {
+        "constat_id": "C2T03E18",
+        "source": "C1T11E06",
+        "condition": "contains 'incontinence'",
+        "description": "Dermite d'incontinence si incontinence sélectionnée"
+      },
+      {
+        "constat_id": "C2T03E19",
+        "source": "C1T11E06",
+        "condition": "contains 'pied_diabetique'",
+        "description": "Ulcère du pied diabétique si pied diabétique sélectionné"
+      },
+      {
+        "constat_id": "C2T03E20",
+        "source": "C1T11E06",
+        "condition": "contains 'chirurgie'",
+        "description": "Plaie chirurgicale si chirurgie sélectionnée"
+      }
+    ]
+  },
+  "elements": [
+    {
+      "id": "C2T03E01",
+      "type": "informational",
+      "label": "Ulcère veineux",
+      "description": "Plaie d'origine veineuse",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#2196F3",
+        "display_format": "Ulcère veineux"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E02",
+      "type": "informational",
+      "label": "Ulcère artériel",
+      "description": "Plaie d'origine artérielle",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Ulcère artériel"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E03",
+      "type": "informational",
+      "label": "Ulcère mixte",
+      "description": "Plaie d'origine veineuse et artérielle combinée",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Ulcère mixte"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E04",
+      "type": "informational",
+      "label": "Brûlure",
+      "description": "Plaie par brûlure",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF5722",
+        "display_format": "Brûlure"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E05",
+      "type": "informational",
+      "label": "1er degré",
+      "description": "Brûlure du 1er degré",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E04",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "1er degré"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E06",
+      "type": "informational",
+      "label": "2e degré superficiel",
+      "description": "Brûlure du 2e degré superficiel",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E04",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF5722",
+        "display_format": "2e degré superficiel"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E07",
+      "type": "informational",
+      "label": "2e degré profond",
+      "description": "Brûlure du 2e degré profond",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E04",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "2e degré profond"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E08",
+      "type": "informational",
+      "label": "3e ou 4e degré",
+      "description": "Brûlure du 3e ou 4e degré",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E04",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#D32F2F",
+        "display_format": "3e ou 4e degré"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E09",
+      "type": "informational",
+      "label": "Déchirure cutanée",
+      "description": "Plaie par déchirure de la peau",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#9C27B0",
+        "display_format": "Déchirure cutanée"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E10",
+      "type": "informational",
+      "label": "Lésion de pression",
+      "description": "Lésion causée par pression, friction ou cisaillement",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#795548",
+        "display_format": "Lésion de pression"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E11",
+      "type": "informational",
+      "label": "Stade 1",
+      "description": "Lésion de pression stade 1",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E10",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "Stade 1"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E12",
+      "type": "informational",
+      "label": "Stade 2",
+      "description": "Lésion de pression stade 2",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E10",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF5722",
+        "display_format": "Stade 2"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E13",
+      "type": "informational",
+      "label": "Stade 3",
+      "description": "Lésion de pression stade 3",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E10",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "Stade 3"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E14",
+      "type": "informational",
+      "label": "Stade 4",
+      "description": "Lésion de pression stade 4",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E10",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#D32F2F",
+        "display_format": "Stade 4"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E15",
+      "type": "informational",
+      "label": "LTP (lésion des tissus profonds)",
+      "description": "Lésion des tissus profonds",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E10",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#9C27B0",
+        "display_format": "LTP"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E16",
+      "type": "informational",
+      "label": "Stade indéterminé",
+      "description": "Stade de lésion de pression non évaluable",
+      "read_only": true,
+      "conditional": {
+        "depends_on": "C2T03E10",
+        "value": true
+      },
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#9E9E9E",
+        "display_format": "Stade indéterminé"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E17",
+      "type": "informational",
+      "label": "Plaie traumatique",
+      "description": "Plaie causée par un traumatisme",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#607D8B",
+        "display_format": "Plaie traumatique"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E18",
+      "type": "informational",
+      "label": "Dermite d'incontinence",
+      "description": "Plaie liée à l'humidité et l'incontinence",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#00BCD4",
+        "display_format": "Dermite d'incontinence"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E19",
+      "type": "informational",
+      "label": "Ulcère du pied diabétique",
+      "description": "Plaie du pied diabétique",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#E91E63",
+        "display_format": "Ulcère du pied diabétique"
+      },
+      "routes": []
+    },
+    {
+      "id": "C2T03E20",
+      "type": "informational",
+      "label": "Plaie chirurgicale",
+      "description": "Plaie post-chirurgicale",
+      "read_only": true,
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#3F51B5",
+        "display_format": "Plaie chirurgicale"
+      },
+      "routes": []
+    }
+  ],
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "medium",
+    "group_label": "Type de plaie",
+    "instructions": "Le type de plaie a été déterminé automatiquement à partir de l'étiologie et des caractéristiques spécifiques."
+  },
+  "data_structure": {
+    "wound_type": {
+      "type": "string",
+      "description": "Type principal de la plaie détecté",
+      "values": [
+        "ulcere_veineux",
+        "ulcere_arteriel",
+        "ulcere_mixte",
+        "brulure",
+        "dechirure_cutanee",
+        "lesion_pression",
+        "plaie_traumatique",
+        "dermite_incontinence",
+        "ulcere_pied_diabetique",
+        "plaie_chirurgicale"
+      ]
+    },
+    "subtypes": {
+      "burn_stage": {
+        "type": "string",
+        "description": "Stade de brûlure si applicable",
+        "values": ["1er_degre", "2e_degre_superficiel", "2e_degre_profond", "3e_ou_4e_degre"]
+      },
+      "pressure_stage": {
+        "type": "string",
+        "description": "Stade de lésion de pression si applicable",
+        "values": ["stage_1", "stage_2", "stage_3", "stage_4", "ltp", "undetermined"]
+      }
+    },
+    "source_data": {
+      "etiology": "C1T11E06",
+      "burn_stage": "C1T11E08",
+      "pressure_stage": "C1T11E09"
+    },
+    "export_format": {
+      "wound_type": "String (primary type)",
+      "subtypes": "Object with burn_stage and/or pressure_stage if applicable",
+      "etiology": "Array of selected etiologies from C1T11E06"
+    }
+  },
+  "clinical_notes": {
+    "importance": "Le type de plaie détermine le plan de traitement et les interventions spécifiques requises",
+    "documentation": "Le type de plaie sera documenté automatiquement dans le dossier du patient",
+    "treatment_implications": {
+      "ulcere_veineux": "Nécessite une compression thérapeutique adaptée",
+      "ulcere_arteriel": "Nécessite une décharge et évaluation vasculaire",
+      "ulcere_mixte": "Nécessite une approche combinée veineuse et artérielle",
+      "brulure": "Nécessite une évaluation spécialisée selon le degré",
+      "lesion_pression": "Nécessite une surface thérapeutique adaptée et prévention",
+      "pied_diabetique": "Nécessite une évaluation spécialisée du pied diabétique"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Type de plaie",
+    "instructions_aria": "Affichage du type de plaie déterminé automatiquement"
+  }
+}
+
+
+
+
+

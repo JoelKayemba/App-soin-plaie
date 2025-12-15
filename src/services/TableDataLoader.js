@@ -81,7 +81,7 @@ class TableDataLoader {
 
         try {
           // Chargement des tables pour test
-          console.log('🔄 Chargement des tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 et 34...');
+          console.log('Chargement des tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 et 34...');
           
           const table01 = await import('@/data/evaluations/columns/col1/table_01_basic_data.json');
           const table02 = await import('@/data/evaluations/columns/col1/table_02_allergies.json');
@@ -117,6 +117,11 @@ class TableDataLoader {
           const table32 = await import('@/data/evaluations/columns/col1/table_32_venous_ulcer.json');
           const table33 = await import('@/data/evaluations/columns/col1/table_33_arterial_ulcer.json');
           const table34 = await import('@/data/evaluations/columns/col1/table_34_diabetic_foot.json');
+          
+          // Tables colonne 2 (constats)
+          const col2Table01 = await import('@/data/evaluations/columns/col2_constats/table_01_cicatrisation_ralentie.json');
+          const col2Table02 = await import('@/data/evaluations/columns/col2_constats/table_02_statut_plaie.json');
+          const col2Table03 = await import('@/data/evaluations/columns/col2_constats/table_03_type_plaie.json');
 
           // Créer l'objet avec les tables nécessaires
           this.allTablesCache = {
@@ -153,14 +158,18 @@ class TableDataLoader {
             'table_31_pressure_injury.json': table31.default || table31,
             'table_32_venous_ulcer.json': table32.default || table32,
             'table_33_arterial_ulcer.json': table33.default || table33,
-            'table_34_diabetic_foot.json': table34.default || table34
+            'table_34_diabetic_foot.json': table34.default || table34,
+            // Tables colonne 2
+            'table_01_cicatrisation_ralentie.json': col2Table01.default || col2Table01,
+            'table_02_statut_plaie.json': col2Table02.default || col2Table02,
+            'table_03_type_plaie.json': col2Table03.default || col2Table03
           };
 
           this.allTablesLoaded = true;
-          console.log('✅ Tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 et 34 chargées avec succès');
+          console.log(' Tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 et 34 chargées avec succès');
           return this.allTablesCache;
     } catch (error) {
-      console.error('❌ Erreur lors de l\'import de la première table:', error);
+      console.error(' Erreur lors de l\'import de la première table:', error);
       return {};
     }
   }
@@ -172,10 +181,13 @@ class TableDataLoader {
    * @private
    */
   _getTableFileName(tableId) {
-    const tableNumber = tableId.replace('C1T', '').padStart(2, '0');
+    // Détecter la colonne (C1 ou C2)
+    const columnMatch = tableId.match(/^C(\d+)T/);
+    const column = columnMatch ? columnMatch[1] : '1';
+    const tableNumber = tableId.replace(/^C\d+T/, '').padStart(2, '0');
     
-    // Mapping des noms de fichiers
-    const fileNames = {
+    // Mapping des noms de fichiers pour colonne 1
+    const col1FileNames = {
       '01': 'table_01_basic_data.json',
       '02': 'table_02_allergies.json',
       '03': 'table_03_health_conditions.json',
@@ -211,7 +223,17 @@ class TableDataLoader {
       '33': 'table_33_arterial_ulcer.json',
       '34': 'table_34_diabetic_foot.json'
     };
-
+    
+    // Mapping des noms de fichiers pour colonne 2
+    const col2FileNames = {
+      '01': 'table_01_cicatrisation_ralentie.json',
+      '02': 'table_02_statut_plaie.json',
+      '03': 'table_03_type_plaie.json'
+    };
+    
+    // Sélectionner le mapping selon la colonne
+    const fileNames = column === '2' ? col2FileNames : col1FileNames;
+    
     return fileNames[tableNumber] || `table_${tableNumber}.json`;
   }
 

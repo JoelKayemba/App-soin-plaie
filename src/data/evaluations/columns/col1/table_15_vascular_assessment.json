@@ -401,8 +401,8 @@
     },
     "ipscb": {
       "id": "C1T15D",
-      "title": "Bloc D — IPSCB*indice de pression systolique cheville bras",
-      "description": "indice de pression systolique cheville bras",
+      "title": "Bloc D — IPSCB*",
+      "description": "Indice de pression systolique cheville bras",
       "type": "calculation",
       "required": false,
       "condition": {
@@ -412,7 +412,8 @@
       "measurements": [
         {
           "id": "C1T15D01",
-          "label": "PAS*pression artérielle systolique la plus élevée des deux bras",
+          "label": "PAS*",
+          "description": "Pression artérielle systolique la plus élevée des deux bras",
           "type": "number",
           "unit": "mmHg",
           "validation": {

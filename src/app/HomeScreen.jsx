@@ -157,7 +157,7 @@ const HomeScreen = ({ navigation }) => {
     };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'left', 'right']}>
       <TView style={s.root}>
         <SectionHeader
           searchValue={searchQuery}
