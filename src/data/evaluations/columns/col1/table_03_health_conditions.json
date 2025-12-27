@@ -122,6 +122,78 @@
       "routes": []
     },
     {
+      "id": "C1T03_DIABETES_GLYCEMIA_MODAL",
+      "type": "diabetes_glycemia_modal",
+      "label": "Évaluation de la glycémie",
+      "description": "Renseignez les valeurs de glycémie",
+      "required": false,
+      "conditional": {
+        "depends_on": ["C1T03E08", "C1T03E09"],
+        "condition": "anyOf",
+        "value": true
+      },
+      "ui": {
+        "component": "DiabetesGlycemiaModal",
+        "button_label": "Remplir les valeurs de glycémie"
+      },
+      "fields": [
+        {
+          "id": "C1T03_DIAB_HBA1C_VALUE",
+          "type": "number",
+          "label": "HbA1C*",
+          "description": "Hémoglobine glyquée",
+          "validation": {
+            "min": 0,
+            "max": 20,
+            "step": 0.1
+          },
+          "unit": "%",
+          "help_popup": "Si >7%"
+        },
+        {
+          "id": "C1T03_DIAB_HBA1C_UNKNOWN",
+          "type": "boolean",
+          "label": "HbA1C Inconnue"
+        },
+        {
+          "id": "C1T03_DIAB_FASTING_VALUE",
+          "type": "number",
+          "label": "Glycémie à jeun",
+          "description": "Au lever ou 4h postrepas",
+          "validation": {
+            "min": 0,
+            "max": 30,
+            "step": 0.1
+          },
+          "unit": "mmol/L",
+          "help_popup": "Si >7"
+        },
+        {
+          "id": "C1T03_DIAB_FASTING_UNKNOWN",
+          "type": "boolean",
+          "label": "Glycémie à jeun Inconnue"
+        },
+        {
+          "id": "C1T03_DIAB_POSTPRANDIAL_VALUE",
+          "type": "number",
+          "label": "Glycémie 2h postprandiale",
+          "description": "Entrez un chiffre",
+          "validation": {
+            "min": 0,
+            "max": 30,
+            "step": 0.1
+          },
+          "unit": "mmol/L",
+          "help_popup": "Si >10"
+        },
+        {
+          "id": "C1T03_DIAB_POSTPRANDIAL_UNKNOWN",
+          "type": "boolean",
+          "label": "Glycémie 2h postprandiale Inconnue"
+        }
+      ]
+    },
+    {
       "id": "C1T03E10",
       "type": "boolean",
       "label": "Grossesse",
@@ -296,6 +368,14 @@
       "oxygen_desaturation": "C1T03E07",
       "diabetes_type1": "C1T03E08",
       "diabetes_type2": "C1T03E09",
+      "diabetes_glycemia": {
+        "hba1c_value": "C1T03_DIAB_HBA1C_VALUE",
+        "hba1c_unknown": "C1T03_DIAB_HBA1C_UNKNOWN",
+        "fasting_value": "C1T03_DIAB_FASTING_VALUE",
+        "fasting_unknown": "C1T03_DIAB_FASTING_UNKNOWN",
+        "postprandial_value": "C1T03_DIAB_POSTPRANDIAL_VALUE",
+        "postprandial_unknown": "C1T03_DIAB_POSTPRANDIAL_UNKNOWN"
+      },
       "pregnancy": "C1T03E10",
       "uncontrolled_hypertension": "C1T03E11",
       "cardiac_arrhythmia": "C1T03E12",

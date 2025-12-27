@@ -205,15 +205,15 @@
   ],
   "categories": {
     "intensite_duree_pression": {
-      "label": "1️⃣ INTENSITÉ ET DURÉE DE LA PRESSION",
+      "label": "1 INTENSITÉ ET DURÉE DE LA PRESSION",
       "dimensions": ["mobilite", "perception_sensorielle"]
     },
     "tolerance_peau": {
-      "label": "2️⃣ TOLÉRANCE DE LA PEAU ET DES STRUCTURES SOUS-JACENTES",
+      "label": "2️ TOLÉRANCE DE LA PEAU ET DES STRUCTURES SOUS-JACENTES",
       "dimensions": ["friction_cisaillement", "nutrition", "perfusion_oxygénation"]
     },
     "facteurs_additionnels": {
-      "label": "3️⃣ FACTEURS ADDITIONNELS",
+      "label": "3️ FACTEURS ADDITIONNELS",
       "dimensions": ["dispositifs_medicaux", "repositionnement_protection"]
     }
   }

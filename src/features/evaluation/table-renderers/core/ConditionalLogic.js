@@ -18,10 +18,26 @@ export const shouldShowElement = (element, data, tableId = null) => {
 
   // Gestion des conditions standard (conditional)
   if (element.conditional) {
-    const { depends_on, value } = element.conditional;
+    const { depends_on, value, condition } = element.conditional;
     
-    // Vérifier si la dépendance est satisfaite
-    if (depends_on && value !== undefined) {
+    // Gestion de la condition "anyOf" (au moins un des champs doit être vrai)
+    if (condition === 'anyOf' && Array.isArray(depends_on)) {
+      return depends_on.some(fieldId => {
+        const fieldValue = data[fieldId];
+        return fieldValue === true || fieldValue === 'true' || fieldValue === 1;
+      });
+    }
+    
+    // Gestion de la condition "allOf" (tous les champs doivent être vrais)
+    if (condition === 'allOf' && Array.isArray(depends_on)) {
+      return depends_on.every(fieldId => {
+        const fieldValue = data[fieldId];
+        return fieldValue === true || fieldValue === 'true' || fieldValue === 1;
+      });
+    }
+    
+    // Gestion standard avec un seul champ dépendant
+    if (depends_on && !Array.isArray(depends_on) && value !== undefined) {
       const dependentValue = data[depends_on];
       
       // Pour les sélections multiples (arrays)

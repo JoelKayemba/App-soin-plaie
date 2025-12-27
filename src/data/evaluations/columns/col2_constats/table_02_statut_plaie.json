@@ -20,16 +20,16 @@
       {
         "constat_id": "C2T02E01",
         "source": "C1T11E01",
-        "condition": "wound_age <= 28 days",
+        "condition": "wound_age_days <= 28",
         "description": "Plaie aiguë si l'âge de la plaie est ≤ 28 jours (< 4 semaines)",
-        "calculation": "calculateWoundAge(appearanceDate).isRecent === true"
+        "calculation": "calculateWoundAge(C1T11E01).isRecent === true"
       },
       {
         "constat_id": "C2T02E02",
         "source": "C1T11E01",
-        "condition": "wound_age > 28 days",
+        "condition": "wound_age_days > 28",
         "description": "Plaie chronique si l'âge de la plaie est > 28 jours (≥ 4 semaines)",
-        "calculation": "calculateWoundAge(appearanceDate).isChronic === true"
+        "calculation": "calculateWoundAge(C1T11E01).isChronic === true"
       }
     ]
   },

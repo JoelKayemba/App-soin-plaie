@@ -333,7 +333,7 @@ const SearchScreen = ({ navigation }) => {
     if (searchQuery.length > 0) {
       return (
         <View style={s.noResults}>
-          <TIcon name="search-off" size={48} color={colors.textSecondary} />
+          <TIcon name="alert-circle-outline" size={48} color={colors.textSecondary} />
           <TText style={s.noResultsText}>
             Aucun résultat trouvé pour "{searchQuery}"
           </TText>

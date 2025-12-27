@@ -44,7 +44,7 @@ const RadioGroup = ({
   };
 
   return (
-    <TView style={[styles.container, style]} {...props}>
+    <TView style={[styles.container, { backgroundColor: 'transparent' }, style]} {...props}>
       {label && (
         <View style={styles.header}>
           <TText style={[styles.label, { color: colors.text }]}>
@@ -168,12 +168,14 @@ const RadioGroup = ({
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'transparent',
     marginBottom: spacing.form.elementSpacing,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: spacing.form.labelSpacing,
+    backgroundColor: 'transparent',
   },
   label: {
     fontSize: 16,
@@ -199,8 +201,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     minHeight: 24,
+    backgroundColor: 'transparent',
   },
   optionTextContainer: {
+    backgroundColor: 'transparent',
     flex: 1,
     marginRight: spacing.xs,
   },

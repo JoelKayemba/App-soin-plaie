@@ -412,7 +412,7 @@
       "measurements": [
         {
           "id": "C1T15D01",
-          "label": "PAS*",
+          "label": "PAS",
           "description": "Pression artérielle systolique la plus élevée des deux bras",
           "type": "number",
           "unit": "mmHg",
@@ -589,6 +589,123 @@
           "red_flag": true
         }
       }
+    },
+    "vascular_constats": {
+      "id": "C1T15_CONSTATS",
+      "title": "Constats d'apport vasculaire",
+      "description": "Constats générés automatiquement à partir de l'évaluation",
+      "type": "constats",
+      "required": false,
+      "condition": {
+        "anyOf": ["C1T14E01_05", "C1T14E01_06"]
+      },
+      "elements": [
+        {
+          "id": "C1T15_WARNING_AGE",
+          "type": "constat",
+          "label": "Avertissement IPSCB",
+          "description": "Avertissement si âge >= 65 ans",
+          "required": false,
+          "constat_table": "C2T05",
+          "constat_element": "C2T05E01",
+          "conditional": {
+            "depends_on": "C1T15D07",
+            "required": false
+          },
+          "ui": {
+            "component": "ClinicalAlert",
+            "position": "after_ipscb_result"
+          }
+        },
+        {
+          "id": "C1T15_CONSTAT_NO_ARTERIAL",
+          "type": "constat",
+          "label": "Sans autre S/S",
+          "description": "Sans autre S/S d'insuffisance artérielle",
+          "required": false,
+          "constat_table": "C2T05",
+          "constat_element": "C2T05E02",
+          "ui": {
+            "component": "ResultBadge"
+          }
+        },
+        {
+          "id": "C1T15_CONSTAT_WITH_ARTERIAL",
+          "type": "constat",
+          "label": "Avec S/S",
+          "description": "Avec S/S d'insuffisance artérielle",
+          "required": false,
+          "constat_table": "C2T05",
+          "constat_elements": ["C2T05E03", "C2T05E04"],
+          "ui": {
+            "component": "ResultBadge"
+          }
+        }
+      ]
+    },
+    "vascular_confirmation": {
+      "id": "C1T15_CONFIRMATION",
+      "title": "Vascularisation de la plaie 1",
+      "description": "Veuillez confirmer l'apport vasculaire 1",
+      "type": "single_choice",
+      "required": true,
+      "condition": {
+        "anyOf": ["C1T14E01_05", "C1T14E01_06"]
+      },
+      "elements": [
+        {
+          "id": "C1T15_CONFIRMATION",
+          "type": "single_choice",
+          "label": "Veuillez confirmer l'apport vasculaire 1",
+          "description": "Sélectionnez l'option qui correspond à l'apport vasculaire évalué",
+          "required": true,
+          "options": [
+            {
+              "id": "C1T15_CONF_01",
+              "label": "Adéquat",
+              "description": "Apport vasculaire adéquat",
+              "value": "adequate"
+            },
+            {
+              "id": "C1T15_CONF_02",
+              "label": "Insuffisant",
+              "description": "Apport vasculaire insuffisant",
+              "value": "insufficient"
+            },
+            {
+              "id": "C1T15_CONF_03",
+              "label": "Incertain",
+              "description": "Apport vasculaire incertain",
+              "value": "uncertain"
+            },
+            {
+              "id": "C1T15_CONF_04",
+              "label": "Suspicion d'ischémie aiguë",
+              "description": "Suspicion d'ischémie aiguë",
+              "value": "acute_ischemia_suspected"
+            }
+          ],
+          "ui": {
+            "component": "RadioGroup",
+            "layout": "vertical",
+            "spacing": "medium",
+            "help": "Sélectionnez l'option qui correspond à l'apport vasculaire évalué"
+          },
+          "validation": {
+            "required": true,
+            "message": "Veuillez confirmer l'apport vasculaire"
+          },
+          "routes": [
+            {
+              "to": "C2T01E17",
+              "phase": "post_eval",
+              "priority": 1,
+              "condition": "C1T15_CONFIRMATION === 'insufficient' || C1T15_CONFIRMATION === 'uncertain' || C1T15_CONFIRMATION === 'acute_ischemia_suspected'",
+              "note": "Apport vasculaire insuffisant/incertain/ischémie → constat synthétique C2T01E17"
+            }
+          ]
+        }
+      ]
     }
   },
   "validation_rules": {

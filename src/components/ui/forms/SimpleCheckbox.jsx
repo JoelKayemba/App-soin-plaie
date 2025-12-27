@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert, Text } from 'react-native';
 import { TView, TText, TIcon } from '../Themed';
 import { useTheme } from '@/context/ThemeContext';
 import spacing from '@/styles/spacing';
@@ -34,7 +34,7 @@ const SimpleCheckbox = ({
   };
 
   return (
-    <TView style={[styles.container, style]} {...props}>
+    <View style={[styles.container, { backgroundColor: 'transparent' }, style]} {...props}>
       <TouchableOpacity
         style={[
           styles.checkboxContainer,
@@ -59,7 +59,7 @@ const SimpleCheckbox = ({
         </View>
         
         <View style={styles.labelContainer}>
-          <TText style={[
+          <Text style={[
             styles.label,
             { 
               color: disabled ? colors.textTertiary : colors.text,
@@ -67,13 +67,13 @@ const SimpleCheckbox = ({
             }
           ]}>
             {label}
-            {required && <TText style={{ color: colors.error }}> *</TText>}
-          </TText>
+            {required && <Text style={{ color: colors.error }}> *</Text>}
+          </Text>
           
           {description && (
-            <TText style={[styles.description, { color: colors.textSecondary }]}>
+            <Text style={[styles.description, { color: colors.textSecondary }]}>
               {description}
-            </TText>
+            </Text>
           )}
         </View>
 
@@ -85,11 +85,11 @@ const SimpleCheckbox = ({
       </TouchableOpacity>
       
       {error && (
-        <TText style={[styles.error, { color: colors.error }]}>
+        <Text style={[styles.error, { color: colors.error }]}>
           {error}
-        </TText>
+        </Text>
       )}
-    </TView>
+    </View>
   );
 };
 
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     paddingVertical: spacing.sm,
+    backgroundColor: 'transparent',
   },
   checkbox: {
     width: 24,
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
   label: {
     fontSize: 16,

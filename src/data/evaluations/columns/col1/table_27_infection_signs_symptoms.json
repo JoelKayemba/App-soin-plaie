@@ -371,6 +371,23 @@
       "ui": {
         "component": "Checkbox"
       }
+    },
+    {
+      "id": "C1T27_CONTINUUM_MICROBIEN",
+      "type": "constat",
+      "label": "Stade du continuum microbien",
+      "description": "Évaluation du continuum microbien et confirmation du statut infectieux",
+      "required": false,
+      "constat_table": "C2T04",
+      "conditional": {
+        "depends_on": "any_C1T27_element",
+        "required": false,
+        "condition": "any_element_checked"
+      },
+      "ui": {
+        "component": "ContinuumMicrobien",
+        "position": "after_all_elements"
+      }
     }
   ],
   "validation_rules": {

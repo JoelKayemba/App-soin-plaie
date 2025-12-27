@@ -14,6 +14,7 @@ import AppearanceScreen from '../app/settings/AppearanceScreen';
 import FavoritesScreen from '../app/FavoritesScreen';
 import HelperOverlayScreen from '../app/HelperOverlayScreen';
 import EvaluationSummaryScreen from '../app/EvaluationSummaryScreen';
+import ConstatsScreen from '../app/ConstatsScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +42,15 @@ const AppNavigator = () => {
         name="EvaluationSummary"
         component={EvaluationSummaryScreen}
         options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_right' }}
+      />
+      <Stack.Screen
+        name="Constats"
+        component={ConstatsScreen}
+        options={{ 
+          headerShown: false,
+          presentation: 'modal', 
+          animation: 'slide_from_bottom' 
+        }}
       />
     </Stack.Navigator>
   );

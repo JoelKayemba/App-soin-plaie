@@ -34,7 +34,134 @@ import {
 import { ClinicalAlert, BradenScale } from '@/components/ui/special';
 import { createElement, createElementWithCommonProps } from './ElementFactory';
 import { calculateWoundAge, classifyBWATSize, evaluateBMICondition } from '../utils/calculations';
+import { constatsGenerator } from '@/services';
+import ContinuumMicrobien from '../components/ContinuumMicrobien';
+import DiabetesGlycemiaModalButton from '../components/DiabetesGlycemiaModalButton';
 import spacing from '@/styles/spacing';
+
+/**
+ * Composant React pour afficher un constat de manière asynchrone
+ */
+const ConstatElement = ({ element, data, evaluationData, errors, colors }) => {
+  const [constatElement, setConstatElement] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const loadConstat = async () => {
+      if (!element.constat_table) {
+        setIsLoading(false);
+        return;
+      }
+
+      // Vérifier la condition conditionnelle si présente
+      if (element.conditional) {
+        const dependsOn = element.conditional.depends_on;
+        const required = element.conditional.required;
+        const fieldValue = data[dependsOn];
+        
+        if (required && !fieldValue) {
+          setIsLoading(false);
+          return; // Ne pas afficher si la condition n'est pas remplie
+        }
+      }
+
+      try {
+        // Générer les constats pour la table spécifiée
+        const constatResult = await constatsGenerator.generateConstatsForTable(
+          element.constat_table,
+          evaluationData || {}
+        );
+
+        const { detectedConstats, constatTable } = constatResult;
+
+        // Debug pour le bloc vascular_constats
+        if (element.constat_table === 'C2T05') {
+          console.log(`[ConstatElement] Table C2T05 - Constats détectés:`, detectedConstats);
+          console.log(`[ConstatElement] Élément recherché:`, element.constat_element || element.constat_elements);
+        }
+
+        if (!constatTable) {
+          console.warn(`[ConstatElement] Table de constats ${element.constat_table} non trouvée`);
+          setIsLoading(false);
+          return;
+        }
+
+        if (detectedConstats.length === 0) {
+          // Debug: pourquoi aucun constat n'est détecté
+          if (element.constat_table === 'C2T05') {
+            console.log(`[ConstatElement] Aucun constat détecté pour C2T05. Vérification des conditions...`);
+          }
+          setIsLoading(false);
+          return;
+        }
+
+        // Si un élément spécifique est demandé, le trouver
+        if (element.constat_element) {
+          const specificConstat = constatTable.elements?.find(el => 
+            el.id === element.constat_element && detectedConstats.includes(el.id)
+          );
+          setConstatElement(specificConstat || null);
+        } 
+        // Si plusieurs éléments sont demandés, prendre le plus grave
+        else if (element.constat_elements && Array.isArray(element.constat_elements)) {
+          const foundConstats = constatTable.elements?.filter(el => 
+            element.constat_elements.includes(el.id) && detectedConstats.includes(el.id)
+          ) || [];
+          
+          // Trier par priorité (priorité plus basse = plus grave)
+          foundConstats.sort((a, b) => (a.priority || 999) - (b.priority || 999));
+          setConstatElement(foundConstats[0] || null);
+        }
+        // Sinon, trouver le premier constat détecté
+        else {
+          const foundConstat = constatTable.elements?.find(el => 
+            detectedConstats.includes(el.id)
+          );
+          setConstatElement(foundConstat || null);
+        }
+      } catch (error) {
+        console.warn(`[ElementRenderer] Erreur chargement constat ${element.constat_table}:`, error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadConstat();
+  }, [element.constat_table, element.constat_element, element.constat_elements, element.conditional, data, evaluationData]);
+
+  if (isLoading || !constatElement) {
+    return null;
+  }
+
+  // Si le composant UI est ClinicalAlert, utiliser ClinicalAlert
+  if (constatElement.ui?.component === 'ClinicalAlert') {
+    return (
+      <ClinicalAlert
+        alert={{
+          type: constatElement.ui?.type || 'warning',
+          severity: constatElement.ui?.severity || 'important',
+          message: constatElement.description || constatElement.label,
+          title: element.label || constatElement.label
+        }}
+      />
+    );
+  }
+
+  // Sinon, afficher le constat avec ResultBadge
+  return (
+    <ResultBadge
+      value={constatElement.label}
+      label={element.label || constatElement.label}
+      description={constatElement.description}
+      displayFormat={constatElement.ui?.display_format || constatElement.label}
+      color={constatElement.ui?.color}
+      icon={constatElement.icon}
+      help={constatElement.description}
+      error={errors[element.id]}
+      disabled={element.disabled || false}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   mixedContainer: {
@@ -355,43 +482,9 @@ export const renderElement = (element, props) => {
       });
 
     case 'calculated':
-      // Logique spéciale pour les badges d'âge de plaie (table 11)
-      if (tableData?.id === 'C1T11' && (element.id === 'C1T11E02' || element.id === 'C1T11E03')) {
-        const appearanceDate = data['C1T11E01'];
-        if (!appearanceDate) {
-          return null; // Ne pas afficher si aucune date d'apparition
-        }
-        
-        const woundAge = calculateWoundAge(appearanceDate);
-        if (!woundAge) {
-          return null;
-        }
-        
-        // Afficher seulement le bon badge selon l'âge
-        if (element.id === 'C1T11E02' && woundAge.isRecent) {
-          return createElementWithCommonPropsLocal(ResultBadge, {
-            value: '< 4 semaines',
-            label: element.label,
-            description: element.description,
-            displayFormat: element.ui?.display_format,
-            color: element.ui?.color,
-            icon: element.icon,
-            help: element.help
-          });
-        } else if (element.id === 'C1T11E03' && woundAge.isChronic) {
-          return createElementWithCommonPropsLocal(ResultBadge, {
-            value: '≥ 4 semaines',
-            label: element.label,
-            description: element.description,
-            displayFormat: element.ui?.display_format,
-            color: element.ui?.color,
-            icon: element.icon,
-            help: element.help
-          });
-        } else {
-          return null; // Ne pas afficher le badge si la condition n'est pas remplie
-        }
-      }
+      // Note: Les badges d'âge de plaie (C1T11E02, C1T11E03) ont été remplacés
+      // par le système de constats (C1T11_WOUND_STATUS avec constat_table: C2T02)
+      // Cette logique est maintenant gérée par le type 'constat'
 
       // Logique spéciale pour la quantité de tissu nécrotique (table 22)
       if (tableData?.id === 'C1T22' && element.id && element.id.startsWith('C1T22E0') && parseInt(element.id.slice(-1)) >= 6 && parseInt(element.id.slice(-1)) <= 10) {
@@ -502,6 +595,45 @@ export const renderElement = (element, props) => {
         unit: element.unit,
         icon: element.icon
       });
+
+    case 'constat':
+      // Vérifier si c'est le constat ContinuumMicrobien (composant spécial)
+      if (element.ui?.component === 'ContinuumMicrobien' || element.constat_table === 'C2T04') {
+        return (
+          <ContinuumMicrobien
+            key={element.id}
+            element={element}
+            data={data}
+            evaluationData={evaluationData}
+            handleDataChange={handleDataChange}
+            colors={colors}
+          />
+        );
+      }
+      
+      // Afficher un constat depuis une table de constats (comportement par défaut)
+      return (
+        <ConstatElement
+          key={element.id}
+          element={element}
+          data={data}
+          evaluationData={evaluationData}
+          errors={errors}
+          colors={colors}
+        />
+      );
+
+    case 'diabetes_glycemia_modal':
+      // Composant spécial pour le modal de glycémie
+      return (
+        <DiabetesGlycemiaModalButton
+          key={element.id}
+          element={element}
+          data={data}
+          handleDataChange={handleDataChange}
+          colors={colors}
+        />
+      );
 
     case 'informational':
       return createElementWithCommonPropsLocal(InfoField, {

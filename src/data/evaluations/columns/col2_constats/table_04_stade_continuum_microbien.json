@@ -1,0 +1,247 @@
+{
+  "id": "C2T04",
+  "version": "1.0.0",
+  "title": "Stade du continuum microbien",
+  "description": "Évaluation du continuum microbien et confirmation du statut infectieux de la plaie",
+  "category": "infection_status_assessment",
+  "column": 2,
+  "table": 4,
+  "metadata": {
+    "created": "2025-01-05",
+    "updated": "2025-01-05",
+    "author": "Système d'évaluation clinique",
+    "language": "fr-CA"
+  },
+  "read_only": false,
+  "auto_generated": true,
+  "trigger_condition": {
+    "description": "Cette table s'affiche automatiquement dès qu'un élément est coché dans la table 27 (Signes et symptômes d'infection)",
+    "source": "C1T27",
+    "condition": "any_element_checked",
+    "phase": "immediate"
+  },
+  "source_mapping": {
+    "description": "Le stade du continuum microbien est déterminé automatiquement à partir des signes d'infection (table 27) et confirmé manuellement",
+    "mapping_rules": [
+      {
+        "constat_id": "C2T04E01",
+        "source": "C1T27",
+        "condition": "C1T27E01 === true || C1T27E02 === true || C1T27E03 === true || C1T27E04 === true || C1T27E06 === true || C1T27E07 === true || C1T27E08 === true || C1T27E10 === true || C1T27E11 === true || C1T27E12 === true || C1T27E16 === true || C1T27E26 === true",
+        "description": "Infection locale détectée si choix 1-4, 6-8, 10-12, 16, 26 cochés",
+        "priority": 2
+      },
+      {
+        "constat_id": "C2T04E02",
+        "source": "C1T27",
+        "condition": "C1T27E26 === true",
+        "description": "Infection fongique détectée si choix 26 coché",
+        "priority": 1
+      },
+      {
+        "constat_id": "C2T04E03",
+        "source": "C1T27",
+        "condition": "C1T27E05 === true || C1T27E09 === true || C1T27E15 === true || C1T27E17 === true || C1T27E18 === true || C1T27E19 === true || C1T27E20 === true || C1T27E21 === true || C1T27E22 === true || C1T27E27 === true",
+        "description": "Infection profonde détectée si choix 5, 9, 15, 17-22, 27 cochés",
+        "priority": 1
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "section_1_auto_detection",
+      "title": "Stade du continuum microbien",
+      "description": "L'évaluation démontre un ou plusieurs des signes de (prendre le plus grave) :",
+      "type": "auto_detected",
+      "read_only": true,
+      "display_logic": {
+        "rule": "most_severe_only",
+        "description": "Afficher uniquement le constat le plus grave détecté",
+        "priority_order": [
+          "C2T04E03",
+          "C2T04E02",
+          "C2T04E01"
+        ]
+      }
+    },
+    {
+      "id": "section_2_confirmation",
+      "title": "Veuillez confirmer le statut infectieux de la plaie 1",
+      "description": "Sélectionnez le statut infectieux confirmé basé sur l'évaluation",
+      "type": "manual_confirmation",
+      "read_only": false,
+      "required": true
+    }
+  ],
+  "elements": [
+    {
+      "id": "C2T04E01",
+      "section": "section_1_auto_detection",
+      "type": "informational",
+      "label": "infection locale",
+      "description": "Signes d'infection locale détectés",
+      "read_only": true,
+      "auto_detected": true,
+      "condition": "C1T27E01 === true || C1T27E02 === true || C1T27E03 === true || C1T27E04 === true || C1T27E06 === true || C1T27E07 === true || C1T27E08 === true || C1T27E10 === true || C1T27E11 === true || C1T27E12 === true || C1T27E16 === true || C1T27E26 === true",
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#FF9800",
+        "display_format": "infection locale"
+      },
+      "priority": 2,
+      "routes": []
+    },
+    {
+      "id": "C2T04E02",
+      "section": "section_1_auto_detection",
+      "type": "informational",
+      "label": "fongique",
+      "description": "Signes d'infection fongique détectés",
+      "read_only": true,
+      "auto_detected": true,
+      "condition": "C1T27E26 === true",
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#9C27B0",
+        "display_format": "fongique"
+      },
+      "priority": 1,
+      "routes": []
+    },
+    {
+      "id": "C2T04E03",
+      "section": "section_1_auto_detection",
+      "type": "warning",
+      "label": "infection profonde",
+      "description": "Signes d'infection profonde détectés",
+      "read_only": true,
+      "auto_detected": true,
+      "condition": "C1T27E05 === true || C1T27E09 === true || C1T27E15 === true || C1T27E17 === true || C1T27E18 === true || C1T27E19 === true || C1T27E20 === true || C1T27E21 === true || C1T27E22 === true || C1T27E27 === true",
+      "ui": {
+        "component": "ResultBadge",
+        "color": "#F44336",
+        "display_format": "infection profonde"
+      },
+      "priority": 1,
+      "routes": []
+    },
+    {
+      "id": "C2T04_CONFIRMATION",
+      "section": "section_2_confirmation",
+      "type": "single_choice",
+      "label": "Statut infectieux confirmé",
+      "description": "Confirmez le statut infectieux de la plaie",
+      "read_only": false,
+      "required": true,
+      "options": [
+        {
+          "id": "C2T04_CONF_01",
+          "label": "contamination*",
+          "description": "microbes présents à la surface de la plaie, mais ne se multiplient pas",
+          "value": "contamination",
+          "help": "Contamination : Présence de microbes à la surface sans multiplication"
+        },
+        {
+          "id": "C2T04_CONF_02",
+          "label": "colonisation*",
+          "description": "microbes qui prolifèrent dans la plaie, mais sans entraver la cicatrisation",
+          "value": "colonisation",
+          "help": "Colonisation : Prolifération microbienne sans entrave à la cicatrisation"
+        },
+        {
+          "id": "C2T04_CONF_03",
+          "label": "infection locale",
+          "description": "Infection localisée à la plaie",
+          "value": "local_infection",
+          "help": "Infection locale : Infection limitée à la zone de la plaie"
+        },
+        {
+          "id": "C2T04_CONF_04",
+          "label": "infection locale d'allure fongique",
+          "description": "Infection locale présentant des caractéristiques fongiques",
+          "value": "local_fungal_infection",
+          "help": "Infection locale fongique : Infection locale avec caractéristiques fongiques"
+        },
+        {
+          "id": "C2T04_CONF_05",
+          "label": "infection profonde",
+          "description": "Infection étendue aux tissus profonds",
+          "value": "deep_infection",
+          "help": "Infection profonde : Infection étendue aux tissus profonds"
+        }
+      ],
+      "ui": {
+        "component": "RadioGroup",
+        "layout": "vertical",
+        "spacing": "medium",
+        "help": "Sélectionnez le statut infectieux confirmé basé sur l'évaluation complète"
+      },
+      "validation": {
+        "required": true,
+        "message": "Veuillez confirmer le statut infectieux de la plaie"
+      },
+      "routes": [
+        {
+          "to": "C2T01E02",
+          "phase": "post_eval",
+          "priority": 1,
+          "condition": "C2T04_CONFIRMATION === 'colonisation' || C2T04_CONFIRMATION === 'local_infection' || C2T04_CONFIRMATION === 'deep_infection'",
+          "note": "Charge microbienne élevée détectée → constat synthétique C2T01E02"
+        }
+      ]
+    }
+  ],
+  "ui_configuration": {
+    "layout": "vertical",
+    "spacing": "large",
+    "group_label": "Stade du continuum microbien",
+    "instructions": "Section 1 : Détection automatique du stade le plus grave. Section 2 : Confirmation manuelle du statut infectieux.",
+    "section_separator": true
+  },
+  "data_structure": {
+    "auto_detected_stage": {
+      "type": "string",
+      "description": "Stade détecté automatiquement (infection locale, fongique, infection profonde)",
+      "values": ["infection_locale", "fongique", "infection_profonde"],
+      "priority": "Le plus grave est affiché"
+    },
+    "confirmed_status": {
+      "type": "string",
+      "description": "Statut infectieux confirmé manuellement",
+      "values": ["contamination", "colonisation", "local_infection", "local_fungal_infection", "deep_infection"],
+      "required": true
+    },
+    "source_data": {
+      "infection_signs": "C1T27",
+      "selected_signs": "Array of checked elements from C1T27"
+    },
+    "export_format": {
+      "auto_detected": "String (most severe stage detected)",
+      "confirmed_status": "String (manually confirmed status)",
+      "charge_microbienne_elevee": "Boolean (true if colonisation/infection confirmed)"
+    }
+  },
+  "clinical_notes": {
+    "importance": "L'évaluation du continuum microbien est essentielle pour déterminer le traitement approprié",
+    "documentation": "Le statut infectieux confirmé sera documenté dans le dossier du patient",
+    "continuum_stages": {
+      "contamination": "Microbes présents sans multiplication - nettoyage simple suffisant",
+      "colonisation": "Prolifération microbienne sans entrave - surveillance et nettoyage",
+      "local_infection": "Infection localisée - traitement antimicrobien local",
+      "local_fungal_infection": "Infection locale fongique - traitement antifongique",
+      "deep_infection": "Infection profonde - traitement systémique et évaluation spécialisée"
+    },
+    "treatment_implications": {
+      "contamination": "Nettoyage simple, pas de traitement antimicrobien nécessaire",
+      "colonisation": "Surveillance, nettoyage renforcé, considérer traitement local",
+      "local_infection": "Traitement antimicrobien local, débridement si nécessaire",
+      "local_fungal_infection": "Traitement antifongique local, évaluation spécialisée",
+      "deep_infection": "Traitement systémique urgent, orientation spécialisée, évaluation hospitalière"
+    }
+  },
+  "accessibility": {
+    "aria_label": "Stade du continuum microbien",
+    "instructions_aria": "Section 1 : Affichage automatique du stade le plus grave détecté. Section 2 : Confirmation manuelle du statut infectieux.",
+    "keyboard_navigation": true,
+    "screen_reader_support": true
+  }
+}

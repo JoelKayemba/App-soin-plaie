@@ -92,7 +92,7 @@ const Table34Renderer = ({
         if (!renderedElement) return null;
         
         return (
-          <TView key={element.id || index} style={{ marginBottom: spacing.md }}>
+          <TView key={element.id || index} style={{ marginBottom: spacing.md, backgroundColor: 'transparent' }}>
             {renderedElement}
           </TView>
         );

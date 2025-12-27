@@ -122,6 +122,8 @@ class TableDataLoader {
           const col2Table01 = await import('@/data/evaluations/columns/col2_constats/table_01_cicatrisation_ralentie.json');
           const col2Table02 = await import('@/data/evaluations/columns/col2_constats/table_02_statut_plaie.json');
           const col2Table03 = await import('@/data/evaluations/columns/col2_constats/table_03_type_plaie.json');
+          const col2Table04 = await import('@/data/evaluations/columns/col2_constats/table_04_stade_continuum_microbien.json');
+          const col2Table05 = await import('@/data/evaluations/columns/col2_constats/table_05_vascularisation_plaie.json');
 
           // Créer l'objet avec les tables nécessaires
           this.allTablesCache = {
@@ -162,7 +164,9 @@ class TableDataLoader {
             // Tables colonne 2
             'table_01_cicatrisation_ralentie.json': col2Table01.default || col2Table01,
             'table_02_statut_plaie.json': col2Table02.default || col2Table02,
-            'table_03_type_plaie.json': col2Table03.default || col2Table03
+            'table_03_type_plaie.json': col2Table03.default || col2Table03,
+            'table_04_stade_continuum_microbien.json': col2Table04.default || col2Table04,
+            'table_05_vascularisation_plaie.json': col2Table05.default || col2Table05
           };
 
           this.allTablesLoaded = true;
@@ -228,7 +232,9 @@ class TableDataLoader {
     const col2FileNames = {
       '01': 'table_01_cicatrisation_ralentie.json',
       '02': 'table_02_statut_plaie.json',
-      '03': 'table_03_type_plaie.json'
+      '03': 'table_03_type_plaie.json',
+      '04': 'table_04_stade_continuum_microbien.json',
+      '05': 'table_05_vascularisation_plaie.json'
     };
     
     // Sélectionner le mapping selon la colonne

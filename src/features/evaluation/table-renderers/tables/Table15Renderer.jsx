@@ -42,6 +42,7 @@ const styles = {
   },
   table15Container: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
   blockContainer: {
     marginBottom: spacing.xl,
@@ -54,11 +55,13 @@ const styles = {
     },
     shadowOpacity: 0.12,
     shadowRadius: 8,
+    backgroundColor: 'transparent',
   },
   blockHeader: {
     paddingBottom: spacing.lg,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
+    backgroundColor: 'transparent',
   },
   blockTitle: {
     fontSize: 20,
@@ -73,9 +76,11 @@ const styles = {
   },
   blockContent: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
   blockElement: {
     marginBottom: spacing.md,
+    backgroundColor: 'transparent',
   },
   infoBox: {
     padding: spacing.md,
@@ -89,6 +94,7 @@ const styles = {
   },
   ipscbResultContainer: {
     marginBottom: spacing.sm,
+    backgroundColor: 'transparent',
   },
   ipscbResultLabel: {
     fontSize: 14,
@@ -150,11 +156,14 @@ const Table15Renderer = ({
     }
     
     // Retourner tous les blocs disponibles dans l'ordre
+    // Note: vascular_constats n'est plus un bloc séparé, les constats sont affichés dans le bloc IPSCB
     const allBlocks = [
       tableData.blocks.inspection,
       tableData.blocks.palpation,
       tableData.blocks.edinburgh_questionnaire,
-      tableData.blocks.ipscb
+      tableData.blocks.ipscb,
+      // tableData.blocks.vascular_constats, // Les constats sont maintenant dans le bloc IPSCB
+      tableData.blocks.vascular_confirmation
     ].filter(Boolean); // Filtrer les blocs qui n'existent pas
     
     return allBlocks;
@@ -198,6 +207,11 @@ const Table15Renderer = ({
     return (
       <TView style={styles.table15Container}>
         {allBlocks.map((block, blockIndex) => {
+          // Ne pas afficher le bloc vascular_constats car les constats sont maintenant dans le bloc IPSCB
+          if (block.id === 'C1T15_CONSTATS') {
+            return null;
+          }
+          
           const isLowerLimbBlock = isLowerLimbSpecific(block);
           const showLowerLimbMessage = isLowerLimbBlock && !isLowerLimb;
           const blockElements = [];
@@ -205,12 +219,26 @@ const Table15Renderer = ({
           // Éléments standard
           if (block.elements && Array.isArray(block.elements)) {
             block.elements.forEach((element, elementIndex) => {
-              if (shouldShowElement(element, data, tableData.id)) {
-                blockElements.push(
-                  <TView key={`${block.id}-element-${elementIndex}`} style={styles.blockElement}>
-                    {renderElement(element, renderProps)}
-                  </TView>
-                );
+              // Pour le bloc vascular_constats, on affiche tous les éléments de type constat
+              // sans vérifier shouldShowElement car ils sont gérés par ConstatElement
+              if (block.id === 'C1T15_CONSTATS') {
+                const rendered = renderElement(element, renderProps);
+                if (rendered) {
+                  blockElements.push(
+                    <TView key={`${block.id}-element-${elementIndex}`} style={styles.blockElement}>
+                      {rendered}
+                    </TView>
+                  );
+                }
+              } else {
+                // Pour les autres blocs, utiliser shouldShowElement normalement
+                if (shouldShowElement(element, data, tableData.id)) {
+                  blockElements.push(
+                    <TView key={`${block.id}-element-${elementIndex}`} style={styles.blockElement}>
+                      {renderElement(element, renderProps)}
+                    </TView>
+                  );
+                }
               }
             });
           }
@@ -230,12 +258,15 @@ const Table15Renderer = ({
           
           // Résultats calculés pour IPSCB avec interprétation colorée
           if (block.results && Array.isArray(block.results) && block.id === 'C1T15D') {
+            let hasDisplayedResults = false;
+            
             block.results.forEach((result, resultIndex) => {
               if (shouldShowElement(result, data, tableData.id)) {
                 const resultValue = data[result.id];
                 const shouldDisplayResult = resultValue && resultValue !== 'N/A' && resultValue !== null && resultValue !== undefined;
                 
                 if (shouldDisplayResult) {
+                  hasDisplayedResults = true;
                   const interpretation = interpretIPSCB(resultValue);
                   
                   if (interpretation) {
@@ -272,6 +303,50 @@ const Table15Renderer = ({
                 }
               }
             });
+            
+            // Après tous les résultats IPSCB, afficher tous les constats d'apport vasculaire
+            if (hasDisplayedResults && tableData.blocks?.vascular_constats?.elements) {
+              const constatsElements = tableData.blocks.vascular_constats.elements;
+              
+              // 1. Avertissement IPSCB (âge >= 65)
+              const warningElement = constatsElements.find(el => el.id === 'C1T15_WARNING_AGE');
+              if (warningElement) {
+                const warningRendered = renderElement(warningElement, renderProps);
+                if (warningRendered) {
+                  blockElements.push(
+                    <TView key="ipscb-warning-age" style={styles.blockElement}>
+                      {warningRendered}
+                    </TView>
+                  );
+                }
+              }
+              
+              // 2. Sans autre S/S (si aucun signe d'inspection)
+              const noArterialElement = constatsElements.find(el => el.id === 'C1T15_CONSTAT_NO_ARTERIAL');
+              if (noArterialElement) {
+                const noArterialRendered = renderElement(noArterialElement, renderProps);
+                if (noArterialRendered) {
+                  blockElements.push(
+                    <TView key="constat-no-arterial" style={styles.blockElement}>
+                      {noArterialRendered}
+                    </TView>
+                  );
+                }
+              }
+              
+              // 3. Avec S/S (claudication faible ou forte)
+              const withArterialElement = constatsElements.find(el => el.id === 'C1T15_CONSTAT_WITH_ARTERIAL');
+              if (withArterialElement) {
+                const withArterialRendered = renderElement(withArterialElement, renderProps);
+                if (withArterialRendered) {
+                  blockElements.push(
+                    <TView key="constat-with-arterial" style={styles.blockElement}>
+                      {withArterialRendered}
+                    </TView>
+                  );
+                }
+              }
+            }
           } else if (block.results && Array.isArray(block.results)) {
             block.results.forEach((result, resultIndex) => {
               if (shouldShowElement(result, data, tableData.id)) {
@@ -340,13 +415,14 @@ const Table15Renderer = ({
           const videoLink = block.video_link;
           
           return (
-            <TView key={`block-${blockIndex}`} style={[styles.blockContainer, { backgroundColor: colors.surface }]}>
+            <TView key={`block-${blockIndex}`} style={styles.blockContainer}>
               {block.title && (
                 <TView style={styles.blockHeader}>
                   <TText style={[styles.blockTitle, { color: colors.text }]}>
                     {block.title}
                   </TText>
-                  {block.description && (
+                  {/* Ne pas afficher la description pour le bloc vascular_constats */}
+                  {block.description && block.id !== 'C1T15_CONSTATS' && (
                     <TText style={[styles.blockDescription, { color: colors.textSecondary }]}>
                       {block.description}
                     </TText>

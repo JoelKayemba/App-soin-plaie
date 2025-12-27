@@ -123,6 +123,13 @@ const EvaluationSummaryScreen = () => {
         </ScrollView>
 
         <TView style={styles.footer}>
+          <TouchableOpacity 
+            style={[styles.constatsButton, { backgroundColor: colors.surface, borderColor: colors.border }]} 
+            onPress={() => navigation.navigate('Constats', { evaluationId })}
+          >
+            <TIcon name="document-text" size={20} color={colors.primary} />
+            <TText style={[styles.constatsButtonText, { color: colors.primary }]}>Voir les constats</TText>
+          </TouchableOpacity>
           <TouchableOpacity style={[styles.closeButton, { backgroundColor: colors.primary }]} onPress={handleClose}>
             <TText style={[styles.closeButtonText, { color: colors.textLight }]}>Terminer</TText>
           </TouchableOpacity>
@@ -217,6 +224,20 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#00000020',
+    gap: spacing.md,
+  },
+  constatsButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: spacing.md,
+    borderRadius: spacing.radius.lg,
+    borderWidth: 1,
+    gap: spacing.sm,
+  },
+  constatsButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
   },
   closeButton: {
     alignItems: 'center',

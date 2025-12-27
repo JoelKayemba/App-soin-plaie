@@ -75,7 +75,7 @@ const CheckboxGroup = ({
   };
 
   return (
-    <TView style={[styles.container, style]} {...props}>
+    <TView style={[styles.container, { backgroundColor: 'transparent' }, style]} {...props}>
       {label && (
         <View style={styles.header}>
           <TText style={[styles.label, { color: colors.text }]}>
@@ -183,6 +183,7 @@ const CheckboxGroup = ({
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'transparent',
     marginBottom: spacing.form.elementSpacing,
   },
   header: {
@@ -209,6 +210,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   optionsContainer: {
+    backgroundColor: 'transparent',
     gap: spacing.sm,
   },
   option: {

@@ -31,39 +31,19 @@
       }
     },
     {
-      "id": "C1T11E02",
-      "type": "calculated",
-      "label": "< 4 semaines",
-     
+      "id": "C1T11_WOUND_STATUS",
+      "type": "constat",
+      "label": "Statut de la plaie",
+      "description": "Statut déterminé automatiquement à partir de la date d'apparition",
       "required": false,
-      "condition": {
-        "comparison": {
-          "var": "C1T11E01",
-          "operator": "gte",
-          "value": "today - 28 days"
-        }
+      "constat_table": "C2T02",
+      "conditional": {
+        "depends_on": "C1T11E01",
+        "required": true
       },
       "ui": {
-        "component": "ResultBadge",
-        "displayFormat": "Plaie récente (< 4 semaines)"
-      }
-    },
-    {
-      "id": "C1T11E03",
-      "type": "calculated",
-      "label": "≥ 4 semaines",
-      
-      "required": false,
-      "condition": {
-        "comparison": {
-          "var": "C1T11E01",
-          "operator": "lt",
-          "value": "today - 28 days"
-        }
-      },
-      "ui": {
-        "component": "ResultBadge",
-        "displayFormat": "Plaie chronique (≥ 4 semaines)"
+        "component": "ConstatBadge",
+        "position": "after_C1T11E01"
       }
     },
     {
@@ -361,8 +341,8 @@
       "pressure_stage": "C1T11E09"
     },
     "derived_data": {
-      "recent_wound": "C1T11E02",
-      "chronic_wound": "C1T11E03"
+      "wound_status": "C1T11_WOUND_STATUS",
+      "wound_status_source": "C2T02"
     },
     "export_format": {
       "appearance_date": "Date",

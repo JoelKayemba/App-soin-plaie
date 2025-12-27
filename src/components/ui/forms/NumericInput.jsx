@@ -116,7 +116,7 @@ const NumericInput = ({
   const validationError = getValidationError();
 
   return (
-    <TView style={[styles.container, style]} {...props}>
+    <TView style={[styles.container, { backgroundColor: 'transparent' }, style]} {...props}>
       {label && (
         <View style={styles.header}>
           <TText style={[styles.label, { color: colors.text }]}>
@@ -236,12 +236,14 @@ const NumericInput = ({
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'transparent',
     marginBottom: spacing.form.elementSpacing,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: spacing.form.labelSpacing,
+    backgroundColor: 'transparent',
   },
   label: {
     fontSize: 16,
@@ -260,6 +262,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
+    backgroundColor: 'transparent',
   },
   button: {
     width: 44,
