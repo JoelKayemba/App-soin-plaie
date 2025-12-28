@@ -1,17 +1,10 @@
 {
   "id": "C1T30",
-  "version": "1.0.0",
   "title": "Échelle de Braden-Q",
   "description": "Évaluez le risque de lésions de pression chez la clientèle pédiatrique.",
   "category": "risk_assessment",
   "column": 1,
   "table": 30,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "special_note": {
     "title": "Important",
     "message": "Utiliser l'échelle de Braden-Q uniquement chez les patients âgés de 21 jours à 8 ans.",
@@ -36,24 +29,5 @@
     "spacing": "large",
     "group_label": "Échelle de Braden-Q",
     "instructions": "Sélectionnez le score approprié pour chaque dimension afin d'obtenir le score total et le niveau de risque."
-  },
-  "data_structure": {
-    "selections": {
-      "id": "C1T30_SCALE",
-      "type": "object",
-      "description": "Scores sélectionnés (0-2, 0-3, ou 0-8 selon la dimension)"
-    },
-    "totalScore": "Number",
-    "riskLevel": {
-      "level": "String",
-      "color": "String",
-      "description": "String"
-    }
-  },
-  "export_format": {
-    "braden_q_selections": "Object (dimension -> score)",
-    "braden_q_total": "Number",
-    "braden_q_risk_level": "String",
-    "braden_q_risk_description": "String"
   }
 }

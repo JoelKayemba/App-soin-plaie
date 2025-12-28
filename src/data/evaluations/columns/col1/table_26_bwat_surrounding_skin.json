@@ -1,17 +1,10 @@
 {
   "id": "C1T26",
-  "version": "1.0.0",
   "title": "BWAT – Peau environnante",
   "description": "Évaluation de la peau environnante selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
   "category": "wound_assessment",
   "column": 1,
   "table": 26,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "bwat_attribution": {
     "title": "BWAT - Bates-Jensen Wound Assessment Tool",
     "version": "Version traduite autorisée",
@@ -27,7 +20,6 @@
       "id": "C1T26_COLORATION",
       "type": "single_choice",
       "label": "Coloration de la peau environnante",
-      "description": "Sélectionnez la coloration observée autour de la plaie",
       "required": true,
       "options": [
         {
@@ -69,7 +61,6 @@
       "id": "C1T26_EDEMA",
       "type": "single_choice",
       "label": "Œdème de la peau environnante",
-      "description": "Sélectionnez le niveau d'œdème observé autour de la plaie",
       "required": true,
       "options": [
         {
@@ -93,7 +84,6 @@
         {
           "id": "C1T26E09",
           "label": "4",
-          "description": "Œdème à godet < 4 cm autour de la plaie",
           "score": 4
         },
         {
@@ -111,7 +101,6 @@
       "id": "C1T26_INDURATION",
       "type": "single_choice",
       "label": "Induration de la peau environnante",
-      "description": "Sélectionnez le niveau d'induration observé autour de la plaie",
       "required": true,
       "options": [
         {
@@ -123,7 +112,6 @@
         {
           "id": "C1T26E12",
           "label": "2",
-          "description": "Induration < 2 cm autour de la plaie",
           "score": 2
         },
         {
@@ -135,7 +123,6 @@
         {
           "id": "C1T26E14",
           "label": "4",
-          "description": "Induration 2–4 cm impliquant > 50 % de la périphérie",
           "score": 4
         },
         {
@@ -153,14 +140,12 @@
       "id": "C1T26_ASSOCIATED_LESIONS",
       "type": "multiple_choice",
       "label": "Lésions associées",
-      "description": "Sélectionnez toutes les lésions associées observées autour de la plaie",
       "required": false,
       "maxSelections": 4,
       "options": [
         {
           "id": "C1T26E16",
-          "label": "Excoriations (Lésion linéaire secondaire au grattage, à la friction ou à une écorchure)",
-          "description": "Lésion linéaire secondaire au grattage, à la friction ou à une écorchure"
+          "label": "Excoriations (Lésion linéaire secondaire au grattage, à la friction ou à une écorchure)"
         },
         {
           "id": "C1T26E17",
@@ -169,8 +154,7 @@
         },
         {
           "id": "C1T26E18",
-          "label": "Macération (Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat)",
-          "description": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat"
+          "label": "Macération (Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat)"
         },
         {
           "id": "C1T26E19",
@@ -229,142 +213,36 @@
     "sections": [
       {
         "title": "Coloration",
-        "elements": ["C1T26_COLORATION"],
+        "elements": [
+          "C1T26_COLORATION"
+        ],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Œdème",
-        "elements": ["C1T26_EDEMA"],
+        "elements": [
+          "C1T26_EDEMA"
+        ],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Induration",
-        "elements": ["C1T26_INDURATION"],
+        "elements": [
+          "C1T26_INDURATION"
+        ],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Lésions associées",
-        "elements": ["C1T26_ASSOCIATED_LESIONS"],
+        "elements": [
+          "C1T26_ASSOCIATED_LESIONS"
+        ],
         "type": "checkbox_group",
         "required": false
       }
     ]
-  },
-  "data_structure": {
-    "coloration_score": {
-      "id": "C1T26_COLORATION",
-      "value": "Selected option ID (C1T26E01-C1T26E05)",
-      "score": "Coloration score (1-5)",
-      "label": "Selected coloration label",
-      "description": "Selected coloration description"
-    },
-    "edema_score": {
-      "id": "C1T26_EDEMA",
-      "value": "Selected option ID (C1T26E06-C1T26E10)",
-      "score": "Edema score (1-5)",
-      "label": "Selected edema label",
-      "description": "Selected edema description"
-    },
-    "induration_score": {
-      "id": "C1T26_INDURATION",
-      "value": "Selected option ID (C1T26E11-C1T26E15)",
-      "score": "Induration score (1-5)",
-      "label": "Selected induration label",
-      "description": "Selected induration description"
-    },
-    "associated_lesions": {
-      "id": "C1T26_ASSOCIATED_LESIONS",
-      "selected_ids": "Array of selected lesion IDs",
-      "count": "Number of selected lesions"
-    },
-    "export_format": {
-      "coloration_id": "String (C1T26E01-C1T26E05)",
-      "coloration_score": "Number (1-5)",
-      "coloration_label": "String (Coloration description)",
-      "edema_id": "String (C1T26E06-C1T26E10)",
-      "edema_score": "Number (1-5)",
-      "edema_label": "String (Edema description)",
-      "induration_id": "String (C1T26E11-C1T26E15)",
-      "induration_score": "Number (1-5)",
-      "induration_label": "String (Induration description)",
-      "associated_lesions": "Array of selected lesion IDs",
-      "bwat_contribution": "Object (Coloration + Edema + Induration scores)"
-    }
-  },
-  "clinical_notes": {
-    "importance": "L'évaluation de la peau environnante complète l'analyse du périlésion dans le score BWAT",
-    "documentation": "Les scores de coloration, œdème et induration seront documentés pour le suivi BWAT",
-    "skin_assessment": {
-      "coloration": {
-        "normal": "Rose ou normale selon le groupe ethnique",
-        "inflammation_light": "Rouge vif et/ou qui blanchit au toucher",
-        "pallor": "Pâleur blanche, grise ou hypo-pigmentée",
-        "inflammation_severe": "Rouge foncé ou violacée et/ou qui ne blanchit pas",
-        "hyperpigmentation": "Noire ou hyper-pigmentée"
-      },
-      "edema": {
-        "none": "Aucun gonflement ou œdème",
-        "light": "Œdème sans godet < 4 cm autour de la plaie",
-        "moderate": "Œdème sans godet > 4 cm autour de la plaie",
-        "severe": "Œdème à godet < 4 cm autour de la plaie",
-        "very_severe": "Crépitement et/ou œdème à godet ≥ 4 cm autour de la plaie"
-      },
-      "induration": {
-        "none": "Aucune induration",
-        "light": "Induration < 2 cm autour de la plaie",
-        "moderate": "Induration 2-4 cm impliquant < 50% de la périphérie",
-        "severe": "Induration 2-4 cm impliquant > 50% de la périphérie",
-        "very_severe": "Induration > 4 cm, peu importe la localisation"
-      },
-      "associated_lesions": {
-        "excoriations": "Lésion linéaire secondaire au grattage, à la friction ou à une écorchure",
-        "stasis_dermatitis": "Inflammation de la peau due à une mauvaise circulation veineuse",
-        "maceration": "Aspect blanchâtre et épaississement de la peau causé par un excès d'exsudat",
-        "desquamation": "Perte de couches superficielles de la peau"
-      }
-    },
-    "bwat_integration": {
-      "score_contribution": "Contribution au score total BWAT (coloration + œdème + induration)",
-      "follow_up": "Évolution des scores dans le temps",
-      "healing_progression": "Réduction des scores = amélioration"
-    },
-    "future_constats": {
-      "description": "Des constats seront ajoutés ultérieurement",
-      "examples": [
-        "Risque infectieux",
-        "Inflammation",
-        "Mauvaise gestion d'exsudat"
-      ]
-    }
-  },
-  "accessibility": {
-    "aria_label": "BWAT - Peau environnante de la plaie",
-    "aria_description": "Coloration, œdème et induration = choix uniques. Les lésions associées = sélections multiples.",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_labels": {
-      "coloration": "Coloration de la peau environnante",
-      "edema": "Œdème de la peau environnante",
-      "induration": "Induration de la peau environnante",
-      "associated_lesions": "Lésions associées de la peau environnante"
-    },
-    "radio_groups": {
-      "aria_required": true,
-      "aria_invalid": "false",
-      "instructions": "Un seul score par sous-bloc peut être sélectionné"
-    },
-    "checkbox_group": {
-      "aria_required": false,
-      "instructions": "Sélections multiples possibles"
-    },
-    "detailed_definitions": {
-      "aria_label": "Définition détaillée",
-      "aria_description": "Informations cliniques détaillées sur l'élément sélectionné"
-    }
   }
 }
-
-

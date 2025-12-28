@@ -1,17 +1,9 @@
 {
   "id": "C2T02",
-  "version": "1.0.0",
   "title": "Statut de la plaie",
-  "description": "Statut de la plaie déterminé automatiquement à partir de la date d'apparition",
   "category": "wound_status_assessment",
   "column": 2,
   "table": 2,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "read_only": true,
   "auto_generated": true,
   "source_mapping": {
@@ -21,15 +13,13 @@
         "constat_id": "C2T02E01",
         "source": "C1T11E01",
         "condition": "wound_age_days <= 28",
-        "description": "Plaie aiguë si l'âge de la plaie est ≤ 28 jours (< 4 semaines)",
-        "calculation": "calculateWoundAge(C1T11E01).isRecent === true"
+        "description": "Plaie aiguë si l'âge de la plaie est ≤ 28 jours (< 4 semaines)"
       },
       {
         "constat_id": "C2T02E02",
         "source": "C1T11E01",
         "condition": "wound_age_days > 28",
-        "description": "Plaie chronique si l'âge de la plaie est > 28 jours (≥ 4 semaines)",
-        "calculation": "calculateWoundAge(C1T11E01).isChronic === true"
+        "description": "Plaie chronique si l'âge de la plaie est > 28 jours (≥ 4 semaines)"
       }
     ]
   },
@@ -44,8 +34,7 @@
         "component": "ResultBadge",
         "color": "#4CAF50",
         "display_format": "Plaie aiguë (< 4 semaines)"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T02E02",
@@ -57,8 +46,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Plaie chronique (≥ 4 semaines)"
-      },
-      "routes": []
+      }
     }
   ],
   "ui_configuration": {
@@ -66,34 +54,5 @@
     "spacing": "medium",
     "group_label": "Statut de la plaie",
     "instructions": "Le statut de la plaie a été déterminé automatiquement à partir de la date d'apparition."
-  },
-  "data_structure": {
-    "wound_status": {
-      "type": "string",
-      "description": "Statut détecté : 'aigue' ou 'chronique'",
-      "values": ["aigue", "chronique"]
-    },
-    "source_data": {
-      "appearance_date": "C1T11E01",
-      "wound_age_days": "Calculé à partir de C1T11E01"
-    },
-    "export_format": {
-      "wound_status": "String (aigue/chronique)",
-      "wound_age_days": "Number (days since appearance)",
-      "appearance_date": "Date (YYYY-MM-DD)"
-    }
-  },
-  "clinical_notes": {
-    "importance": "Le statut de la plaie (aiguë vs chronique) influence le plan de traitement et les attentes de cicatrisation",
-    "documentation": "Le statut sera documenté automatiquement dans le dossier du patient",
-    "treatment_implications": {
-      "aigue": "Les plaies aiguës ont généralement un meilleur pronostic de cicatrisation et nécessitent une approche de traitement standard",
-      "chronique": "Les plaies chroniques nécessitent une approche de traitement plus intensive et peuvent nécessiter des interventions spécialisées"
-    }
-  },
-  "accessibility": {
-    "aria_label": "Statut de la plaie",
-    "instructions_aria": "Affichage du statut de la plaie déterminé automatiquement"
   }
 }
-

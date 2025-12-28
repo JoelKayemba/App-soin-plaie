@@ -1,17 +1,10 @@
 {
   "id": "C2T01",
-  "version": "1.0.0",
   "title": "Cicatrisation possiblement ralentie par",
   "description": "Constats automatiques identifiés à partir de l'évaluation qui peuvent ralentir la cicatrisation de la plaie",
   "category": "wound_healing_assessment",
   "column": 2,
   "table": 1,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "read_only": true,
   "auto_generated": true,
   "source_mapping": {
@@ -132,14 +125,12 @@
       "id": "C2T01E01",
       "type": "informational",
       "label": "Vieillissement",
-      "description": "Processus de vieillissement naturel affectant la capacité de cicatrisation",
       "read_only": true,
       "ui": {
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E02",
@@ -151,8 +142,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E03",
@@ -164,8 +154,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E04",
@@ -177,8 +166,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E05",
@@ -190,8 +178,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E06",
@@ -203,8 +190,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E07",
@@ -216,8 +202,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E08",
@@ -229,8 +214,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E09",
@@ -242,8 +226,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E10",
@@ -255,8 +238,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E11",
@@ -268,8 +250,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E12",
@@ -281,8 +262,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E13",
@@ -294,8 +274,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E14",
@@ -307,8 +286,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E15",
@@ -320,8 +298,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E16",
@@ -333,8 +310,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E17",
@@ -346,8 +322,7 @@
         "component": "ResultBadge",
         "color": "#F44336",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E18",
@@ -359,8 +334,7 @@
         "component": "ResultBadge",
         "color": "#FF9800",
         "display_format": "Détecté"
-      },
-      "routes": []
+      }
     },
     {
       "id": "C2T01E18_DETAIL",
@@ -378,8 +352,7 @@
         "placeholder": "Indiquez le nom de la médication",
         "help": "Vous pouvez compléter les détails de la médication détectée",
         "multiline": true
-      },
-      "routes": []
+      }
     }
   ],
   "ui_configuration": {
@@ -387,37 +360,5 @@
     "spacing": "medium",
     "group_label": "Constats de ralentissement de la cicatrisation",
     "instructions": "Les constats suivants ont été détectés automatiquement à partir de votre évaluation. Vous pouvez compléter les détails si nécessaire."
-  },
-  "data_structure": {
-    "detected_constats": {
-      "type": "array",
-      "description": "Liste des IDs des constats détectés automatiquement"
-    },
-    "medication_detail": {
-      "id": "C2T01E18_DETAIL",
-      "type": "string",
-      "description": "Détail de la médication si C2T01E18 est détecté (complétable par l'utilisateur)"
-    },
-    "export_format": {
-      "detected_constats": "Array of detected constat IDs",
-      "medication": {
-        "detected": "Boolean (C2T01E18)",
-        "detail": "String (C2T01E18_DETAIL) if medication detected"
-      }
-    }
-  },
-  "clinical_notes": {
-    "importance": "Les constats de ralentissement de la cicatrisation sont générés automatiquement pour guider le plan de traitement",
-    "documentation": "Tous les constats détectés seront documentés dans le dossier du patient",
-    "treatment_implications": {
-      "nutrition": "Si apport nutritionnel insuffisant détecté, considérer une consultation en nutrition",
-      "infection": "Si charge microbienne élevée ou biofilm détecté, considérer un traitement antimicrobien",
-      "vascular": "Si vascularisation inadéquate détectée, évaluation vasculaire recommandée",
-      "medication": "Si médication affectant la cicatrisation détectée, réévaluation avec le médecin prescripteur"
-    }
-  },
-  "accessibility": {
-    "aria_label": "Constats de ralentissement de la cicatrisation",
-    "instructions_aria": "Affichage des constats détectés automatiquement à partir de l'évaluation"
   }
 }

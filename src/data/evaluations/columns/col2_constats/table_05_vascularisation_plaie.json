@@ -1,17 +1,10 @@
 {
   "id": "C2T05",
-  "version": "1.0.0",
   "title": "Vascularisation de la plaie",
   "description": "Évaluation de l'apport vasculaire et constats associés",
   "category": "vascular_assessment",
   "column": 2,
   "table": 5,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "read_only": false,
   "auto_generated": true,
   "source_mapping": {
@@ -61,8 +54,7 @@
         "type": "warning",
         "severity": "important"
       },
-      "priority": 2,
-      "routes": []
+      "priority": 2
     },
     {
       "id": "C2T05E02",
@@ -77,8 +69,7 @@
         "color": "#4CAF50",
         "display_format": "Sans autre S/S (signes/symptômes) d'insuffisance artérielle"
       },
-      "priority": 3,
-      "routes": []
+      "priority": 3
     },
     {
       "id": "C2T05E03",
@@ -93,8 +84,7 @@
         "color": "#FF9800",
         "display_format": "Avec S/S (signes/symptômes) d'insuffisance artérielle"
       },
-      "priority": 1,
-      "routes": []
+      "priority": 1
     },
     {
       "id": "C2T05E04",
@@ -109,8 +99,7 @@
         "color": "#F44336",
         "display_format": "Avec S/S (signes/symptômes) d'insuffisance artérielle"
       },
-      "priority": 1,
-      "routes": []
+      "priority": 1
     }
   ],
   "ui_configuration": {
@@ -118,34 +107,5 @@
     "spacing": "medium",
     "group_label": "Vascularisation de la plaie",
     "instructions": "Constats générés automatiquement à partir de l'évaluation vasculaire"
-  },
-  "data_structure": {
-    "warning_age": {
-      "type": "boolean",
-      "description": "Avertissement IPSCB si âge >= 65 ans"
-    },
-    "no_arterial_signs": {
-      "type": "boolean",
-      "description": "Sans autre S/S d'insuffisance artérielle"
-    },
-    "with_arterial_signs": {
-      "type": "string",
-      "description": "Avec S/S - Claudication faible ou forte",
-      "values": ["weak", "strong"]
-    }
-  },
-  "clinical_notes": {
-    "importance": "L'évaluation de l'apport vasculaire est essentielle pour déterminer le traitement approprié",
-    "documentation": "Les constats seront documentés dans le dossier du patient",
-    "ipscb_warning": "L'IPSCB peut être altéré chez les patients âgés, diabétiques, avec HTA non contrôlée, arythmie ou IRC",
-    "arterial_assessment": {
-      "no_signs": "Aucun signe d'inspection et pouls normaux uniquement",
-      "with_signs": "Signes d'insuffisance artérielle détectés - nécessite évaluation spécialisée"
-    }
-  },
-  "accessibility": {
-    "aria_label": "Vascularisation de la plaie",
-    "instructions_aria": "Constats générés automatiquement à partir de l'évaluation vasculaire"
   }
 }
-

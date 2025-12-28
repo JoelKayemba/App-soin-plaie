@@ -1,17 +1,9 @@
 {
   "id": "C1T05",
-  "version": "1.0.0",
   "title": "Nutrition",
-  "description": "Évaluation de l'état nutritionnel et hydrique du patient",
   "category": "nutritional_assessment",
   "column": 1,
   "table": 5,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T05E01",
@@ -31,10 +23,8 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez si le patient a perdu du poids dans les 6 derniers mois",
-        "tooltip": "Perte de poids significative dans les 6 derniers mois"
-      },
-      "routes": []
+        "help": "Sélectionnez si le patient a perdu du poids dans les 6 derniers mois"
+      }
     },
     {
       "id": "C1T05E02",
@@ -54,48 +44,37 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez si l'apport alimentaire a été réduit dans la dernière semaine",
-        "tooltip": "Diminution de l'apport alimentaire dans les 7 derniers jours"
-      },
-      "routes": []
+        "help": "Sélectionnez si l'apport alimentaire a été réduit dans la dernière semaine"
+      }
     },
     {
       "id": "C1T05E03",
       "type": "boolean",
       "label": "Apport nutritionnel insuffisant (dénutrition déjà connue)",
-      
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une dénutrition connue",
-        "tooltip": "Dénutrition diagnostiquée, apport calorique insuffisant"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une dénutrition connue"
+      }
     },
     {
       "id": "C1T05E04",
       "type": "boolean",
       "label": "Malnutrition déjà connue",
-     
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une malnutrition connue",
-        "tooltip": "Malnutrition diagnostiquée, carences nutritionnelles"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une malnutrition connue"
+      }
     },
     {
       "id": "C1T05E05",
       "type": "boolean",
       "label": "Apport hydrique insuffisant (déshydratation déjà connue)",
-      
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une déshydratation connue",
-        "tooltip": "Déshydratation diagnostiquée, apport hydrique insuffisant"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une déshydratation connue"
+      }
     }
   ],
   "validation_rules": {
@@ -107,7 +86,7 @@
         "mutually_exclusive": true
       },
       "food_intake": {
-        "field": "C1T05E02", 
+        "field": "C1T05E02",
         "required": false,
         "mutually_exclusive": true
       }
@@ -117,7 +96,11 @@
         "min_selections": 0,
         "max_selections": 3,
         "allow_none": true,
-        "options": ["C1T05E03", "C1T05E04", "C1T05E05"]
+        "options": [
+          "C1T05E03",
+          "C1T05E04",
+          "C1T05E05"
+        ]
       }
     }
   },
@@ -129,57 +112,27 @@
     "sections": [
       {
         "title": "Perte de poids (6 derniers mois)",
-        "elements": ["C1T05E01"],
+        "elements": [
+          "C1T05E01"
+        ],
         "type": "radio_group"
       },
       {
         "title": "Apport alimentaire (dernière semaine)",
-        "elements": ["C1T05E02"],
+        "elements": [
+          "C1T05E02"
+        ],
         "type": "radio_group"
       },
       {
         "title": "État nutritionnel / hydrique",
-        "elements": ["C1T05E03", "C1T05E04", "C1T05E05"],
+        "elements": [
+          "C1T05E03",
+          "C1T05E04",
+          "C1T05E05"
+        ],
         "type": "checkbox_group"
       }
     ]
-  },
-  "data_structure": {
-    "nutritional_assessment": {
-      "weight_loss_6months": "C1T05E01",
-      "food_intake_last_week": "C1T05E02",
-      "nutritional_conditions": {
-        "insufficient_nutrition": "C1T05E03",
-        "malnutrition": "C1T05E04",
-        "insufficient_hydration": "C1T05E05"
-      }
-    },
-    "export_format": {
-      "weight_loss": "String value from C1T05E01 (yes/no)",
-      "reduced_food_intake": "String value from C1T05E02 (yes/no)",
-      "nutritional_conditions": "Array of selected condition IDs (C1T05E03, C1T05E04, C1T05E05)"
-    }
-  },
-  "clinical_notes": {
-    "importance": "L'état nutritionnel influence directement le risque de lésions de pression",
-    "documentation": "Les réponses seront documentées dans l'évaluation du risque nutritionnel",
-    "risk_factors": [
-      "Perte de poids récente",
-      "Apport alimentaire réduit",
-      "Dénutrition connue",
-      "Malnutrition",
-      "Déshydratation"
-    ]
-  },
-  "accessibility": {
-    "aria_label": "Évaluation nutritionnelle du patient",
-    "aria_description": "Répondez aux questions sur l'état nutritionnel et hydrique du patient",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_labels": {
-      "weight_loss": "Perte de poids dans les 6 derniers mois",
-      "food_intake": "Apport alimentaire dans la dernière semaine",
-      "nutritional_conditions": "État nutritionnel et hydrique"
-    }
   }
 }

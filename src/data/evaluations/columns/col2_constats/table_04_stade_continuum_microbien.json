@@ -1,17 +1,10 @@
 {
   "id": "C2T04",
-  "version": "1.0.0",
   "title": "Stade du continuum microbien",
   "description": "Évaluation du continuum microbien et confirmation du statut infectieux de la plaie",
   "category": "infection_status_assessment",
   "column": 2,
   "table": 4,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "read_only": false,
   "auto_generated": true,
   "trigger_condition": {
@@ -66,7 +59,6 @@
     {
       "id": "section_2_confirmation",
       "title": "Veuillez confirmer le statut infectieux de la plaie 1",
-      "description": "Sélectionnez le statut infectieux confirmé basé sur l'évaluation",
       "type": "manual_confirmation",
       "read_only": false,
       "required": true
@@ -78,7 +70,6 @@
       "section": "section_1_auto_detection",
       "type": "informational",
       "label": "infection locale",
-      "description": "Signes d'infection locale détectés",
       "read_only": true,
       "auto_detected": true,
       "condition": "C1T27E01 === true || C1T27E02 === true || C1T27E03 === true || C1T27E04 === true || C1T27E06 === true || C1T27E07 === true || C1T27E08 === true || C1T27E10 === true || C1T27E11 === true || C1T27E12 === true || C1T27E16 === true || C1T27E26 === true",
@@ -87,15 +78,13 @@
         "color": "#FF9800",
         "display_format": "infection locale"
       },
-      "priority": 2,
-      "routes": []
+      "priority": 2
     },
     {
       "id": "C2T04E02",
       "section": "section_1_auto_detection",
       "type": "informational",
       "label": "fongique",
-      "description": "Signes d'infection fongique détectés",
       "read_only": true,
       "auto_detected": true,
       "condition": "C1T27E26 === true",
@@ -104,15 +93,13 @@
         "color": "#9C27B0",
         "display_format": "fongique"
       },
-      "priority": 1,
-      "routes": []
+      "priority": 1
     },
     {
       "id": "C2T04E03",
       "section": "section_1_auto_detection",
       "type": "warning",
       "label": "infection profonde",
-      "description": "Signes d'infection profonde détectés",
       "read_only": true,
       "auto_detected": true,
       "condition": "C1T27E05 === true || C1T27E09 === true || C1T27E15 === true || C1T27E17 === true || C1T27E18 === true || C1T27E19 === true || C1T27E20 === true || C1T27E21 === true || C1T27E22 === true || C1T27E27 === true",
@@ -121,8 +108,7 @@
         "color": "#F44336",
         "display_format": "infection profonde"
       },
-      "priority": 1,
-      "routes": []
+      "priority": 1
     },
     {
       "id": "C2T04_CONFIRMATION",
@@ -196,52 +182,5 @@
     "group_label": "Stade du continuum microbien",
     "instructions": "Section 1 : Détection automatique du stade le plus grave. Section 2 : Confirmation manuelle du statut infectieux.",
     "section_separator": true
-  },
-  "data_structure": {
-    "auto_detected_stage": {
-      "type": "string",
-      "description": "Stade détecté automatiquement (infection locale, fongique, infection profonde)",
-      "values": ["infection_locale", "fongique", "infection_profonde"],
-      "priority": "Le plus grave est affiché"
-    },
-    "confirmed_status": {
-      "type": "string",
-      "description": "Statut infectieux confirmé manuellement",
-      "values": ["contamination", "colonisation", "local_infection", "local_fungal_infection", "deep_infection"],
-      "required": true
-    },
-    "source_data": {
-      "infection_signs": "C1T27",
-      "selected_signs": "Array of checked elements from C1T27"
-    },
-    "export_format": {
-      "auto_detected": "String (most severe stage detected)",
-      "confirmed_status": "String (manually confirmed status)",
-      "charge_microbienne_elevee": "Boolean (true if colonisation/infection confirmed)"
-    }
-  },
-  "clinical_notes": {
-    "importance": "L'évaluation du continuum microbien est essentielle pour déterminer le traitement approprié",
-    "documentation": "Le statut infectieux confirmé sera documenté dans le dossier du patient",
-    "continuum_stages": {
-      "contamination": "Microbes présents sans multiplication - nettoyage simple suffisant",
-      "colonisation": "Prolifération microbienne sans entrave - surveillance et nettoyage",
-      "local_infection": "Infection localisée - traitement antimicrobien local",
-      "local_fungal_infection": "Infection locale fongique - traitement antifongique",
-      "deep_infection": "Infection profonde - traitement systémique et évaluation spécialisée"
-    },
-    "treatment_implications": {
-      "contamination": "Nettoyage simple, pas de traitement antimicrobien nécessaire",
-      "colonisation": "Surveillance, nettoyage renforcé, considérer traitement local",
-      "local_infection": "Traitement antimicrobien local, débridement si nécessaire",
-      "local_fungal_infection": "Traitement antifongique local, évaluation spécialisée",
-      "deep_infection": "Traitement systémique urgent, orientation spécialisée, évaluation hospitalière"
-    }
-  },
-  "accessibility": {
-    "aria_label": "Stade du continuum microbien",
-    "instructions_aria": "Section 1 : Affichage automatique du stade le plus grave détecté. Section 2 : Confirmation manuelle du statut infectieux.",
-    "keyboard_navigation": true,
-    "screen_reader_support": true
   }
 }

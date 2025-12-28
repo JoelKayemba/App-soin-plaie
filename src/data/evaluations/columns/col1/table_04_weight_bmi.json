@@ -1,23 +1,15 @@
 {
   "id": "C1T04",
-  "version": "1.0.0",
   "title": "Poids & IMC",
   "description": "Évaluation du poids et calcul automatique de l'IMC avec classification et conditions associées",
   "category": "anthropometric_data",
   "column": 1,
   "table": 4,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T04E01",
       "type": "number",
       "label": "Taille",
-      "description": "Taille du patient",
       "required": true,
       "validation": {
         "min": 0.5,
@@ -37,23 +29,20 @@
           "unit": "ft",
           "label": "Pieds/Pouces",
           "min": 1.5,
-          "max": 8.0,
+          "max": 8,
           "step": 0.1
         }
       ],
       "ui": {
         "component": "NumericInput",
         "placeholder": "1.75",
-        "help": "Entrez la taille du patient",
-        "tooltip": "Taille en mètres ou pieds/pouces"
-      },
-      "routes": []
+        "help": "Entrez la taille du patient"
+      }
     },
     {
       "id": "C1T04E02",
       "type": "number",
       "label": "Poids",
-      "description": "Poids du patient",
       "required": true,
       "validation": {
         "min": 10,
@@ -80,10 +69,8 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "70.5",
-        "help": "Entrez le poids du patient",
-        "tooltip": "Poids en kilogrammes ou livres"
-      },
-      "routes": []
+        "help": "Entrez le poids du patient"
+      }
     },
     {
       "id": "C1T04E03",
@@ -101,10 +88,8 @@
       "ui": {
         "component": "ResultBadge",
         "display_format": "{value} kg/m²",
-        "help": "IMC calculé automatiquement",
-        "tooltip": "Indice de masse corporelle = poids / (taille²)"
-      },
-      "routes": []
+        "help": "IMC calculé automatiquement"
+      }
     },
     {
       "id": "C1T04E04",
@@ -124,10 +109,8 @@
         "component": "ResultBadge",
         "display_format": "IMC < 18,5",
         "color": "#FF9800",
-        "help": "Classification automatique",
-        "tooltip": "Poids insuffisant selon l'OMS"
-      },
-      "routes": []
+        "help": "Classification automatique"
+      }
     },
     {
       "id": "C1T04E05",
@@ -152,10 +135,8 @@
         "component": "ResultBadge",
         "display_format": "IMC 18,5 – 24,9",
         "color": "#4CAF50",
-        "help": "Classification automatique",
-        "tooltip": "Poids normal selon l'OMS"
-      },
-      "routes": []
+        "help": "Classification automatique"
+      }
     },
     {
       "id": "C1T04E06",
@@ -168,7 +149,7 @@
         "comparison": {
           "var": "C1T04E03",
           "operator": "gte",
-          "value": 25.0
+          "value": 25
         },
         "and": {
           "var": "C1T04E03",
@@ -180,10 +161,8 @@
         "component": "ResultBadge",
         "display_format": "IMC 25,0 – 29,9",
         "color": "#FF9800",
-        "help": "Classification automatique",
-        "tooltip": "Excès de poids selon l'OMS"
-      },
-      "routes": []
+        "help": "Classification automatique"
+      }
     },
     {
       "id": "C1T04E07",
@@ -196,7 +175,7 @@
         "comparison": {
           "var": "C1T04E03",
           "operator": "gte",
-          "value": 30.0
+          "value": 30
         },
         "and": {
           "var": "C1T04E03",
@@ -208,10 +187,8 @@
         "component": "ResultBadge",
         "display_format": "IMC 30,0 – 34,9",
         "color": "#F44336",
-        "help": "Classification automatique",
-        "tooltip": "Obésité classe I selon l'OMS"
-      },
-      "routes": []
+        "help": "Classification automatique"
+      }
     },
     {
       "id": "C1T04E08",
@@ -224,7 +201,7 @@
         "comparison": {
           "var": "C1T04E03",
           "operator": "gte",
-          "value": 35.0
+          "value": 35
         },
         "and": {
           "var": "C1T04E03",
@@ -236,10 +213,8 @@
         "component": "ResultBadge",
         "display_format": "IMC 35,0 – 39,9",
         "color": "#F44336",
-        "help": "Classification automatique",
-        "tooltip": "Obésité classe II selon l'OMS"
-      },
-      "routes": []
+        "help": "Classification automatique"
+      }
     },
     {
       "id": "C1T04E09",
@@ -252,23 +227,20 @@
         "comparison": {
           "var": "C1T04E03",
           "operator": "gte",
-          "value": 40.0
+          "value": 40
         }
       },
       "ui": {
         "component": "ResultBadge",
         "display_format": "IMC ≥ 40,0",
         "color": "#9C27B0",
-        "help": "Classification automatique",
-        "tooltip": "Obésité classe III (morbide) selon l'OMS"
-      },
-      "routes": []
+        "help": "Classification automatique"
+      }
     },
     {
       "id": "C1T04E10",
       "type": "single_choice",
       "label": "Condition de poids",
-      "description": "Sélectionnez la condition appropriée du patient",
       "required": false,
       "options": [
         {
@@ -286,14 +258,15 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez la condition de poids du patient",
-        "tooltip": "Condition d'obésité clinique ou de cachexie"
-      },
-      "routes": []
+        "help": "Sélectionnez la condition de poids du patient"
+      }
     }
   ],
   "validation_rules": {
-    "required_fields": ["C1T04E01", "C1T04E02"],
+    "required_fields": [
+      "C1T04E01",
+      "C1T04E02"
+    ],
     "numeric_validation": {
       "taille": {
         "min": 0.5,
@@ -316,14 +289,21 @@
         "type": "single_choice",
         "required": false,
         "mutually_exclusive": true,
-        "options": ["none", "obesity", "cachexia"]
+        "options": [
+          "none",
+          "obesity",
+          "cachexia"
+        ]
       }
     }
   },
   "calculation_engine": {
     "bmi": {
       "formula": "poids / (taille^2)",
-      "source_fields": ["C1T04E01", "C1T04E02"],
+      "source_fields": [
+        "C1T04E01",
+        "C1T04E02"
+      ],
       "output_field": "C1T04E03",
       "rounding": 1,
       "unit": "kg/m²"
@@ -366,32 +346,5 @@
     "spacing": "medium",
     "group_label": "Données anthropométriques",
     "instructions": "Entrez la taille et le poids pour calculer automatiquement l'IMC et sa classification"
-  },
-  "data_structure": {
-    "anthropometric_data": {
-      "height": "C1T04E01",
-      "weight": "C1T04E02",
-      "bmi": "C1T04E03",
-      "bmi_classification": "C1T04E04-C1T04E09",
-      "weight_condition": "C1T04E10"
-    },
-    "export_format": {
-      "height": "Number with unit",
-      "weight": "Number with unit",
-      "bmi": "Number with unit (kg/m²)",
-      "bmi_category": "String (classification)",
-      "conditions": "Array of selected conditions"
-    }
-  },
-  "clinical_notes": {
-    "importance": "L'IMC est un indicateur important du risque de lésions de pression",
-    "documentation": "Les données anthropométriques et la classification IMC seront documentées dans l'évaluation"
-  },
-  "accessibility": {
-    "aria_label": "Données anthropométriques et calcul IMC",
-    "aria_description": "Entrez la taille et le poids pour calculer l'IMC et sa classification",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_label": "Données de taille, poids et IMC"
   }
 }

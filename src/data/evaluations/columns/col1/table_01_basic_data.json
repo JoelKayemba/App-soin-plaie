@@ -1,47 +1,20 @@
 {
   "id": "C1T01",
-  "version": "1.0.0",
   "title": "Données de base",
   "description": "Informations de base du patient pour l'évaluation du risque de lésions de pression",
   "category": "patient_data",
   "column": 1,
   "table": 1,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T01E01",
       "type": "date",
       "label": "Date de naissance",
-      "description": "Date de naissance du patient pour le calcul automatique de l'âge",
       "required": true,
       "validation": {
         "min_date": "1900-01-01",
         "max_date": "today",
         "format": "YYYY-MM-DD"
-      },
-      "calculation": {
-        "derived_fields": [
-          {
-            "id": "age_days",
-            "formula": "days_between(birth_date, today)",
-            "description": "Âge en jours"
-          },
-          {
-            "id": "age_months", 
-            "formula": "months_between(birth_date, today)",
-            "description": "Âge en mois"
-          },
-          {
-            "id": "age_years",
-            "formula": "years_between(birth_date, today)",
-            "description": "Âge en années"
-          }
-        ]
       },
       "routes": [
         {
@@ -61,57 +34,19 @@
       "ui": {
         "component": "DateInput",
         "placeholder": "JJ/MM/AAAA",
-        "help": "Sélectionnez la date de naissance du patient",
-        "tooltip": "Cette date permet de calculer automatiquement l'âge du patient"
+        "help": "Sélectionnez la date de naissance du patient"
       }
     }
   ],
-  "constats": {
-    "constat_redirect": {
-      "id": "C1T01_CONSTAT_01",
-      "type": "immediate_redirect",
-      "title": "Redirection spécialisée requise",
-      "message": "Cette clientèle demande une expertise particulière, veuillez consulter une ressource spécialisée.",
-      "severity": "high",
-      "action": "stop_evaluation",
-      "target": "specialized_care"
-    }
-  },
   "validation_rules": {
-    "required_fields": ["C1T01E01"],
+    "required_fields": [
+      "C1T01E01"
+    ],
     "date_validation": {
       "birth_date": {
         "not_future": true,
         "reasonable_range": "1900-today"
       }
     }
-  },
-  "derived_data": {
-    "age_calculations": {
-      "source": "C1T01E01",
-      "outputs": [
-        {
-          "id": "age_days",
-          "description": "Âge en jours",
-          "usage": "Conditions d'âge, validation < 1 mois"
-        },
-        {
-          "id": "age_months",
-          "description": "Âge en mois", 
-          "usage": "Conditions d'âge, validation < 4 semaines"
-        },
-        {
-          "id": "age_years",
-          "description": "Âge en années",
-          "usage": "Conditions d'âge, validation >= 65 ans"
-        }
-      ]
-    }
-  },
-  "accessibility": {
-    "aria_label": "Date de naissance du patient",
-    "aria_description": "Champ obligatoire pour calculer l'âge et déterminer les protocoles d'évaluation appropriés",
-    "keyboard_navigation": true,
-    "screen_reader_support": true
   }
 }

@@ -1,17 +1,10 @@
 {
   "id": "C1T13",
-  "version": "1.0.0",
   "title": "Perceptions et objectifs de la personne",
   "description": "Recueil de la vision subjective du patient et de son entourage sur la plaie et les objectifs de soins",
   "category": "patient_perspective",
   "column": 1,
   "table": 13,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "questions": [
     {
       "qid": "C1T13Q1",
@@ -35,8 +28,7 @@
         "supports_multiple_entries": true,
         "entry_format": "C1T13E01-{instance_number}",
         "instance_tracking": true
-      },
-      "routes": []
+      }
     },
     {
       "qid": "C1T13Q2",
@@ -60,8 +52,7 @@
         "supports_multiple_entries": true,
         "entry_format": "C1T13E02-{instance_number}",
         "instance_tracking": true
-      },
-      "routes": []
+      }
     }
   ],
   "validation_rules": {
@@ -90,69 +81,9 @@
       },
       {
         "title": "Objectif principal",
-        "question": "C1T13Q2", 
+        "question": "C1T13Q2",
         "description": "Objectifs et attentes du patient concernant sa plaie"
       }
     ]
-  },
-  "data_structure": {
-    "perceptions": {
-      "attribution": {
-        "element_id": "C1T13E01",
-        "question_id": "C1T13Q1",
-        "type": "text",
-        "supports_multiple": true
-      },
-      "goals": {
-        "element_id": "C1T13E02",
-        "question_id": "C1T13Q2",
-        "type": "text",
-        "supports_multiple": true
-      }
-    },
-    "instance_management": {
-      "format": "{element_id}-{instance_number}",
-      "tracking": {
-        "timestamp": true,
-        "source": "patient|family|caregiver|other",
-        "metadata": true
-      }
-    },
-    "export_format": {
-      "attribution_entries": "Array of text entries with metadata",
-      "goal_entries": "Array of text entries with metadata",
-      "summary": "Combined qualitative data for care planning"
-    }
-  },
-  "clinical_notes": {
-    "importance": "Les perceptions du patient enrichissent la compréhension de la situation et orientent les soins",
-    "documentation": "Ces données qualitatives seront intégrées dans le récapitulatif et les constats",
-    "usage": {
-      "recap": "Reprise dans le récapitulatif pour contexte complet",
-      "constats": "Affichage dans la colonne Constats pour référence",
-      "care_planning": "Influence sur les objectifs de soins personnalisés",
-      "communication": "Améliore la communication avec le patient et l'équipe"
-    },
-    "considerations": {
-      "patient_incapable": "Peut être rempli par l'entourage si le patient ne peut s'exprimer",
-      "multiple_sources": "Permet de recueillir plusieurs perspectives (patient, famille, soignants)",
-      "cultural_factors": "Prend en compte les facteurs culturels et personnels",
-      "care_continuity": "Facilite la continuité des soins entre les intervenants"
-    }
-  },
-  "accessibility": {
-    "aria_label": "Perceptions et objectifs de la personne",
-    "aria_description": "Recueillez la vision subjective du patient et de son entourage",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_labels": {
-      "attribution": "Attribution de la plaie selon le patient et son entourage",
-      "goals": "Objectifs principaux du patient concernant sa plaie"
-    },
-    "text_area_support": {
-      "resizable": true,
-      "multiline": true,
-      "character_count": true
-    }
   }
 }

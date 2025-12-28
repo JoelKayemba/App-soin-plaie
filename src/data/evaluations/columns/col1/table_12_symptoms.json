@@ -1,17 +1,9 @@
 {
   "id": "C1T12",
-  "version": "1.0.0",
   "title": "Symptômes",
-  "description": "Évaluation des symptômes associés à la plaie avec sous-questions détaillées pour la douleur",
   "category": "symptom_assessment",
   "column": 1,
   "table": 12,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T12E01",
@@ -21,10 +13,8 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente un prurit",
-        "tooltip": "Sensation de démangeaison, envie de se gratter"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente un prurit"
+      }
     },
     {
       "id": "C1T12E02",
@@ -35,23 +25,18 @@
       "triggers_subquestions": true,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente de la douleur",
-        "tooltip": "Sensation douloureuse associée à la plaie"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente de la douleur"
+      }
     },
     {
       "id": "C1T12E03",
       "type": "boolean",
       "label": "Sensation de brûlure",
-      "description": "Sensation de brûlure",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une sensation de brûlure",
-        "tooltip": "Sensation de brûlure, de chaleur intense"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une sensation de brûlure"
+      }
     },
     {
       "id": "C1T12E04",
@@ -61,36 +46,28 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente des engourdissements",
-        "tooltip": "Sensation d'engourdissement, de perte de sensibilité"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente des engourdissements"
+      }
     },
     {
       "id": "C1T12E05",
       "type": "boolean",
       "label": "Sensation de fièvre",
-      "description": "Sensation de fièvre locale",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une sensation de fièvre",
-        "tooltip": "Sensation de chaleur, de fièvre au niveau de la plaie"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une sensation de fièvre"
+      }
     },
     {
       "id": "C1T12E06",
       "type": "boolean",
       "label": "Frissons",
-      "description": "Sensation de frissons",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente des frissons",
-        "tooltip": "Sensation de frissons, de tremblements"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente des frissons"
+      }
     }
   ],
   "subquestions": [
@@ -100,18 +77,18 @@
       "type": "single_choice",
       "required": true,
       "condition": {
-        "anyOf": ["C1T12E02"]
+        "anyOf": [
+          "C1T12E02"
+        ]
       },
       "options": [
         {
           "id": "C1T12E02T1",
-          "label": "Constante",
-          "description": "Douleur constante"
+          "label": "Constante"
         },
         {
           "id": "C1T12E02T2",
-          "label": "Intermittente",
-          "description": "Douleur intermittente"
+          "label": "Intermittente"
         },
         {
           "id": "C1T12E02T3",
@@ -130,7 +107,9 @@
       "type": "number",
       "required": false,
       "condition": {
-        "anyOf": ["C1T12E02"]
+        "anyOf": [
+          "C1T12E02"
+        ]
       },
       "id": "C1T12E02I",
       "validation": {
@@ -151,7 +130,9 @@
       "type": "visual_scale",
       "required": false,
       "condition": {
-        "anyOf": ["C1T12E02"]
+        "anyOf": [
+          "C1T12E02"
+        ]
       },
       "id": "C1T12E02V",
       "validation": {
@@ -170,7 +151,9 @@
       "type": "pacslac_scale",
       "required": false,
       "condition": {
-        "anyOf": ["C1T12E02"]
+        "anyOf": [
+          "C1T12E02"
+        ]
       },
       "id": "C1T12E02P",
       "validation": {
@@ -189,13 +172,14 @@
       "type": "single_choice",
       "required": true,
       "condition": {
-        "anyOf": ["C1T12E02"]
+        "anyOf": [
+          "C1T12E02"
+        ]
       },
       "options": [
         {
           "id": "C1T12E02C1",
-          "label": "Contrôlée",
-          "description": "Douleur bien contrôlée"
+          "label": "Contrôlée"
         },
         {
           "id": "C1T12E02C2",
@@ -215,7 +199,14 @@
         "min_selections": 0,
         "max_selections": 6,
         "allow_none": true,
-        "options": ["C1T12E01", "C1T12E02", "C1T12E03", "C1T12E04", "C1T12E05", "C1T12E06"]
+        "options": [
+          "C1T12E01",
+          "C1T12E02",
+          "C1T12E03",
+          "C1T12E04",
+          "C1T12E05",
+          "C1T12E06"
+        ]
       }
     },
     "conditional_required": {
@@ -235,13 +226,13 @@
         "description": "Évaluation numérique optionnelle"
       },
       "C1T12Q3": {
-        "condition": "C1T12E02 selected", 
+        "condition": "C1T12E02 selected",
         "validation": "0-100 visual scale",
         "description": "Échelle visuelle optionnelle"
       },
       "C1T12Q4": {
         "condition": "C1T12E02 selected",
-        "validation": "0-60 PACSLAC score", 
+        "validation": "0-60 PACSLAC score",
         "description": "Évaluation PACSLAC optionnelle"
       }
     }
@@ -254,75 +245,28 @@
     "sections": [
       {
         "title": "Symptômes généraux",
-        "elements": ["C1T12E01", "C1T12E02", "C1T12E03", "C1T12E04", "C1T12E05", "C1T12E06"],
+        "elements": [
+          "C1T12E01",
+          "C1T12E02",
+          "C1T12E03",
+          "C1T12E04",
+          "C1T12E05",
+          "C1T12E06"
+        ],
         "type": "checkbox_group"
       },
       {
         "title": "Évaluation détaillée de la douleur",
         "condition": "C1T12E02 selected",
-        "subquestions": ["C1T12Q1", "C1T12Q2", "C1T12Q3", "C1T12Q4", "C1T12Q5"],
+        "subquestions": [
+          "C1T12Q1",
+          "C1T12Q2",
+          "C1T12Q3",
+          "C1T12Q4",
+          "C1T12Q5"
+        ],
         "type": "conditional_group"
       }
     ]
-  },
-  "data_structure": {
-    "symptoms": {
-      "pruritus": "C1T12E01",
-      "pain": "C1T12E02",
-      "burning_sensation": "C1T12E03",
-      "numbness": "C1T12E04",
-      "fever_sensation": "C1T12E05",
-      "chills": "C1T12E06"
-    },
-    "pain_assessment": {
-      "type": {
-        "constant": "C1T12E02T1",
-        "intermittent": "C1T12E02T2",
-        "procedural": "C1T12E02T3"
-      },
-      "evaluation_scales": {
-        "numeric_scale": "C1T12Q2",
-        "visual_scale": "C1T12Q3", 
-        "pacslac_scale": "C1T12Q4"
-      },
-      "evaluation_values": {
-        "intensity": "C1T12E02I",
-        "visual_value": "C1T12E02V",
-        "pacslac_score": "C1T12E02P"
-      },
-      "control": {
-        "controlled": "C1T12E02C1",
-        "uncontrolled": "C1T12E02C2"
-      }
-    },
-    "export_format": {
-      "selected_symptoms": "Array of selected symptom IDs",
-      "pain_details": "Object with pain assessment if C1T12E02 selected"
-    }
-  },
-  "clinical_notes": {
-    "importance": "Les symptômes fournissent des informations cruciales sur l'état de la plaie et la douleur du patient",
-    "documentation": "Tous les symptômes et l'évaluation de la douleur seront documentés",
-    "pain_management": {
-      "controlled": "Douleur bien gérée, continuer le traitement actuel",
-      "uncontrolled": "Douleur mal contrôlée, réévaluation du traitement nécessaire"
-    },
-    "symptom_monitoring": {
-      "pruritus": "Surveillance des signes d'infection ou d'allergie",
-      "burning": "Évaluation de l'inflammation ou de l'infection",
-      "numbness": "Évaluation de la circulation et de la sensibilité",
-      "fever_sensation": "Surveillance des signes d'infection locale",
-      "chills": "Surveillance des signes d'infection systémique"
-    }
-  },
-  "accessibility": {
-    "aria_label": "Évaluation des symptômes",
-    "aria_description": "Sélectionnez tous les symptômes qui s'appliquent au patient",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_labels": {
-      "symptoms": "Symptômes généraux",
-      "pain_assessment": "Évaluation détaillée de la douleur"
-    }
   }
 }

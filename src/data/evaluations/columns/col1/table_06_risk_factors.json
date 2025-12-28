@@ -1,17 +1,9 @@
 {
   "id": "C1T06",
-  "version": "1.0.0",
   "title": "Facteurs de risque",
-  "description": "Identification des facteurs de risque modifiables et non modifiables pour les lésions de pression",
   "category": "risk_assessment",
   "column": 1,
   "table": 6,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T06E01",
@@ -28,10 +20,8 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient fume activement",
-        "tooltip": "Consommation active de cigarettes, cigares, pipe, etc."
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient fume activement"
+      }
     },
     {
       "id": "C1T06E02",
@@ -48,10 +38,8 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient est exposé au tabagisme passif",
-        "tooltip": "Exposition à la fumée de tabac d'autres personnes"
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient est exposé au tabagisme passif"
+      }
     },
     {
       "id": "C1T06E03",
@@ -68,16 +56,13 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient consomme des drogues",
-        "tooltip": "Consommation de substances illicites ou détournées"
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient consomme des drogues"
+      }
     },
     {
       "id": "C1T06E04",
       "type": "multiple_choice_with_text",
       "label": "Alcool",
-      "description": "Consommation d'alcool",
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -88,16 +73,13 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient consomme de l'alcool",
-        "tooltip": "Consommation d'alcool (bière, vin, spiritueux, etc.)"
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient consomme de l'alcool"
+      }
     },
     {
       "id": "C1T06E05",
       "type": "multiple_choice_with_text",
       "label": "Humidité",
-      "description": "Exposition à l'humidité excessive",
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -108,10 +90,8 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient est exposé à l'humidité excessive",
-        "tooltip": "Exposition prolongée à l'humidité (transpiration, incontinence, etc.)"
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient est exposé à l'humidité excessive"
+      }
     },
     {
       "id": "C1T06E06",
@@ -128,10 +108,8 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient présente des limitations de mobilité",
-        "tooltip": "Immobilité, mobilité réduite, sédentarité excessive"
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient présente des limitations de mobilité"
+      }
     },
     {
       "id": "C1T06E07",
@@ -148,10 +126,8 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient subit des traumatismes répétés",
-        "tooltip": "Exposition répétée à des traumatismes physiques"
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient subit des traumatismes répétés"
+      }
     }
   ],
   "validation_rules": {
@@ -203,51 +179,5 @@
     "spacing": "medium",
     "group_label": "Facteurs de risque",
     "instructions": "Sélectionnez tous les facteurs de risque qui s'appliquent au patient et précisez les détails. Aucune sélection n'est obligatoire."
-  },
-  "data_structure": {
-    "risk_factors": {
-      "active_smoking": "C1T06E01",
-      "passive_smoking": "C1T06E02",
-      "drug_use": "C1T06E03",
-      "alcohol_consumption": "C1T06E04",
-      "moisture_exposure": "C1T06E05",
-      "mobility_limitations": "C1T06E06",
-      "repeated_trauma": "C1T06E07"
-    },
-    "export_format": {
-      "selected_factors": "Array of selected risk factor IDs",
-      "factor_details": "Object with details for each selected factor"
-    }
-  },
-  "clinical_notes": {
-    "importance": "Ces facteurs de risque peuvent augmenter significativement le risque de lésions de pression",
-    "documentation": "Tous les facteurs de risque identifiés seront documentés dans l'évaluation du risque",
-    "risk_categories": {
-      "modifiable": [
-        "Tabagisme actif",
-        "Tabagisme passif", 
-        "Drogue",
-        "Alcool",
-        "Humidité",
-        "Sédentarité"
-      ],
-      "non_modifiable": [
-        "Traumatisme répété"
-      ]
-    },
-    "interventions": {
-      "smoking": "Arrêt du tabac, réduction de l'exposition",
-      "substances": "Réduction ou arrêt de la consommation",
-      "moisture": "Gestion de l'humidité, protection cutanée",
-      "mobility": "Programme de mobilisation, ergothérapie",
-      "trauma": "Protection, prévention des chutes"
-    }
-  },
-  "accessibility": {
-    "aria_label": "Sélection des facteurs de risque",
-    "aria_description": "Cochez tous les facteurs de risque qui s'appliquent au patient et précisez les détails",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_label": "Liste des facteurs de risque"
   }
 }

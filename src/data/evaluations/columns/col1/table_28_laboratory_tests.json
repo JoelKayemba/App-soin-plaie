@@ -1,17 +1,10 @@
 {
   "id": "C1T28",
-  "version": "1.0.0",
   "title": "Tests de laboratoire",
   "description": "Saisir les principaux résultats biologiques liés à la plaie.",
   "category": "laboratory_assessment",
   "column": 1,
   "table": 28,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T28E01",
@@ -53,7 +46,6 @@
       "id": "C1T28E03",
       "type": "single_choice",
       "label": "Résultat de culture de plaie",
-      "description": "Sélectionnez le résultat de culture",
       "required": true,
       "options": [
         {
@@ -87,7 +79,11 @@
     }
   ],
   "validation_rules": {
-    "required_fields": ["C1T28E01", "C1T28E02", "C1T28E03"],
+    "required_fields": [
+      "C1T28E01",
+      "C1T28E02",
+      "C1T28E03"
+    ],
     "error_messages": {
       "C1T28E01": "Le taux d'albumine est requis (0 à 100 g/L).",
       "C1T28E02": "Le taux d'hémoglobine est requis (0 à 200 g/L).",
@@ -99,30 +95,5 @@
     "spacing": "medium",
     "group_label": "Tests de laboratoire",
     "instructions": "Saisissez les valeurs de laboratoire disponibles et sélectionnez le résultat de culture."
-  },
-  "data_structure": {
-    "albumine": {
-      "value": "Number (g/L)"
-    },
-    "hemoglobine": {
-      "value": "Number (g/L)"
-    },
-    "culture": {
-      "result": "String (positive/negative)"
-    },
-    "comments": "String"
-  },
-  "clinical_notes": {
-    "albumine": "L'albumine reflète l'état nutritionnel et influence la cicatrisation.",
-    "hemoglobine": "L'hémoglobine est liée à la capacité d'oxygénation tissulaire.",
-    "culture": "Un résultat positif indique la présence d'agents pathogènes et nécessite une intervention clinique appropriée."
-  },
-  "accessibility": {
-    "aria_label": "Tests de laboratoire",
-    "aria_description": "Saisie des valeurs numériques d'albumine et d'hémoglobine ainsi que du résultat de culture de la plaie.",
-    "keyboard_navigation": true,
-    "screen_reader_support": true
   }
 }
-
-

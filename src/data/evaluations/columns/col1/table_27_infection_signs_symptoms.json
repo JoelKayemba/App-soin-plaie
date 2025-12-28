@@ -1,17 +1,10 @@
 {
   "id": "C1T27",
-  "version": "1.0.0",
   "title": "Signes et symptômes d'infection",
   "description": "Identification des signes locaux et systémiques d'infection",
   "category": "infection_assessment",
   "column": 1,
   "table": 27,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "special_note": {
     "title": "Important",
     "message": "Une neuropathie, une MVAS ou une immunosuppression peut masquer les symptômes ou les signes d'une infection locale de la plaie.",
@@ -241,7 +234,6 @@
       "id": "C1T27E21",
       "type": "boolean",
       "label": "Fièvre",
-      "description": "Température corporelle élevée (≥ 38 °C) ou suspicion de fièvre.",
       "ui": {
         "component": "Checkbox"
       }
@@ -411,57 +403,5 @@
     "spacing": "medium",
     "group_label": "Signes et symptômes d'infection",
     "instructions": "Cochez tous les signes observés."
-  },
-  "data_structure": {
-    "selected_signs": {
-      "type": "object",
-      "fields": {
-        "C1T27E01": "Boolean",
-        "C1T27E02": "Boolean",
-        "C1T27E03": "Boolean",
-        "C1T27E04": "Boolean",
-        "C1T27E05": "Boolean",
-        "C1T27E06": "Boolean",
-        "C1T27E07": "Boolean",
-        "C1T27E08": "Boolean",
-        "C1T27E09": "Boolean",
-        "C1T27E10": "Boolean",
-        "C1T27E11": "Boolean",
-        "C1T27E12": "Boolean",
-        "C1T27E12_INTENSITY": "String (Légère/Moyenne/Forte)",
-        "C1T27E13": "Boolean",
-        "C1T27E14": "Boolean",
-        "C1T27E15": "Boolean",
-        "C1T27E16": "Boolean",
-        "C1T27E17": "Boolean",
-        "C1T27E18": "Boolean",
-        "C1T27E19": "Boolean",
-        "C1T27E20": "Boolean",
-        "C1T27E21": "Boolean",
-        "C1T27E21_TEMPERATURE": "Number (°C)",
-        "C1T27E21_METHOD": "String (Buccale/Rectale/Tympanique/Transcutanée/Axillaire)",
-        "C1T27E22": "Boolean",
-        "C1T27E23": "Boolean",
-        "C1T27E24": "Boolean",
-        "C1T27E25": "Boolean",
-        "C1T27E26": "Boolean",
-        "C1T27E27": "Boolean"
-      }
-    },
-    "export_format": {
-      "selected_signs": "Object des valeurs C1T27E##",
-      "has_red_flags": "Boolean",
-      "red_flags_selected": "Array des IDs avec drapeaux rouges"
-    }
-  },
-  "clinical_notes": {
-    "importance": "Identifier rapidement les signes locaux, systémiques et les urgences cliniques liées à l'infection.",
-    "red_flags": "Toute sélection marquée d'un drapeau rouge nécessite une orientation immédiate vers l'urgence."
-  },
-  "accessibility": {
-    "aria_label": "Signes et symptômes d'infection",
-    "aria_description": "Sélection multiple des signes observés et des drapeaux rouges.",
-    "keyboard_navigation": true,
-    "screen_reader_support": true
   }
 }

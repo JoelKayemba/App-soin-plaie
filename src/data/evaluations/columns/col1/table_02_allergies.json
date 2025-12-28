@@ -1,62 +1,44 @@
 {
   "id": "C1T02",
-  "version": "1.0.0",
   "title": "Allergies",
-  "description": "Identification des allergies du patient pour adapter les soins et éviter les réactions",
   "category": "medical_history",
   "column": 1,
   "table": 2,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T02E01",
       "type": "boolean",
       "label": "Chlorhexidine",
-      "description": "Allergie à la chlorhexidine",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une allergie à la chlorhexidine",
-        "tooltip": "La chlorhexidine est un antiseptique couramment utilisé dans les soins de plaies"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une allergie à la chlorhexidine"
+      }
     },
     {
-      "id": "C1T02E02", 
+      "id": "C1T02E02",
       "type": "boolean",
       "label": "Iode",
-      "description": "Allergie à l'iode",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une allergie à l'iode",
-        "tooltip": "L'iode est présent dans certains antiseptiques et produits de contraste"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une allergie à l'iode"
+      }
     },
     {
       "id": "C1T02E03",
-      "type": "boolean", 
+      "type": "boolean",
       "label": "Latex",
-      "description": "Allergie au latex",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une allergie au latex",
-        "tooltip": "Le latex est présent dans de nombreux équipements médicaux (gants, cathéters, etc.)"
-      },
-      "routes": []
+        "help": "Cochez si le patient présente une allergie au latex"
+      }
     },
     {
       "id": "C1T02E04",
       "type": "multiple_choice_with_text",
       "label": "Autre",
-      "description": "Autres allergies non listées",
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -67,10 +49,8 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient présente d'autres allergies",
-        "tooltip": "Indiquez toute autre allergie connue du patient"
-      },
-      "routes": []
+        "help": "Cochez et précisez si le patient présente d'autres allergies"
+      }
     }
   ],
   "validation_rules": {
@@ -92,28 +72,5 @@
     "spacing": "medium",
     "group_label": "Allergies connues du patient",
     "instructions": "Sélectionnez toutes les allergies qui s'appliquent au patient. Aucune sélection n'est obligatoire."
-  },
-  "data_structure": {
-    "allergies_list": {
-      "chlorhexidine": "C1T02E01",
-      "iode": "C1T02E02", 
-      "latex": "C1T02E03",
-      "autre": "C1T02E04"
-    },
-    "export_format": {
-      "selected_allergies": "Array of selected allergy IDs",
-      "other_allergies": "Text from C1T02E04 if checked"
-    }
-  },
-  "clinical_notes": {
-    "importance": "Les allergies doivent être vérifiées avant tout soin pour éviter les réactions allergiques",
-    "documentation": "Toutes les allergies sélectionnées seront documentées dans le plan de soins"
-  },
-  "accessibility": {
-    "aria_label": "Sélection des allergies du patient",
-    "aria_description": "Cochez toutes les allergies connues du patient pour adapter les soins",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_label": "Liste des allergies"
   }
 }

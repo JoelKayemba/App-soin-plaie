@@ -1,17 +1,10 @@
 {
   "id": "C1T25",
-  "version": "1.0.0",
   "title": "BWAT – Type et quantité d'exsudat",
   "description": "Évaluation du type et quantité d'exsudat selon l'échelle BWAT (Bates-Jensen Wound Assessment Tool)",
   "category": "wound_assessment",
   "column": 1,
   "table": 25,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "bwat_attribution": {
     "title": "BWAT - Bates-Jensen Wound Assessment Tool",
     "version": "Version traduite autorisée",
@@ -40,7 +33,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez s'il n'y a aucun exsudat visible",
-            "tooltip": "Aucun exsudat visible",
             "ariaDescription": "Cocher s'il n'y a aucun exsudat visible"
           },
           "clinical_notes": {
@@ -59,7 +51,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si l'exsudat est sanguin",
-            "tooltip": "Liquide, rouge vif",
             "ariaDescription": "Cocher si l'exsudat est sanguin"
           },
           "detailed_definition": {
@@ -89,7 +80,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si l'exsudat est sérosanguin",
-            "tooltip": "Liquide, aqueux, rouge pâle ou rosé",
             "ariaDescription": "Cocher si l'exsudat est sérosanguin"
           },
           "detailed_definition": {
@@ -119,7 +109,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si l'exsudat est séreux",
-            "tooltip": "Liquide, aqueux, translucide, clair",
             "ariaDescription": "Cocher si l'exsudat est séreux"
           },
           "detailed_definition": {
@@ -150,7 +139,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si l'exsudat est purulent",
-            "tooltip": "Liquide aqueux ou épais, opaque, beige/jaunâtre ou vert, avec ou sans odeur",
             "ariaDescription": "Cocher si l'exsudat est purulent"
           },
           "detailed_definition": {
@@ -199,7 +187,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez s'il n'y a aucun exsudat et que la plaie est sèche",
-            "tooltip": "Le lit de la plaie est sec",
             "ariaDescription": "Cocher s'il n'y a aucun exsudat et que la plaie est sèche"
           },
           "detailed_definition": {
@@ -229,7 +216,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si la plaie est humide sans exsudat observable",
-            "tooltip": "Minime : tissus de la plaie humides; exsudat non mesurable",
             "ariaDescription": "Cocher si la plaie est humide sans exsudat observable"
           },
           "detailed_definition": {
@@ -259,7 +245,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si l'exsudat est faible",
-            "tooltip": "Tissus humides, humidité répartie uniformément; pansement imbibé ≤ 25%",
             "ariaDescription": "Cocher si l'exsudat est faible"
           },
           "detailed_definition": {
@@ -289,7 +274,6 @@
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si l'exsudat est modéré",
-            "tooltip": "Tissus saturés, exsudat parfois non réparti; pansement imbibé > 25% à ≤ 75%",
             "ariaDescription": "Cocher si l'exsudat est modéré"
           },
           "detailed_definition": {
@@ -313,13 +297,11 @@
           "id": "C1T25E10",
           "type": "boolean",
           "label": "5",
-          "description": "Abondant - Tissus baignant dans le liquide, exsudat libre; pansement imbibé > 75%",
           "score": 5,
           "required": false,
           "ui": {
             "component": "RadioButton",
             "help": "Sélectionnez si l'exsudat est abondant",
-            "tooltip": "Tissus baignant dans le liquide, exsudat libre; pansement imbibé > 75%",
             "ariaDescription": "Cocher si l'exsudat est abondant"
           },
           "detailed_definition": {
@@ -355,17 +337,19 @@
     "enabled": true,
     "id": "C1T25E11",
     "label": "Photo du pansement avant retrait",
-    "description": "Photo du pansement avant retrait pour vérification visuelle",
     "type": "photo",
     "validation": {
       "required": false,
       "max_size": "10MB",
-      "formats": ["jpg", "jpeg", "png"]
+      "formats": [
+        "jpg",
+        "jpeg",
+        "png"
+      ]
     },
     "ui": {
       "component": "PhotoCapture",
-      "help": "Prenez une photo du pansement avant retrait pour vérification visuelle",
-      "tooltip": "Photo optionnelle du pansement pour évaluation de l'exsudat"
+      "help": "Prenez une photo du pansement avant retrait pour vérification visuelle"
     },
     "clinical_notes": {
       "description": "Photo du pansement avant retrait pour vérification visuelle",
@@ -400,102 +384,36 @@
     "sections": [
       {
         "title": "Qualité de l'exsudat",
-        "elements": ["C1T25E01", "C1T25E02", "C1T25E03", "C1T25E04", "C1T25E05"],
+        "elements": [
+          "C1T25E01",
+          "C1T25E02",
+          "C1T25E03",
+          "C1T25E04",
+          "C1T25E05"
+        ],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Quantité d'exsudat",
-        "elements": ["C1T25E06", "C1T25E07", "C1T25E08", "C1T25E09", "C1T25E10"],
+        "elements": [
+          "C1T25E06",
+          "C1T25E07",
+          "C1T25E08",
+          "C1T25E09",
+          "C1T25E10"
+        ],
         "type": "radio_group",
         "required": true
       },
       {
         "title": "Documentation",
-        "elements": ["C1T25E11"],
+        "elements": [
+          "C1T25E11"
+        ],
         "type": "photo_section",
         "required": false
       }
     ]
-  },
-  "data_structure": {
-    "quality_score": {
-      "id": "Selected quality ID",
-      "score": "Quality score (1-5)",
-      "label": "Selected quality label",
-      "description": "Selected quality description"
-    },
-    "quantity_score": {
-      "id": "Selected quantity ID",
-      "score": "Quantity score (1-5)",
-      "label": "Selected quantity label",
-      "description": "Selected quantity description"
-    },
-    "photo": {
-      "file_path": "C1T25E11",
-      "metadata": "Photo du pansement avant retrait"
-    },
-    "export_format": {
-      "quality_id": "String (C1T25E01-C1T25E05)",
-      "quality_score": "Number (1-5)",
-      "quality_label": "String (Quality description)",
-      "quantity_id": "String (C1T25E06-C1T25E10)",
-      "quantity_score": "Number (1-5)",
-      "quantity_label": "String (Quantity description)",
-      "photo_path": "String (Photo file path)",
-      "bwat_contribution": "Object (Quality + Quantity scores)"
-    }
-  },
-  "clinical_notes": {
-    "importance": "L'évaluation de l'exsudat aide à identifier les signes d'infection et à adapter le traitement",
-    "documentation": "Les scores de qualité et quantité seront documentés pour le suivi BWAT",
-    "exudate_significance": {
-      "quality": {
-        "sanguin": "Saignement actif, traumatisme récent",
-        "sérosanguin": "Cicatrisation normale, inflammation légère",
-        "séreux": "Cicatrisation normale, inflammation légère",
-        "purulent": "Infection, inflammation aiguë, nécrose"
-      },
-      "quantity": {
-        "aucun": "Plaie sèche, cicatrisation avancée",
-        "humide": "Cicatrisation normale, humidité minimale",
-        "faible": "Cicatrisation normale, exsudat modéré",
-        "modéré": "Inflammation, exsudat modéré",
-        "abondant": "Infection, inflammation aiguë, nécrose"
-      }
-    },
-    "bwat_integration": {
-      "score_contribution": "Contribution au score total BWAT (qualité + quantité)",
-      "follow_up": "Évolution des scores dans le temps",
-      "healing_progression": "Réduction des scores = amélioration"
-    },
-    "clinical_concerns": {
-      "high_scores": {
-        "description": "Scores élevés (E05 ou E10) peuvent indiquer une infection ou une inflammation aiguë",
-        "implications": "Évaluation d'infection recommandée, confirmation dans le bloc Constat"
-      }
-    }
-  },
-  "accessibility": {
-    "aria_label": "BWAT - Type et quantité d'exsudat",
-    "aria_description": "Les deux sous-blocs doivent être complétés (qualité + quantité)",
-    "keyboard_navigation": true,
-    "screen_reader_support": true,
-    "group_aria_labels": {
-      "quality": "Qualité de l'exsudat",
-      "quantity": "Quantité d'exsudat",
-      "photo": "Documentation photographique"
-    },
-    "radio_groups": {
-      "aria_required": true,
-      "aria_invalid": "false",
-      "instructions": "Un seul score par sous-bloc peut être sélectionné"
-    },
-    "detailed_definitions": {
-      "aria_label": "Définition détaillée du score",
-      "aria_description": "Informations cliniques détaillées sur le score sélectionné"
-    }
   }
 }
-
-

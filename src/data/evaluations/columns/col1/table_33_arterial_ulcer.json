@@ -1,17 +1,9 @@
 {
   "id": "C1T33",
-  "version": "1.0.0",
   "title": "Ulcère artériel",
-  "description": "Vérifier si le patient bénéficie d'une décharge adaptée pour un ulcère artériel.",
   "category": "therapeutic_equipment",
   "column": 1,
   "table": 33,
-  "metadata": {
-    "created": "2025-01-05",
-    "updated": "2025-01-05",
-    "author": "Système d'évaluation clinique",
-    "language": "fr-CA"
-  },
   "elements": [
     {
       "id": "C1T33E01",
@@ -69,13 +61,6 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Ulcère artériel",
-    "instructions": "Vérifiez si un dispositif de décharge est en place pour l'ulcère artériel." 
-  },
-  "data_structure": {
-    "offloading_present": {
-      "value": "String (oui/non)"
-    },
-    "offloading_type": "String (si oui)"
+    "instructions": "Vérifiez si un dispositif de décharge est en place pour l'ulcère artériel."
   }
 }
-
