@@ -79,14 +79,7 @@ const Table17Renderer = ({
 
   return (
     <TView style={styles.contentContainer}>
-      {tableData.ui_configuration?.group_label && (
-        <TView style={styles.headerContainer}>
-          <TText style={[styles.groupLabel, { color: colors.text }]}>
-            {tableData.ui_configuration.group_label}
-          </TText>
-        </TView>
-      )}
-      
+      {/* Instructions si présentes (le titre est déjà affiché dans le header de l'écran) */}
       {tableData.ui_configuration?.instructions && (
         <TView style={styles.instructionsContainer}>
           <TText style={[styles.instructions, { color: colors.textSecondary }]}>

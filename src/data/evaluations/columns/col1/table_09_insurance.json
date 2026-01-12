@@ -22,13 +22,13 @@
           "label": "Assurance médicale privée ou collective"
         },
         {
+          "value": "special_government",
+          "label": "Couverture gouvernementale par un programme spécial"
+        },
+        {
           "value": "none",
           "label": "Aucune"
         },
-        {
-          "value": "special_government",
-          "label": "Couverture gouvernementale par un programme spécial"
-        }
       ],
       "ui": {
         "component": "RadioGroup",

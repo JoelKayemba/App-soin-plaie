@@ -6,10 +6,11 @@ import { useTheme } from '@/context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import ContentDetector from '@/components/ui/ContentDetector';
 import RedirectAlert from '@/components/ui/RedirectAlert';
-import { EpicConnectionButton, EpicConnectionStatus } from '@/components/epic';
+import { useEpic } from '@/context/EpicContext';
 import useTableData from '@/hooks/useTableData';
 import useEvaluationRouting from '@/hooks/useEvaluationRouting';
 import spacing from '@/styles/spacing';
+import Svg, { Circle } from 'react-native-svg';
 
 // Import des données de configuration
 import evaluationSteps from '@/data/evaluations/evaluation_steps.json';
@@ -91,9 +92,45 @@ const collectLabelsFromTableData = (tableData = {}, accumulator = {}) => {
   return accumulator;
 };
 
+// Composant de cercle de progression
+const CircularProgress = ({ percentage, size = 32, strokeWidth = 3, color }) => {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (percentage / 100) * circumference;
+
+  return (
+    <View style={{ width: size, height: size }}>
+      <Svg width={size} height={size} style={{ transform: [{ rotate: '-90deg' }] }}>
+        {/* Cercle de fond */}
+        <Circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke={color + '30'}
+          strokeWidth={strokeWidth}
+          fill="transparent"
+        />
+        {/* Cercle de progression */}
+        <Circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke={color}
+          strokeWidth={strokeWidth}
+          fill="transparent"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+        />
+      </Svg>
+    </View>
+  );
+};
+
 const EvaluationScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const { isConnected, connect, isLoading: epicLoading, detectEpicLaunch } = useEpic();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [evaluationData, setEvaluationData] = useState({});
   const [stepValidation, setStepValidation] = useState({});
@@ -567,6 +604,20 @@ const EvaluationScreen = () => {
   // Calcul du pourcentage de progression
   const progressPercentage = Math.round(((currentStepIndex + 1) / steps.length) * 100);
 
+  // Gestion de la connexion Epic
+  const handleEpicConnect = useCallback(async () => {
+    try {
+      const launch = await detectEpicLaunch();
+      if (launch?.isLaunched) {
+        await connect(launch.launchToken, launch.iss);
+      } else {
+        await connect();
+      }
+    } catch (error) {
+      Alert.alert('Erreur', 'Impossible de se connecter à Epic.');
+    }
+  }, [connect, detectEpicLaunch]);
+
   // Rendu du contenu de l'étape courante
   const renderCurrentStepContent = () => {
     if (!currentStep) {
@@ -634,48 +685,49 @@ const EvaluationScreen = () => {
           >
           {/* En-tête avec navigation */}
           <TView style={styles.header}>
-          <TouchableOpacity 
-            style={styles.cancelButton}
-            onPress={handleCancel}
-          >
-            <TIcon name="close" size={24} color={colors.text} />
-          </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.cancelButton}
+              onPress={handleCancel}
+            >
+              <TIcon name="close" size={24} color={colors.text} />
+            </TouchableOpacity>
 
-        <TView style={styles.titleContainer}>
-          <TText style={[styles.title, { color: colors.text }]}>
-            {currentStep?.title || 'Évaluation'}
-          </TText>
-          <TText style={[styles.stepInfo, { color: colors.textSecondary }]}>
-            Étape {currentStepIndex + 1} sur {steps.length}
-          </TText>
-        </TView>
+            <TView style={styles.titleContainer}>
+              <TText style={[styles.title, { color: colors.text }]}>
+                {currentStep?.title || 'Évaluation'}
+              </TText>
+              <TText style={[styles.stepInfo, { color: colors.textSecondary }]}>
+                Étape {currentStepIndex + 1} sur {steps.length}
+              </TText>
+            </TView>
 
-        <View style={styles.placeholder} />
-      </TView>
-
-      {/* Composants Epic */}
-      <TView style={styles.epicContainer}>
-        <EpicConnectionStatus />
-        <EpicConnectionButton />
-      </TView>
-
-      {/* Barre de progression */}
-      <TView style={styles.progressContainer}>
-        <TView style={[styles.progressBar, { backgroundColor: colors.border }]}>
-          <TView 
-            style={[
-              styles.progressFill, 
-              { 
-                backgroundColor: colors.primary,
-                width: `${progressPercentage}%`
-              }
-            ]} 
-          />
-        </TView>
-        <TText style={[styles.progressText, { color: colors.textSecondary }]}>
-          {progressPercentage}%
-        </TText>
-      </TView>
+            <View style={styles.headerRight}>
+              {/* Cercle de progression */}
+              <View style={styles.progressCircleContainer}>
+                <CircularProgress 
+                  percentage={progressPercentage} 
+                  size={32} 
+                  strokeWidth={3}
+                  color={colors.primary}
+                />
+              </View>
+              
+              {/* Bouton Epic subtil */}
+              {!isConnected && (
+                <TouchableOpacity 
+                  style={styles.epicButton}
+                  onPress={handleEpicConnect}
+                  disabled={epicLoading}
+                >
+                  <TIcon 
+                    name="link" 
+                    size={20} 
+                    color={epicLoading ? colors.textSecondary : colors.primary} 
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+          </TView>
 
       {/* Contenu principal */}
       <ScrollView 
@@ -786,35 +838,21 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: spacing.xs,
   },
-  placeholder: {
-    width: 40, // Même largeur que le bouton annuler pour centrer le titre
-  },
-  progressContainer: {
+  headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
     gap: spacing.sm,
+    minWidth: 80,
+    justifyContent: 'flex-end',
   },
-  progressBar: {
-    flex: 1,
-    height: 6,
-    borderRadius: 3,
-    overflow: 'hidden',
+  progressCircleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  progressFill: {
-    height: '100%',
-    borderRadius: 3,
-  },
-  progressText: {
-    fontSize: 12,
-    fontWeight: '500',
-    minWidth: 40,
-    textAlign: 'right',
-  },
-  epicContainer: {
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.sm,
+  epicButton: {
+    padding: spacing.xs,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   content: {
     flex: 1,

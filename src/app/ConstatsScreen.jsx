@@ -8,6 +8,15 @@ import spacing from '@/styles/spacing';
 import { constatsGenerator } from '@/services';
 import { loadTableAnswers } from '@/storage/evaluationLocalStorage';
 import { tableDataLoader } from '@/services';
+import evaluationSteps from '@/data/evaluations/evaluation_steps.json';
+
+const buildStepMap = () => {
+  const steps = evaluationSteps.evaluation_flow.column_1.steps;
+  return steps.reduce((acc, step) => {
+    acc[step.id] = step;
+    return acc;
+  }, {});
+};
 
 const ConstatsScreen = () => {
   const navigation = useNavigation();
@@ -18,6 +27,9 @@ const ConstatsScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [constats, setConstats] = useState({});
   const [evaluationData, setEvaluationData] = useState(routeEvaluationData || {});
+  const [sourceTitles, setSourceTitles] = useState({});
+
+  const stepMap = useMemo(buildStepMap, []);
 
   // Charger les données d'évaluation si non fournies
   useEffect(() => {
@@ -30,9 +42,9 @@ const ConstatsScreen = () => {
       try {
         setIsLoading(true);
         const loadedData = {};
+        const titles = {};
         
         // Charger toutes les tables de l'évaluation
-        const evaluationSteps = require('@/data/evaluations/evaluation_steps.json');
         const steps = evaluationSteps.evaluation_flow.column_1.steps;
         
         for (const step of steps) {
@@ -45,12 +57,15 @@ const ConstatsScreen = () => {
               ...tableData,
               ...answers
             };
+            
+            titles[tableId] = step.title || tableData.title || tableId;
           } catch (error) {
             console.warn(`[ConstatsScreen] Erreur chargement table ${tableId}:`, error);
           }
         }
         
         setEvaluationData(loadedData);
+        setSourceTitles(titles);
       } catch (error) {
         console.error('[ConstatsScreen] Erreur chargement données:', error);
       } finally {
@@ -60,6 +75,24 @@ const ConstatsScreen = () => {
 
     loadEvaluationData();
   }, [evaluationId]);
+
+  // Charger les titres des sources si pas déjà chargés
+  useEffect(() => {
+    const loadSourceTitles = async () => {
+      if (Object.keys(sourceTitles).length > 0) return;
+      
+      const titles = {};
+      const steps = evaluationSteps.evaluation_flow.column_1.steps;
+      
+      for (const step of steps) {
+        titles[step.id] = step.title || step.id;
+      }
+      
+      setSourceTitles(titles);
+    };
+    
+    loadSourceTitles();
+  }, []);
 
   // Générer les constats quand les données sont prêtes
   useEffect(() => {
@@ -84,8 +117,13 @@ const ConstatsScreen = () => {
     navigation.goBack();
   };
 
+  const getSourceTitle = (sourceId) => {
+    if (!sourceId) return null;
+    return sourceTitles[sourceId] || stepMap[sourceId]?.title || sourceId;
+  };
+
   const renderConstatTable = (tableId, constatData) => {
-    const { detectedConstats = [], constatTable } = constatData;
+    const { detectedConstats = [], constatTable, constatData: constatDetails } = constatData;
     
     if (!constatTable) return null;
 
@@ -97,42 +135,60 @@ const ConstatsScreen = () => {
     if (activeElements.length === 0) return null;
 
     return (
-      <TView key={tableId} style={[styles.constatCard, { backgroundColor: colors.surface }]}>
-        <TText style={[styles.constatTableTitle, { color: colors.text }]}>
+      <TView key={tableId} style={[styles.tableCard, { backgroundColor: colors.surface }]}>
+        <TText style={[styles.tableTitle, { color: colors.text }]}>
           {constatTable.title || tableId}
         </TText>
         {constatTable.description && (
-          <TText style={[styles.constatTableDescription, { color: colors.textSecondary }]}>
+          <TText style={[styles.tableDescription, { color: colors.textSecondary }]}>
             {constatTable.description}
           </TText>
         )}
 
-        {activeElements.map((element) => (
-          <TView key={element.id} style={[styles.constatItem, { backgroundColor: colors.surfaceLight }]}>
-            <TView style={styles.constatItemHeader}>
+        {activeElements.map((element) => {
+          const constatDetail = constatDetails?.[element.id];
+          const sourceId = constatDetail?.source || element.section;
+          const sourceTitle = getSourceTitle(sourceId);
+          const badgeColor = element.ui?.color || colors.primary;
+
+          return (
+            <View key={element.id} style={styles.constatItem}>
               <TView 
                 style={[
                   styles.constatBadge, 
-                  { backgroundColor: element.ui?.color || colors.primary + '20' }
+                  { backgroundColor: badgeColor + '20' }
                 ]}
               >
                 <TText 
                   style={[
                     styles.constatBadgeText, 
-                    { color: element.ui?.color || colors.primary }
+                    { color: badgeColor }
                   ]}
                 >
                   {element.label || element.id}
                 </TText>
               </TView>
-            </TView>
-            {element.description && (
-              <TText style={[styles.constatDescription, { color: colors.textSecondary }]}>
-                {element.description}
-              </TText>
-            )}
-          </TView>
-        ))}
+              
+              {element.description && (
+                <TText style={[styles.constatDescription, { color: colors.textSecondary }]}>
+                  {element.description}
+                </TText>
+              )}
+              
+              {sourceTitle && (
+                <View style={styles.sourceInfo}>
+                  <TIcon 
+                    name="link" 
+                    size={14} 
+                    color={colors.textSecondary}
+                  />
+                  <TText style={[styles.sourceLabel, { color: colors.textSecondary }]}>Source :</TText>
+                  <TText style={[styles.sourceValue, { color: colors.primary }]}>{sourceTitle}</TText>
+                </View>
+              )}
+            </View>
+          );
+        })}
       </TView>
     );
   };
@@ -141,7 +197,13 @@ const ConstatsScreen = () => {
     return Object.entries(constats).map(([tableId, constatData]) => 
       renderConstatTable(tableId, constatData)
     ).filter(Boolean);
-  }, [constats, colors]);
+  }, [constats, colors, sourceTitles, stepMap]);
+
+  const totalConstats = useMemo(() => {
+    return Object.values(constats).reduce((sum, data) => {
+      return sum + (data.detectedConstats?.length || 0);
+    }, 0);
+  }, [constats]);
 
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.background }]}>
@@ -160,7 +222,7 @@ const ConstatsScreen = () => {
         >
           {isLoading ? (
             <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color={colors.primary} />
+              <ActivityIndicator size="small" color={colors.primary} />
               <TText style={[styles.loadingText, { color: colors.textSecondary }]}>
                 Génération des constats...
               </TText>
@@ -176,7 +238,8 @@ const ConstatsScreen = () => {
             <>
               <TView style={[styles.infoCard, { backgroundColor: colors.surfaceLight }]}>
                 <TText style={[styles.infoText, { color: colors.textSecondary }]}>
-                  Les constats suivants ont été générés automatiquement à partir de vos réponses.
+                  Les constats suivants ont été générés automatiquement à partir de vos réponses à l'évaluation. 
+                  Chaque constat indique sa source dans l'évaluation.
                 </TText>
               </TView>
               {constatTables}
@@ -217,6 +280,15 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     paddingBottom: spacing.xl,
   },
+  infoCard: {
+    borderRadius: spacing.radius.md,
+    padding: spacing.md,
+    marginBottom: spacing.lg,
+  },
+  infoText: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -239,45 +311,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-  infoCard: {
-    borderRadius: spacing.radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.lg,
-  },
-  infoText: {
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  constatCard: {
+  tableCard: {
     borderRadius: spacing.radius.lg,
     padding: spacing.lg,
     marginBottom: spacing.lg,
   },
-  constatTableTitle: {
+  tableTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: spacing.xs,
   },
-  constatTableDescription: {
+  tableDescription: {
     fontSize: 14,
     marginBottom: spacing.md,
-    lineHeight: 20,
   },
   constatItem: {
-    borderRadius: spacing.radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.sm,
-  },
-  constatItemHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: spacing.xs,
-    backgroundColor: 'transparent',
+    marginBottom: spacing.md,
   },
   constatBadge: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
     borderRadius: spacing.radius.full,
+    marginBottom: spacing.xs,
+    alignSelf: 'flex-start',
   },
   constatBadgeText: {
     fontSize: 14,
@@ -288,7 +344,24 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     marginTop: spacing.xs,
   },
+  sourceInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: spacing.sm,
+    paddingTop: spacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#00000020',
+  },
+  sourceLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginLeft: spacing.xs,
+    marginRight: spacing.xs,
+  },
+  sourceValue: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
 });
 
 export default ConstatsScreen;
-

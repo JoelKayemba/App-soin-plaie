@@ -61,6 +61,7 @@
           "id": "C1T22E02",
           "type": "boolean",
           "label": "2 = Tissu dévitalisé blanc/gris et/ou non adhérent jaunâtre",
+          "description": "Tissu dévitalisé blanc/gris et/ou non adhérent jaunâtre",
           "score": 2,
           "required": false,
           "ui": {
@@ -88,6 +89,7 @@
           "id": "C1T22E03",
           "type": "boolean",
           "label": "3 = Tissu dévitalisé jaune faiblement adhérent",
+          "description": "Tissu dévitalisé jaune faiblement adhérent",
           "score": 3,
           "required": false,
           "ui": {
@@ -115,6 +117,7 @@
           "id": "C1T22E04",
           "type": "boolean",
           "label": "4 = Tissu dévitalisé adhérent et/ou mou et/ou escarre noire",
+          "description": "Tissu dévitalisé adhérent et/ou mou et/ou escarre noire",
           "score": 4,
           "required": false,
           "ui": {
@@ -142,6 +145,7 @@
           "id": "C1T22E05",
           "type": "boolean",
           "label": "5 = Tissu dévitalisé fortement adhérent et/ou escarre dure/noire",
+          "description": "Tissu dévitalisé fortement adhérent et/ou escarre dure/noire",
           "score": 5,
           "required": false,
           "ui": {

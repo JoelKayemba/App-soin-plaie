@@ -25,35 +25,37 @@
         {
           "id": "C1T20E01_01",
           "label": "0",
-          "description": "Plaie guérie - Plaie complètement guérie",
+          "description": "Plaie guérie",
           "score": 0
         },
         {
           "id": "C1T20E01_02",
           "label": "1",
-          "description": "Aucun sous-minage - Absence de sous-minage",
+          "description": "Aucun sous-minage ",
           "score": 1
         },
         {
           "id": "C1T20E01_03",
           "label": "2",
+          "description": "Sous-minage < 2 cm peu impoorte l'orientation",
           "score": 2
         },
         {
           "id": "C1T20E01_04",
           "label": "3",
-          "description": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie - Sous-minage modéré impliquant moins de 50% des bords",
+          "description": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie ",
           "score": 3
         },
         {
           "id": "C1T20E01_05",
           "label": "4",
+          "description": "Sous-minage 2 - 4 cm impliquant > 50% des bords de la plaie ",
           "score": 4
         },
         {
           "id": "C1T20E01_06",
           "label": "5",
-          "description": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit - Sous-minage sévère ou présence de sinus/tunnel",
+          "description": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
           "score": 5
         }
       ],

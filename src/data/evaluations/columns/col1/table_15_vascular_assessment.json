@@ -658,7 +658,6 @@
         {
           "id": "C1T15_CONFIRMATION",
           "type": "single_choice",
-          "label": "Veuillez confirmer l'apport vasculaire 1",
           "required": true,
           "options": [
             {

@@ -41,15 +41,13 @@ const AppNavigator = () => {
       <Stack.Screen
         name="EvaluationSummary"
         component={EvaluationSummaryScreen}
-        options={{ headerShown: false, presentation: 'modal', animation: 'slide_from_right' }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Constats"
         component={ConstatsScreen}
         options={{ 
-          headerShown: false,
-          presentation: 'modal', 
-          animation: 'slide_from_bottom' 
+          headerShown: false
         }}
       />
     </Stack.Navigator>

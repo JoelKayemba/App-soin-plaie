@@ -25,6 +25,7 @@
         {
           "id": "C1T24E01_01",
           "label": "1",
+          "description": "100 % de la plaie couverte, surface intacte",
           "score": 1
         },
         {
@@ -52,6 +53,7 @@
           "id": "C1T24E01_05",
           "label": "5",
           "score": 5,
+          "description": "25 % de la plaie couverte",
           "biofilm_suspect": true
         }
       ],

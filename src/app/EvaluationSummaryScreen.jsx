@@ -58,6 +58,10 @@ const EvaluationSummaryScreen = () => {
 
   const stepMap = useMemo(buildStepMap, []);
 
+  const handleBackToEvaluation = () => {
+    navigation.navigate('EvaluationClinique', { evaluationId });
+  };
+
   const handleClose = async () => {
     if (evaluationId) {
       await clearEvaluationProgress(evaluationId);
@@ -69,7 +73,7 @@ const EvaluationSummaryScreen = () => {
     <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.background }]}> 
       <TView style={[styles.container, { backgroundColor: colors.background }]}> 
         <TView style={[styles.header, { borderBottomColor: colors.border }]}> 
-          <TouchableOpacity onPress={handleClose} style={styles.iconButton}>
+          <TouchableOpacity onPress={handleBackToEvaluation} style={styles.iconButton}>
             <TIcon name="chevron-back" size={24} color={colors.text} />
           </TouchableOpacity>
           <TText style={[styles.title, { color: colors.text }]}>Récapitulatif de l'évaluation</TText>
