@@ -1,7 +1,7 @@
 {
   "id": "C1T07",
   "title": "Médication active",
-  "description": "Identification des médicaments actuellement pris par le patient qui peuvent influencer le risque de lésions de pression",
+  "description": "Médicaments actifs influençant le risque de lésions de pression",
   "category": "medication_assessment",
   "column": 1,
   "table": 7,
@@ -9,13 +9,13 @@
     {
       "id": "C1T07E01",
       "type": "boolean",
-      "label": "AINS*",
+      "label": "AINS",
       "description": "Anti-inflammatoire non stéroïdien",
       "required": false,
       "legend": "info",
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient prend des AINS"
+        "help": "AINS"
       }
     },
     {
@@ -25,7 +25,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient prend des antibiotiques"
+        "help": "Antibiotique"
       }
     },
     {
@@ -35,7 +35,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient prend des anticoagulants"
+        "help": "Anticoagulant"
       }
     },
     {
@@ -45,7 +45,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient prend des antiplaquettaires"
+        "help": "Antiplaquettaire"
       }
     },
     {
@@ -55,7 +55,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient reçoit une chimiothérapie"
+        "help": "Chimiothérapie"
       }
     },
     {
@@ -65,7 +65,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient prend de la colchicine"
+        "help": "Colchicine"
       }
     },
     {
@@ -75,7 +75,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient prend des corticostéroïdes"
+        "help": "Corticostéroïde"
       }
     },
     {
@@ -85,7 +85,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient prend des immunosuppresseurs"
+        "help": "Immunosuppresseur"
       }
     },
     {
@@ -95,7 +95,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient reçoit une radiothérapie"
+        "help": "Radiothérapie"
       }
     },
     {
@@ -105,7 +105,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient reçoit des vasopresseurs"
+        "help": "Vasopresseur"
       }
     }
   ],
@@ -119,7 +119,7 @@
   "ui_configuration": {
     "layout": "vertical",
     "spacing": "medium",
-    "group_label": "Médication active du patient",
-    "instructions": "Sélectionnez tous les types de médicaments que le patient prend actuellement. Aucune sélection n'est obligatoire."
+    "group_label": "Médication active",
+    "instructions": "Sélectionnez les médicaments actifs."
   }
 }

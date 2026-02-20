@@ -12,7 +12,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente des troubles cognitifs"
+        "help": "Troubles cognitifs"
       }
     },
     {
@@ -22,7 +22,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient a subi une amputation"
+        "help": "Amputation"
       }
     },
     {
@@ -32,7 +32,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une anémie non contrôlée"
+        "help": "Anémie non contrôlée"
       }
     },
     {
@@ -42,7 +42,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient a un cancer actif"
+        "help": "Cancer actif"
       }
     },
     {
@@ -52,7 +52,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une maladie hépatique non contrôlée"
+        "help": "Maladie hépatique non contrôlée"
       }
     },
     {
@@ -62,7 +62,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient est immunosupprimé"
+        "help": "Immunosuppression"
       }
     },
     {
@@ -72,7 +72,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une désaturation en oxygène"
+        "help": "Désaturation en O₂"
       }
     },
     {
@@ -82,7 +82,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient a un diabète de type 1"
+        "help": "Diabète type 1"
       }
     },
     {
@@ -92,14 +92,14 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient a un diabète de type 2"
+        "help": "Diabète type 2"
       }
     },
     {
       "id": "C1T03_DIABETES_GLYCEMIA_MODAL",
       "type": "diabetes_glycemia_modal",
       "label": "Évaluation de la glycémie",
-      "description": "Renseignez les valeurs de glycémie",
+      "description": "Valeurs de glycémie",
       "required": false,
       "conditional": {
         "depends_on": [
@@ -117,8 +117,8 @@
         {
           "id": "C1T03_DIAB_HBA1C_VALUE",
           "type": "number",
-          "label": "HbA1C*",
-          "description": "Hémoglobine glyquée",
+          "label": "HbA1C",
+          "description": "HbA1C",
           "validation": {
             "min": 0,
             "max": 20,
@@ -136,7 +136,7 @@
           "id": "C1T03_DIAB_FASTING_VALUE",
           "type": "number",
           "label": "Glycémie à jeun",
-          "description": "Au lever ou 4h postrepas",
+          "description": "À jeun",
           "validation": {
             "min": 0,
             "max": 30,
@@ -154,7 +154,7 @@
           "id": "C1T03_DIAB_POSTPRANDIAL_VALUE",
           "type": "number",
           "label": "Glycémie 2h postprandiale",
-          "description": "Entrez un chiffre",
+          "description": "2h postprandiale",
           "validation": {
             "min": 0,
             "max": 30,
@@ -177,19 +177,19 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient est enceinte"
+        "help": "Grossesse"
       }
     },
     {
       "id": "C1T03E11",
       "type": "boolean",
-      "label": "HTA non contrôlée*",
+      "label": "HTA non contrôlée",
       "description": "Hypertension artérielle",
       "required": false,
       "legend": "info",
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une HTA non contrôlée"
+        "help": "HTA non contrôlée"
       }
     },
     {
@@ -199,7 +199,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une arythmie cardiaque"
+        "help": "Arythmie cardiaque"
       }
     },
     {
@@ -209,7 +209,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une hypovolémie"
+        "help": "Hypovolémie"
       }
     },
     {
@@ -219,7 +219,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente un désordre thyroïdien non contrôlé"
+        "help": "Désordre thyroïdien non contrôlé"
       }
     },
     {
@@ -229,7 +229,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une incontinence"
+        "help": "Incontinence"
       }
     },
     {
@@ -239,7 +239,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une insuffisance rénale non contrôlée"
+        "help": "Insuffisance rénale non contrôlée"
       }
     },
     {
@@ -256,7 +256,7 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient présente une maladie auto-immune ou inflammatoire non contrôlée"
+        "help": "Maladie auto-immune/inflammatoire (préciser)"
       }
     },
     {
@@ -266,7 +266,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une maladie cardiaque"
+        "help": "Maladie cardiaque"
       }
     },
     {
@@ -276,19 +276,19 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une maladie pulmonaire ou respiratoire non contrôlée"
+        "help": "Maladie pulmonaire/respiratoire non contrôlée"
       }
     },
     {
       "id": "C1T03E20",
       "type": "boolean",
-      "label": "MVAP*",
+      "label": "MVAP",
       "description": "Maladie vasculaire artérielle périphérique",
       "required": false,
       "legend": "info",
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une MVAP"
+        "help": "MVAP"
       }
     }
   ],
@@ -309,7 +309,7 @@
   "ui_configuration": {
     "layout": "vertical",
     "spacing": "medium",
-    "group_label": "Conditions de santé actuelle du patient",
-    "instructions": "Sélectionnez toutes les conditions de santé qui s'appliquent au patient. Aucune sélection n'est obligatoire."
+    "group_label": "Conditions de santé actuelles",
+    "instructions": "Sélectionnez les conditions applicables."
   }
 }

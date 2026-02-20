@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { TView, TText, TIcon } from '../Themed';
 import { useTheme } from '@/context/ThemeContext';
 import spacing from '@/styles/spacing';
 
-const BooleanInput = ({ 
+/**
+ * Case à cocher pour les champs boolean (une seule checkbox, plus de Oui/Non).
+ * Cohérent avec les autres tables : label + checkbox, valeur true/false.
+ */
+const BooleanInput = ({
   value,
   onValueChange,
   label,
@@ -14,102 +18,74 @@ const BooleanInput = ({
   disabled = false,
   help,
   style,
-  ...props 
+  ...props
 }) => {
   const { colors } = useTheme();
 
-  const handleSelection = (selectedValue) => {
+  const handleToggle = () => {
     if (disabled) return;
-    onValueChange?.(selectedValue);
+    onValueChange?.(!value);
+  };
+
+  const showHelp = () => {
+    if (help) {
+      Alert.alert(
+        label || 'Aide',
+        help,
+        [{ text: 'OK' }]
+      );
+    }
   };
 
   return (
     <TView style={[styles.container, style]} {...props}>
-      {label && (
-        <TText style={[styles.label, { color: colors.text }]}>
-          {label}
-          {required && <TText style={{ color: colors.error }}> *</TText>}
-        </TText>
-      )}
-      
-      {description && (
-        <TText style={[styles.description, { color: colors.textSecondary }]}>
-          {description}
-        </TText>
-      )}
-      
-      <View style={styles.optionsContainer}>
-        <TouchableOpacity
-          style={[
-            styles.option,
-            {
-              borderColor: value === true ? colors.success : colors.border,
-              backgroundColor: value === true ? colors.success + '10' : colors.surface,
-            }
-          ]}
-          onPress={() => handleSelection(true)}
-          disabled={disabled}
-          activeOpacity={0.7}
-        >
-          <View style={[
-            styles.checkbox,
-            {
-              borderColor: value === true ? colors.success : colors.border,
-              backgroundColor: value === true ? colors.success : 'transparent',
-            }
-          ]}>
-            {value === true && (
-              <TIcon name="checkmark" size={14} color={colors.primaryText} />
-            )}
-          </View>
-          
-          <TText style={[
-            styles.optionLabel,
-            { 
-              color: disabled ? colors.textTertiary : colors.text,
-              fontWeight: value === true ? '600' : '400'
-            }
-          ]}>
-            Oui
-          </TText>
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.checkboxContainer,
+          { opacity: disabled ? 0.5 : 1 }
+        ]}
+        onPress={handleToggle}
+        disabled={disabled}
+        activeOpacity={0.7}
+      >
+        <View style={[
+          styles.checkbox,
+          {
+            borderColor: value ? colors.primary : colors.border,
+            backgroundColor: value ? colors.primary : 'transparent',
+          }
+        ]}>
+          {value && (
+            <TIcon name="checkmark" size={16} color={colors.primaryText} />
+          )}
+        </View>
 
-        <TouchableOpacity
-          style={[
-            styles.option,
-            {
-              borderColor: value === false ? colors.error : colors.border,
-              backgroundColor: value === false ? colors.error + '10' : colors.surface,
-            }
-          ]}
-          onPress={() => handleSelection(false)}
-          disabled={disabled}
-          activeOpacity={0.7}
-        >
-          <View style={[
-            styles.checkbox,
-            {
-              borderColor: value === false ? colors.error : colors.border,
-              backgroundColor: value === false ? colors.error : 'transparent',
-            }
-          ]}>
-            {value === false && (
-              <TIcon name="close" size={14} color={colors.primaryText} />
-            )}
-          </View>
-          
+        <View style={styles.labelContainer}>
           <TText style={[
-            styles.optionLabel,
-            { 
+            styles.label,
+            {
               color: disabled ? colors.textTertiary : colors.text,
-              fontWeight: value === false ? '600' : '400'
+              fontWeight: value ? '600' : '400',
             }
           ]}>
-            Non
+            {label}
+            {required && <TText style={{ color: colors.error }}> *</TText>}
           </TText>
-        </TouchableOpacity>
-      </View>
-      
+
+          {description && (
+            <TText style={[styles.description, { color: colors.textSecondary }]}>
+              {description}
+            </TText>
+          )}
+        </View>
+
+        {help && (
+          <TouchableOpacity onPress={showHelp} style={styles.helpButton}>
+            <TIcon name="information-circle-outline" size={20} color={colors.textSecondary} />
+          </TouchableOpacity>
+        )}
+      </TouchableOpacity>
+
       {error && (
         <TText style={[styles.error, { color: colors.error }]}>
           {error}
@@ -123,40 +99,36 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: spacing.form.elementSpacing,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: spacing.form.labelSpacing,
-  },
-  description: {
-    fontSize: 14,
-    marginBottom: spacing.form.elementSpacing,
-    lineHeight: 20,
-  },
-  optionsContainer: {
+  checkboxContainer: {
     flexDirection: 'row',
-    gap: spacing.sm,
-  },
-  option: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: spacing.md,
-    borderRadius: spacing.radius.md,
-    borderWidth: 1,
+    alignItems: 'flex-start',
+    paddingVertical: spacing.sm,
   },
   checkbox: {
-    width: 20,
-    height: 20,
-    borderRadius: spacing.radius.sm,
+    width: 24,
+    height: 24,
+    borderRadius: 6,
     borderWidth: 2,
     marginRight: spacing.md,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 2,
   },
-  optionLabel: {
-    fontSize: 16,
+  labelContainer: {
     flex: 1,
+  },
+  label: {
+    fontSize: 16,
+    lineHeight: 22,
+  },
+  description: {
+    fontSize: 14,
+    marginTop: spacing.xs,
+    lineHeight: 18,
+  },
+  helpButton: {
+    padding: spacing.xs,
+    marginLeft: spacing.xs,
   },
   error: {
     fontSize: 12,
@@ -166,5 +138,3 @@ const styles = StyleSheet.create({
 });
 
 export default BooleanInput;
-
-

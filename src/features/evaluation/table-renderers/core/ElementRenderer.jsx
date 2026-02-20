@@ -222,11 +222,6 @@ export const renderElement = (element, props) => {
     return null;
   }
 
-  // Debug pour la table 22
-  if (tableData?.id === 'C1T22') {
-    console.log('Table 22 - renderElement appelé pour:', element.id, 'type:', element.type, 'options:', element.options?.length);
-  }
-
   const commonProps = {
     error: errors[element.id],
     disabled: element.disabled || false,
@@ -259,44 +254,6 @@ export const renderElement = (element, props) => {
           onHelpPress: option.help_id ? () => showHelper(option.help_id, option.label) : undefined
         })) : 
         element.options || [];
-
-      // Pour la table 24, vérifier si le biofilm est suspecté et afficher une alerte stylisée
-      if (tableData?.id === 'C1T24' && element.id === 'C1T24E01') {
-        const selectedValue = data[element.id];
-        const isBiofilmSuspect = selectedValue && selectedValue !== 'C1T24E01_01';
-        
-        const radioGroupElement = createElementWithCommonPropsLocal(RadioGroup, {
-          options: enhancedOptions,
-          value: data[element.id],
-          onValueChange: (value) => handleDataChange(element.id, value),
-          label: element.label,
-          description: element.description,
-          required: element.required,
-          error: undefined // Ne pas afficher l'erreur dans le RadioGroup, utiliser ClinicalAlert à la place
-        });
-        
-        if (isBiofilmSuspect) {
-          const alertElement = createElement(ClinicalAlert, {
-            alert: {
-              type: 'warning',
-              title: 'Biofilm suspecté',
-              message: tableData.validation_rules?.error_messages?.biofilm_suspect || 
-                "Biofilm suspecté : évaluation approfondie recommandée (épithélium ≠ 100%)",
-              note: "Lorsque l'épithéliatisation n'est pas complète (≠ 100%), un biofilm peut être présent et nécessite une évaluation approfondie."
-            },
-            style: { marginTop: spacing.md }
-          }, `${element.id}-biofilm-alert`);
-          
-          return (
-            <React.Fragment key={element.id}>
-              {radioGroupElement}
-              {alertElement}
-            </React.Fragment>
-          );
-        }
-        
-        return radioGroupElement;
-      }
 
       return createElementWithCommonPropsLocal(RadioGroup, {
         options: enhancedOptions,
@@ -349,61 +306,39 @@ export const renderElement = (element, props) => {
         placeholder: element.placeholder
       });
 
-    case 'boolean':
-      if (tableData?.id === 'C1T27') {
-        const currentValue = !!data[element.id];
-        const checkboxElement = createElement(SimpleCheckbox, {
-          ...commonProps,
-          value: currentValue,
-          onValueChange: (value) => handleDataChange(element.id, value),
-          label: element.label,
-          description: element.description,
-          required: element.required,
-          help: element.help
-        }, element.id);
-
-        if (element.alert && currentValue) {
-          const alertElement = createElement(ClinicalAlert, {
-            alert: {
-              type: element.alert?.type === 'emergency' ? 'alert' : 'important',
-              title: element.alert?.title || 'Urgence clinique détectée',
-              message: element.alert?.message || 'Ce signe requiert une prise en charge immédiate.',
-              note: "Orienter immédiatement le patient vers l'urgence ou contacter un médecin."
-            },
-            style: { marginTop: spacing.md }
-          }, `${element.id}-alert`);
-
-          return (
-            <React.Fragment key={`${element.id}-wrapper`}>
-              {checkboxElement}
-              {alertElement}
-            </React.Fragment>
-          );
-        }
-
-        return checkboxElement;
-      }
-
-      // Pour les tables avec sélections multiples (allergies, conditions de santé, nutrition, médication, psychosocial), utiliser SimpleCheckbox
-      if (tableData?.id === 'C1T02' || tableData?.id === 'C1T03' || tableData?.id === 'C1T05' || tableData?.id === 'C1T07' || tableData?.id === 'C1T08') {
-        return createElementWithCommonPropsLocal(SimpleCheckbox, {
-          value: data[element.id] || false,
-          onValueChange: (value) => handleDataChange(element.id, value),
-          label: element.label,
-          description: element.description,
-          required: element.required,
-          help: element.help
-        });
-      }
-      
-      // Pour les autres tables, utiliser BooleanInput (Oui/Non)
-      return createElementWithCommonPropsLocal(BooleanInput, {
+    case 'boolean': {
+      const currentValue = !!data[element.id];
+      const checkboxElement = createElementWithCommonPropsLocal(BooleanInput, {
         value: data[element.id],
         onValueChange: (value) => handleDataChange(element.id, value),
         label: element.label,
         description: element.description,
-        required: element.required
+        required: element.required,
+        help: element.help
       });
+
+      // Table 27 (signes d'infection) : alerte urgence si coché
+      if (tableData?.id === 'C1T27' && element.alert && currentValue) {
+        const alertElement = createElement(ClinicalAlert, {
+          alert: {
+            type: element.alert?.type === 'emergency' ? 'alert' : 'important',
+            title: element.alert?.title || 'Urgence clinique détectée',
+            message: element.alert?.message || 'Ce signe requiert une prise en charge immédiate.',
+            note: "Orienter immédiatement le patient vers l'urgence ou contacter un médecin."
+          },
+          style: { marginTop: spacing.md }
+        }, `${element.id}-alert`);
+
+        return (
+          <React.Fragment key={`${element.id}-wrapper`}>
+            {checkboxElement}
+            {alertElement}
+          </React.Fragment>
+        );
+      }
+
+      return checkboxElement;
+    }
 
     case 'number':
       return createElementWithCommonPropsLocal(NumericInput, {
@@ -484,48 +419,8 @@ export const renderElement = (element, props) => {
     case 'calculated':
       // Note: Les badges d'âge de plaie (C1T11E02, C1T11E03) ont été remplacés
       // par le système de constats (C1T11_WOUND_STATUS avec constat_table: C2T02)
-      // Cette logique est maintenant gérée par le type 'constat'
+      // La quantité de tissu nécrotique (table 22) est maintenant un single_choice, pas un calcul.
 
-      // Logique spéciale pour la quantité de tissu nécrotique (table 22)
-      if (tableData?.id === 'C1T22' && element.id && element.id.startsWith('C1T22E0') && parseInt(element.id.slice(-1)) >= 6 && parseInt(element.id.slice(-1)) <= 10) {
-        // Récupérer la valeur de C1T21E01 depuis les données d'évaluation
-        const necroticTissueValue = parseFloat(evaluationData?.['C1T21']?.['C1T21E01']) || 0;
-        
-        // Vérifier la condition pour chaque élément de quantité
-        let shouldDisplay = false;
-        const elementNum = parseInt(element.id.slice(-1));
-        
-        if (elementNum === 6 && necroticTissueValue === 0) {
-          shouldDisplay = true;
-        } else if (elementNum === 7 && necroticTissueValue > 0 && necroticTissueValue < 25) {
-          shouldDisplay = true;
-        } else if (elementNum === 8 && necroticTissueValue >= 25 && necroticTissueValue <= 50) {
-          shouldDisplay = true;
-        } else if (elementNum === 9 && necroticTissueValue > 50 && necroticTissueValue < 75) {
-          shouldDisplay = true;
-        } else if (elementNum === 10 && necroticTissueValue >= 75 && necroticTissueValue <= 100) {
-          shouldDisplay = true;
-        }
-        
-        if (!shouldDisplay) {
-          return null; // Ne pas afficher si la condition n'est pas remplie
-        }
-        
-        // Extraire le score du label (ex: "1 = Aucun visible" -> "1")
-        const scoreMatch = element.label.match(/^(\d+)\s*=/);
-        const scoreValue = scoreMatch ? scoreMatch[1] : element.label.split('=')[0].trim();
-        
-        return createElementWithCommonPropsLocal(ResultBadge, {
-          value: scoreValue,
-          label: element.label,
-          description: element.description,
-          displayFormat: element.ui?.display_format,
-          color: element.ui?.color || element.clinical_notes?.color,
-          icon: element.icon,
-          help: element.help || element.ui?.help
-        });
-      }
-      
       // Pour les classifications IMC de la table 04, évaluer la condition automatiquement
       if (tableData?.id === 'C1T04' && element.bmi_category && element.condition) {
         const bmiValue = data['C1T04E03']; // L'IMC calculé
@@ -696,13 +591,14 @@ export const renderElement = (element, props) => {
         value: data[element.id] || null,
         onValueChange: (value) => handleDataChange(element.id, value),
         onLocationSelect: onLocationSelect,
-        selectedOptionId: tableData?.id === 'C1T14' ? data['C1T14E01'] : null, // Synchroniser avec le radio group principal
+        selectedOptionId: tableData?.id === 'C1T14' ? data['C1T14E01'] : null,
         label: element.label,
         description: element.description,
         help: element.help,
         required: element.required,
         width: element.ui?.width || 300,
-        height: element.ui?.height || 400
+        height: element.ui?.height || 400,
+        showBodyView: tableData?.id !== 'C1T14', // Le 3D est affiché dans Table14Renderer
       });
 
     case 'braden_scale':

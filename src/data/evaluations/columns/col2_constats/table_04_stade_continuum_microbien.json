@@ -121,14 +121,14 @@
       "options": [
         {
           "id": "C2T04_CONF_01",
-          "label": "contamination*",
+          "label": "contamination",
           "description": "microbes présents à la surface de la plaie, mais ne se multiplient pas",
           "value": "contamination",
           "help": "Contamination : Présence de microbes à la surface sans multiplication"
         },
         {
           "id": "C2T04_CONF_02",
-          "label": "colonisation*",
+          "label": "colonisation",
           "description": "microbes qui prolifèrent dans la plaie, mais sans entraver la cicatrisation",
           "value": "colonisation",
           "help": "Colonisation : Prolifération microbienne sans entrave à la cicatrisation"
@@ -136,21 +136,21 @@
         {
           "id": "C2T04_CONF_03",
           "label": "infection locale",
-          "description": "Infection localisée à la plaie",
+          
           "value": "local_infection",
           "help": "Infection locale : Infection limitée à la zone de la plaie"
         },
         {
           "id": "C2T04_CONF_04",
           "label": "infection locale d'allure fongique",
-          "description": "Infection locale présentant des caractéristiques fongiques",
+          
           "value": "local_fungal_infection",
           "help": "Infection locale fongique : Infection locale avec caractéristiques fongiques"
         },
         {
           "id": "C2T04_CONF_05",
           "label": "infection profonde",
-          "description": "Infection étendue aux tissus profonds",
+         
           "value": "deep_infection",
           "help": "Infection profonde : Infection étendue aux tissus profonds"
         }

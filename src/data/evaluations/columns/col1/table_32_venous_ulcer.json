@@ -1,7 +1,7 @@
 {
   "id": "C1T32",
   "title": "Ulcère veineux",
-  "description": "Vérifier si le patient bénéficie d'une compression thérapeutique ou de bas de soutien.",
+  "description": "Compression thérapeutique ou bas de soutien",
   "category": "therapeutic_equipment",
   "column": 1,
   "table": 32,

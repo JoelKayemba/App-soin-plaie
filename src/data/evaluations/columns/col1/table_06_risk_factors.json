@@ -9,7 +9,7 @@
       "id": "C1T06E01",
       "type": "multiple_choice_with_text",
       "label": "Tabagisme actif",
-      "description": "Consommation active de tabac",
+      
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -20,14 +20,14 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient fume activement"
+        "help": "Tabagisme actif (préciser)"
       }
     },
     {
       "id": "C1T06E02",
       "type": "multiple_choice_with_text",
       "label": "Tabagisme passif",
-      "description": "Exposition à la fumée de tabac",
+      
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -38,14 +38,14 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient est exposé au tabagisme passif"
+        "help": "Tabagisme passif (préciser)"
       }
     },
     {
       "id": "C1T06E03",
       "type": "multiple_choice_with_text",
       "label": "Drogue",
-      "description": "Consommation de substances illicites",
+      
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -56,7 +56,7 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient consomme des drogues"
+        "help": "Drogue (préciser)"
       }
     },
     {
@@ -73,7 +73,7 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient consomme de l'alcool"
+        "help": "Alcool (préciser)"
       }
     },
     {
@@ -90,14 +90,14 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient est exposé à l'humidité excessive"
+        "help": "Humidité excessive (préciser)"
       }
     },
     {
       "id": "C1T06E06",
       "type": "multiple_choice_with_text",
       "label": "Immobilité, mobilité réduite ou sédentarité",
-      "description": "Limitations de mouvement et d'activité",
+      
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -108,14 +108,14 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient présente des limitations de mobilité"
+        "help": "Limitations de mobilité (préciser)"
       }
     },
     {
       "id": "C1T06E07",
       "type": "multiple_choice_with_text",
       "label": "Traumatisme répété",
-      "description": "Exposition à des traumatismes répétés",
+     
       "required": false,
       "conditional": {
         "show_text_field": true,
@@ -126,7 +126,7 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient subit des traumatismes répétés"
+        "help": "Traumatismes répétés (préciser)"
       }
     }
   ],
@@ -178,6 +178,6 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Facteurs de risque",
-    "instructions": "Sélectionnez tous les facteurs de risque qui s'appliquent au patient et précisez les détails. Aucune sélection n'est obligatoire."
+    "instructions": "Sélectionnez les facteurs de risque applicables."
   }
 }

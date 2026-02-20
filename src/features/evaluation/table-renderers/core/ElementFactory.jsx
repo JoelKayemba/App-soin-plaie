@@ -11,9 +11,15 @@
  * @param {object} additionalProps - Props additionnelles
  * @param {string|React.Node} keyOrChildren - Key (string) ou children (React.Node)
  * @param {React.Node} children - Children optionnels
- * @returns {React.Element} - L'élément React créé
+ * @returns {React.Element|null} - L'élément React créé ou null si Component invalide
  */
 export const createElement = (Component, additionalProps = {}, keyOrChildren = null, children = null) => {
+  if (Component == null || typeof Component !== 'function' && typeof Component !== 'string') {
+    if (__DEV__) {
+      console.warn('[ElementFactory] createElement: Component invalide (undefined ou non-fonction)', { Component });
+    }
+    return null;
+  }
   // Si le troisième paramètre est une string, c'est une key
   // Sinon, c'est probablement des children
   if (typeof keyOrChildren === 'string') {

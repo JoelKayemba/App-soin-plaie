@@ -20,7 +20,7 @@
       "id": "C1T27E01",
       "type": "boolean",
       "label": "Hypergranulation friable",
-      "description": "Tissu de granulation excessif et fragile.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -29,7 +29,7 @@
       "id": "C1T27E02",
       "type": "boolean",
       "label": "Granulation friable qui saigne facilement au toucher",
-      "description": "Tissu de granulation fragile avec saignement au contact.",
+
       "ui": {
         "component": "Checkbox"
       }
@@ -38,7 +38,7 @@
       "id": "C1T27E03",
       "type": "boolean",
       "label": "Exsudat changé ou augmenté",
-      "description": "Modification de la qualité ou augmentation de la quantité d'exsudat.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -47,7 +47,7 @@
       "id": "C1T27E04",
       "type": "boolean",
       "label": "Retard de cicatrisation malgré les bonnes pratiques",
-      "description": "Absence d'amélioration malgré un traitement approprié.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -56,7 +56,7 @@
       "id": "C1T27E05",
       "type": "boolean",
       "label": "Érythème, rougeur > 2 cm au pourtour de la plaie",
-      "description": "Rougeur étendue autour de la plaie.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -74,7 +74,7 @@
       "id": "C1T27E07",
       "type": "boolean",
       "label": "Rougeur < 2 cm au pourtour de la plaie",
-      "description": "Rougeur limitée autour de la plaie.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -83,7 +83,7 @@
       "id": "C1T27E08",
       "type": "boolean",
       "label": "Œdème",
-      "description": "Gonflement des tissus environnants.",
+    
       "ui": {
         "component": "Checkbox"
       }
@@ -92,7 +92,7 @@
       "id": "C1T27E09",
       "type": "boolean",
       "label": "Cellulite",
-      "description": "Infection des tissus mous.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -101,7 +101,7 @@
       "id": "C1T27E10",
       "type": "boolean",
       "label": "Stagnation ou grandissement de la plaie",
-      "description": "Absence d'amélioration ou aggravation de la plaie.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -110,7 +110,7 @@
       "id": "C1T27E11",
       "type": "boolean",
       "label": "Douleur augmentée ou nouvelle",
-      "description": "Augmentation de la douleur existante ou apparition d'une nouvelle douleur.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -119,7 +119,7 @@
       "id": "C1T27E12",
       "type": "boolean",
       "label": "Mauvaise odeur après le nettoyage ou odeur changée",
-      "description": "Odeur anormale persistante après nettoyage.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -156,7 +156,7 @@
       "id": "C1T27E13",
       "type": "boolean",
       "label": "🚩 Lymphangite",
-      "description": "Traînée rouge le long d'un vaisseau lymphatique.",
+      
       "ui": {
         "component": "Checkbox"
       },
@@ -171,7 +171,7 @@
       "id": "C1T27E14",
       "type": "boolean",
       "label": "Crépitants sous-cutanés",
-      "description": "Sensation de crépitement sous la peau.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -180,7 +180,7 @@
       "id": "C1T27E15",
       "type": "boolean",
       "label": "Induration",
-      "description": "Durcissement des tissus environnants.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -189,7 +189,7 @@
       "id": "C1T27E16",
       "type": "boolean",
       "label": "Nouvelles lésions satellites",
-      "description": "Apparition de nouvelles lésions autour de la plaie principale.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -198,7 +198,7 @@
       "id": "C1T27E17",
       "type": "boolean",
       "label": "Lymphadénopathie",
-      "description": "Ganglion hypertrophié.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -207,7 +207,7 @@
       "id": "C1T27E18",
       "type": "boolean",
       "label": "Leucocytose",
-      "description": "Augmentation du nombre de globules blancs.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -216,7 +216,7 @@
       "id": "C1T27E19",
       "type": "boolean",
       "label": "Déhiscence ou réouverture de la plaie",
-      "description": "Ouverture ou réouverture de la plaie.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -225,7 +225,7 @@
       "id": "C1T27E20",
       "type": "boolean",
       "label": "Hyperglycémie",
-      "description": "Augmentation du taux de glucose sanguin.",
+      
       "ui": {
         "component": "Checkbox"
       }
@@ -244,8 +244,8 @@
       "label": "Température (°C)",
       "description": "Saisir la température mesurée.",
       "validation": {
-        "min": 35,
-        "max": 42,
+        "min": 20,
+        "max": 50,
         "step": 0.1,
         "unit": "°C"
       },
@@ -341,7 +341,7 @@
       "id": "C1T27E25",
       "type": "boolean",
       "label": "Nouveau sinus ou tunnel",
-      "description": "Apparition d'un nouveau trajet anormal.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -350,7 +350,7 @@
       "id": "C1T27E26",
       "type": "boolean",
       "label": "Placard érythémateux avec lésions satellites ponctiformes prurigineuses",
-      "description": "Zone rouge entourant la plaie avec petites lésions prurigineuses.",
+     
       "ui": {
         "component": "Checkbox"
       }
@@ -359,7 +359,7 @@
       "id": "C1T27E27",
       "type": "boolean",
       "label": "Contact osseux avec un stylet stérile",
-      "description": "Os palpable avec un stylet stérile.",
+      
       "ui": {
         "component": "Checkbox"
       }

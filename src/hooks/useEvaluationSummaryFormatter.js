@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { tableDataLoader } from '@/services';
+import { getPACSLACScore } from '@/components/ui/forms/PACSLACScale';
 
 const DEFAULT_EMPTY_VALUE = '—';
 
@@ -9,6 +10,7 @@ const ensureString = (value) => {
   return String(value);
 };
 
+// Champs boolean : affichés comme case à cocher dans les formulaires, formatés Oui/Non dans le résumé et les constats
 const formatBoolean = (value) => (value ? 'Oui' : 'Non');
 
 const forEachInCollection = (collection, callback) => {
@@ -221,6 +223,21 @@ const collectMetadataFromSchema = (schema) => {
     });
   }
 
+  // Sous-questions (ex. table 12 – détails douleur : C1T12Q1, C1T12Q2, …) pour résumé et constats
+  if (Array.isArray(schema.subquestions)) {
+    schema.subquestions.forEach((sq) => {
+      const key = sq.qid || sq.id;
+      if (key) {
+        registerMeta(accumulator, key, {
+          label: sq.label || key,
+          description: sq.description || sq.ui?.help || null,
+          type: sq.type || sq.ui?.component || null,
+        });
+        accumulator[key] = mergeOptionMaps(accumulator[key] || {}, sq, accumulator);
+      }
+    });
+  }
+
   return accumulator;
 };
 
@@ -341,6 +358,11 @@ const formatAnswerValue = (value, meta = {}, metaIndex = {}) => {
     if ('totalScore' in value || 'riskLevel' in value || 'selections' in value) {
       return formatScaleObject(value, metaIndex);
     }
+    // Objet PACSLAC (détails douleur table 12) : afficher le score
+    if (meta.type === 'pacslac_scale' || (meta.label && String(meta.label).includes('PACSLAC'))) {
+      const score = getPACSLACScore(value);
+      return `Score : ${score}`;
+    }
 
     const entries = Object.entries(value).map(([key, nestedValue]) => {
       const nestedMeta = metaIndex[key] || {};
@@ -390,6 +412,25 @@ const useEvaluationSummaryFormatter = ({ tables = [] }) => {
 
         for (const table of tables) {
           try {
+            if (table.id === 'BWAT') {
+              const labels = table.labels || { total: 'Score total', status: 'Statut' };
+              const entries = Object.entries(table.answers || {}).map(([fieldId, rawValue]) => ({
+                id: fieldId,
+                label: labels[fieldId] || fieldId,
+                description: null,
+                value: rawValue != null && rawValue !== '' ? String(rawValue) : '—',
+                rawValue,
+              }));
+              results.push({
+                id: table.id,
+                title: table.title || 'Score BWAT – Continuum du statut de la plaie',
+                description: table.description || null,
+                order: table.order ?? 26.5,
+                entries,
+              });
+              continue;
+            }
+
             const schema = await tableDataLoader.loadTableData(table.id);
             let metaIndex = collectMetadataFromSchema(schema);
             metaIndex = mergeProvidedLabels(metaIndex, table.labels);

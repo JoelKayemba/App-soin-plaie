@@ -9,23 +9,22 @@
       "id": "C1T12E01",
       "type": "boolean",
       "label": "Prurit",
-      "description": "Sensation de démangeaison",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente un prurit"
+        "help": "Prurit"
       }
     },
     {
       "id": "C1T12E02",
       "type": "boolean",
       "label": "Douleur",
-      "description": "Sensation douloureuse",
+     
       "required": false,
       "triggers_subquestions": true,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente de la douleur"
+        "help": "Douleur"
       }
     },
     {
@@ -35,28 +34,28 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une sensation de brûlure"
+        "help": "Sensation de brûlure"
       }
     },
     {
       "id": "C1T12E04",
       "type": "boolean",
       "label": "Engourdissements",
-      "description": "Sensation d'engourdissement",
+      
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente des engourdissements"
+        "help": "Engourdissements"
       }
     },
     {
       "id": "C1T12E05",
       "type": "boolean",
-      "label": "Sensation de fièvre",
+      "label": "Fièvre",
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une sensation de fièvre"
+        "help": "Sensation de fièvre"
       }
     },
     {
@@ -66,7 +65,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente des frissons"
+        "help": "Frissons"
       }
     }
   ],
@@ -93,12 +92,12 @@
         {
           "id": "C1T12E02T3",
           "label": "Procédurale",
-          "description": "Douleur lors des soins"
+         
         }
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez le type de douleur"
+        "help": "Type de douleur"
       }
     },
     {
@@ -121,7 +120,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "1-10",
-        "help": "Entrez l'intensité de la douleur de 1 à 10"
+        "help": "Intensité (1-10)"
       }
     },
     {
@@ -184,12 +183,12 @@
         {
           "id": "C1T12E02C2",
           "label": "Non-contrôlée",
-          "description": "Douleur mal contrôlée"
+          
         }
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez le niveau de contrôle de la douleur"
+        "help": "Contrôle de la douleur"
       }
     }
   ],
@@ -241,7 +240,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Symptômes associés à la plaie",
-    "instructions": "Sélectionnez tous les symptômes qui s'appliquent au patient",
+    "instructions": "Sélectionnez les symptômes applicables.",
     "sections": [
       {
         "title": "Symptômes généraux",

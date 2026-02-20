@@ -15,6 +15,10 @@ class TableDataLoader {
    * @returns {Promise<Object>} Données de la table
    */
   async loadTableData(tableId) {
+    if (tableId == null || typeof tableId !== 'string') {
+      console.warn('TableDataLoader.loadTableData: tableId invalide', tableId);
+      return this._getDefaultTableStructure(String(tableId ?? 'UNKNOWN'));
+    }
     // Vérifier le cache
     if (this.cache.has(tableId)) {
       return this.cache.get(tableId);
@@ -80,93 +84,91 @@ class TableDataLoader {
     }
 
         try {
-          // Chargement des tables pour test
+          // Chargement via require() (chemins statiques) pour que Metro bundle correctement les JSON
           console.log('Chargement des tables 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 et 34...');
-          
-          const table01 = await import('@/data/evaluations/columns/col1/table_01_basic_data.json');
-          const table02 = await import('@/data/evaluations/columns/col1/table_02_allergies.json');
-          const table03 = await import('@/data/evaluations/columns/col1/table_03_health_conditions.json');
-          const table04 = await import('@/data/evaluations/columns/col1/table_04_weight_bmi.json');
-          const table05 = await import('@/data/evaluations/columns/col1/table_05_nutrition.json');
-          const table06 = await import('@/data/evaluations/columns/col1/table_06_risk_factors.json');
-          const table07 = await import('@/data/evaluations/columns/col1/table_07_active_medication.json');
-          const table08 = await import('@/data/evaluations/columns/col1/table_08_psychosocial_environment.json');
-          const table09 = await import('@/data/evaluations/columns/col1/table_09_insurance.json');
-          const table10 = await import('@/data/evaluations/columns/col1/table_10_care_level.json');
-          const table11 = await import('@/data/evaluations/columns/col1/table_11_wound_history.json');
-          const table12 = await import('@/data/evaluations/columns/col1/table_12_symptoms.json');
-          const table13 = await import('@/data/evaluations/columns/col1/table_13_perceptions_goals.json');
-          const table14 = await import('@/data/evaluations/columns/col1/table_14_wound_location.json');
-          const table15 = await import('@/data/evaluations/columns/col1/table_15_vascular_assessment.json');
-          const table16 = await import('@/data/evaluations/columns/col1/table_16_bwat_size.json');
-          const table17 = await import('@/data/evaluations/columns/col1/table_17_wound_shape.json');
-          const table18 = await import('@/data/evaluations/columns/col1/table_18_bwat_depth.json');
-          const table19 = await import('@/data/evaluations/columns/col1/table_19_bwat_edges.json');
-          const table20 = await import('@/data/evaluations/columns/col1/table_20_bwat_undermining.json');
-          const table21 = await import('@/data/evaluations/columns/col1/table_21_wound_bed_composition.json');
-          const table22 = await import('@/data/evaluations/columns/col1/table_22_bwat_necrotic_tissue.json');
-          const table23 = await import('@/data/evaluations/columns/col1/table_23_bwat_granulation_tissue.json');
-          const table24 = await import('@/data/evaluations/columns/col1/table_24_bwat_epithelialization.json');
-          const table25 = await import('@/data/evaluations/columns/col1/table_25_bwat_exudate.json');
-          const table26 = await import('@/data/evaluations/columns/col1/table_26_bwat_surrounding_skin.json');
-          const table27 = await import('@/data/evaluations/columns/col1/table_27_infection_signs_symptoms.json');
-          const table28 = await import('@/data/evaluations/columns/col1/table_28_laboratory_tests.json');
-          const table29 = await import('@/data/evaluations/columns/col1/table_29_braden_scale.json');
-          const table30 = await import('@/data/evaluations/columns/col1/table_30_braden_q_scale.json');
-          const table31 = await import('@/data/evaluations/columns/col1/table_31_pressure_injury.json');
-          const table32 = await import('@/data/evaluations/columns/col1/table_32_venous_ulcer.json');
-          const table33 = await import('@/data/evaluations/columns/col1/table_33_arterial_ulcer.json');
-          const table34 = await import('@/data/evaluations/columns/col1/table_34_diabetic_foot.json');
-          
-          // Tables colonne 2 (constats)
-          const col2Table01 = await import('@/data/evaluations/columns/col2_constats/table_01_cicatrisation_ralentie.json');
-          const col2Table02 = await import('@/data/evaluations/columns/col2_constats/table_02_statut_plaie.json');
-          const col2Table03 = await import('@/data/evaluations/columns/col2_constats/table_03_type_plaie.json');
-          const col2Table04 = await import('@/data/evaluations/columns/col2_constats/table_04_stade_continuum_microbien.json');
-          const col2Table05 = await import('@/data/evaluations/columns/col2_constats/table_05_vascularisation_plaie.json');
 
-          // Créer l'objet avec les tables nécessaires
+          const table01 = require('../data/evaluations/columns/col1/table_01_basic_data.json');
+          const table02 = require('../data/evaluations/columns/col1/table_02_allergies.json');
+          const table03 = require('../data/evaluations/columns/col1/table_03_health_conditions.json');
+          const table04 = require('../data/evaluations/columns/col1/table_04_weight_bmi.json');
+          const table05 = require('../data/evaluations/columns/col1/table_05_nutrition.json');
+          const table06 = require('../data/evaluations/columns/col1/table_06_risk_factors.json');
+          const table07 = require('../data/evaluations/columns/col1/table_07_active_medication.json');
+          const table08 = require('../data/evaluations/columns/col1/table_08_psychosocial_environment.json');
+          const table09 = require('../data/evaluations/columns/col1/table_09_insurance.json');
+          const table10 = require('../data/evaluations/columns/col1/table_10_care_level.json');
+          const table11 = require('../data/evaluations/columns/col1/table_11_wound_history.json');
+          const table12 = require('../data/evaluations/columns/col1/table_12_symptoms.json');
+          const table13 = require('../data/evaluations/columns/col1/table_13_perceptions_goals.json');
+          const table14 = require('../data/evaluations/columns/col1/table_14_wound_location.json');
+          const table15 = require('../data/evaluations/columns/col1/table_15_vascular_assessment.json');
+          const table16 = require('../data/evaluations/columns/col1/table_16_bwat_size.json');
+          const table17 = require('../data/evaluations/columns/col1/table_17_wound_shape.json');
+          const table18 = require('../data/evaluations/columns/col1/table_18_bwat_depth.json');
+          const table19 = require('../data/evaluations/columns/col1/table_19_bwat_edges.json');
+          const table20 = require('../data/evaluations/columns/col1/table_20_bwat_undermining.json');
+          const table21 = require('../data/evaluations/columns/col1/table_21_wound_bed_composition.json');
+          const table22 = require('../data/evaluations/columns/col1/table_22_bwat_necrotic_tissue.json');
+          const table23 = require('../data/evaluations/columns/col1/table_23_bwat_granulation_tissue.json');
+          const table24 = require('../data/evaluations/columns/col1/table_24_bwat_epithelialization.json');
+          const table25 = require('../data/evaluations/columns/col1/table_25_bwat_exudate.json');
+          const table26 = require('../data/evaluations/columns/col1/table_26_bwat_surrounding_skin.json');
+          const table27 = require('../data/evaluations/columns/col1/table_27_infection_signs_symptoms.json');
+          const table28 = require('../data/evaluations/columns/col1/table_28_laboratory_tests.json');
+          const table29 = require('../data/evaluations/columns/col1/table_29_braden_scale.json');
+          const table30 = require('../data/evaluations/columns/col1/table_30_braden_q_scale.json');
+          const table31 = require('../data/evaluations/columns/col1/table_31_pressure_injury.json');
+          const table32 = require('../data/evaluations/columns/col1/table_32_venous_ulcer.json');
+          const table33 = require('../data/evaluations/columns/col1/table_33_arterial_ulcer.json');
+          const table34 = require('../data/evaluations/columns/col1/table_34_diabetic_foot.json');
+
+          const col2Table01 = require('../data/evaluations/columns/col2_constats/table_01_cicatrisation_ralentie.json');
+          const col2Table02 = require('../data/evaluations/columns/col2_constats/table_02_statut_plaie.json');
+          const col2Table03 = require('../data/evaluations/columns/col2_constats/table_03_type_plaie.json');
+          const col2Table04 = require('../data/evaluations/columns/col2_constats/table_04_stade_continuum_microbien.json');
+          const col2Table05 = require('../data/evaluations/columns/col2_constats/table_05_vascularisation_plaie.json');
+
+          // Créer l'objet avec les tables (require() renvoie l'objet JSON directement)
           this.allTablesCache = {
-            'table_01_basic_data.json': table01.default || table01,
-            'table_02_allergies.json': table02.default || table02,
-            'table_03_health_conditions.json': table03.default || table03,
-            'table_04_weight_bmi.json': table04.default || table04,
-            'table_05_nutrition.json': table05.default || table05,
-            'table_06_risk_factors.json': table06.default || table06,
-            'table_07_active_medication.json': table07.default || table07,
-            'table_08_psychosocial_environment.json': table08.default || table08,
-            'table_09_insurance.json': table09.default || table09,
-            'table_10_care_level.json': table10.default || table10,
-            'table_11_wound_history.json': table11.default || table11,
-            'table_12_symptoms.json': table12.default || table12,
-            'table_13_perceptions_goals.json': table13.default || table13,
-            'table_14_wound_location.json': table14.default || table14,
-            'table_15_vascular_assessment.json': table15.default || table15,
-            'table_16_bwat_size.json': table16.default || table16,
-            'table_17_wound_shape.json': table17.default || table17,
-            'table_18_bwat_depth.json': table18.default || table18,
-            'table_19_bwat_edges.json': table19.default || table19,
-            'table_20_bwat_undermining.json': table20.default || table20,
-            'table_21_wound_bed_composition.json': table21.default || table21,
-            'table_22_bwat_necrotic_tissue.json': table22.default || table22,
-            'table_23_bwat_granulation_tissue.json': table23.default || table23,
-            'table_24_bwat_epithelialization.json': table24.default || table24,
-            'table_25_bwat_exudate.json': table25.default || table25,
-            'table_26_bwat_surrounding_skin.json': table26.default || table26,
-            'table_27_infection_signs_symptoms.json': table27.default || table27,
-            'table_28_laboratory_tests.json': table28.default || table28,
-            'table_29_braden_scale.json': table29.default || table29,
-            'table_30_braden_q_scale.json': table30.default || table30,
-            'table_31_pressure_injury.json': table31.default || table31,
-            'table_32_venous_ulcer.json': table32.default || table32,
-            'table_33_arterial_ulcer.json': table33.default || table33,
-            'table_34_diabetic_foot.json': table34.default || table34,
-            // Tables colonne 2
-            'table_01_cicatrisation_ralentie.json': col2Table01.default || col2Table01,
-            'table_02_statut_plaie.json': col2Table02.default || col2Table02,
-            'table_03_type_plaie.json': col2Table03.default || col2Table03,
-            'table_04_stade_continuum_microbien.json': col2Table04.default || col2Table04,
-            'table_05_vascularisation_plaie.json': col2Table05.default || col2Table05
+            'table_01_basic_data.json': table01,
+            'table_02_allergies.json': table02,
+            'table_03_health_conditions.json': table03,
+            'table_04_weight_bmi.json': table04,
+            'table_05_nutrition.json': table05,
+            'table_06_risk_factors.json': table06,
+            'table_07_active_medication.json': table07,
+            'table_08_psychosocial_environment.json': table08,
+            'table_09_insurance.json': table09,
+            'table_10_care_level.json': table10,
+            'table_11_wound_history.json': table11,
+            'table_12_symptoms.json': table12,
+            'table_13_perceptions_goals.json': table13,
+            'table_14_wound_location.json': table14,
+            'table_15_vascular_assessment.json': table15,
+            'table_16_bwat_size.json': table16,
+            'table_17_wound_shape.json': table17,
+            'table_18_bwat_depth.json': table18,
+            'table_19_bwat_edges.json': table19,
+            'table_20_bwat_undermining.json': table20,
+            'table_21_wound_bed_composition.json': table21,
+            'table_22_bwat_necrotic_tissue.json': table22,
+            'table_23_bwat_granulation_tissue.json': table23,
+            'table_24_bwat_epithelialization.json': table24,
+            'table_25_bwat_exudate.json': table25,
+            'table_26_bwat_surrounding_skin.json': table26,
+            'table_27_infection_signs_symptoms.json': table27,
+            'table_28_laboratory_tests.json': table28,
+            'table_29_braden_scale.json': table29,
+            'table_30_braden_q_scale.json': table30,
+            'table_31_pressure_injury.json': table31,
+            'table_32_venous_ulcer.json': table32,
+            'table_33_arterial_ulcer.json': table33,
+            'table_34_diabetic_foot.json': table34,
+            'table_01_cicatrisation_ralentie.json': col2Table01,
+            'table_02_statut_plaie.json': col2Table02,
+            'table_03_type_plaie.json': col2Table03,
+            'table_04_stade_continuum_microbien.json': col2Table04,
+            'table_05_vascularisation_plaie.json': col2Table05
           };
 
           this.allTablesLoaded = true;
@@ -185,6 +187,9 @@ class TableDataLoader {
    * @private
    */
   _getTableFileName(tableId) {
+    if (tableId == null || typeof tableId !== 'string') {
+      return 'table_01_basic_data.json';
+    }
     // Détecter la colonne (C1 ou C2)
     const columnMatch = tableId.match(/^C(\d+)T/);
     const column = columnMatch ? columnMatch[1] : '1';

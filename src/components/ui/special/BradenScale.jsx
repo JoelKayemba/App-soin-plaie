@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import { TView, TText } from '@/components/ui/Themed';
+import { StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { TView, TText, TIcon } from '@/components/ui/Themed';
 import { RadioGroup, NumericInput } from '@/components/ui/forms';
 import spacing from '@/styles/spacing';
 import bradenData from '@/data/braden.json';
@@ -54,10 +54,18 @@ const BradenScale = ({
     if (dimension.type === 'count') {
       return (
         <TView key={dimension.id} style={styles.dimensionCard}>
-          <TText style={styles.dimensionTitle}>{dimension.label}</TText>
-          {dimension.description ? (
-            <TText style={styles.dimensionDescription}>{dimension.description}</TText>
-          ) : null}
+          <TView style={styles.dimensionHeaderRow}>
+            <TText style={styles.dimensionTitle}>{dimension.label}</TText>
+            {dimension.description ? (
+              <TouchableOpacity
+                onPress={() => Alert.alert(dimension.label, dimension.description, [{ text: 'OK' }])}
+                style={styles.infoIconButton}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              >
+                <TIcon name="information-circle-outline" size={22} />
+              </TouchableOpacity>
+            ) : null}
+          </TView>
           <NumericInput
             label="Nombre de dispositifs médicaux"
             value={selectedValue ?? 0}
@@ -81,10 +89,18 @@ const BradenScale = ({
 
     return (
       <TView key={dimension.id} style={styles.dimensionCard}>
-        <TText style={styles.dimensionTitle}>{dimension.label}</TText>
-        {dimension.description ? (
-          <TText style={styles.dimensionDescription}>{dimension.description}</TText>
-        ) : null}
+        <TView style={styles.dimensionHeaderRow}>
+          <TText style={styles.dimensionTitle}>{dimension.label}</TText>
+          {dimension.description ? (
+            <TouchableOpacity
+              onPress={() => Alert.alert(dimension.label, dimension.description, [{ text: 'OK' }])}
+              style={styles.infoIconButton}
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            >
+              <TIcon name="information-circle-outline" size={22} />
+            </TouchableOpacity>
+          ) : null}
+        </TView>
         <RadioGroup
           options={options}
           value={selectedValue}
@@ -166,15 +182,19 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     borderColor: '#D0D5DD'
   },
+  dimensionHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing.xs
+  },
   dimensionTitle: {
     fontSize: 16,
     fontWeight: '700',
-    marginBottom: spacing.xs
+    flex: 1
   },
-  dimensionDescription: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginBottom: spacing.sm
+  infoIconButton: {
+    padding: spacing.xs,
+    marginLeft: spacing.xs
   },
   summaryCard: {
     borderWidth: 1,

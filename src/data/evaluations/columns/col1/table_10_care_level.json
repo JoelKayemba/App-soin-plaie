@@ -59,7 +59,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Niveau de soins requis",
-    "instructions": "Sélectionnez le niveau de soins approprié pour orienter la profondeur des interventions. Ce champ est obligatoire.",
+    "instructions": "Sélectionnez le niveau de soins. Obligatoire.",
     "required_indicator": true
   }
 }

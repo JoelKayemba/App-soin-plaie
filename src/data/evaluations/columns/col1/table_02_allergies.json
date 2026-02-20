@@ -12,7 +12,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une allergie à la chlorhexidine"
+        "help": "Allergie à la chlorhexidine"
       }
     },
     {
@@ -22,7 +22,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une allergie à l'iode"
+        "help": "Allergie à l'iode"
       }
     },
     {
@@ -32,7 +32,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente une allergie au latex"
+        "help": "Allergie au latex"
       }
     },
     {
@@ -49,7 +49,7 @@
       },
       "ui": {
         "component": "CheckboxWithText",
-        "help": "Cochez et précisez si le patient présente d'autres allergies"
+        "help": "Autres allergies (préciser)"
       }
     }
   ],
@@ -70,7 +70,7 @@
   "ui_configuration": {
     "layout": "vertical",
     "spacing": "medium",
-    "group_label": "Allergies connues du patient",
-    "instructions": "Sélectionnez toutes les allergies qui s'appliquent au patient. Aucune sélection n'est obligatoire."
+    "group_label": "Allergies connues",
+    "instructions": "Sélectionnez les allergies applicables."
   }
 }

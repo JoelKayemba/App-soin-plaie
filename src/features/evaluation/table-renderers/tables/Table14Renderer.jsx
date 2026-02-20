@@ -1,13 +1,13 @@
 /**
  * Table14Renderer - Renderer spécifique pour la table C1T14 (Emplacement)
- * 
+ *
  * Table avec additional_fields et VisualSelector.
- * Gère la synchronisation entre VisualSelector et le radio group principal.
- * 
- * Plan ÉTAPE 36 - Table avec additional_fields et VisualSelector
+ * Option pour ouvrir l'écran WebView 3D (BodyModel3D) en plein écran.
  */
 
 import React from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { TView, TText } from '@/components/ui/Themed';
 import { useTheme } from '@/context/ThemeContext';
 import { renderElement } from '../core/ElementRenderer';
@@ -19,14 +19,6 @@ const styles = {
   contentContainer: {
     flexGrow: 1,
   },
-  headerContainer: {
-    marginBottom: spacing.md,
-  },
-  groupLabel: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   instructionsContainer: {
     marginBottom: spacing.lg,
     paddingHorizontal: spacing.md,
@@ -36,6 +28,21 @@ const styles = {
     textAlign: 'center',
     lineHeight: 24,
     fontStyle: 'italic',
+  },
+  openButtonContainer: {
+    marginBottom: spacing.lg,
+    alignItems: 'center',
+  },
+  openButton: {
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    borderRadius: spacing.radius.md,
+    minWidth: 200,
+    alignItems: 'center',
+  },
+  openButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 };
 
@@ -48,6 +55,7 @@ const Table14Renderer = ({
   showHelper,
 }) => {
   const { colors } = useTheme();
+  const navigation = useNavigation();
 
   const renderProps = {
     tableData,
@@ -97,7 +105,7 @@ const Table14Renderer = ({
 
   return (
     <TView style={styles.contentContainer}>
-      {/* Instructions si présentes (le titre est déjà affiché dans le header de l'écran) */}
+      {/* Instructions si présentes */}
       {tableData.ui_configuration?.instructions && (
         <TView style={styles.instructionsContainer}>
           <TText style={[styles.instructions, { color: colors.textSecondary }]}>
@@ -105,7 +113,20 @@ const Table14Renderer = ({
           </TText>
         </TView>
       )}
-      
+
+      {/* Option pour ouvrir l'écran WebView 3D (plein écran) */}
+      <View style={styles.openButtonContainer}>
+        <TouchableOpacity
+          style={[styles.openButton, { backgroundColor: colors.primary }]}
+          onPress={() => navigation.navigate('BodyModel3D')}
+          activeOpacity={0.8}
+        >
+          <TText style={[styles.openButtonText, { color: '#fff' }]}>
+            Voir le modèle 3D
+          </TText>
+        </TouchableOpacity>
+      </View>
+
       {renderElements()}
     </TView>
   );

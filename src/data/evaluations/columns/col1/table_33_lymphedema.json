@@ -37,7 +37,7 @@
         "component": "RadioGroup",
         "minSelections": 1,
         "maxSelections": 1,
-        "help": "Sélectionnez si le patient porte un vêtement compressif",
+        "help": "Vêtement compressif en place",
         "ariaDescription": "Sélection du port d'un vêtement compressif thérapeutique"
       },
       "clinical_notes": {
@@ -55,14 +55,14 @@
       }
     },
     "error_messages": {
-      "compression_garment_required": "Veuillez sélectionner si le patient porte un vêtement compressif"
+      "compression_garment_required": "Veuillez sélectionner si un vêtement compressif est porté"
     }
   },
   "ui_configuration": {
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Lymphœdème",
-    "instructions": "Vérifier si le patient atteint de lymphœdème porte actuellement un vêtement compressif thérapeutique",
+    "instructions": "Vérifier le port d'un vêtement compressif",
     "sections": [
       {
         "title": "Vêtement compressif",

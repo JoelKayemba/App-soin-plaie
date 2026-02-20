@@ -42,13 +42,13 @@
         {
           "id": "C1T22E01",
           "type": "boolean",
-          "label": "1 = Aucun visible",
-          "description": "Aucun tissu nécrotique visible",
+          "label": "Aucun visible",
+         
           "score": 1,
           "required": false,
           "ui": {
             "component": "RadioButton",
-            "help": "Sélectionnez s'il n'y a aucun tissu nécrotique visible",
+            "help": "Aucun tissu nécrotique",
             "ariaDescription": "Cocher s'il n'y a aucun tissu nécrotique visible"
           },
           "clinical_notes": {
@@ -60,13 +60,13 @@
         {
           "id": "C1T22E02",
           "type": "boolean",
-          "label": "2 = Tissu dévitalisé blanc/gris et/ou non adhérent jaunâtre",
-          "description": "Tissu dévitalisé blanc/gris et/ou non adhérent jaunâtre",
+          "label": "Tissu dévitalisé blanc/gris et/ou non adhérent jaunâtre",
+          
           "score": 2,
           "required": false,
           "ui": {
             "component": "RadioButton",
-            "help": "Sélectionnez si le tissu nécrotique est blanc/gris et/ou non adhérent jaunâtre",
+            "help": "Blanc/gris ou jaunâtre non adhérent",
             "ariaDescription": "Cocher si le tissu nécrotique est blanc/gris et/ou non adhérent jaunâtre"
           },
           "detailed_definition": {
@@ -88,13 +88,13 @@
         {
           "id": "C1T22E03",
           "type": "boolean",
-          "label": "3 = Tissu dévitalisé jaune faiblement adhérent",
-          "description": "Tissu dévitalisé jaune faiblement adhérent",
+          "label": "Tissu dévitalisé jaune faiblement adhérent",
+         
           "score": 3,
           "required": false,
           "ui": {
             "component": "RadioButton",
-            "help": "Sélectionnez si le tissu nécrotique est jaune faiblement adhérent",
+            "help": "Jaune faiblement adhérent",
             "ariaDescription": "Cocher si le tissu nécrotique est jaune faiblement adhérent"
           },
           "detailed_definition": {
@@ -116,13 +116,13 @@
         {
           "id": "C1T22E04",
           "type": "boolean",
-          "label": "4 = Tissu dévitalisé adhérent et/ou mou et/ou escarre noire",
-          "description": "Tissu dévitalisé adhérent et/ou mou et/ou escarre noire",
+          "label": "Tissu dévitalisé adhérent et/ou mou et/ou escarre noire",
+         
           "score": 4,
           "required": false,
           "ui": {
             "component": "RadioButton",
-            "help": "Sélectionnez si le tissu nécrotique est adhérent et/ou mou et/ou escarre noire",
+            "help": "Adhérent/mou/escarre noire",
             "ariaDescription": "Cocher si le tissu nécrotique est adhérent et/ou mou et/ou escarre noire"
           },
           "detailed_definition": {
@@ -144,13 +144,13 @@
         {
           "id": "C1T22E05",
           "type": "boolean",
-          "label": "5 = Tissu dévitalisé fortement adhérent et/ou escarre dure/noire",
-          "description": "Tissu dévitalisé fortement adhérent et/ou escarre dure/noire",
+          "label": "Tissu dévitalisé fortement adhérent et/ou escarre dure/noire",
+          
           "score": 5,
           "required": false,
           "ui": {
             "component": "RadioButton",
-            "help": "Sélectionnez si le tissu nécrotique est fortement adhérent et/ou escarre dure/noire",
+            "help": "Fortement adhérent/escarre dure/noire",
             "ariaDescription": "Cocher si le tissu nécrotique est fortement adhérent et/ou escarre dure/noire"
           },
           "detailed_definition": {
@@ -174,163 +174,67 @@
     "quantity": {
       "id": "C1T22Q2",
       "title": "Quantité",
-      "type": "calculated",
+      "type": "single_choice",
       "required": true,
-      "calculation_source": "C1T21E01",
       "elements": [
         {
           "id": "C1T22E06",
-          "type": "calculated",
-          "label": "1 = Aucun visible",
-          "description": "Aucun tissu nécrotique visible",
+          "type": "boolean",
+          "label": "Aucun visible",
+         
           "score": 1,
-          "condition": {
-            "eq": {
-              "var": "C1T21E01",
-              "value": 0
-            }
-          },
+          "required": false,
           "ui": {
-            "component": "ResultBadge",
-            "color": "#4CAF50",
-            "help": "Calculé automatiquement selon la composition du lit de la plaie"
-          },
-          "clinical_notes": {
-            "description": "Aucun tissu nécrotique visible",
-            "tissue_status": "Plaie sans nécrose",
-            "color": "#4CAF50"
+            "component": "RadioButton",
+            "help": "Aucun tissu nécrotique visible"
           }
         },
         {
           "id": "C1T22E07",
-          "type": "calculated",
-          "label": "2 = < 25 % de la plaie couverte",
-          "description": "Moins de 25% de la plaie couverte par du tissu nécrotique",
+          "type": "boolean",
+          "label": "< 25% de la plaie couverte",
+          
           "score": 2,
-          "condition": {
-            "allOf": [
-              {
-                "gt": {
-                  "var": "C1T21E01",
-                  "value": 0
-                }
-              },
-              {
-                "lt": {
-                  "var": "C1T21E01",
-                  "value": 25
-                }
-              }
-            ]
-          },
+          "required": false,
           "ui": {
-            "component": "ResultBadge",
-            "color": "#8BC34A",
-            "help": "Calculé automatiquement selon la composition du lit de la plaie"
-          },
-          "clinical_notes": {
-            "description": "Moins de 25% de la plaie couverte par du tissu nécrotique",
-            "tissue_status": "Nécrose limitée",
-            "color": "#8BC34A"
+            "component": "RadioButton",
+            "help": "Moins de 25% de la plaie couverte"
           }
         },
         {
           "id": "C1T22E08",
-          "type": "calculated",
-          "label": "3 = 25 % à 50 % de la plaie couverte",
-          "description": "25% à 50% de la plaie couverte par du tissu nécrotique",
+          "type": "boolean",
+          "label": "25% à 50% de la plaie couverte",
+          
           "score": 3,
-          "condition": {
-            "allOf": [
-              {
-                "gte": {
-                  "var": "C1T21E01",
-                  "value": 25
-                }
-              },
-              {
-                "lte": {
-                  "var": "C1T21E01",
-                  "value": 50
-                }
-              }
-            ]
-          },
+          "required": false,
           "ui": {
-            "component": "ResultBadge",
-            "color": "#FFC107",
-            "help": "Calculé automatiquement selon la composition du lit de la plaie"
-          },
-          "clinical_notes": {
-            "description": "25% à 50% de la plaie couverte par du tissu nécrotique",
-            "tissue_status": "Nécrose modérée",
-            "color": "#FFC107"
+            "component": "RadioButton",
+            "help": "25% à 50% de la plaie couverte"
           }
         },
         {
           "id": "C1T22E09",
-          "type": "calculated",
-          "label": "4 = > 50 % et < 75 % de la plaie couverte",
-          "description": "Plus de 50% et moins de 75% de la plaie couverte par du tissu nécrotique",
+          "type": "boolean",
+          "label": "> 50% et < 75% de la plaie couverte",
+         
           "score": 4,
-          "condition": {
-            "allOf": [
-              {
-                "gt": {
-                  "var": "C1T21E01",
-                  "value": 50
-                }
-              },
-              {
-                "lt": {
-                  "var": "C1T21E01",
-                  "value": 75
-                }
-              }
-            ]
-          },
+          "required": false,
           "ui": {
-            "component": "ResultBadge",
-            "color": "#FF9800",
-            "help": "Calculé automatiquement selon la composition du lit de la plaie"
-          },
-          "clinical_notes": {
-            "description": "Plus de 50% et moins de 75% de la plaie couverte par du tissu nécrotique",
-            "tissue_status": "Nécrose étendue",
-            "color": "#FF9800"
+            "component": "RadioButton",
+            "help": "Plus de 50% et moins de 75% de la plaie couverte"
           }
         },
         {
           "id": "C1T22E10",
-          "type": "calculated",
-          "label": "5 = 75 % à 100 % de la plaie couverte",
-          "description": "75% à 100% de la plaie couverte par du tissu nécrotique",
+          "type": "boolean",
+          "label": "75% à 100% de la plaie couverte",
+          
           "score": 5,
-          "condition": {
-            "allOf": [
-              {
-                "gte": {
-                  "var": "C1T21E01",
-                  "value": 75
-                }
-              },
-              {
-                "lte": {
-                  "var": "C1T21E01",
-                  "value": 100
-                }
-              }
-            ]
-          },
+          "required": false,
           "ui": {
-            "component": "ResultBadge",
-            "color": "#F44336",
-            "help": "Calculé automatiquement selon la composition du lit de la plaie"
-          },
-          "clinical_notes": {
-            "description": "75% à 100% de la plaie couverte par du tissu nécrotique",
-            "tissue_status": "Nécrose extensive",
-            "color": "#F44336"
+            "component": "RadioButton",
+            "help": "75% à 100% de la plaie couverte"
           }
         }
       ]
@@ -343,21 +247,24 @@
       "allow_none": false,
       "required": true
     },
-    "quantity_calculation": {
-      "automatic": true,
-      "source_field": "C1T21E01",
-      "update_on_change": true
+    "quantity_selection": {
+      "min_selections": 1,
+      "max_selections": 1,
+      "allow_none": false,
+      "required": true
     },
     "error_messages": {
       "no_quality_selection": "Veuillez sélectionner un score de qualité du tissu nécrotique",
-      "multiple_quality_selections": "Un seul score de qualité peut être sélectionné"
+      "multiple_quality_selections": "Un seul score de qualité peut être sélectionné",
+      "no_quantity_selection": "Veuillez sélectionner la quantité de tissu nécrotique",
+      "multiple_quantity_selections": "Une seule quantité peut être sélectionnée"
     }
   },
   "ui_configuration": {
     "layout": "vertical",
     "spacing": "large",
     "group_label": "BWAT – Types et quantité de tissus nécrotiques",
-    "instructions": "Sélectionnez la qualité du tissu nécrotique. La quantité est calculée automatiquement.",
+    "instructions": "Sélectionnez la qualité puis la quantité du tissu nécrotique",
     "sections": [
       {
         "title": "Qualité du tissu nécrotique",
@@ -372,7 +279,7 @@
         "required": true
       },
       {
-        "title": "Quantité (calculée automatiquement)",
+        "title": "Quantité",
         "elements": [
           "C1T22E06",
           "C1T22E07",
@@ -380,8 +287,8 @@
           "C1T22E09",
           "C1T22E10"
         ],
-        "type": "calculated_display",
-        "required": false
+        "type": "radio_group",
+        "required": true
       }
     ]
   }

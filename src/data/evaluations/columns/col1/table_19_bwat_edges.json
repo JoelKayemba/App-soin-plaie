@@ -24,44 +24,44 @@
       "options": [
         {
           "id": "C1T19E01_01",
-          "label": "0",
-          "description": "Plaie guérie",
+          "label": "Plaie guérie",
+          "description": "",
           "score": 0
         },
         {
           "id": "C1T19E01_02",
-          "label": "1",
-          "description": "Indistincts, diffus, aucun clairement visible - Incapable de distinguer clairement les contours de la plaie",
+          "label": "Indistincts, diffus, aucun clairement visible",
+          "description": "Incapable de distinguer clairement les contours de la plaie",
           "score": 1
         },
         {
           "id": "C1T19E01_03",
-          "label": "2",
-          "description": "Distincts, limites clairement visibles, attachés, au même niveau que le lit de la plaie - Bords égaux ou au même niveau que le lit de la plaie, aucun côté ou dénivellation présent; plat",
+          "label": "Distincts, limites clairement visibles, attachés, au même niveau que le lit de la plaie",
+          "description": "Bords égaux ou au même niveau que le lit de la plaie, aucun côté ou dénivellation présent; plat",
           "score": 2
         },
         {
           "id": "C1T19E01_04",
-          "label": "3",
-          "description": "Bien définis, non attachés à la base de la plaie - Bords présents; le lit de la plaie est plus profond; dénivellation peu marquée, sans sous-minage",
+          "label": "Bien définis, non attachés à la base de la plaie",
+          "description": "Côtés ou bords présents; lit de la plaie plus profond que les bords, la dénivellation peut être très peu profonde et ne pas présenter de sous-minage",
           "score": 3
         },
         {
           "id": "C1T19E01_05",
-          "label": "4",
-          "description": "Bien définis, non attachés à la base de la plaie, roulés, épaissis - Souples à fermes et flexibles au toucher",
+          "label": "Bien définis, non attachés à la base de la plaie, roulés, épaissis",
+          "description": "de souples à fermes et flexibles au toucher",
           "score": 4
         },
         {
           "id": "C1T19E01_06",
-          "label": "5",
-          "description": "Bien définis, fibrosés cicatriciels ou hyperkératosiques - Bords durs, rigides au toucher; amas de tissus ou callosité autour de la plaie",
+          "label": "Bien définis, fibrosés cicatriciels ou hyperkératosiques",
+          "description": "Bords durs, rigides au toucher; amas de tissus autour de la plaie et des bords ayant l'aspect d'une callosité",
           "score": 5
         }
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez un seul score de bords BWAT"
+        "help": "Score bords BWAT"
       }
     }
   ],
@@ -81,7 +81,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "BWAT – Bords",
-    "instructions": "Sélectionnez le score qui décrit le mieux les bords de la plaie",
+    "instructions": "Sélectionnez le score des bords",
     "sections": [
       {
         "title": "Caractérisation des bords",

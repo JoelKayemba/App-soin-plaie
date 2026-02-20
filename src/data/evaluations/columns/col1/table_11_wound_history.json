@@ -18,7 +18,7 @@
       "ui": {
         "component": "DateTextInput",
         "placeholder": "AAAA-MM-JJ",
-        "help": "Sélectionnez la date d'apparition de la plaie"
+        "help": "Date d'apparition"
       }
     },
     {
@@ -55,7 +55,7 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez le mode d'apparition de la plaie"
+        "help": "Mode d'apparition"
       }
     },
     {
@@ -77,7 +77,7 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez si c'est la première fois que vous avez cette plaie"
+        "help": "Première occurrence"
       }
     },
     {
@@ -89,14 +89,14 @@
       "options": [
         {
           "value": "insuffisance_veineuse",
-          "label": "Insuffisance veineuse*",
+          "label": "Insuffisance veineuse",
           "description": "Plaie d'origine veineuse",
           "important": true,
           "important_text": "Nécessite un diagnostic"
         },
         {
           "value": "maladie_arterielle",
-          "label": "Maladie artérielle périphérique*",
+          "label": "Maladie artérielle périphérique",
           "description": "Plaie d'origine artérielle",
           "important": true,
           "important_text": "Nécessite un diagnostic"
@@ -129,7 +129,7 @@
         },
         {
           "value": "neoplasie",
-          "label": "Néoplasie / tumeur maligne*",
+          "label": "Néoplasie / tumeur maligne",
           "description": "Plaie tumorale",
           "important": true,
           "important_text": "Nécessite un diagnostic",
@@ -137,7 +137,7 @@
         },
         {
           "value": "lymphedeme",
-          "label": "Lymphœdème*",
+          "label": "Lymphœdème",
           "description": "Plaie liée au lymphœdème",
           "important": true,
           "important_text": "Nécessite un diagnostic",
@@ -145,7 +145,7 @@
         },
         {
           "value": "pied_diabetique",
-          "label": "Pied diabétique*",
+          "label": "Pied diabétique",
           "description": "Plaie du pied diabétique",
           "important": true,
           "important_text": "Nécessite un diagnostic",
@@ -169,7 +169,7 @@
       ],
       "ui": {
         "component": "CheckboxGroup",
-        "help": "Sélectionnez toutes les étiologies qui s'appliquent"
+        "help": "Étiologie(s)"
       }
     },
     {
@@ -229,7 +229,7 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez le stade de la brûlure"
+        "help": "Stade de la brûlure"
       }
     },
     {
@@ -276,7 +276,7 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez le stade de la lésion de pression"
+        "help": "Stade de la lésion"
       }
     }
   ],
@@ -306,6 +306,6 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Histoire de la plaie",
-    "instructions": "Remplissez toutes les informations sur l'histoire de la plaie"
+    "instructions": "Histoire de la plaie"
   }
 }

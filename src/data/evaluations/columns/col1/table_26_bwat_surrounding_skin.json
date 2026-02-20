@@ -24,32 +24,32 @@
       "options": [
         {
           "id": "C1T26E01",
-          "label": "1",
-          "description": "Rose ou normale selon le groupe ethnique",
+          "label": "Rose ou normale selon le groupe ethnique",
+          "description": "",
           "score": 1
         },
         {
           "id": "C1T26E02",
-          "label": "2",
-          "description": "Rouge vif et/ou qui blanchit au toucher",
+          "label": "Rouge vif et/ou qui blanchit au toucher",
+          "description": "",
           "score": 2
         },
         {
           "id": "C1T26E03",
-          "label": "3",
-          "description": "Pâleur blanche, grise ou hypo-pigmentée",
+          "label": "Pâleur blanche, grise ou hypo-pigmentée",
+          "description": "",
           "score": 3
         },
         {
           "id": "C1T26E04",
-          "label": "4",
-          "description": "Rouge foncé ou violacée et/ou qui ne blanchit pas",
+          "label": "Rouge foncé ou violacée et/ou qui ne blanchit pas",
+          "description": "",
           "score": 4
         },
         {
           "id": "C1T26E05",
-          "label": "5",
-          "description": "Noire ou hyper-pigmentée",
+          "label": "Noire ou hyper-pigmentée",
+          "description": "",
           "score": 5
         }
       ],
@@ -65,31 +65,32 @@
       "options": [
         {
           "id": "C1T26E06",
-          "label": "1",
-          "description": "Aucun gonflement ou œdème",
+          "label": "Aucun gonflement ou œdème",
+          "description": "",
           "score": 1
         },
         {
           "id": "C1T26E07",
-          "label": "2",
-          "description": "Œdème sans godet < 4 cm autour de la plaie",
+          "label": "Œdème sans godet < 4 cm autour de la plaie",
+          "description": "",
           "score": 2
         },
         {
           "id": "C1T26E08",
-          "label": "3",
-          "description": "Œdème sans godet > 4 cm autour de la plaie",
+          "label": "Œdème sans godet > 4 cm autour de la plaie",
+          "description": "",
           "score": 3
         },
         {
           "id": "C1T26E09",
-          "label": "4",
+          "label": "Œdème à godet < 4 cm autour de la plaie",
+          "description": "",
           "score": 4
         },
         {
           "id": "C1T26E10",
-          "label": "5",
-          "description": "Crépitement et/ou œdème à godet ≥ 4 cm autour de la plaie",
+          "label": "Crépitement et/ou œdème à godet ≥ 4 cm autour de la plaie",
+          "description": "",
           "score": 5
         }
       ],
@@ -105,30 +106,32 @@
       "options": [
         {
           "id": "C1T26E11",
-          "label": "1",
-          "description": "Aucune induration",
+          "label": "Aucune induration",
+          "description": "",
           "score": 1
         },
         {
           "id": "C1T26E12",
-          "label": "2",
+          "label": "Induration < 2 cm autour de la plaie",
+          "description": "",
           "score": 2
         },
         {
           "id": "C1T26E13",
-          "label": "3",
-          "description": "Induration 2–4 cm impliquant < 50 % de la périphérie",
+          "label": "Induration 2–4 cm impliquant < 50 % de la périphérie",
+          "description": "",
           "score": 3
         },
         {
           "id": "C1T26E14",
-          "label": "4",
+          "label": "Induration 2–4 cm impliquant ≥ 50 % de la périphérie",
+          "description": "",
           "score": 4
         },
         {
           "id": "C1T26E15",
-          "label": "5",
-          "description": "Induration > 4 cm, peu importe la localisation",
+          "label": "Induration > 4 cm, peu importe la localisation",
+          "description": "",
           "score": 5
         }
       ],

@@ -274,3 +274,123 @@ export const calculateIPSCBValues = (pressures) => {
   };
 };
 
+/** IDs des tables BWAT qui contribuent au score total (ordre logique) */
+const BWAT_TABLE_IDS = ['C1T16', 'C1T18', 'C1T19', 'C1T20', 'C1T22', 'C1T23', 'C1T24', 'C1T25', 'C1T26'];
+
+/**
+ * Interprète le score total BWAT selon le continuum du statut de la plaie
+ * @param {number} total - Score total BWAT
+ * @returns {{ key: string, label: string }}
+ */
+export const getBWATContinuumStatus = (total) => {
+  const t = Number(total) || 0;
+  if (t >= 1 && t < 5) return { key: 'sante_tissulaire', label: 'Santé tissulaire' };
+  if (t >= 5 && t < 15) return { key: 'guerison', label: 'Guérison' };
+  if (t >= 15 && t < 30) return { key: 'regenerescence', label: 'Régénérescence de la plaie' };
+  if (t >= 30) return { key: 'degenerescence', label: 'Dégénérescence de la plaie' };
+  return { key: 'non_calcule', label: 'Non calculé' };
+};const getScoreFromOption = (schema, elementId, selectedOptionId) => {
+  if (!schema || selectedOptionId == null || selectedOptionId === '') return null;
+  const findInElements = (elements) => {
+    if (!Array.isArray(elements)) return null;
+    for (const el of elements) {
+      if (el.id === elementId && Array.isArray(el.options)) {
+        const opt = el.options.find((o) => (o.id || o.value) === selectedOptionId);
+        return opt != null && typeof opt.score === 'number' ? opt.score : null;
+      }
+    }
+    return null;
+  };
+  let s = findInElements(schema.elements);
+  if (s != null) return s;
+  if (schema.sub_blocks && typeof schema.sub_blocks === 'object') {
+    for (const block of Object.values(schema.sub_blocks)) {
+      if (Array.isArray(block.elements)) {
+        const el = block.elements.find((e) => e.id === selectedOptionId);
+        if (el && typeof el.score === 'number') return el.score;
+      }
+    }
+  }
+  return null;
+};
+
+/**
+ * Calcule le score total BWAT à partir des données d'évaluation et des schémas des tables
+ * @param {Object} evaluationData - Données par table (evaluationData[tableId])
+ * @param {Object} tableDataLoader - Service pour charger les tables (loadTableData)
+ * @returns {Promise<{ total: number, statusKey: string, statusLabel: string }>}
+ */
+export const calculateBWATTotal = async (evaluationData, tableDataLoader) => {
+  let total = 0;
+
+  for (const tableId of BWAT_TABLE_IDS) {
+    const tableData = evaluationData[tableId];
+    if (!tableData) continue;
+
+    try {
+      const schema = await tableDataLoader.loadTableData(tableId);
+
+      if (tableId === 'C1T16') {
+        const surface = parseFloat(tableData.C1T16E03) || 0;
+        if (tableData.C1T16E01 != null && tableData.C1T16E02 != null && !surface) {
+          const l = parseFloat(tableData.C1T16E01) || 0;
+          const w = parseFloat(tableData.C1T16E02) || 0;
+          const classified = classifyBWATSize(l * w);
+          if (classified) total += classified.score;
+        } else {
+          const classified = classifyBWATSize(surface);
+          if (classified) total += classified.score;
+        }
+        continue;
+      }
+
+      if (tableId === 'C1T22') {
+        const qualityScore = getScoreFromOption(schema, 'C1T22E01', tableData.C1T22E01);
+        if (qualityScore != null) total += qualityScore;
+        const quantityScore = getScoreFromOption(schema, 'C1T22E06', tableData.C1T22E06);
+        if (quantityScore != null) total += quantityScore;
+        continue;
+      }
+
+      if (tableId === 'C1T25') {
+        const qualityScore = getScoreFromOption(schema, 'C1T25E01', tableData.C1T25E01);
+        if (qualityScore != null) total += qualityScore;
+        const quantityScore = getScoreFromOption(schema, 'C1T25E06', tableData.C1T25E06);
+        if (quantityScore != null) total += quantityScore;
+        continue;
+      }
+
+      if (tableId === 'C1T26') {
+        const scoreColoration = getScoreFromOption(schema, 'C1T26_COLORATION', tableData.C1T26_COLORATION);
+        if (scoreColoration != null) total += scoreColoration;
+        const scoreEdema = getScoreFromOption(schema, 'C1T26_EDEMA', tableData.C1T26_EDEMA);
+        if (scoreEdema != null) total += scoreEdema;
+        const scoreInduration = getScoreFromOption(schema, 'C1T26_INDURATION', tableData.C1T26_INDURATION);
+        if (scoreInduration != null) total += scoreInduration;
+        continue;
+      }
+
+      const singleChoiceIds = {
+        C1T18: 'C1T18E01',
+        C1T19: 'C1T19E01',
+        C1T20: 'C1T20E01',
+        C1T23: 'C1T23E01',
+        C1T24: 'C1T24E01',
+      };
+      const fieldId = singleChoiceIds[tableId];
+      if (fieldId) {
+        const score = getScoreFromOption(schema, fieldId, tableData[fieldId]);
+        if (score != null) total += score;
+      }
+    } catch (err) {
+      if (__DEV__) console.warn(`[calculateBWATTotal] ${tableId}`, err);
+    }
+  }
+
+  const status = getBWATContinuumStatus(total);
+  return {
+    total,
+    statusKey: status.key,
+    statusLabel: status.label,
+  };
+};

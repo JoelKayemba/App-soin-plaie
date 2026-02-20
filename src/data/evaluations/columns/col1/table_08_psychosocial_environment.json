@@ -1,7 +1,7 @@
 {
   "id": "C1T08",
   "title": "Environnement et sphère psychosociale",
-  "description": "Évaluation des facteurs environnementaux et psychosociales influençant le risque de lésions de pression",
+  "description": "Facteurs environnementaux et psychosociales",
   "category": "psychosocial_assessment",
   "column": 1,
   "table": 8,
@@ -13,7 +13,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si l'emploi du patient peut limiter la cicatrisation"
+        "help": "Emploi limitant la cicatrisation"
       }
     },
     {
@@ -33,7 +33,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient a peu ou pas de réseau de soutien"
+        "help": "Peu ou pas de réseau de soutien"
       }
     },
     {
@@ -53,7 +53,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient a des difficultés avec les autosoins"
+        "help": "Incapacité aux autosoins"
       }
     },
     {
@@ -63,7 +63,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient vit une précarité financière"
+        "help": "Précarité financière"
       }
     },
     {
@@ -73,7 +73,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente de l'anxiété ou du stress"
+        "help": "Anxiété, stress"
       }
     },
     {
@@ -83,7 +83,7 @@
       "required": false,
       "ui": {
         "component": "Checkbox",
-        "help": "Cochez si le patient présente un manque d'adhésion au traitement"
+        "help": "Manque d'adhésion au traitement"
       }
     },
     {
@@ -140,7 +140,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Environnement et sphère psychosociale",
-    "instructions": "Sélectionnez tous les facteurs qui s'appliquent au patient et répondez à la question obligatoire sur l'impact social",
+    "instructions": "Sélectionnez les facteurs applicables et répondez à la question obligatoire.",
     "sections": [
       {
         "title": "Facteurs environnementaux et psychosociales",

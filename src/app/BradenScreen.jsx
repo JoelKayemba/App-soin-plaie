@@ -17,11 +17,9 @@ const BradenScreen = () => {
 
   const {
     selectedScores,
-    expandedTexts,
     totalScore,
     riskLevel,
     selectScore,
-    toggleTextExpansion,
     resetSelections,
     isComplete
   } = useBradenCalculator(storedScores, setStoredScores);
@@ -118,7 +116,10 @@ const BradenScreen = () => {
     },
     dimensionHeader: {
       marginBottom: spacing.md,
-      
+    },
+    infoIconButton: {
+      padding: spacing.xs,
+      marginLeft: spacing.xs,
     },
     dimensionTitle: {
       fontSize: 18 * typeScale,
@@ -194,22 +195,6 @@ const BradenScreen = () => {
       fontSize: 14 * typeScale,
       color: c.text,
       lineHeight: 20,
-    },
-    scoreTextTruncated: {
-      fontSize: 14 * typeScale,
-      color: c.text,
-      lineHeight: 20,
-      maxHeight: 40, // 2 lignes maximum
-    },
-    seeMoreButton: {
-      marginTop: spacing.xs,
-      alignSelf: 'flex-start',
-    },
-    seeMoreText: {
-      fontSize: 12 * typeScale,
-      color: c.primary,
-      fontWeight: '600',
-      
     },
     resultButton: {
       backgroundColor: c.primary,
@@ -355,17 +340,23 @@ const BradenScreen = () => {
           {bradenData.dimensions.map((dimension) => (
             <View key={dimension.id} style={s.dimensionCard}>
               <View style={s.dimensionHeader}>
-                <TText style={s.dimensionTitle}>{dimension.label}</TText>
-                <TText style={s.dimensionDescription}>{dimension.description}</TText>
+                <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                  <TText style={s.dimensionTitle}>{dimension.label}</TText>
+                  {dimension.description ? (
+                    <TouchableOpacity
+                      onPress={() => Alert.alert(dimension.label, dimension.description, [{ text: 'OK' }])}
+                      style={s.infoIconButton}
+                      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                    >
+                      <TIcon name="information-circle-outline" size={22} color={colors.primary} />
+                    </TouchableOpacity>
+                  ) : null}
+                </View>
               </View>
               
               <View style={s.scoreOptions}>
                 {dimension.levels.map((level) => {
                   const isSelected = selectedScores[dimension.id] === level.score;
-                  const textKey = `${dimension.id}-${level.score}`;
-                  const isExpanded = expandedTexts[textKey];
-                  const textLength = level.text.length;
-                  const shouldTruncate = textLength > 100; // Seuil pour tronquer
                   
                   return (
                     <TouchableOpacity
@@ -387,28 +378,20 @@ const BradenScreen = () => {
                       <View style={s.scoreContent}>
                         <View style={s.scoreHeader}>
                           <TText style={s.scoreTitle}>{level.title}</TText>
-                          <TText style={s.scoreValue}>{level.score}</TText>
+                          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TText style={s.scoreValue}>{level.score}</TText>
+                            <TouchableOpacity
+                              onPress={(e) => {
+                                e.stopPropagation();
+                                Alert.alert(level.title, level.text, [{ text: 'OK' }]);
+                              }}
+                              style={s.infoIconButton}
+                              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                            >
+                              <TIcon name="information-circle-outline" size={20} color={colors.textSecondary} />
+                            </TouchableOpacity>
+                          </View>
                         </View>
-                        
-                        <TText 
-                          style={shouldTruncate && !isExpanded ? s.scoreTextTruncated : s.scoreText}
-                          numberOfLines={shouldTruncate && !isExpanded ? 2 : undefined}
-                        >
-                          {level.text}
-                        </TText>
-                        
-                        {/* Bouton "voir plus" si le texte est long */}
-                        {shouldTruncate && (
-                          <TouchableOpacity
-                            style={s.seeMoreButton}
-                            onPress={() => toggleTextExpansion(dimension.id, level.score)}
-                            activeOpacity={0.7}
-                          >
-                            <TText style={s.seeMoreText}>
-                              {isExpanded ? 'Voir moins' : 'Voir plus'}
-                            </TText>
-                          </TouchableOpacity>
-                        )}
                       </View>
                     </TouchableOpacity>
                   );

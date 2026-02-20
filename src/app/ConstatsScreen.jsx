@@ -63,7 +63,15 @@ const ConstatsScreen = () => {
             console.warn(`[ConstatsScreen] Erreur chargement table ${tableId}:`, error);
           }
         }
-        
+
+        try {
+          const bwatAnswers = await loadTableAnswers(evaluationId, 'BWAT');
+          if (bwatAnswers && (bwatAnswers.total != null || bwatAnswers.statusLabel)) {
+            loadedData.BWAT = bwatAnswers;
+            titles.BWAT = 'Score BWAT – Continuum du statut de la plaie';
+          }
+        } catch (_) {}
+
         setEvaluationData(loadedData);
         setSourceTitles(titles);
       } catch (error) {
@@ -242,6 +250,26 @@ const ConstatsScreen = () => {
                   Chaque constat indique sa source dans l'évaluation.
                 </TText>
               </TView>
+              {evaluationData.BWAT && (evaluationData.BWAT.total != null || evaluationData.BWAT.statusLabel) && (
+                <TView key="BWAT" style={[styles.tableCard, { backgroundColor: colors.surface }]}>
+                  <TText style={[styles.tableTitle, { color: colors.text }]}>
+                    Score BWAT – Continuum du statut de la plaie
+                  </TText>
+                  <TText style={[styles.tableDescription, { color: colors.textSecondary }]}>
+                    Score total BWAT et interprétation selon le continuum du statut de la plaie.
+                  </TText>
+                  <View style={styles.constatItem}>
+                    <TView style={[styles.constatBadge, { backgroundColor: colors.primary + '20' }]}>
+                      <TText style={[styles.constatBadgeText, { color: colors.primary }]}>
+                        Score total : {evaluationData.BWAT.total != null ? evaluationData.BWAT.total : '—'}
+                      </TText>
+                    </TView>
+                    <TText style={[styles.constatDescription, { color: colors.textSecondary }]}>
+                      Statut : {evaluationData.BWAT.statusLabel || '—'}
+                    </TText>
+                  </View>
+                </TView>
+              )}
               {constatTables}
             </>
           )}

@@ -17,6 +17,8 @@ import evaluationSteps from '@/data/evaluations/evaluation_steps.json';
 import { tableDataLoader } from '@/services';
 import { testTableLoader } from '@/utils/testTableLoader';
 import { loadEvaluationProgress, loadTableAnswers, saveTableProgress, updateLastVisitedTable, clearEvaluationProgress } from '@/storage/evaluationLocalStorage';
+import { calculateBWATTotal } from '@/features/evaluation/table-renderers/utils/calculations';
+import BWATScoreModal from '@/features/evaluation/table-renderers/components/BWATScoreModal';
 
 const extractAnswersFromTable = (tableId, tableData = {}) => {
   if (!tableId || !tableData) return {};
@@ -138,6 +140,9 @@ const EvaluationScreen = () => {
   const [showRedirectAlert, setShowRedirectAlert] = useState(false);
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [shouldNavigateToTable34, setShouldNavigateToTable34] = useState(false);
+  const [showBWATModal, setShowBWATModal] = useState(false);
+  const [bwatResult, setBwatResult] = useState(null);
+  const bwatNextIndexRef = useRef(null);
 
   // Fonction pour fermer le clavier
   const dismissKeyboard = useCallback(() => {
@@ -398,6 +403,33 @@ const EvaluationScreen = () => {
         }
         return;
       }
+
+      if (currentStep.id === 'C1T26') {
+        const currentIndex = steps.findIndex(s => s.id === currentStep.id);
+        const nextIndex = findNextIndex(currentIndex);
+        calculateBWATTotal(evaluationData, tableDataLoader)
+          .then((result) => {
+            setBwatResult(result);
+            bwatNextIndexRef.current = nextIndex;
+            setShowBWATModal(true);
+          })
+          .catch((err) => {
+            if (__DEV__) console.warn('[EvaluationScreen] BWAT calculation error', err);
+            if (nextIndex < steps.length) {
+              setCurrentStepIndex(nextIndex);
+            } else {
+              Alert.alert(
+                'Évaluation terminée',
+                'Voulez-vous terminer l\'évaluation ?',
+                [
+                  { text: 'Annuler', style: 'cancel' },
+                  { text: 'Terminer', onPress: handleFinishEvaluation }
+                ]
+              );
+            }
+          });
+        return;
+      }
       
       const nextIndex = findNextIndex(currentStepIndex);
       if (nextIndex < steps.length) {
@@ -414,6 +446,32 @@ const EvaluationScreen = () => {
       }
     }
   }, [currentStep, currentStepIndex, evaluationData, handleFinishEvaluation, handleNavigateToTable, isLastStep, shouldNavigateToTable34, steps, validateCurrentStep]);
+
+  const handleBWATModalContinue = useCallback(() => {
+    if (!bwatResult) return;
+    setEvaluationData((prev) => ({
+      ...prev,
+      BWAT: {
+        total: bwatResult.total,
+        statusKey: bwatResult.statusKey,
+        statusLabel: bwatResult.statusLabel,
+      },
+    }));
+    saveTableProgress(evaluationId, 'BWAT', {
+      answers: {
+        total: bwatResult.total,
+        statusKey: bwatResult.statusKey,
+        statusLabel: bwatResult.statusLabel,
+      },
+    }).catch((err) => console.warn('[EvaluationScreen] save BWAT', err));
+    setShowBWATModal(false);
+    const nextIndex = bwatNextIndexRef.current;
+    if (typeof nextIndex === 'number' && nextIndex < steps.length) {
+      setCurrentStepIndex(nextIndex);
+    }
+    setBwatResult(null);
+    bwatNextIndexRef.current = null;
+  }, [bwatResult, evaluationId, steps.length]);
 
   // Terminer l'évaluation
   const handleFinishEvaluation = useCallback(async () => {
@@ -452,6 +510,36 @@ const EvaluationScreen = () => {
             labels,
           });
         }
+      }
+
+      let bwatData = evaluationData.BWAT;
+      if (!bwatData) {
+        try {
+          const bwatSaved = await loadTableAnswers(evaluationId, 'BWAT');
+          if (bwatSaved && (bwatSaved.total != null || bwatSaved.statusLabel)) {
+            bwatData = {
+              total: bwatSaved.total,
+              statusKey: bwatSaved.statusKey,
+              statusLabel: bwatSaved.statusLabel,
+            };
+          }
+        } catch (_) {}
+      }
+      if (bwatData && (bwatData.total != null || bwatData.statusLabel)) {
+        summaryTables.push({
+          id: 'BWAT',
+          order: 26.5,
+          title: 'Score BWAT – Continuum du statut de la plaie',
+          description: 'Score total BWAT et interprétation selon le continuum du statut de la plaie',
+          answers: {
+            total: bwatData.total,
+            status: bwatData.statusLabel,
+          },
+          labels: {
+            total: 'Score total',
+            status: 'Statut',
+          },
+        });
       }
 
       navigation.navigate('EvaluationSummary', {
@@ -801,6 +889,14 @@ const EvaluationScreen = () => {
         onClose={handleCloseRedirectAlert}
         onContinueAnyway={handleContinueAnyway}
         redirectReason={redirectReason}
+      />
+
+      {/* Modal score BWAT (après C1T26) */}
+      <BWATScoreModal
+        visible={showBWATModal}
+        totalScore={bwatResult?.total}
+        statusLabel={bwatResult?.statusLabel}
+        onContinue={handleBWATModalContinue}
       />
     </SafeAreaView>
   );

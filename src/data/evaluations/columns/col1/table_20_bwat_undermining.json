@@ -24,44 +24,44 @@
       "options": [
         {
           "id": "C1T20E01_01",
-          "label": "0",
-          "description": "Plaie guérie",
+          "label": "Plaie guérie",
+          "description": "",
           "score": 0
         },
         {
           "id": "C1T20E01_02",
-          "label": "1",
-          "description": "Aucun sous-minage ",
+          "label": "Aucun sous-minage",
+          "description": "",
           "score": 1
         },
         {
           "id": "C1T20E01_03",
-          "label": "2",
-          "description": "Sous-minage < 2 cm peu impoorte l'orientation",
+          "label": "Sous-minage < 2 cm peu importe l'orientation",
+          "description": "",
           "score": 2
         },
         {
           "id": "C1T20E01_04",
-          "label": "3",
-          "description": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie ",
+          "label": "Sous-minage 2–4 cm impliquant < 50 % des bords de la plaie",
+          "description": "",
           "score": 3
         },
         {
           "id": "C1T20E01_05",
-          "label": "4",
-          "description": "Sous-minage 2 - 4 cm impliquant > 50% des bords de la plaie ",
+          "label": "Sous-minage 2 - 4 cm impliquant > 50% des bords de la plaie",
+          "description": "",
           "score": 4
         },
         {
           "id": "C1T20E01_06",
-          "label": "5",
-          "description": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
+          "label": "Sous-minage > 4 cm ou sinus/tunnel, peu importe l'endroit",
+          "description": "",
           "score": 5
         }
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez un seul score de sous-minage BWAT"
+        "help": "Score sous-minage BWAT"
       }
     }
   ],
@@ -74,12 +74,12 @@
       "required": false,
       "validation": {
         "pattern": "^De \\d{1,2} h à \\d{1,2} h$",
-        "placeholder": "De ___ h à ___ h",
+        "placeholder": "ex:De 3h à 6h sur 2cm",
         "help": "Ex: De 2 h à 6 h, De 9 h à 12 h"
       },
       "ui": {
         "component": "TextInput",
-        "placeholder": "De ___ h à ___ h",
+        "placeholder": "ex:De 3h à 6h sur 2cm",
         "help": "Indiquez la localisation circulaire du sous-minage selon la notation horloge"
       },
       "conditional_display": {
@@ -224,13 +224,13 @@
           "ui": {
             "component": "TextInput",
             "placeholder": "Ex: intestin, vessie, utérus...",
-            "help": "Précisez l'organe interne concerné par la fistule"
+            "help": "Organe concerné"
           }
         }
       ],
       "ui": {
         "component": "MixedInput",
-        "help": "Mesurez la profondeur et précisez l'organe concerné"
+        "help": "Profondeur et organe"
       },
       "detailed_definition": {
         "title": "Fistule",
@@ -292,7 +292,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "BWAT – Sous-minage",
-    "instructions": "Sélectionnez le score qui décrit le mieux le sous-minage de la plaie",
+    "instructions": "Sélectionnez le score de sous-minage",
     "sections": [
       {
         "title": "Évaluation du sous-minage",

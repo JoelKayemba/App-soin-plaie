@@ -14,7 +14,7 @@ import {
   NumericInput,
   TextInput,
   VisualScale,
-  PACSLACScale,
+  PACSLACModalButton,
 } from '@/components/ui/forms';
 import { createElement } from './ElementFactory';
 import spacing from '@/styles/spacing';
@@ -56,6 +56,21 @@ export const renderSubquestion = (subquestion, props) => {
     error: errors[subquestion.qid || subquestion.id]
   };
 
+  const componentByType = {
+    single_choice: RadioGroup,
+    number: NumericInput,
+    text: TextInput,
+    visual_scale: VisualScale,
+    pacslac_scale: PACSLACModalButton,
+  };
+  const Component = componentByType[subquestion.type];
+  if (!Component) {
+    if (__DEV__) {
+      console.warn(`[SubquestionRenderer] Type non géré ou composant manquant: ${subquestion.type}`);
+    }
+    return null;
+  }
+
   switch (subquestion.type) {
     case 'single_choice':
       return createElement(RadioGroup, {
@@ -85,11 +100,13 @@ export const renderSubquestion = (subquestion, props) => {
       }, subquestion.qid);
 
     case 'pacslac_scale':
-      return createElement(PACSLACScale, {
+      return createElement(PACSLACModalButton, {
         ...commonProps,
-        minScore: subquestion.validation?.min_score || 0,
-        maxScore: subquestion.validation?.max_score || 60,
-        scaleType: subquestion.ui?.scale_type || 'pacslac_assessment'
+        help: subquestion.ui?.help,
+        min_score: subquestion.validation?.min_score || 0,
+        max_score: subquestion.validation?.max_score || 60,
+        scaleType: subquestion.ui?.scale_type || 'pacslac_assessment',
+        embeddedInModal: props.embeddedInModal === true
       }, subquestion.qid);
 
     default:
@@ -161,10 +178,10 @@ export const renderAssociatedFields = (selectedOptionId, subquestion, props) => 
       break;
 
     case 'pacslac_scale':
-      fieldComponent = createElement(PACSLACScale, {
+      fieldComponent = createElement(PACSLACModalButton, {
         ...fieldProps,
-        minScore: field.validation?.min_score || 0,
-        maxScore: field.validation?.max_score || 60,
+        min_score: field.validation?.min_score || 0,
+        max_score: field.validation?.max_score || 60,
         scaleType: field.ui?.scale_type || 'pacslac_assessment'
       }, field.id);
       break;

@@ -122,27 +122,29 @@ const RadioGroup = ({
                   ]}>
                     {optionLabel}
                   </TText>
-                  
-                  {option.description && (
-                    <TText style={[
-                      styles.optionDescription,
-                      { color: colors.textSecondary }
-                    ]}>
-                      {option.description}
-                    </TText>
-                  )}
                 </View>
-                
-                {option.icon && (
+
+                {option.description ? (
+                  <TouchableOpacity
+                    onPress={(e) => {
+                      e.stopPropagation();
+                      Alert.alert(optionLabel, option.description, [{ text: 'OK' }]);
+                    }}
+                    style={styles.helpButton}
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  >
+                    <TIcon name="information-circle-outline" size={20} color={colors.textSecondary} />
+                  </TouchableOpacity>
+                ) : option.icon ? (
                   <TIcon 
                     name={option.icon} 
                     size={20} 
                     color={isSelected ? colors.primary : colors.textSecondary}
                     style={styles.optionIcon}
                   />
-                )}
+                ) : null}
 
-                {option.onHelpPress && (
+                {option.onHelpPress && !option.description && (
                   <TouchableOpacity 
                     onPress={option.onHelpPress}
                     style={styles.helpButton}

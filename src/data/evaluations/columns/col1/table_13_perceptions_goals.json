@@ -1,7 +1,7 @@
 {
   "id": "C1T13",
   "title": "Perceptions et objectifs de la personne",
-  "description": "Recueil de la vision subjective du patient et de son entourage sur la plaie et les objectifs de soins",
+  "description": "Vision subjective et objectifs de soins",
   "category": "patient_perspective",
   "column": 1,
   "table": 13,
@@ -20,7 +20,7 @@
       "ui": {
         "component": "TextArea",
         "placeholder": "Décrivez les perceptions sur l'origine de la plaie...",
-        "help": "Recueillez la vision du patient et de son entourage sur l'origine de la plaie",
+        "help": "Vision sur l'origine de la plaie",
         "rows": 4,
         "resizable": true
       },
@@ -43,8 +43,8 @@
       },
       "ui": {
         "component": "TextArea",
-        "placeholder": "Décrivez les objectifs principaux du patient...",
-        "help": "Recueillez les objectifs et attentes du patient concernant sa plaie",
+        "placeholder": "Décrivez les objectifs principaux...",
+        "help": "Objectifs et attentes",
         "rows": 4,
         "resizable": true
       },
@@ -72,17 +72,17 @@
     "layout": "vertical",
     "spacing": "large",
     "group_label": "Perceptions et objectifs de la personne",
-    "instructions": "Recueillez la vision subjective du patient et de son entourage. Ces champs sont optionnels.",
+    "instructions": "Vision subjective et objectifs. Optionnel.",
     "sections": [
       {
         "title": "Attribution de la plaie",
         "question": "C1T13Q1",
-        "description": "Vision du patient et de son entourage sur l'origine de la plaie"
+        "description": "Vision sur l'origine de la plaie"
       },
       {
         "title": "Objectif principal",
         "question": "C1T13Q2",
-        "description": "Objectifs et attentes du patient concernant sa plaie"
+        "description": "Objectifs et attentes"
       }
     ]
   }

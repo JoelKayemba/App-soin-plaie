@@ -59,7 +59,7 @@
             "component": "RadioGroup",
             "minSelections": 1,
             "maxSelections": 1,
-            "help": "Sélectionnez si la neuropathie a déjà été évaluée",
+            "help": "Neuropathie déjà évaluée",
             "ariaDescription": "Sélection de l'évaluation préalable de la neuropathie"
           },
           "help_modal": {
@@ -106,7 +106,7 @@
             "component": "RadioGroup",
             "minSelections": 1,
             "maxSelections": 1,
-            "help": "Sélectionnez le résultat de l'évaluation neuropathique",
+            "help": "Résultat neuropathique",
             "ariaDescription": "Sélection du résultat de l'évaluation neuropathique"
           }
         }
@@ -135,7 +135,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si le hallux plantaire droit est ressenti"
           }
         },
@@ -146,7 +146,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si la tête 1er métatarse droit est ressentie"
           }
         },
@@ -157,7 +157,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si la tête 3e métatarse droit est ressentie"
           }
         },
@@ -168,7 +168,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si la tête 5e métatarse droit est ressentie"
           }
         },
@@ -179,7 +179,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si le talon plantaire droit est ressenti"
           }
         },
@@ -190,7 +190,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si le hallux plantaire gauche est ressenti"
           }
         },
@@ -201,7 +201,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si la tête 1er métatarse gauche est ressentie"
           }
         },
@@ -212,7 +212,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si la tête 3e métatarse gauche est ressentie"
           }
         },
@@ -223,7 +223,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si la tête 5e métatarse gauche est ressentie"
           }
         },
@@ -234,7 +234,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez si le site est ressenti",
+            "help": "Site ressenti",
             "ariaDescription": "Cocher si le talon plantaire gauche est ressenti"
           }
         },
@@ -287,7 +287,7 @@
           "required": false,
           "ui": {
             "component": "RadioButton",
-            "help": "Cochez si la sensation vibratoire est présente",
+            "help": "Sensation vibratoire présente",
             "ariaDescription": "Cocher si la sensation vibratoire est présente"
           }
         },
@@ -299,7 +299,7 @@
           "required": false,
           "ui": {
             "component": "RadioButton",
-            "help": "Cochez si la sensation vibratoire est absente",
+            "help": "Sensation vibratoire absente",
             "ariaDescription": "Cocher si la sensation vibratoire est absente"
           }
         }
@@ -317,7 +317,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a des callosités",
+            "help": "Callosités",
             "ariaDescription": "Cocher s'il y a des callosités"
           }
         },
@@ -329,7 +329,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a des déformations",
+            "help": "Déformations",
             "ariaDescription": "Cocher s'il y a des déformations du pied ou des orteils"
           }
         },
@@ -341,7 +341,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a une rigidité du premier orteil",
+            "help": "Rigidité 1er orteil",
             "ariaDescription": "Cocher s'il y a une rigidité du premier orteil"
           }
         },
@@ -353,7 +353,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a des chaussures inappropriées",
+            "help": "Chaussures inappropriées",
             "ariaDescription": "Cocher s'il y a des chaussures inappropriées"
           }
         },
@@ -365,7 +365,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a une xérose",
+            "help": "Xérose",
             "ariaDescription": "Cocher s'il y a une xérose"
           }
         },
@@ -377,7 +377,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a une mycose interdigitale",
+            "help": "Mycose interdigitale",
             "ariaDescription": "Cocher s'il y a une mycose interdigitale"
           }
         },
@@ -388,7 +388,7 @@
           "required": false,
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a des fissures",
+            "help": "Fissures",
             "ariaDescription": "Cocher s'il y a des fissures"
           }
         },
@@ -401,7 +401,7 @@
           "alert_level": "critical",
           "ui": {
             "component": "Checkbox",
-            "help": "Cochez s'il y a une suspicion de pied de Charcot",
+            "help": "Suspicion pied de Charcot",
             "ariaDescription": "Cocher s'il y a une suspicion de pied de Charcot",
             "alert_icon": "🚨"
           },
@@ -509,7 +509,7 @@
     "layout": "vertical",
     "spacing": "large",
     "group_label": "Pied diabétique",
-    "instructions": "Évaluation sensorielle et inspection du pied diabétique. Table conditionnelle : n'apparaît que si pied diabétique est sélectionné dans l'étiologie de la plaie.",
+    "instructions": "Évaluation sensorielle et inspection du pied diabétique.",
     "sections": [
       {
         "title": "Bloc A — Neuropathie (raccourci \"déjà fait\")",

@@ -68,57 +68,57 @@
             {
               "id": "C1T15I01_02",
               "label": "Membre marbré",
-              "description": "Aspect marbré du membre"
+              
             },
             {
               "id": "C1T15I01_03",
               "label": "Absence de poils",
-              "description": "Absence de pilosité"
+              
             },
             {
               "id": "C1T15I01_04",
               "label": "Pied rouge homard lorsque pendant et pâle lorsque surélevé",
-              "description": "Signe de dépendance vasculaire"
+             
             },
             {
               "id": "C1T15I01_05",
-              "label": "Ongles striés",
-              "description": "Stries sur les ongles"
+              "label": "Ongles striés"
+              
             },
             {
               "id": "C1T15I01_06",
               "label": "Ongles épais",
-              "description": "Épaississement des ongles"
+             
             },
             {
               "id": "C1T15I01_07",
               "label": "Ongles jaunes",
-              "description": "Coloration jaune des ongles"
+              
             },
             {
               "id": "C1T15I01_08",
               "label": "Ongles cassants",
-              "description": "Fragilité des ongles"
+             
             },
             {
               "id": "C1T15I01_09",
               "label": "Peau sèche",
-              "description": "Sécheresse cutanée"
+             
             },
             {
               "id": "C1T15I01_10",
               "label": "Peau atrophiée",
-              "description": "Atrophie cutanée"
+              
             },
             {
               "id": "C1T15I01_11",
               "label": "Peau mince",
-              "description": "Amincissement cutané"
+             
             },
             {
               "id": "C1T15I01_12",
               "label": "Peau luisante",
-              "description": "Aspect luisant de la peau"
+              
             }
           ],
           "ui": {
@@ -148,7 +148,7 @@
           "id": "C1T15P02",
           "type": "boolean",
           "label": "Retour capillaire > 2 secondes",
-          "description": "Retour capillaire prolongé",
+         
           "required": false,
           "ui": {
             "component": "Checkbox"
@@ -169,23 +169,23 @@
           "options": [
             {
               "id": "C1T15P03_0",
-              "label": "0/4 absent*"
+              "label": "0/4 absent"
             },
             {
               "id": "C1T15P03_1",
-              "label": "1/4 diminué*"
+              "label": "1/4 diminué"
             },
             {
               "id": "C1T15P03_2",
-              "label": "2/4 normal*"
+              "label": "2/4 normal"
             },
             {
               "id": "C1T15P03_3",
-              "label": "3/4 augmenté*"
+              "label": "3/4 augmenté"
             },
             {
               "id": "C1T15P03_4",
-              "label": "4/4 bondissant*"
+              "label": "4/4 bondissant"
             }
           ],
           "ui": {
@@ -207,23 +207,23 @@
           "options": [
             {
               "id": "C1T15P04_0",
-              "label": "0/4 absent*"
+              "label": "0/4 absent"
             },
             {
               "id": "C1T15P04_1",
-              "label": "1/4 diminué*"
+              "label": "1/4 diminué"
             },
             {
               "id": "C1T15P04_2",
-              "label": "2/4 normal*"
+              "label": "2/4 normal"
             },
             {
               "id": "C1T15P04_3",
-              "label": "3/4 augmenté*"
+              "label": "3/4 augmenté"
             },
             {
               "id": "C1T15P04_4",
-              "label": "4/4 bondissant*"
+              "label": "4/4 bondissant"
             }
           ],
           "ui": {
@@ -245,23 +245,23 @@
           "options": [
             {
               "id": "C1T15P05_0",
-              "label": "0/4 absent*"
+              "label": "0/4 absent"
             },
             {
               "id": "C1T15P05_1",
-              "label": "1/4 diminué*"
+              "label": "1/4 diminué"
             },
             {
               "id": "C1T15P05_2",
-              "label": "2/4 normal*"
+              "label": "2/4 normal"
             },
             {
               "id": "C1T15P05_3",
-              "label": "3/4 augmenté*"
+              "label": "3/4 augmenté"
             },
             {
               "id": "C1T15P05_4",
-              "label": "4/4 bondissant*"
+              "label": "4/4 bondissant"
             }
           ],
           "ui": {
@@ -410,7 +410,7 @@
     },
     "ipscb": {
       "id": "C1T15D",
-      "title": "Bloc D — IPSCB*",
+      "title": "Bloc D — IPSCB",
       "description": "Indice de pression systolique cheville bras",
       "type": "calculation",
       "required": false,
@@ -578,7 +578,7 @@
         },
         "severe": {
           "condition": "< 0.4",
-          "label": "***Anormal, atteinte sévère",
+          "label": "Anormal, atteinte sévère",
           "color": "#F44336",
           "legend": "alert",
           "red_flag": true

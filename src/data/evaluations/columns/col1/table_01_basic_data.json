@@ -1,7 +1,7 @@
 {
   "id": "C1T01",
   "title": "Données de base",
-  "description": "Informations de base du patient pour l'évaluation du risque de lésions de pression",
+  "description": "Informations de base pour l'évaluation du risque de lésions de pression",
   "category": "patient_data",
   "column": 1,
   "table": 1,
@@ -28,13 +28,13 @@
               "value": 30
             }
           },
-          "note": "Redirection immédiate si patient de moins d'un mois"
+          "note": "Redirection immédiate si personne de moins d'un mois"
         }
       ],
       "ui": {
         "component": "DateInput",
         "placeholder": "JJ/MM/AAAA",
-        "help": "Sélectionnez la date de naissance du patient"
+        "help": "Date de naissance"
       }
     }
   ],

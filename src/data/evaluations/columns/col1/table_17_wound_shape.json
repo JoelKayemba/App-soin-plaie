@@ -23,17 +23,17 @@
         {
           "id": "C1T17E01_03",
           "label": "Irrégulière",
-          "description": "Forme sans géométrie définie, contours imprévisibles"
+         
         },
         {
           "id": "C1T17E01_04",
           "label": "Linéaire",
-          "description": "Forme allongée, en ligne droite ou courbe"
+          
         }
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez une seule forme pour décrire la morphologie de la plaie"
+        "help": "Forme de la plaie"
       }
     }
   ],
@@ -53,7 +53,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Forme de la plaie",
-    "instructions": "Sélectionnez la forme qui décrit le mieux la morphologie visuelle de la plaie",
+    "instructions": "Sélectionnez la forme de la plaie",
     "sections": [
       {
         "title": "Morphologie de la plaie",

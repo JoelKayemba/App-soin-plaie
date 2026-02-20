@@ -28,6 +28,6 @@
     "layout": "vertical",
     "spacing": "large",
     "group_label": "Échelle de Braden-Q",
-    "instructions": "Sélectionnez le score approprié pour chaque dimension afin d'obtenir le score total et le niveau de risque."
+    "instructions": "Sélectionnez le score pour chaque dimension"
   }
 }

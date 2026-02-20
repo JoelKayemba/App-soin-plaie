@@ -37,7 +37,7 @@
         "component": "RadioGroup",
         "minSelections": 1,
         "maxSelections": 1,
-        "help": "Sélectionnez si une surface thérapeutique est en place",
+        "help": "Surface thérapeutique en place",
         "ariaDescription": "Sélection de la présence d'une surface thérapeutique"
       },
       "clinical_notes": {
@@ -64,7 +64,7 @@
         "component": "TextInput",
         "multiline": true,
         "placeholder": "Ex: matelas thérapeutique, surmatelas, coussin, etc.",
-        "help": "Précisez le type de surface thérapeutique utilisée",
+        "help": "Type de surface",
         "ariaDescription": "Champ texte pour préciser le type de surface thérapeutique"
       },
       "clinical_notes": {
@@ -91,7 +91,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Lésion de pression",
-    "instructions": "Vérification de la présence d'une surface thérapeutique adaptée pour le patient présentant une lésion de pression",
+    "instructions": "Vérifier la présence d'une surface thérapeutique adaptée",
     "sections": [
       {
         "title": "Surface thérapeutique",

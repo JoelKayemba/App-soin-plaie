@@ -20,7 +20,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de tissu nécrotique dans le lit de la plaie"
+        "help": "% tissu nécrotique"
       },
       "routes": [
         {
@@ -57,7 +57,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de muscle ou fascia dans le lit de la plaie"
+        "help": "% muscle/fascia"
       },
       "clinical_notes": {
         "description": "Tissu musculaire ou fascia",
@@ -78,7 +78,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage d'os dans le lit de la plaie"
+        "help": "% os"
       },
       "clinical_notes": {
         "description": "Tissu osseux",
@@ -99,7 +99,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de vaisseaux dans le lit de la plaie"
+        "help": "% vaisseaux"
       },
       "clinical_notes": {
         "description": "Vaisseaux sanguins",
@@ -120,7 +120,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de tendon dans le lit de la plaie"
+        "help": "% tendon"
       },
       "clinical_notes": {
         "description": "Tissu tendineux",
@@ -141,7 +141,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de ligament dans le lit de la plaie"
+        "help": "% ligament"
       },
       "clinical_notes": {
         "description": "Tissu ligamentaire",
@@ -162,7 +162,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de tissu adipeux dans le lit de la plaie"
+        "help": "% tissu adipeux"
       },
       "clinical_notes": {
         "description": "Tissu adipeux (graisse)",
@@ -183,7 +183,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de greffon dans le lit de la plaie"
+        "help": "% greffon"
       },
       "clinical_notes": {
         "description": "Tissu de greffe",
@@ -204,7 +204,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage d'hématome dans le lit de la plaie"
+        "help": "% hématome"
       },
       "clinical_notes": {
         "description": "Collection de sang",
@@ -225,7 +225,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "%",
-        "help": "Saisissez le pourcentage de corps étranger dans le lit de la plaie"
+        "help": "% corps étranger"
       },
       "clinical_notes": {
         "description": "Matériel étranger",

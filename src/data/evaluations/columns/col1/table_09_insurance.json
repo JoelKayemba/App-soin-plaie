@@ -1,7 +1,7 @@
 {
   "id": "C1T09",
   "title": "Assurances",
-  "description": "Type de couverture d'assurance du patient pour l'accès aux soins",
+  "description": "Type de couverture d'assurance",
   "category": "administrative_data",
   "column": 1,
   "table": 9,
@@ -14,7 +14,7 @@
       "options": [
         {
           "value": "ramq",
-          "label": "RAMQ*",
+          "label": "RAMQ",
           "description": "Régie de l'assurance maladie du Québec"
         },
         {
@@ -32,7 +32,7 @@
       ],
       "ui": {
         "component": "RadioGroup",
-        "help": "Sélectionnez le type de couverture d'assurance du patient"
+        "help": "Type de couverture"
       },
       "routes": [
         {
@@ -65,7 +65,7 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Type de couverture d'assurance",
-    "instructions": "Sélectionnez le type de couverture d'assurance du patient. Ce champ est obligatoire.",
+    "instructions": "Sélectionnez le type de couverture. Obligatoire.",
     "required_indicator": true
   }
 }

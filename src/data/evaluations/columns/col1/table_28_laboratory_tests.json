@@ -21,7 +21,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "g/L",
-        "help": "Saisissez le taux d'albumine en g/L"
+        "help": "Albumine (g/L)"
       }
     },
     {
@@ -39,7 +39,7 @@
       "ui": {
         "component": "NumericInput",
         "placeholder": "g/L",
-        "help": "Saisissez le taux d'hémoglobine en g/L"
+        "help": "Hémoglobine (g/L)"
       }
     },
     {
@@ -94,6 +94,6 @@
     "layout": "vertical",
     "spacing": "medium",
     "group_label": "Tests de laboratoire",
-    "instructions": "Saisissez les valeurs de laboratoire disponibles et sélectionnez le résultat de culture."
+    "instructions": "Valeurs de laboratoire et résultat de culture"
   }
 }

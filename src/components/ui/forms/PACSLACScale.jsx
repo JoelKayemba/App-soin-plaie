@@ -66,6 +66,8 @@ const PACSLACScale = ({
   disabled = false,
   help,
   required = false,
+  /** Quand true, le bloc échelle prend toute la largeur/hauteur disponible (ex. dans une modale) */
+  embeddedInModal = false,
   ...props
 }) => {
   const { colors } = useTheme();
@@ -83,26 +85,21 @@ const PACSLACScale = ({
     onValueChange?.(newSelectedItems);
   };
 
-  const calculateScore = () => {
+  const calculateScore = (items = selectedItems) => {
     let totalScore = 0;
-    
-    Object.entries(selectedItems).forEach(([domainId, domainItems]) => {
+    Object.entries(items).forEach(([domainId, domainItems]) => {
       if (domainItems && typeof domainItems === 'object') {
         Object.entries(domainItems).forEach(([itemId, checked]) => {
           if (checked) {
-            // Trouver le domaine et l'item correspondants
             const domain = PACSLAC_DOMAINS.find(d => d.id === domainId);
             if (domain) {
               const item = domain.items.find(i => i.id === itemId);
-              if (item) {
-                totalScore += item.score;
-              }
+              if (item) totalScore += item.score;
             }
           }
         });
       }
     });
-    
     return totalScore;
   };
 
@@ -116,8 +113,13 @@ const PACSLACScale = ({
 
   const currentScore = calculateScore();
 
+  const containerStyle = embeddedInModal ? [styles.container, styles.containerEmbedded] : styles.container;
+  const scaleContainerStyle = embeddedInModal
+    ? [styles.scaleContainer, styles.scaleContainerEmbedded, { backgroundColor: colors.surfaceLight }]
+    : [styles.scaleContainer, { backgroundColor: colors.surfaceLight }];
+
   return (
-    <TView style={styles.container}>
+    <TView style={containerStyle}>
       {label && (
         <TText style={[styles.label, { color: colors.text }]}>
           {label}
@@ -131,8 +133,8 @@ const PACSLACScale = ({
         </TText>
       )}
 
-      <TView style={[styles.scaleContainer, { backgroundColor: colors.surfaceLight }]}>
-        <ScrollView style={styles.scrollView}>
+      <TView style={scaleContainerStyle}>
+        <ScrollView style={styles.scrollView} contentContainerStyle={embeddedInModal ? styles.scrollContentEmbedded : undefined}>
           {PACSLAC_DOMAINS.map((domain) => (
             <TView key={domain.id} style={styles.domain}>
               <TText style={[styles.domainTitle, { color: colors.text }]}>
@@ -181,6 +183,10 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: spacing.md,
   },
+  containerEmbedded: {
+    width: '100%',
+    alignSelf: 'stretch',
+  },
   label: {
     fontSize: 16,
     fontWeight: '600',
@@ -196,8 +202,19 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     maxHeight: 400,
   },
+  scaleContainerEmbedded: {
+    width: '100%',
+    alignSelf: 'stretch',
+    minHeight: 280,
+    maxHeight: 420,
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.md,
+  },
   scrollView: {
     flexGrow: 1,
+  },
+  scrollContentEmbedded: {
+    paddingBottom: spacing.xl,
   },
   domain: {
     marginBottom: spacing.lg,
@@ -239,5 +256,25 @@ const styles = StyleSheet.create({
     marginTop: spacing.xs,
   },
 });
+
+/** Calcul du score PACSLAC à partir de l'objet selectedItems (pour affichage dans le bouton modale) */
+export const getPACSLACScore = (selectedItems) => {
+  if (!selectedItems || typeof selectedItems !== 'object') return 0;
+  let total = 0;
+  Object.entries(selectedItems).forEach(([domainId, domainItems]) => {
+    if (domainItems && typeof domainItems === 'object') {
+      Object.entries(domainItems).forEach(([itemId, checked]) => {
+        if (checked) {
+          const domain = PACSLAC_DOMAINS.find(d => d.id === domainId);
+          if (domain) {
+            const item = domain.items.find(i => i.id === itemId);
+            if (item) total += item.score;
+          }
+        }
+      });
+    }
+  });
+  return total;
+};
 
 export default PACSLACScale;

@@ -15,7 +15,7 @@ import FavoritesScreen from '../app/FavoritesScreen';
 import HelperOverlayScreen from '../app/HelperOverlayScreen';
 import EvaluationSummaryScreen from '../app/EvaluationSummaryScreen';
 import ConstatsScreen from '../app/ConstatsScreen';
-
+import BodyModel3DScreen from '../app/BodyModel3DScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,9 +46,12 @@ const AppNavigator = () => {
       <Stack.Screen
         name="Constats"
         component={ConstatsScreen}
-        options={{ 
-          headerShown: false
-        }}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="BodyModel3D"
+        component={BodyModel3DScreen}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

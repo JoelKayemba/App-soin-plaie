@@ -141,16 +141,16 @@ export const convertTable22SubBlocksToElements = (tableData) => {
     Object.values(tableData.sub_blocks).forEach((subBlock) => {
       // Pour le sous-bloc "quality", convertir les éléments boolean en un seul single_choice
       if (subBlock.id === 'C1T22Q' && subBlock.type === 'single_choice' && subBlock.elements && Array.isArray(subBlock.elements)) {
-        // Créer un seul élément single_choice avec toutes les options
+        // Qualité : un seul single_choice, labels uniquement (pas de description affichée)
         const options = subBlock.elements.map((element) => ({
           id: element.id,
-          label: element.label.split('=')[0].trim(), // Extraire juste le score (ex: "1")
-          description: element.description,
+          label: element.label,
+          description: '',
           score: element.score
         }));
         
         convertedElements.push({
-          id: 'C1T22E01', // Utiliser le premier ID comme ID principal
+          id: 'C1T22E01',
           type: 'single_choice',
           label: subBlock.title || 'Qualité du tissu nécrotique',
           description: subBlock.description,
@@ -160,8 +160,27 @@ export const convertTable22SubBlocksToElements = (tableData) => {
             component: 'RadioGroup'
           }
         });
+      } else if (subBlock.id === 'C1T22Q2' && subBlock.type === 'single_choice' && subBlock.elements && Array.isArray(subBlock.elements)) {
+        // Quantité : un seul single_choice avec options (score 1-5), pas de calcul
+        const options = subBlock.elements.map((element) => ({
+          id: element.id,
+          label: element.label,
+          description: element.description || '',
+          score: element.score
+        }));
+        
+        convertedElements.push({
+          id: 'C1T22E06',
+          type: 'single_choice',
+          label: subBlock.title || 'Quantité',
+          description: subBlock.description,
+          options: options,
+          required: subBlock.required !== false,
+          ui: {
+            component: 'RadioGroup'
+          }
+        });
       } else if (subBlock.elements && Array.isArray(subBlock.elements)) {
-        // Pour les autres sous-blocs (quantity), garder les éléments tels quels
         subBlock.elements.forEach((element) => {
           convertedElements.push({
             ...element,
@@ -191,8 +210,8 @@ export const convertTable25SubBlocksToElements = (tableData) => {
       if (subBlock.type === 'single_choice' && subBlock.elements && Array.isArray(subBlock.elements)) {
         const options = subBlock.elements.map((element) => ({
           id: element.id,
-          label: element.label.split('=')[0].trim(), // Extraire juste le score (ex: "1")
-          description: element.description,
+          label: element.label,
+          description: element.description || '',
           score: element.score
         }));
         
